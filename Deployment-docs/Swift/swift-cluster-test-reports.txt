@@ -1,0 +1,20 @@
+proxyips:
+
+upload proxyip:
+download proxyip:
+
+upload start time:
+upload response time:
+
+download start time:
+download response time:
+
+command for upload:
+command for download:
+
+file size:
+
+
+curl -i http://192.168.132.91:8080/v1/AUTH_95c38903-479d-42ca-a31d-447a5c5879d2/container/update.txt -X PUT -H "X-Auth-Token:  AUTH_tk03b5d984c51f4ba88cb4b3a9f3677aa3" -T /home/inbetween/swift-test/update.txt
+
+curl -H "X-Auth-Token: AUTH_tk03b5d984c51f4ba88cb4b3a9f3677aa3" http://192.168.132.36:8080/v1/AUTH_95c38903-479d-42ca-a31d-447a5c5879d2/container/update.txt -i -X GET -o update.txt

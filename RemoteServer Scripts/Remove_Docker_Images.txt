@@ -1,0 +1,3 @@
+docker rmi elasticsearch
+docker rmi orientdb
+docker rmi jetty

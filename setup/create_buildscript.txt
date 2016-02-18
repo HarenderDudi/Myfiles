@@ -1,0 +1,35 @@
+mkdir /GitRepository
+cd /GitRepository
+mkdir ContentSphere
+chmod -R 777 /GitRepository
+
+cd /home/inbetween
+touch build_script.sh
+chmod 777 build_script.sh
+ > build_script.sh
+echo "chmod -R 777 /GitRepository/ContentSphere
+cd  /GitRepository/ContentSphere/src/main/webapp/gui
+
+apt-get -y install node.js
+apt-get -y install npm
+ln -s /usr/bin/nodejs /usr/bin/node
+npm install
+npm install -g gulp
+npm install gulp
+gulp webpack
+add-apt-repository ppa:cwchien/gradle
+apt-get update
+apt-get install gradle
+cd /GitRepository/ContentSphere/src/main/webapp/WEB-INF
+mv runtimeConfigurationBeans.xml runtimeConfigurationBeans-main.xml
+mv runtimeConfigurationBeans-docker.xml  runtimeConfigurationBeans.xml
+mv configConfigurationBeans.xml  configConfigurationBeans-main.xml
+mv configConfigurationBeans-docker.xml configConfigurationBeans.xml
+cd  /GitRepository/ContentSphere
+./gradlew war
+cd /GitRepository/ContentSphere/serverplugins/orient
+export TERM=${TERM:-dumb}
+./gradlew jar -Porient="qwerwr" -PjarDest="/GitRepository/ContentSphere/serverplugins/orient/build/libs" -PxmlDest="hhh"
+" >> build_script.sh
+
+sed -i "27i jenkins    ALL = NOPASSWD: /home/inbetween/build_script.sh" /etc/sudoers

@@ -1,0 +1,33 @@
+cd /home/inbetween
+
+mkdir 132.126
+chmod -R 777 132.126
+cd 132.126
+
+touch install_docker.sh
+chmod 777 install_docker.sh
+ > install_docker.sh
+
+touch send_dockerimages.sh
+chmod 777 send_dockerimages.sh
+ > send_dockerimages.sh
+
+touch remote_execute.sh
+chmod 777 remote_execute.sh
+ > remote_execute.sh
+
+echo "ssh -i id_rsa root@192.168.132.126 'sudo apt-get -y install docker.io'
+ssh -i id_rsa root@192.168.132.126 'sudo chmod 777 /usr/local/bin/docker'
+ssh -i id_rsa root@192.168.132.126 'sudo ln -sf /usr/bin/docker.io /usr/local/bin/docker'" >> install_docker.sh
+
+
+echo "cd /home/inbetween/DockerImages
+
+ssh -i id_rsa root@192.168.132.126 'cd /home/inbetween && sudo mkdir DockerImages && sudo chmod -R 777 DockerImages'
+scp elasticsearch  root@192.168.132.126:/home/inbetween/DockerImages/
+scp orientdb  root@192.168.132.126:/home/inbetween/DockerImages/
+scp jetty  root@192.168.132.126:/home/inbetween/DockerImages/" >> send_dockerimages.sh
+
+echo "
+ssh -i id_rsa root@192.168.132.126 'sudo /home/inbetween/loaddockercontainer.sh'
+ssh -i id_rsa root@192.168.132.126 'sudo /home/inbetween/rundockercontainer.sh'" >> remote_execute.sh

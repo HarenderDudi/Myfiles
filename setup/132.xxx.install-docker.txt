@@ -1,0 +1,4 @@
+ssh -i id_rsa root@192.168.132.126 'sudo apt-get -y install docker.io'
+ssh -i id_rsa root@192.168.132.126 'sudo chmod 777 /usr/local/bin/docker'
+ssh -i id_rsa root@192.168.132.126 'sudo ln -sf /usr/bin/docker.io /usr/local/bin/docker'
+

@@ -1,0 +1,151 @@
+apt-get -y install git
+apt-get -y install git curl gcc memcached rsync sqlite3 xfsprogs git-core libffi-dev python-setuptools
+
+apt-get -y install python-coverage python-dev python-nose python-simplejson python-xattr python-eventlet python-greenlet python-pastedeploy python-netifaces python-pip python-dnspython python-mock
+
+********
+
+cd /opt
+
+git clone https://github.com/openstack/python-swiftclient.git
+cd /opt/python-swiftclient; sudo pip install -r requirements.txt;
+python setup.py install
+
+cd /opt
+git clone https://github.com/openstack/swift.git
+vim /opt/swift/requirements.txt
+cd /opt/swift
+sudo python setup.py install
+cd ..
+
+********
+
+mkdir -p /etc/swift
+
+useradd swift
+
+cd /opt/swift/etc
+cp account-server.conf-sample /etc/swift/account-server.conf
+cp container-server.conf-sample /etc/swift/container-server.conf
+cp object-server.conf-sample /etc/swift/object-server.conf
+cp proxy-server.conf-sample /etc/swift/proxy-server.conf
+cp drive-audit.conf-sample /etc/swift/drive-audit.conf
+cp swift.conf-sample /etc/swift/swift.conf
+
+chown -R swift:swift /etc/swift
+
+head -c 32 /dev/random | base64
+
+vim /etc/swift/swift.conf [ replace these hashkeys with 'changeme' in swift.conf {create two different hashkeys, each for suffix and prefix }]
+
+
+********
+
+mkdir -p /contentsphere/swift
+chown -R swift:swift /contentsphere/swift
+
+edit /etc/fstab file and mount drive [/dev/sdc1] on /contentspher/swift
+
+ 
+ ******  CREATE BUILDER FILES ********
+ 
+ cd /etc/swift
+swift-ring-builder account.builder create 6 1 1
+swift-ring-builder container.builder create 6 1 1
+swift-ring-builder object.builder create 6 1 1
+
+swift-ring-builder account.builder add r1z1-62.141.57.53:6002/swift 100
+swift-ring-builder container.builder add r1z1-62.141.57.53:6001/swift 100
+swift-ring-builder object.builder add r1z1-62.141.57.53:6000/swift 100
+
+
+******* CREATE RING FILES ********
+
+cd /etc/swift
+swift-ring-builder account.builder rebalance
+swift-ring-builder container.builder rebalance
+swift-ring-builder object.builder rebalance
+
+chown -R swift:swift /etc/swift
+
+
+***** CREATE LOG FILES ********
+
+touch /etc/rsyslog.d/0-swift.conf
+chmod 755 /etc/rsyslog.d/0-swift.conf
+
+vim /etc/rsyslog.d/0-swift.conf [ local0.* /var/log/swift/all.log ]
+
+mkdir /var/log/swift
+chown -R syslog.adm /var/log/swift
+chmod -R g+w /var/log/swift
+
+sudo service rsyslog restart
+
+
+
+********* CONFIGURE RSYNC ********
+
+etc/default/rsync file; add RSYNC_ENABLE=true
+
+vim /etc/default/rsync [ make RSYNC_ENABLE=true];
+
+
+vim /etc/rsyncd.conf : add following
+
+										uid = swift
+										gid = swift
+										log file = /var/log/rsyncd.log
+										pid file = /var/run/rsyncd.pid
+										[account]
+										max connections = 25
+										path = /contentsphere/
+										read only = false
+										lock file = /var/lock/account.lock
+										[container]
+										max connections = 25
+										path = /contentsphere/
+										read only = false
+										lock file = /var/lock/container.lock
+										[object]
+										max connections = 25
+										path = /contentsphere/
+										read only = false
+										lock file = /var/lock/object.lock
+ 
+ service rsync start
+ 
+ 
+ ********* install SWAUTH *****
+ 
+ 
+ cd /opt
+ git clone https://github.com/openstack/swauth.git
+ cd /opt/swauth
+ sudo python setup.py install
+ 
+ vim /etc/swift/proxy-server.conf   => pipeline = catch_errors cache swauth proxy-server
+		
+										allow_account_management=true
+										account_autocreate=true
+										
+										[filter:swauth]
+										use = egg:swauth#swauth
+										set log_name = swauth
+										super_admin_key = pass@123
+										default_swift_cluster = local#http:62.141.57.53//:8080/v1	
+										
+										
+sudo pip install eventlet==0.16.1
+sudo pip install six==1.10
+sudo pip install pyeclib==1.0.7
+
+sudo pip install eventlet --upgrade
+sudo pip install pyeclib --upgrade
+
+
+
+swauth-prep -K pass@123										
+
+ 
+

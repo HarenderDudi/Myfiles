@@ -1,0 +1,195 @@
+(orchestration)
+http://docs.openstack.org/icehouse/install-guide/install/apt/content/heat-install.html  
+https://github.com/MarouenMechtri/Docker-containers-deployment-with-OpenStack-Heat
+
+(openstack)
+http://www.stackgeek.com/guides/gettingstarted.html
+https://help.ubuntu.com/lts/clouddocs/installer/en/single-install.html
+http://docs.openstack.org/juno/install-guide/install/apt/content/keystone-install.html
+
+(LXD)
+http://www.ubuntu.com/cloud/tools/lxd
+http://www.zdnet.com/article/ubuntu-lxd-not-a-docker-replacement-a-docker-enhancement/
+
+(JUJU)
+https://jujucharms.com/docs/stable/getting-started
+
+(Magnum)
+http://docs.openstack.org/developer/magnum/dev/dev-quickstart.html
+
+(Tried links)
+http://www.ubuntu.com/download/cloud/install-openstack-with-autopilot
+http://playitmp3.com/watch/tQwcRmjJijI/ubuntu-openstack-install-step-4-ubuntu-linux-maas-network-and-etherwake-config.html
+
+(openstack-docker)
+https://github.com/MarouenMechtri/Docker-containers-deployment-with-OpenStack-Heat
+http://professionalvmware.com/2014/11/openstack-series-part-13-docker-in-openstack-by-vcloudernbeer/
+
+sudo rm -rf ~/.cloud-install
+sudo apt-get install ubuntu-virt-server (kvm-ok fix)
+
+install libvirt ubuntu 15.10 step by step
+http://sharadchhetri.com/2014/10/09/install-kvm-kernel-based-virtual-machine-ubuntu-14-04-lts-desktop/
+
+
+(Nova-test)
+https://sgsprunge.appspot.com/AcezfRfOjwJzCjIA
+
+MESOS
+
+https://github.com/riywo/sample-fluentd-on-mesos-docker
+
+
+
+PUT IN GOOGLE DOCS
+
+http://www.stackgeek.com/guides/gettingstarted.html
+https://bugs.launchpad.net/ubuntu/+source/nova/+bug/1031063
+
+******** HELP ************
+http://techglimpse.com/openstack-icehouse-errors-fix-linux/
+
+#######
+$vi /etc/nova/nova.conf
+Lookout for ‘enabled_apis‘ and its value ‘ec2,osapi_compute,metadata‘
+Remove ‘metadata’ from ‘enabled_apis’
+Now, you are good to start both ‘openstack-nova-api‘ and ‘openstack-nova-metadata-api‘. Both the service will run individually.
+#########
+
+
+
+heat
+https://github.com/MarouenMechtri/OpenStack-Heat-Installation/blob/master/OpenStack-Heat-Installation.rst
+http://www.slideshare.net/ewindisch/docker-open-stack-paris
+http://blog.oddbit.com/2014/08/30/docker-plugin-for-openstack-he/
+
+NOVA_DOCKER
+git clone -b stable/kilo https://github.com/stackforge/nova-docker.git
+https://wiki.openstack.org/wiki/Docker
+
+
+JENKINS
+	jenkins-git
+		http://www.uvd.co.uk/blog/configuring-jenkins-continuous-integration-server-to-work-with-git/
+		
+	clone git repo workround
+		http://stackoverflow.com/questions/15314760/managing-ssh-keys-within-jenkins-for-git
+
+
+
+
+
+MESOS-OPENSTACK
+
+intro to ironic: http://docs.openstack.org/developer/ironic/deploy/user-guide.html
+
+https://www.youtube.com/watch?v=OjXII11hYwc 
+(Docker containers provide great performance at a cost in security. For high security, we need separate Docker clusters, typically using Nova VMs. Using VMs means reduced performance. Deploying on bare metal gives best performance, with challenges of independent scale-out and inter-cluster security.)
+
+install ironic : 
+http://docs.openstack.org/developer/ironic/deploy/install-guide.html
+
+https://access.redhat.com/documentation/en/red-hat-enterprise-linux-openstack-platform/version-7/red-hat-enterprise-linux-openstack-platform-7-bare-metal-provisioning/chapter-1-install-and-configure-openstack-bare-metal-provisioning-ironic
+
+mesos cluster with heat: http://docs.openstack.org/developer/magnum/dev/dev-heat-mesos.html
+
+
+
+
+***** JENKINS ****
+install git: 
+	sudo apt-get install git
+
+install docker: 
+	sudo apt-get -y install docker.io
+	chmod 777 /usr/local/bin/docker
+	ln -sf /usr/bin/docker.io /usr/local/bin/docker
+	
+install JDK & JRE:
+	http://www.2daygeek.com/how-to-install-oracle-java-8-jdk-8u20-on-ubuntu-14-04/#
+	
+	http://askubuntu.com/questions/459071/how-to-install-jre-on-ubuntu
+	
+install jenkin
+	https://wiki.jenkins-ci.org/display/JENKINS/Installing+Jenkins+on+Ubuntu
+	
+	NOTE: to START and STOP jenkin: sudo /etc/init.d/jenkins start/stop
+
+Jenkin script
+	http://stackoverflow.com/questions/23935141/how-to-copy-docker-images-from-one-host-to-another-without-via-repository
+	
+remotly execute script files
+	http://julianhigman.com/blog/2012/02/25/using-jenkins-to-run-remote-deployment-scripts-over-ssh/
+	
+Jenkins-Git clone repository 
+	https://help.github.com/articles/generating-ssh-keys/#step-4-add-your-ssh-key-to-your-account
+	https://sites.google.com/a/orangescape.com/enggblog/jenkins-build-server-with-github-authentication
+	
+	http://stackoverflow.com/questions/11880070/how-to-run-a-script-as-root-in-jenkins
+	
+Configure Jenkins manually
+	http://sourceforge.net/p/tei/code/HEAD/tree/trunk/Documents/Editing/Jenkins/jenkins_builder_script_2012.sh
+	http://wiki.tei-c.org/index.php/Setting_up_a_Jenkins_server
+	
+Script fix
+	after completion of script check for java version if it says java1.7 then run "sudo apt-get install icedtea-7-plugin" and rerun script install_jdk_jre.sh in dir /home/inbetween/scripts
+	
+	
+****************** PUPPET *************
+
+Install and Configure
+	http://fosshelp.blogspot.in/2014/06/howto-install-configure-and-run-puppet.html
+	https://www.youtube.com/watch?v=l86W-WKzhBo
+	https://www.digitalocean.com/community/tutorials/how-to-install-puppet-to-manage-your-server-infrastructure
+	
+	PROBLEM SOLUTIONS: https://ask.puppetlabs.com/question/2579/why-my-puppetmaster-not-puppetizing-new-agents/ 
+	PUSH FROM MASTER : http://docs.puppetlabs.com/puppet/3.6/reference/man/kick.html
+	
+Manifest Tutorials
+	http://www.example42.com/tutorials/PuppetTutorial/#slide-14
+	http://www.puppetcookbook.com/posts/exec-a-command-in-a-manifest.html
+    http://www.thegeekstuff.com/2015/07/puppet-configuration-examples/%3Futm_source%3Dfeedburner%26utm_medium%3Dfeed%26utm_campaign%3DFeed%253A%2BTheGeekStuff%2B(The%2BGeek%2BStuff)
+	
+	https://docs.puppetlabs.com/references/latest/type.html#file
+	
+File Resource
+	http://askubuntu.com/questions/90015/how-to-copy-files-to-all-machines-using-puppet-master
+	
+Manage Docker 	
+	https://forge.puppetlabs.com/garethr/docker
+	
+Puppet Git
+	https://forge.puppetlabs.com/puppetlabs/vcsrepo/1.0.2
+	
+Puppet Facters
+	https://www.packtpub.com/books/content/external-tools-and-puppet-ecosystem
+	https://groups.google.com/forum/#!msg/puppet-users/XSBkEx_vEJE/rYItpZKbe-IJ
+	
+
+Puppet UI (NOT WORKING)	
+	https://www.digitalocean.com/community/tutorials/how-to-use-foreman-to-manage-puppet-nodes-on-ubuntu-14-04
+	
+	
+	
+	
+	
+******************* SWIFT **************	
+
+install swift
+	http://www.szemtsov.net/books/OpenStackSwift.pdf
+	
+swauth
+	http://gholt.github.io/swauth/dev/
+git : https://github.com/openstack/swauth
+
+locking error: https://github.com/overviewer/Minecraft-Overviewer/issues/990
+				rm /dev/shm ; mkdir /dev/shm ; chmod 777 /dev/shm ; nano /etc/fstab
+				none /dev/shm tmpfs rw,nosuid,nodev,noexec 0 0
+
+add node in cluster : https://developer.rackspace.com/blog/adding-devices-to-an-existing-swift-cluster/
+
+Problem - Quarantined objects on Delete : https://ask.openstack.org/en/question/62957/swift-read-problems/
+
+
+****************** Deployment Notes ***********
+

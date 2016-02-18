@@ -1,0 +1,11 @@
+apt-get update
+
+chmod -R 777 /home/inbetween/
+
+/home/inbetween/scripts/install_git.sh
+/home/inbetween/scripts/install_docker.sh
+/home/inbetween/scripts/install_jdk_jre.sh
+/home/inbetween/scripts/install_jenkins.sh
+/home/inbetween/scripts/create_buildscript.sh
+/home/inbetween/scripts/create_deploy_script.sh
+#/home/inbetween/scripts/ssh_keygen.sh

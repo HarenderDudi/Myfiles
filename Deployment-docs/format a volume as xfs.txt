@@ -1,0 +1,2 @@
+https://linhost.info/2012/08/format-a-volume-as-xfs-in-debian-and-ubuntu/
+http://ask.xmodulo.com/create-mount-xfs-file-system-linux.html

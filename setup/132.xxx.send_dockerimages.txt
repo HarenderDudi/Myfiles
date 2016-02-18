@@ -1,0 +1,6 @@
+cd /home/inbetween/DockerImages
+
+ssh -i id_rsa root@192.168.132.126 'cd /home/inbetween && sudo mkdir DockerImages && sudo chmod -R 777 DockerImages'
+scp elasticsearch  root@192.168.132.126:/home/inbetween/DockerImages/
+scp orientdb  root@192.168.132.126:/home/inbetween/DockerImages/
+scp jetty  root@192.168.132.126:/home/inbetween/DockerImages/

@@ -1,0 +1,23 @@
+apt-get install -y default-jre
+apt-get install -y default-jre-headless
+
+mkdir /opt
+chmod -R 777 /opt
+cd /opt
+
+sudo wget --no-cookies --no-check-certificate --header "Cookie: gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=accept-securebackup-cookie" "http://download.oracle.com/otn-pub/java/jdk/8u20-b26/jdk-8u20-linux-x64.tar.gz"
+
+sudo tar -zxvf jdk-8u20-linux-x64.tar.gz
+sudo update-alternatives --install /usr/bin/java java /opt/jdk1.8.0_20/bin/java 2
+echo "***********  Select 'jdk1.8.0_20' from options ****************"
+sudo update-alternatives --config java
+
+export JAVA_HOME=/opt/jdk1.8.0_20/bin/java
+
+export JRE_HOME=/opt/jdk1.8.0_20/bin/jar
+
+export PATH=$PATH:/opt/jdk1.8.0_20/bin:/opt/jdk1.8.0_20/bin/jar/bin
+
+chmod 700 /etc/environment
+
+echo "JAVA_HOME=/opt/jdk1.8.0_20/bin/java" >> /etc/environment

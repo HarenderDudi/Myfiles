@@ -1,0 +1,63 @@
+1: Change all .pp files from /home/cs/puppetScripts/allianz_setup3
+{change port variables, change logfile path,change image name,change container name}
+
+2: add python server build and run commands in puppet files
+
+3: change applicationContext.xml file from /home/cs
+
+4.change facter file from /etc/facter/fact.d/config.txt
+
+5.deploy new UI code in jetty
+
+
+//for pythonserver setup in .pp file
+
+
+class build_python_images {
+         exec {xz 'pythonserver':
+                command => 'docker build -t pythonserver /GitRepository/ContentSphereReleases/deployment/dockerfiles/pythonserver/',
+                path => ["/usr/bin", "/usr/sbin"],
+                timeout => 1800,
+                user => root,
+                logoutput => true,
+        }
+}
+
+include 'build_python_server'
+
+
+//to run pythonserver
+class run_pythonserver {
+ docker::run { 'pythonserver':
+                 image   => 'pythonserver',
+                 memory_limit=>  "$::memoryforpythonserver",
+                 ports => "$::pythonserverport:8085",
+             }
+}
+
+
+//to create logs
+
+class pythonserver_logs {
+exec { 'python server logs':
+                command => 'docker logs -f pythonserevr >> /var/log/contentsphere/pythonserevr/pythonserverlogs.txt 2>&1 &',
+                path => ["/usr/bin", "/usr/sbin"],
+                timeout => 1800,
+                user => root,
+        }
+}
+
+//stop pythonserver
+
+ exec { 'stop pythonserver containers':
+                command => 'docker stop pythonserver',
+                path => ["/usr/bin", "/usr/sbin"],
+                user => root,
+                onlyif => "docker stop pythonserver",
+      }
+
+
+
+
+
+

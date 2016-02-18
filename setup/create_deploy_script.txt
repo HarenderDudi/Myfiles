@@ -1,0 +1,37 @@
+cd /home/inbetween
+
+touch deploy_script.sh
+chmod 777 deploy_script.sh
+ > deploy_script.sh
+
+echo "cd /GitRepository/ContentSphere/deployment/dockerfiles/orientdbcluster/orientdb
+docker build -t orientdb .
+
+cd /GitRepository/ContentSphere/deployment/dockerfiles/elasticcluster/elasticsearch
+docker build -t elasticsearch .
+
+cd /GitRepository/ContentSphere/deployment/dockerfiles/jettycluster/jetty
+docker build -t jetty .
+
+cd /home/inbetween
+mkdir DockerImages
+chmod -R 777 DockerImages
+
+# Export Docker Images
+docker save -o /home/inbetween/DockerImages/elasticsearch elasticsearch
+docker save -o /home/inbetween/DockerImages/orientdb orientdb
+docker save -o /home/inbetween/DockerImages/jetty jetty
+
+apt-get install ssh
+ssh-keygen -t rsa
+ssh-copy-id root@192.168.132.126
+ssh root@192.168.132.126
+
+/home/inbetween/scripts/132.126.sh
+
+/home/inbetween/132.126/install_docker.sh
+/home/inbetween/132.126/send_dockerimages.sh
+/home/inbetween/132.126/remote_execute.sh
+" >> deploy_script.sh
+
+sed -i "28i jenkins    ALL = NOPASSWD: /home/inbetween/deploy_script.sh" /etc/sudoers

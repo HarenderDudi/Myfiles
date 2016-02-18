@@ -1,0 +1,29 @@
+#!/bin/bash
+
+sudo su - jenkins -s /bin/bash
+cd /home/inbetween/test_delete
+sudo mkdir .ssh
+sudo ssh-keygen -t rsa -f /home/inbetween/test_delete/.ssh/id_rsa
+exit
+cat /home/inbetween/test_delete/.ssh/id_rsa.pub
+
+echo ""
+echo ""
+echo "Copy this public key in git repository [settings -> SSH Keys -> Add SSH Key]"
+echo "Enter 'y' if Done"
+
+read  -p "Input Selection:" mainmenuinput -n 1
+
+if [ "$mainmenuinput" = "y"]; then
+        {
+          sudo service jenkins restart
+          ssh -T git@github.com -yes
+          /home/inbetween/scripts/configure_jenkins.sh
+        }
+else
+        {
+          echo "follow previous step or jenkins may give error while cloning repository"
+          sudo service jenkins restart
+          ssh -T git@github.com -yes
+          /home/inbetween/scripts/configure_jenkins.sh
+        }

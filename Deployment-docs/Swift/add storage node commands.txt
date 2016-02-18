@@ -1,0 +1,104 @@
+storage node
+
+	1. apt-get install git curl gcc memcached rsync sqlite3 xfsprogs git-core libffi-dev python-setuptools
+	2. apt-get install python-coverage python-dev python-nose python-simplejson python-xattr python-eventlet python-greenlet python-pastedeploy python-netifaces python-pip python-dnspython python-mock
+	3.  cd /opt/
+	git clone https://github.com/openstack/python-swiftclient.git
+   
+   11  cd /opt/python-swiftclient; sudo pip install -r requirements.txt;
+   12  python setup.py install; cd ..
+   
+   14  git clone https://github.com/openstack/swift.git
+   15  cd /opt/swift ; sudo python setup.py install; cd ..
+   16  vim swift/requirements.txt
+   17  cd /opt/swift ; sudo python setup.py install; cd ..
+   
+   19  mkdir -p /etc/swift
+   20  chown -R swift:swift /etc/swift
+   20  cd /opt/swift/etc
+   21  cp account-server.conf-sample /etc/swift/account-server.conf
+   22  cp container-server.conf-sample /etc/swift/container-server.conf
+   23  cp object-server.conf-sample /etc/swift/object-server.conf
+   24  cp drive-audit.conf-sample /etc/swift/drive-audit.conf
+   
+   [proxy server : scp swift.conf cs@storage-ip:/home/cs]
+   
+   26  cp /home/cs/swift.conf /etc/swift/swift.conf
+   
+   28  mkdir -p /srv/node/d1
+   29  mkdir -p /srv/node/d2
+   30  useradd swift
+   31  chown -R swift:swift /srv/node
+   36  mount -t xfs -o noatime,nodiratime,logbufs=8 /dev/mapper/CS--Harender--vg-lv--d1 /srv/node/d1
+   37  mount -t xfs -o noatime,nodiratime,logbufs=8 /dev/mapper/CS--Harender--vg-lv--d2 /srv/node/d2
+   
+   38 vim /etc/default/rsync    [RSYNC_ENABLE=true]
+   49  vim /etc/rsyncd.conf  [uid = swift
+								gid = swift
+								log file = /var/log/rsyncd.log
+								pid file = /var/run/rsyncd.pid
+								[account]
+								max connections = 25
+								path = /srv/node/
+								read only = false
+								lock file = /var/lock/account.lock
+								[container]
+								max connections = 25
+								path = /srv/node/
+								read only = false
+								lock file = /var/lock/container.lock
+								[object]
+								max connections = 25
+								path = /srv/node/
+								read only = false
+								lock file = /var/lock/object.lock]
+	
+
+	
+[on proxy server]
+  756  chown -R swift:swift /etc/swift
+  757  swift-ring-builder account.builder add r1z1-192.168.134.73:6002/d1 50
+  758  swift-ring-builder container.builder add r1z1-192.168.134.73:6001/d1 50
+  759  swift-ring-builder object.builder add r1z1-192.168.134.73:6000/d1 50
+  760  swift-ring-builder account.builder add r1z1-192.168.134.73:6002/d2 50
+  761  swift-ring-builder container.builder add r1z1-192.168.134.73:6001/d2 50
+  762  swift-ring-builder object.builder add r1z1-192.168.134.73:6000/d2 50
+  
+  764  swift-ring-builder account.builder rebalance
+  765  swift-ring-builder container.builder rebalance
+  766  swift-ring-builder object.builder rebalance
+  767  scp account.ring.gz cs@192.168.134.73/home/cs
+  768  scp -r account.ring.gz cs@192.168.134.73/home/cs
+  769  scp -r account.ring.gz cs@192.168.134.73:/home/cs
+  770  scp -r object.ring.gz cs@192.168.134.73:/home/cs
+  771  scp -r container.ring.gz cs@192.168.134.73:/home/cs
+  772  scp -r account.ring.gz inbetween@192.168.132.107:/home/inbetween
+  773  scp -r container.ring.gz inbetween@192.168.132.107:/home/inbetween
+  774  scp -r object.ring.gz inbetween@192.168.132.107:/home/inbetween
+  
+  775  swift-init all stop
+  776  swift-init all start
+  
+ [on proxy2 server]
+  393  chown -R swift:swift /etc/swift
+  392  cd /home/inbetween 
+  393  cp account.ring.gz /etc/swift/
+  394  cp container.ring.gz /etc/swift/
+  395  cp object.ring.gz /etc/swift/
+  396  swift-init all stop
+  397  swift-init all start
+  
+  
+  
+ [on storage]
+  55  cp /home/cs/object.ring.gz /etc/swift/
+  56  cp /home/cs/container.ring.gz /etc/swift/
+  57  cp /home/cs/account.ring.gz /etc/swift/
+   
+  84  sudo pip install pyeclib==1.0.7
+  85  clear
+  86  sudo pip install eventlet==0.16.1
+  87  sudo pip install six==1.10
+  88  service rsync start
+  89  swift-init all start
+

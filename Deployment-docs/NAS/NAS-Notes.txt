@@ -1,0 +1,8 @@
+NAS vs DAS
+The key difference between direct-attached storage (DAS) and NAS is that DAS is simply an extension to an existing server and is not necessarily networked. NAS is designed as an easy and self-contained solution for sharing files over the network.
+
+Both DAS and NAS can potentially increase availability of data by using RAID or clustering.
+
+When both are served over the network, NAS could have better performance than DAS, because the NAS device can be tuned precisely for file serving which is less likely to happen on a server responsible for other processing. Both NAS and DAS can have various amount of cache memory, which greatly affects performance. When comparing use of NAS with use of local (non-networked) DAS, the performance of NAS depends mainly on the speed of and congestion on the network.
+
+NAS is generally not as customizable in terms of hardware (CPU, memory, storage components) or software (extensions, plug-ins, additional protocols) as a general-purpose server supplied with DAS
