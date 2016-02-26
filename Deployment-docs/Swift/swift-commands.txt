@@ -19,7 +19,7 @@ add user/account
 	swauth-add-user -A http://192.168.132.107:8080/auth/ -K pass@123 -a proxy2 dudi pass@123
 
 account-list
-	swauth-list -A http://192.168.132.36:8080/auth/ -K pass@123
+	swauth-list -A http://192.168.134.90:8080/auth/ -K pass@123
 
 Create Container
 	swift -A http://192.168.134.90:8080/auth/v1.0 -U dudi:dudi -K pass@123 post container1
@@ -49,6 +49,17 @@ CURL COMMAND
 Statistics of an Account:
 	curl -i $STORAGE_URL -X GET -H “X-Auth-Token:$TOKEN”
 
+> Create Account and user 
+	curl -XPUT -D - http://192.168.134.90:8080/auth/v2/dudi_test2/dudi -H "X-Auth-Admin-User: .super_admin" -H "X-Auth-Admin-Key: swauthkey" -H "X-Auth-User-Admin: true" -H "X-Auth-User-Key: pass@123"
+	
+	
+> List of account
+	curl -D - https://192.168.134.90/auth/v2/ -H "X-Auth-Admin-User: .super_admin" -H "X-Auth-Admin-Key: pass@123"
+
+> Create account
+
+	curl -D - https://192.168.134.90/auth/v2/<new_account> -H "X-Auth-Admin-User: .super_admin" -H "X-Auth-Admin-Key: pass@123"
+	
 > Create a Container:
 	curl  -H "X-Auth-Token: AUTH_tkc6ad6b615f7a48748a3aae85a1cac94f" -X PUT http://192.168.132.107:8080/v1/AUTH_5ee5ca16-30df-41b6-897f-db58ecb125f5/container3
 	
@@ -66,6 +77,9 @@ Statistics of an Account:
 > DELETE Object
 	curl -i $STORAGE_URL/container-1/helloworld -X DELETE -H "X-Auth-Token: $TOKEN"
 
+> Download Object
+	curl -v -H  'X-Auth-Token:  AUTH_tkfb81ccff2b5a4e59aa8f4e8d9c7dc5dd'  http://192.168.134.92:8080/v1/AUTH_2f5f4389-2482-4b0c-a085-7a0e30eb2259
+	
 > Object Metadata
 	curl -i  http://192.168.132.155:8080/v1/AUTH_6d570578-c133-4d64-8bda-ba3d9d93af4c/VM/ubuntu -X HEAD -H "X-Auth-Token: AUTH_tk9179520449cc48e5932a47b42e8cc971"
 	

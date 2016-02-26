@@ -35,7 +35,25 @@ install npm
 npm install 
 npm install -g gulp
 gulp webpack
-./gradlew war
+./gradlew war (build - libs)
+
+############################################################################
+
+?????????
+change ports for jetty , apache
+
+
+Remember
+ jetty container stop port configure (change startscripts in jetty dockerfiles)
+ file to be copied in ext (copy /opt/jetty/lib/jetty-servlets-9.0.7.v20131107.jar to /opt/jetty/lib/ext/)
+ 
+If Error of NodeModules and we have to do gulp webpack manually then :
+	1. go to gui folder and delete nodemodules
+	2. run "npm install" and "npm install -g gulp"
+	3. cd appbuild and run "gulp webpack"
+	4. build war of project and paste this war in /contentspherereleases/deployment/dockerfiles/allianz/dockerfiles/
+	5. docker build -t <image name> . or run command puppet apply build_images.pp 
+	
 
 
 	  

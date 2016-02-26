@@ -5,7 +5,8 @@ ip-address: ifconfig  | grep 'inet addr:'| grep -v '127.0.0.1' | cut -d: -f2 | a
 
 change uuid .vdi file: 	VBoxManage internalcommands sethduuid "/home/user/VirtualBox VMs/drupal/drupal.vhd"
 
-elasticSearch start as root : bin/elasticsearch -Des.insecure.allow.root=true
+elasticSearch start as root : bin/elasticsearch -Des.insecure.allow.root=true -d
+start jetty : java -jar start.jar
 
 Docker:
 	docker pull ubuntu (pull image from repository)

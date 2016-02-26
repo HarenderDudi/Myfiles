@@ -180,7 +180,8 @@ install swift
 	
 swauth
 	http://gholt.github.io/swauth/dev/
-git : https://github.com/openstack/swauth
+	git : https://github.com/openstack/swauth
+	CURL : http://gholt.github.io/swauth/dev/api.html
 
 locking error: https://github.com/overviewer/Minecraft-Overviewer/issues/990
 				rm /dev/shm ; mkdir /dev/shm ; chmod 777 /dev/shm ; nano /etc/fstab
