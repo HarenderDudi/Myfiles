@@ -28,7 +28,7 @@ upload file:
 	swift -A http://192.168.132.155:8080/auth/v1.0 -U proxy1:dudi -K pass@123 upload .test .
 	
 List all containres in a account
-	swift -A http://192.168.132.155:8080/auth/v1.0 -U proxy1:dudi -K pass@123 list
+	swift -A http://192.168.134.105:8080/auth/v1.0 -U allianz:allianz -K pass@123 list
 	
 list all object in Container 
 	swift -A http://192.168.132.155:8080/auth/v1.0 -U proxy1:dudi -K pass@123 container
