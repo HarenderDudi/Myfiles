@@ -9,3 +9,5 @@
 >  NOTE : git add -a           ##stage all the files that are already tracked but will not add the untracked files (like newly added folders and files )		
 
 >  NOTE : git commit -m "<message>" | git push
+
+> Clear git tracked file list : git rm --cached 
