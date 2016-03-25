@@ -1,0 +1,151 @@
+https://youtu.be/nVQqNOM4o64
+https://youtu.be/bN3q0XUo5I0
+
+
+rsync -rlptDzv --delete --link-dest=/tmp/rsynctesting/backup_03-16-18:30:48  /home/cs/rsyncsource/ /tmp/rsynctesting/backup_$timestamp
+timestamp=`date +"%D_%T"`
+
+1) FULL SYNC
+root@puppet:/tmp/rsynctesting# timestamp=$(date "+%m-%d-%H:%M:%S")
+root@puppet:/tmp/rsynctesting# rsync -rlptDzv /home/cs/rsyncsource/ /tmp/rsynctesting/backup_$timestamp
+sending incremental file list
+created directory /tmp/rsynctesting/backup_03-16-19:12:31
+./
+test.txt
+test2.txt
+test3.txt
+
+sent 398 bytes  received 138 bytes  1,072.00 bytes/sec
+total size is 223  speedup is 0.42
+root@puppet:/tmp/rsynctesting# ls
+backup_03-16-19:12:31
+
+2) RSYNC WITH LINK-DEST backup_03-16-19:12:31 [MODIFICATION: NEW FILE TEST4.TXT ADDED----> ALL 3 FILES FROM 19:12:31 COPIED TO THIS NEW BACKUP AND HARD-LINK IS CREATED FOR THESE FILES WHICH ARE IN NEW BACKUP_19:13:27, NO TEST.TXT IN 19:12:31]
+
+root@puppet:/tmp/rsynctesting# timestamp=$(date "+%m-%d-%H:%M:%S")
+root@puppet:/tmp/rsynctesting# rsync -rlptDzv --delete --link-dest=/tmp/rsynctesting/backup_03-16-19:12:31  /home/cs/rsyncsource/ /tmp/rsynctesting/backup_$timestamp
+sending incremental file list
+created directory /tmp/rsynctesting/backup_03-16-19:13:27
+./
+test4.txt
+
+sent 174 bytes  received 100 bytes  548.00 bytes/sec
+total size is 236  speedup is 0.86
+root@puppet:/tmp/rsynctesting# du -ah
+4.0K    ./backup_03-16-19:13:27/test4.txt
+4.0K    ./backup_03-16-19:13:27/test.txt
+4.0K    ./backup_03-16-19:13:27/test3.txt
+4.0K    ./backup_03-16-19:13:27/test2.txt
+20K     ./backup_03-16-19:13:27
+4.0K    ./backup_03-16-19:12:31
+28K     .
+
+root@puppet:/tmp/rsynctesting# ls
+backup_03-16-19:12:31  backup_03-16-19:13:27
+
+root@puppet:/tmp/rsynctesting/backup_03-16-19:13:27# ls
+test2.txt  test3.txt  test4.txt  test.txt
+root@puppet:/tmp/rsynctesting/backup_03-16-19:13:27# ls ../backup_03-16-19\:12\:31/
+test2.txt  test3.txt  test.txt
+
+root@puppet:/tmp/rsynctesting/backup_03-16-19:13:27# du -ah
+4.0K    ./test4.txt
+4.0K    ./test.txt
+4.0K    ./test3.txt
+4.0K    ./test2.txt
+20K     .
+root@puppet:/tmp/rsynctesting/backup_03-16-19:13:27# du -ah ../backup_03-16-19\:12\:31/
+4.0K    ../backup_03-16-19:12:31/test.txt
+4.0K    ../backup_03-16-19:12:31/test3.txt
+4.0K    ../backup_03-16-19:12:31/test2.txt
+16K     ../backup_03-16-19:12:31/
+
+3) RSYNC WITH LINK-DEST backup_03-16-19:13:27 [MODIFICATION: TEST1 AND TEST2 ARE MODIFIED ----> SYNC CREATED NEW [MODIFIED] FILE TEST.TXT AND TEST2.TXT IN NEW backup_03-16-19:17:39 AND COPIED TEST3.TXT AND TEST4.TXT , [UNMODIFIED]TEST.TXT AND TEST2.TXT ARE REMAINED THERE IN backup_03-16-19:13:27 AND TEST3 AND TEST4 ARE HARD-LINKED ]  
+ 
+root@puppet:/tmp/rsynctesting# timestamp=$(date "+%m-%d-%H:%M:%S")
+root@puppet:/tmp/rsynctesting# rsync -rlptDzv --delete --link-dest=/tmp/rsynctesting/backup_03-16-19:13:27  /home/cs/rsyncsource/ /tmp/rsynctesting/backup_$timestamp
+sending incremental file list
+created directory /tmp/rsynctesting/backup_03-16-19:17:39
+test.txt
+test2.txt
+
+sent 327 bytes  received 118 bytes  890.00 bytes/sec
+total size is 266  speedup is 0.60
+root@puppet:/tmp/rsynctesting# ls
+backup_03-16-19:12:31  backup_03-16-19:13:27  backup_03-16-19:17:39
+
+root@puppet:/tmp/rsynctesting# du -ah
+4.0K    ./backup_03-16-19:17:39/test4.txt
+4.0K    ./backup_03-16-19:17:39/test.txt
+4.0K    ./backup_03-16-19:17:39/test3.txt
+4.0K    ./backup_03-16-19:17:39/test2.txt
+20K     ./backup_03-16-19:17:39
+4.0K    ./backup_03-16-19:13:27/test.txt
+4.0K    ./backup_03-16-19:13:27/test2.txt
+12K     ./backup_03-16-19:13:27
+4.0K    ./backup_03-16-19:12:31
+40K     .
+
+root@puppet:/tmp/rsynctesting# ls backup_03-16-19\:12\:31/
+test2.txt  test3.txt  test.txt
+root@puppet:/tmp/rsynctesting# ls backup_03-16-19\:13\:27/
+test2.txt  test3.txt  test4.txt  test.txt
+root@puppet:/tmp/rsynctesting# ls backup_03-16-19\:17\:39/
+test2.txt  test3.txt  test4.txt  test.txt
+
+root@puppet:/tmp/rsynctesting# cd backup_03-16-19\:12\:31/
+root@puppet:/tmp/rsynctesting/backup_03-16-19:12:31# ls
+test2.txt  test3.txt  test.txt
+root@puppet:/tmp/rsynctesting/backup_03-16-19:12:31# nano test2.txt
+root@puppet:/tmp/rsynctesting/backup_03-16-19:12:31# nano test3.txt
+root@puppet:/tmp/rsynctesting/backup_03-16-19:12:31# nano test.txt
+root@puppet:/tmp/rsynctesting/backup_03-16-19:12:31# cd ../backup_03-16-19\:13\:27/
+root@puppet:/tmp/rsynctesting/backup_03-16-19:13:27# ls
+test2.txt  test3.txt  test4.txt  test.txt
+root@puppet:/tmp/rsynctesting/backup_03-16-19:13:27# nano test.txt
+root@puppet:/tmp/rsynctesting/backup_03-16-19:13:27# nano test2.txt
+root@puppet:/tmp/rsynctesting/backup_03-16-19:13:27# nano test3.txt
+root@puppet:/tmp/rsynctesting/backup_03-16-19:13:27# nano test4.txt
+root@puppet:/tmp/rsynctesting/backup_03-16-19:13:27# cd ../backup_03-16-19\:17\:39/
+root@puppet:/tmp/rsynctesting/backup_03-16-19:17:39# ls
+test2.txt  test3.txt  test4.txt  test.txt
+root@puppet:/tmp/rsynctesting/backup_03-16-19:17:39# nano test.txt
+root@puppet:/tmp/rsynctesting/backup_03-16-19:17:39# nano test2.txt
+root@puppet:/tmp/rsynctesting/backup_03-16-19:17:39# nano test3.txt
+root@puppet:/tmp/rsynctesting/backup_03-16-19:17:39# nano test4.txt
+
+
+4)  RSYNC WITH LINK-DEST backup_03-16-19:17:39 [MODIFICATION: TEST3 DELETED --> backup_03-16-19:23:22 HAVE NO TEST3.TXT BUT  backup_03-16-19:17:39 HAVE ALL 4 FILES **** HARD-LINK IS CREATED FROM 19:23 -> 19:17 I.E FILES ARE IN 19:17 ARE THERE IS A LINK CREATED FOR THESE FILES IN 19:23 ]
+
+root@puppet:/tmp/rsynctesting/backup_03-16-19:17:39# timestamp=$(date "+%m-%d-%H:%M:%S")
+root@puppet:/tmp/rsynctesting/backup_03-16-19:17:39# rsync -rlptDzv --delete --link-dest=/tmp/rsynctesting/backup_03-16-19:17:39  /home/cs/rsyncsource/ /tmp/rsynctesting/backup_$timestamp
+sending incremental file list
+created directory /tmp/rsynctesting/backup_03-16-19:23:22
+./
+sent 113 bytes  received 81 bytes  388.00 bytes/sec
+total size is 180  speedup is 0.93
+
+root@puppet:/tmp/rsynctesting# ls
+backup_03-16-19:12:31  backup_03-16-19:13:27  backup_03-16-19:17:39  backup_03-16-19:23:22
+
+root@puppet:/tmp/rsynctesting# du -ah
+4.0K    ./backup_03-16-19:17:39/test4.txt
+4.0K    ./backup_03-16-19:17:39/test.txt
+4.0K    ./backup_03-16-19:17:39/test3.txt
+4.0K    ./backup_03-16-19:17:39/test2.txt
+20K     ./backup_03-16-19:17:39
+4.0K    ./backup_03-16-19:13:27/test.txt
+4.0K    ./backup_03-16-19:13:27/test2.txt
+12K     ./backup_03-16-19:13:27
+4.0K    ./backup_03-16-19:23:22
+4.0K    ./backup_03-16-19:12:31
+44K     .
+
+root@puppet:/tmp/rsynctesting# cd backup_03-16-19\:23\:22/
+root@puppet:/tmp/rsynctesting/backup_03-16-19:23:22# ls
+test2.txt  test4.txt  test.txt
+root@puppet:/tmp/rsynctesting/backup_03-16-19:23:22# ls ../backup_03-16-19\:17\:39/
+test2.txt  test3.txt  test4.txt  test.txt
+root@puppet:/tmp/rsynctesting/backup_03-16-19:23:22# nano ../backup_03-16-19\:17\:39/test3.txt
+root@puppet:/tmp/rsynctesting/backup_03-16-19:23:22# ls ../backup_03-16-19\:17\:39/
+test2.txt  test3.txt  test4.txt  test.txt

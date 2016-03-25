@@ -1,0 +1,10 @@
+>>>>>> rsync vaniching file error
+
+	https://sourceforge.net/p/backuppc/mailman/message/15197254/
+	https://github.com/mitchellh/vagrant/issues/4991
+	https://bugs.launchpad.net/trove/+bug/1338660
+	http://serverfault.com/questions/213813/how-can-i-prevent-vanishing-error-when-using-rsync-with-an-nfs-mount
+
+>>>>> Quartz Scheduler pause and resume problem
+	http://stackoverflow.com/questions/1933676/quartz-java-resuming-a-job-excecutes-it-many-times
+	http://www.nurkiewicz.com/2012/04/quartz-scheduler-misfire-instructions.html

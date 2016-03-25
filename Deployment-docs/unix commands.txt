@@ -68,10 +68,41 @@ GENERATE variable with command value in script : hash_suffix="$(head -c 32 /dev/
 Rsyslog reads the conf files sequently, so it is important that you name your config file so that the specific config is loaded before anything else happens. So, name your file starting with leading zero's, i.e. 00-my-file.conf (It's better to create a new file so that updates and so on doesn't overwrite your local config).	
 	
 	
-	
+>>>>> nagios status json >>>>>
+http://192.168.134.106:8090/nagios/cgi-bin/statusjson.cgi?query=servicelist&details=true&servicestatus=ok+warning+critical+unknown+pending	
 	
 	
 mail via command line: https://easyengine.io/tutorials/linux/ubuntu-postfix-gmail-smtp/	
 
 login website : wget --save-cookies cookies.txt --keep-session-cookies --post-data="username=foo&password=bar" "http://some.site/login.php"	
 	
+	
+	
+>>>>>>>>>>> PATH WHICH RUNNING A PROCESS >>>>>>>>
+ps -ef | grep 786
+
+
+
+>>>>>>>>>>> RSYNC PERMISSION DENIED PROBLEM >>>>>>>>>>>
+
+You are probably running rsync like this:
+rsync -a dir/ remote:/dir/
+The -a option according to the documentation is equivalent to: -rlptgoD
+
+      -a, --archive    archive mode; equals -rlptgoD (no -H,-A,-X)
+You probably want to remove the -o and -g options:
+
+      -o, --owner                 preserve owner (super-user only)
+      -g, --group                 preserve group
+So instead your rsync command should look something like this:
+rsync -rlptD dir/ remote:/dir/
+
+HARDLINK : rsync -avh --delete --link-dest=/Alpha_Full /Alpha/ /Alpha_2
+
+******https://www.marksanborn.net/howto/use-rsync-for-daily-weekly-and-full-monthly-backups/
+	
+
+>>>>>>>>>>>>>>>>>> MOUNT REMOTE FILE TO LOCAL >>>>>>>>>>>>>>>>>
+
+sshfs kd33612001@disc.keyweb.de:/files /mount/ftp/elasticsearch/allianz/
+sshfs inbetween@192.168.132.219:/Databackup/elasticsearch/allianz /mount/ftp/elasticsearch/allianz/

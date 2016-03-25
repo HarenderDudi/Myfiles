@@ -11,7 +11,7 @@ remove device from ring : swift-ring-builder <builder-file> remove <ip_address>/
 
 
 get auth url
-	curl -i -X GET -H 'X-Auth-User: dudi:dudi' -H 'X-Auth-Key: pass@123' http://192.168.132.36:8080/auth/v1.0/ 
+	curl -i -X GET -H 'X-Auth-User: allianz:allianz' -H 'X-Auth-Key: pass@123' http://192.168.134.105:8080/auth/v1.0/
 	[x-auth-key : password of user while creating user account not admin_key]
 	
 add user/account
@@ -99,3 +99,9 @@ Statistics of an Account:
 62.141.57.53
 root
 Xie5xeephox3Iechei4E
+
+
+kd33612001@disc.keyweb.de
+pass: W?!T-;D5
+
+http://askubuntu.com/questions/320746/how-to-mount-ftp-resources-with-fstab-when-connection-is-available
