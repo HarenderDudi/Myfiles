@@ -7,6 +7,7 @@ change uuid .vdi file: 	VBoxManage internalcommands sethduuid "/home/user/Virtua
 
 elasticSearch start as root : bin/elasticsearch -Des.insecure.allow.root=true -d
 start jetty : java -jar start.jar
+python : uwsgi -ini uwsgi.ini*******
 
 Docker:
 	docker pull ubuntu (pull image from repository)

@@ -1,7 +1,0 @@
-docker run -d --name elasticsearch3 elasticsearch
-docker run -d --name orientdb3 orientdb
-docker run -d --name jetty3 jetty
-
-docker run -d --name elasticsearch4 elasticsearch
-docker run -d --name orientdb4 orientdb
-docker run -d --name jetty4 jetty

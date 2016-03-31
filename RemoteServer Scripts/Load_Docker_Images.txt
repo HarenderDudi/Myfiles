@@ -1,4 +1,0 @@
-cd /home/inbetween/DockerImages
-docker load -i elasticsearch
-docker load -i orientdb
-docker load -i jetty

@@ -32,6 +32,9 @@ List all containres in a account
 	
 list all object in Container 
 	swift -A http://192.168.132.155:8080/auth/v1.0 -U proxy1:dudi -K pass@123 container
+
+Delete Object 
+	swift -A http://192.168.134.92:8080/auth/v1.0 -U UK:UK -K pass@123 delete <Container name> <object name>
 	
 Upload Objects 
 	swift -A http://192.168.134.90:8080/auth/v1.0 -U dudi:dudi -K pass@123 upload container1 200mb.txt
@@ -103,5 +106,7 @@ Xie5xeephox3Iechei4E
 
 kd33612001@disc.keyweb.de
 pass: W?!T-;D5
+docker run -i -t -d -e NEO4J_AUTH=dudi:dudi --name neo4j -p 7474:7474 neo4j
+
 
 http://askubuntu.com/questions/320746/how-to-mount-ftp-resources-with-fstab-when-connection-is-available

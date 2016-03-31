@@ -1,7 +1,0 @@
-docker stop elasticsearch3
-docker stop orientdb3
-docker stop jetty3
-
-docker stop elasticsearch4
-docker stop orientdb4
-docker stop jetty
