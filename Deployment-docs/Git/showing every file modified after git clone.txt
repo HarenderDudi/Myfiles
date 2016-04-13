@@ -1,0 +1,25 @@
+http://stackoverflow.com/questions/2016404/git-status-shows-modifications-git-checkout-file-doesnt-remove-them
+
+
+There are multiple problems the can cause this behaviour:
+
+Line ending normalization
+
+I've had these kinds of problems too. It comes down to git automatically converting crlf to lf. This is typically caused by mixed line endings in a single file. The file gets normalized in the index, but when git then denormalizes it again to diff it against the file in the working tree, the result is different.
+
+But if you want to fix this, you should disable core.autocrlf, change all line endings to lf, and then enable it again. Or you can disable it altogether by doing:
+
+git config --global core.autocrlf false
+
+Instead of core.autocrlf, you can also consider using .gitattribute files. This way, you can make sure everyone using the repo uses the same normalization rules, preventing mixed line endings getting into the repository.
+
+Also consider setting core.safecrlf to warn if you want git to warn you when a non-reversible normalization would be performed.
+
+The git manpages say this:
+
+CRLF conversion bears a slight chance of corrupting data. autocrlf=true will convert CRLF to LF during commit and LF to CRLF during checkout. A file that contains a mixture of LF and CRLF before the commit cannot be recreated by git. For text files this is the right thing to do: it corrects line endings such that we have only LF line endings in the repository. But for binary files that are accidentally classified as text the conversion can corrupt data.
+Case-insensitive file systems
+
+On case-insensitive filesystems, when the same filename with different casing is in the repository, git tries to checkout both, but only one ends up on the file system. When git tries to compare the second one, it would compare it to the wrong file.
+
+The solution would either be switching to a non-case insensitive filesystem, but this in most cases is not feasible or renaming and committing one of the files on another filesystem.

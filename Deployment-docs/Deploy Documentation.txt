@@ -138,7 +138,6 @@ Script fix
 ****************** PUPPET *************
 
 Install and Configure
-	http://fosshelp.blogspot.in/2014/06/howto-install-configure-and-run-puppet.html
 	https://www.youtube.com/watch?v=l86W-WKzhBo
 	https://www.digitalocean.com/community/tutorials/how-to-install-puppet-to-manage-your-server-infrastructure
 	
@@ -190,6 +189,11 @@ locking error: https://github.com/overviewer/Minecraft-Overviewer/issues/990
 add node in cluster : https://developer.rackspace.com/blog/adding-devices-to-an-existing-swift-cluster/
 
 Problem - Quarantined objects on Delete : https://ask.openstack.org/en/question/62957/swift-read-problems/
+
+
+********************* DOCKER ********************
+
+docker image caching : https://www.ctl.io/developers/blog/post/caching-docker-images/
 
 
 ****************** Deployment Notes ***********

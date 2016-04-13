@@ -1,13 +1,27 @@
- > TO REVERT GIT COMMIT LOCALLY : 
+>>>>>>>>>>>>>>>>> TO REVERT GIT COMMIT LOCALLY : 
 	Delete the most recent commit, keeping the work you've done:
 		git reset --soft HEAD~1
 
 	Delete the most recent commit, destroying the work you've done:
 		git reset --hard HEAD~1
-		
+
+*****************************************************************		
 >  NOTE : git add <file name>  ## command stage the untracked file or tracked files for git
 >  NOTE : git add -a           ##stage all the files that are already tracked but will not add the untracked files (like newly added folders and files )		
 
 >  NOTE : git commit -m "<message>" | git push
 
+*******************************************************************
 > Clear git tracked file list : git rm --cached 
+
+******************************************************************
+git add -A ## stages All
+
+git add . ## stages new and modified, without deleted
+
+git add -u ## stages modified and deleted, without new
+
+******************************************************************
+
+> Delete changes to last commit or get state of last commit
+git checkout -- <target>

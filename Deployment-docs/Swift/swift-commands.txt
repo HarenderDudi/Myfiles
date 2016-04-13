@@ -108,5 +108,6 @@ kd33612001@disc.keyweb.de
 pass: W?!T-;D5
 docker run -i -t -d -e NEO4J_AUTH=dudi:dudi --name neo4j -p 7474:7474 neo4j
 
+./elasticsearch -Xmx31g -Xms31g -Des.insecure.allow.root=true -d
 
 http://askubuntu.com/questions/320746/how-to-mount-ftp-resources-with-fstab-when-connection-is-available
