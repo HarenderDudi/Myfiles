@@ -1,0 +1,13 @@
+for i in {1..10}
+
+do
+
+if [ $i -eq 1 ]
+then
+        rsync -rlptDzv /contentsphere/elasticsearch/allianz/ /mount/ftp/elasticsearch/allianz/data$i
+else
+        prev=`expr $i - 1 `
+        rsync -rlptDzv --delete --link-dest=/mount/ftp/elasticsearch/allianz/data$prev  /contentsphere/elasticsearch/allianz/ /mount/ftp/elasticsearch/allianz/data$i
+fi
+
+done

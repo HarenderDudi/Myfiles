@@ -1,0 +1,14 @@
+Jetty : start.ini
+
+
+elasticsearch : config/elasticsearch.yml  ** for port and network host
+			bin/elasticsearch	export ES_HEAP_SIZE=4g
+				echo $ES_HEAP_SIZE
+				
+				
+neo4j : 			conf/neo4j-wrapper.conf
+
+neo4j-server.properties >> for ip and  network host
+
+
+ 

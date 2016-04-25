@@ -12,3 +12,6 @@ REMOVE CONTAINER : docker rm -f <container>
 
 BUID : docker build -t <image name> <path to dockerfile>
 
+
+save:export : http://tuhrig.de/difference-between-save-and-export-in-docker/
+

@@ -1,6 +1,8 @@
 create database : mysqladmin -u root -p create nova
 List of database :  mysqlshow -u root -p
 
+******* for loop decrmenting value : var=`expr $m - 1 `
+
 ip-address: ifconfig  | grep 'inet addr:'| grep -v '127.0.0.1' | cut -d: -f2 | awk '{ print $1}'
 
 change uuid .vdi file: 	VBoxManage internalcommands sethduuid "/home/user/VirtualBox VMs/drupal/drupal.vhd"
@@ -108,6 +110,8 @@ HARDLINK : rsync -avh --delete --link-dest=/Alpha_Full /Alpha/ /Alpha_2
 sshfs kd33612001@disc.keyweb.de:/files /mount/ftp/elasticsearch/allianz/
 sshfs inbetween@192.168.132.219:/Databackup/elasticsearch/allianz /mount/ftp/elasticsearch/allianz/
 
+sshfs kd33612001@disc.keyweb.de:/files/Databackup/elasticsearch/allianz /mount/ftp/elasticsearch/allianz/
+sshfs kd33612001@disc.keyweb.de:/files/Databackup/neo4j/allianz /mount/ftp/neo4j/allianz/
 
 >>>>>>>>>>>>>>>>>>>> NODEJS UPGRADE >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 

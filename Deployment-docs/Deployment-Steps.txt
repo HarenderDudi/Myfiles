@@ -5,11 +5,7 @@ take all files from 192.168.132.207
 1. go to /home/cs/scripts and run setup.sh
 2. edit /etc/facter/facts.d/config.txt as per requirement
 3. edit 
-		a. UI : "/REST/src/main/webapp/gui/app/screens/homescreen/tack/home-screen-request-mapping.js" (property : exports.assetServerURL)
-        b. Backend : "/REST/src/main/webapp/WEB-INF/applicationContext.xml" (bean :assetStoreURL)
-		#c. ElasticCacheImpl.java  /GitRepository/CS-Refactored/Strategy-InMemory/src/main/java/com/cs/base/strategy/inmemory
-		d. log-config.js
-		e. CS-Refactored/REST/src/main/webapp/gui/app/screens/homescreen/tack/asset-authenticate-details.js
+		 
 4. 	create directories for logging /var/log/contentsphere/elasticsearch | jetty | nodejs
 5.  create /contentsphere/elasticsearch/data [if require previously created data for elasticsearch]	
 

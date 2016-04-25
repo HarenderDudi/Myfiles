@@ -1,6 +1,10 @@
 https://youtu.be/nVQqNOM4o64
 https://youtu.be/bN3q0XUo5I0
+http://ss64.com/bash/rsync_options.html
 
+http://webgnuru.com/linux/rsync_incremental.php
+http://www.admin-magazine.com/Articles/Using-rsync-for-Backups/(offset)/2
+http://www.mikerubel.org/computers/rsync_snapshots/#Rsync
 
 rsync -rlptDzv --delete --link-dest=/tmp/rsynctesting/backup_03-16-18:30:48  /home/cs/rsyncsource/ /tmp/rsynctesting/backup_$timestamp
 timestamp=`date +"%D_%T"`
@@ -149,3 +153,662 @@ test2.txt  test3.txt  test4.txt  test.txt
 root@puppet:/tmp/rsynctesting/backup_03-16-19:23:22# nano ../backup_03-16-19\:17\:39/test3.txt
 root@puppet:/tmp/rsynctesting/backup_03-16-19:23:22# ls ../backup_03-16-19\:17\:39/
 test2.txt  test3.txt  test4.txt  test.txt
+
+
+**********************************************************************************************************************************************************************************
+
+>>>>>>>
+/home/cs/rsyntestdata/
+	file1
+
+rsync -rlptDzv /home/cs/rsyntestdata/ /rsynctest/backup1/
+	root@puppet:/rsynctest# du -ah
+	4.0K    ./backup1/file1.txt
+	8.0K    ./backup1
+	12K     .
+
+	
+>>>>>>>>>>
+/home/cs/rsyntestdata/
+	file1
+	file2
+	
+ rsync -rlptDzv --delete --link-dest=/rsynctest/backup1 /home/cs/rsyntestdata/ /rsynctest/backup2/
+	sending incremental file list
+	created directory /rsynctest/backup2
+	./
+	file2.txt
+
+	sent 148 bytes  received 79 bytes  454.00 bytes/sec
+	total size is 40  speedup is 0.18
+	root@puppet:/rsynctest# du -ah
+	4.0K    ./backup2/file2.txt
+	4.0K    ./backup2/file1.txt
+	12K     ./backup2
+	4.0K    ./backup1
+	20K     .
+
+
+>>>>>>>>>>>>>>>>>
+/home/cs/rsyntestdata/
+	file1
+	file2
+	file3
+	
+rsync -rlptDzv --delete --link-dest=/rsynctest/backup2 /home/cs/rsyntestdata/ /rsynctest/backup3/
+	created directory /rsynctest/backup3
+	./
+	file3.txt
+
+	root@puppet:/rsynctest# du -ah
+	4.0K    ./backup2/file2.txt
+	4.0K    ./backup2/file1.txt
+	12K     ./backup2
+	4.0K    ./backup3/file3.txt
+	8.0K    ./backup3
+	4.0K    ./backup1
+	28K     .
+
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+/home/cs/rsyntestdata/
+	file1
+	file2
+	file3
+	file4
+
+rsync -rlptDzv --delete --link-dest=/rsynctest/backup3 /home/cs/rsyntestdata/ /rsynctest/backup4/
+
+	created directory /rsynctest/backup4
+	./
+	file4.txt
+
+	root@puppet:/rsynctest# ls
+	backup1  backup2  backup3  backup4
+	root@puppet:/rsynctest# du -ah
+	4.0K    ./backup2/file2.txt
+	4.0K    ./backup2/file1.txt
+	12K     ./backup2
+	4.0K    ./backup4/file3.txt
+	4.0K    ./backup4/file4.txt
+	12K     ./backup4
+	4.0K    ./backup3
+	4.0K    ./backup1
+	36K     .
+	
+>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+/home/cs/rsyntestdata/
+	file1
+	file2
+	file3
+	file4
+	file5
+	
+rsync -rlptDzv --delete --link-dest=/rsynctest/backup4 /home/cs/rsyntestdata/ /rsynctest/backup5/	
+
+	created directory /rsynctest/backup5
+	./
+	file5.txt
+
+	root@puppet:/rsynctest# ls
+	backup1  backup2  backup3  backup4  backup5
+	root@puppet:/rsynctest# du -ah
+	4.0K    ./backup5/file3.txt
+	4.0K    ./backup5/file4.txt
+	4.0K    ./backup5/file5.txt
+	4.0K    ./backup5/file2.txt
+	4.0K    ./backup5/file1.txt
+	24K     ./backup5
+	4.0K    ./backup2
+	4.0K    ./backup4
+	4.0K    ./backup3
+	4.0K    ./backup1
+	44K     .
+
+	
+>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+/home/cs/rsyntestdata/
+	file1
+	file2
+	file3
+	file4
+	file5
+	file6
+	
+rsync -rlptDzv --delete --link-dest=/rsynctest/backup5 /home/cs/rsyntestdata/ /rsynctest/backup6/
+sending incremental file list
+created directory /rsynctest/backup6
+./
+file6.txt
+
+root@puppet:/rsynctest# ls
+backup1  backup2  backup3  backup4  backup5  backup6
+root@puppet:/rsynctest# du -ah
+4.0K    ./backup5/file3.txt
+4.0K    ./backup5/file4.txt
+4.0K    ./backup5/file5.txt
+4.0K    ./backup5/file2.txt
+4.0K    ./backup5/file1.txt
+24K     ./backup5
+4.0K    ./backup2
+4.0K    ./backup6/file6.txt
+8.0K    ./backup6
+4.0K    ./backup4
+4.0K    ./backup3
+4.0K    ./backup1
+52K     .
+root@puppet:/rsynctest# ls backup6
+file1.txt  file2.txt  file3.txt  file4.txt  file5.txt  file6.txt
+root@puppet:/rsynctest# du -ah backup6
+4.0K    backup6/file3.txt
+4.0K    backup6/file4.txt
+4.0K    backup6/file5.txt
+4.0K    backup6/file2.txt
+4.0K    backup6/file1.txt
+4.0K    backup6/file6.txt
+28K     backup6
+root@puppet:/rsynctest# du -ah backup5
+4.0K    backup5/file3.txt
+4.0K    backup5/file4.txt
+4.0K    backup5/file5.txt
+4.0K    backup5/file2.txt
+4.0K    backup5/file1.txt
+24K     backup5
+root@puppet:/rsynctest# du -sh
+52K     .
+root@puppet:/rsynctest# du -sh backup1
+8.0K    backup1
+root@puppet:/rsynctest# du -sh backup2
+12K     backup2
+root@puppet:/rsynctest# du -sh backup3
+16K     backup3
+root@puppet:/rsynctest# du -sh backup4
+20K     backup4
+root@puppet:/rsynctest# du -sh backup5
+24K     backup5
+root@puppet:/rsynctest# du -sh backup6
+28K     backup6
+
+
+>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+/home/cs/rsyntestdata/
+	file1
+	file2
+	file3
+	file4
+	file5
+	file6
+	file7
+	
+rsync -rlptDzv --delete --link-dest=/rsynctest/backup6 /home/cs/rsyntestdata/ /rsynctest/backup7/
+	sending incremental file list
+	created directory /rsynctest/backup7
+	./
+	file7.txt
+
+	root@puppet:/rsynctest# ls
+	backup1  backup2  backup3  backup4  backup5  backup6  backup7
+	root@puppet:/rsynctest# du -ah
+	4.0K    ./backup7/file3.txt
+	4.0K    ./backup7/file4.txt
+	4.0K    ./backup7/file5.txt
+	4.0K    ./backup7/file7.txt
+	4.0K    ./backup7/file2.txt
+	4.0K    ./backup7/file1.txt
+	4.0K    ./backup7/file6.txt
+	32K     ./backup7
+	4.0K    ./backup5
+	4.0K    ./backup2
+	4.0K    ./backup6
+	4.0K    ./backup4
+	4.0K    ./backup3
+	4.0K    ./backup1
+	60K     .
+	
+
+>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+/home/cs/rsyntestdata/
+	file1
+	file2
+	file3
+	file4
+	file5
+	file6
+	file7
+	file8
+	
+rsync -rlptDzv --delete --link-dest=/rsynctest/backup7 /home/cs/rsyntestdata/ /rsynctest/backup8/
+	sending incremental file list
+	created directory /rsynctest/backup8
+	./
+	file8.txt
+
+	root@puppet:/rsynctest# ls
+	backup1  backup2  backup3  backup4  backup5  backup6  backup7  backup8
+	root@puppet:/rsynctest# du -ah
+	4.0K    ./backup7/file3.txt
+	4.0K    ./backup7/file4.txt
+	4.0K    ./backup7/file5.txt
+	4.0K    ./backup7/file7.txt
+	4.0K    ./backup7/file2.txt
+	4.0K    ./backup7/file1.txt
+	4.0K    ./backup7/file6.txt
+	32K     ./backup7
+	4.0K    ./backup5
+	4.0K    ./backup2
+	4.0K    ./backup8/file8.txt
+	8.0K    ./backup8
+	4.0K    ./backup6
+	4.0K    ./backup4
+	4.0K    ./backup3
+	4.0K    ./backup1
+	68K     .
+	
+
+>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+/home/cs/rsyntestdata/
+	file1
+	file2
+	file3
+	file4
+	file5
+	file6
+	file7
+	file8
+	file9	
+	
+rsync -rlptDzv --delete --link-dest=/rsynctest/backup8 /home/cs/rsyntestdata/ /rsynctest/backup9/
+	sending incremental file list
+	created directory /rsynctest/backup9
+	./
+	file9.txt
+
+	root@puppet:/rsynctest# ls
+	backup1  backup2  backup3  backup4  backup5  backup6  backup7  backup8  backup9
+	root@puppet:/rsynctest# du -ah
+	4.0K    ./backup7/file3.txt
+	4.0K    ./backup7/file4.txt
+	4.0K    ./backup7/file5.txt
+	4.0K    ./backup7/file7.txt
+	4.0K    ./backup7/file2.txt
+	4.0K    ./backup7/file1.txt
+	4.0K    ./backup7/file6.txt
+	32K     ./backup7
+	4.0K    ./backup5
+	4.0K    ./backup9/file9.txt
+	4.0K    ./backup9/file8.txt
+	12K     ./backup9
+	4.0K    ./backup2
+	4.0K    ./backup8
+	4.0K    ./backup6
+	4.0K    ./backup4
+	4.0K    ./backup3
+	4.0K    ./backup1
+	76K     .
+	
+	
+>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+/home/cs/rsyntestdata/
+	file1
+	file2
+	file3
+	file4
+	file5
+	file6
+	file7
+	file8
+	file10
+
+rsync -rlptDzv --delete --link-dest=/rsynctest/backup9 /home/cs/rsyntestdata/ /rsynctest/backup10/
+	sending incremental file list
+	created directory /rsynctest/backup10
+	./
+	file10.txt
+
+	root@puppet:/rsynctest# ls
+	backup1  backup10  backup2  backup3  backup4  backup5  backup6  backup7  backup8  backup9
+	root@puppet:/rsynctest# du -ah
+	4.0K    ./backup7/file3.txt
+	4.0K    ./backup7/file4.txt
+	4.0K    ./backup7/file5.txt
+	4.0K    ./backup7/file7.txt
+	4.0K    ./backup7/file2.txt
+	4.0K    ./backup7/file1.txt
+	4.0K    ./backup7/file6.txt
+	32K     ./backup7
+	4.0K    ./backup5
+	4.0K    ./backup10/file9.txt
+	4.0K    ./backup10/file10.txt
+	4.0K    ./backup10/file8.txt
+	16K     ./backup10
+	4.0K    ./backup9
+	4.0K    ./backup2
+	4.0K    ./backup8
+	4.0K    ./backup6
+	4.0K    ./backup4
+	4.0K    ./backup3
+	4.0K    ./backup1
+	84K     .
+	
+	
+>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+/home/cs/rsyntestdata/
+	file1
+	file2
+	file3
+	file4
+	file5
+	file6
+	file7
+	file8
+	file10
+	file11	
+	
+	rsync -rlptDzv --delete --link-dest=/rsynctest/backup10 /home/cs/rsyntestdata/ /rsynctest/backup11/
+	sending incremental file list
+	created directory /rsynctest/backup11
+	./
+	file11.txt
+
+	root@puppet:/rsynctest# ls
+	backup1  backup10  backup11  backup2  backup3  backup4  backup5  backup6  backup7  backup8  backup9
+	root@puppet:/rsynctest# du -ah
+	4.0K    ./backup7/file3.txt
+	4.0K    ./backup7/file4.txt
+	4.0K    ./backup7/file5.txt
+	4.0K    ./backup7/file7.txt
+	4.0K    ./backup7/file2.txt
+	4.0K    ./backup7/file1.txt
+	4.0K    ./backup7/file6.txt
+	32K     ./backup7
+	4.0K    ./backup11/file9.txt
+	4.0K    ./backup11/file11.txt
+	4.0K    ./backup11/file10.txt
+	4.0K    ./backup11/file8.txt
+	20K     ./backup11
+	4.0K    ./backup5
+	4.0K    ./backup10
+	4.0K    ./backup9
+	4.0K    ./backup2
+	4.0K    ./backup8
+	4.0K    ./backup6
+	4.0K    ./backup4
+	4.0K    ./backup3
+	4.0K    ./backup1
+	92K     .
+
+	
+>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+/home/cs/rsyntestdata/
+	file1
+	file2
+	file3
+	file4
+	file5
+	file6
+	file7
+	file8
+	file10
+	file11	
+	file12
+	
+rsync -rlptDzv --delete --link-dest=/rsynctest/backup11 /home/cs/rsyntestdata/ /rsynctest/backup12/
+	sending incremental file list
+	created directory /rsynctest/backup12
+	./
+	file12.txt
+
+
+	root@puppet:/rsynctest# ls
+	backup1  backup10  backup11  backup12  backup2  backup3  backup4  backup5  backup6  backup7  backup8  backup9
+	root@puppet:/rsynctest# du -ah
+	4.0K    ./backup7/file3.txt
+	4.0K    ./backup7/file4.txt
+	4.0K    ./backup7/file5.txt
+	4.0K    ./backup7/file7.txt
+	4.0K    ./backup7/file2.txt
+	4.0K    ./backup7/file1.txt
+	4.0K    ./backup7/file6.txt
+	32K     ./backup7
+	4.0K    ./backup11/file9.txt
+	4.0K    ./backup11/file11.txt
+	4.0K    ./backup11/file10.txt
+	4.0K    ./backup11/file8.txt
+	20K     ./backup11
+	4.0K    ./backup5
+	4.0K    ./backup10
+	4.0K    ./backup9
+	4.0K    ./backup2
+	4.0K    ./backup8
+	4.0K    ./backup6
+	4.0K    ./backup4
+	4.0K    ./backup12/file12.txt
+	8.0K    ./backup12
+	4.0K    ./backup3
+	4.0K    ./backup1
+	100K    .
+
+	
+>>>>>>>>>>>>>>>>>>>>>>>>>
+
+rsync -rlptDzv --delete --link-dest=/rsynctest/backup12 /home/cs/rsyntestdata/ /rsynctest/backup13/
+	sending incremental file list
+	created directory /rsynctest/backup13
+	./
+	file13.txt
+
+	root@puppet:/rsynctest# ls
+	backup1  backup10  backup11  backup12  backup13  backup2  backup3  backup4  backup5  backup6  backup7  backup8  backup9
+	root@puppet:/rsynctest# du -ah
+	4.0K    ./backup7/file3.txt
+	4.0K    ./backup7/file4.txt
+	4.0K    ./backup7/file5.txt
+	4.0K    ./backup7/file7.txt
+	4.0K    ./backup7/file2.txt
+	4.0K    ./backup7/file1.txt
+	4.0K    ./backup7/file6.txt
+	32K     ./backup7
+	4.0K    ./backup11/file9.txt
+	4.0K    ./backup11/file11.txt
+	4.0K    ./backup11/file10.txt
+	4.0K    ./backup11/file8.txt
+	20K     ./backup11
+	4.0K    ./backup5
+	4.0K    ./backup13/file13.txt
+	4.0K    ./backup13/file12.txt
+	12K     ./backup13
+	4.0K    ./backup10
+	4.0K    ./backup9
+	4.0K    ./backup2
+	4.0K    ./backup8
+	4.0K    ./backup6
+	4.0K    ./backup4
+	4.0K    ./backup12
+	4.0K    ./backup3
+	4.0K    ./backup1
+	108K    .
+	
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+file5-10 updated
+
+rsync -rlptDzv --delete --link-dest=/rsynctest/backup13 /home/cs/rsyntestdata/ /rsynctest/backup14/
+	sending incremental file list
+	created directory /rsynctest/backup14
+	file10.txt
+	file5.txt
+	file6.txt
+	file7.txt
+	file8.txt
+	file9.txt
+
+	root@puppet:/rsynctest# du -ah
+	4.0K    ./backup7/file3.txt
+	4.0K    ./backup7/file4.txt
+	4.0K    ./backup7/file5.txt
+	4.0K    ./backup7/file7.txt
+	4.0K    ./backup7/file2.txt
+	4.0K    ./backup7/file1.txt
+	4.0K    ./backup7/file6.txt
+	32K     ./backup7
+	4.0K    ./backup11/file9.txt
+	4.0K    ./backup11/file11.txt
+	4.0K    ./backup11/file10.txt
+	4.0K    ./backup11/file8.txt
+	20K     ./backup11
+	4.0K    ./backup14/file13.txt
+	4.0K    ./backup14/file9.txt
+	4.0K    ./backup14/file5.txt
+	4.0K    ./backup14/file7.txt
+	4.0K    ./backup14/file10.txt
+	4.0K    ./backup14/file12.txt
+	4.0K    ./backup14/file8.txt
+	4.0K    ./backup14/file6.txt
+	36K     ./backup14
+	4.0K    ./backup5
+	4.0K    ./backup13
+	4.0K    ./backup10
+	4.0K    ./backup9
+	4.0K    ./backup2
+	4.0K    ./backup8
+	4.0K    ./backup6
+	4.0K    ./backup4
+	4.0K    ./backup12
+	4.0K    ./backup3
+	4.0K    ./backup1
+	136K    .
+
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+**Remove backup1-10
+
+root@puppet:/rsynctest# ls
+backup1  backup10  backup11  backup12  backup13  backup14  backup2  backup3  backup4  backup5  backup6  backup7  backup8  backup9
+
+root@puppet:/rsynctest# rm -r backup1 backup2 backup3 backup4 backup5 backup6 backup7 backup8 backup9 backup10
+
+root@puppet:/rsynctest# ls
+backup11  backup12  backup13  backup14
+
+** rsync backup11 [expected output: files from 1-11 without update]
+
+rsync -rlptDzv --delete /rsynctest/backup11/ /home/cs/restorersyntest/
+	sending incremental file list
+	./
+	file1.txt
+	file10.txt
+	file11.txt
+	file2.txt
+	file3.txt
+	file4.txt
+	file5.txt
+	file6.txt
+	file7.txt
+	file8.txt
+	file9.txt
+
+*** RESULT
+root@puppet:/home/cs/restorersyntest# ls
+file10.txt  file11.txt  file1.txt  file2.txt  file3.txt  file4.txt  file5.txt  file6.txt  file7.txt  file8.txt  file9.txt
+root@puppet:/home/cs/restorersyntest# cat file*
+this is file10 data
+this is file11 data
+this is file1 data
+this is file2 data
+this is file3 data
+this is file4 data
+this is file5 data
+this is file6 data
+this is file7 data
+this is file8 data
+this is file9 data
+
+	
+>>>>>>>>>>>>>>>>>>>
+
+*** RESTORE DATA	
+
+rsync -rlptDzv --delete /rsynctest/backup12/ /home/cs/restorersyntest/
+sending incremental file list
+./
+file12.txt
+
+root@puppet:/home/cs/restorersyntest# cat file*
+this is file10 data
+this is file11 data
+this is file12 data
+this is file1 data
+this is file2 data
+this is file3 data
+this is file4 data
+this is file5 data
+this is file6 data
+this is file7 data
+this is file8 data
+this is file9 data
+
+
+>>>>>>>>>>>>>>>>>>>>>>>>
+
+rsync -rlptDzv --delete /rsynctest/backup13/ /home/cs/restorersyntest/
+sending incremental file list
+./
+file13.txt
+
+root@puppet:/home/cs/restorersyntest# cat file*
+this is file10 data
+this is file11 data
+this is file12 data
+this is file13 data
+this is file1 data
+this is file2 data
+this is file3 data
+this is file4 data
+this is file5 data
+this is file6 data
+this is file7 data
+this is file8 data
+this is file9 data
+
+
+>>>>>>>>>>>>>>>>>>>>>>>>
+
+rsync -rlptDzv --delete /rsynctest/backup14/ /home/cs/restorersyntest/
+sending incremental file list
+file10.txt
+file5.txt
+file6.txt
+file7.txt
+file8.txt
+file9.txt
+
+	
+root@puppet:/home/cs/restorersyntest# cat file*
+this is file10 data UPDATED
+this is file11 data
+this is file12 data
+this is file13 data
+this is file1 data
+this is file2 data
+this is file3 data
+this is file4 data
+this is file5 data UPDATED
+this is file6 data UPDATED
+this is file7 data UPDATED
+this is file8 data UPDATED
+this is file9 data UPDATED
+	
+	
+	
+	
+	
+	
+	
