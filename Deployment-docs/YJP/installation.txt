@@ -1,0 +1,82 @@
+- Install JAVA 8
+- sudo wget https://www.yourkit.com/download/yjp-2016.02-b32-linux.tar.bz2
+- sudo tar -xvf yjp-2016.02-b32-linux.tar.bz2
+-  cd yjp-2016.02/
+
+
+cs@ubuntu:/opt/elasticsearch/yjp-2016.02/lib$  java -jar yjp.jar -integrate
+Choose server to integrate with:
+1) Geronimo
+2) GlassFish
+3) JBoss
+4) Jetty
+5) JRun 4
+6) Resin 3.1/4
+7) Tomcat 3/4/5/6/7/8
+8) WebLogic 9 and newer
+9) WebSphere Application Server 7 or newer
+10) WebSphere Application Server V8.5 Liberty profile
+11) Generic server (use if your server is not on the list)
+Enter number which corresponds to your server (0 to exit) and press Enter:
+>11
+Please specify whether the server runs on a 32-bit JVM or a 64-bit JVM.
+Hint: If you are not sure what to choose, choose "32-bit JVM". If with this choice the server does not start with profiling, re-run the integration and choose "64-bit Java" option.
+1) 32-bit JVM
+2) 64-bit JVM
+>2
+
+Startup options configuration: step 1 of 5
+Should option 'disablestacktelemetry' be specified?
+1) Yes (recommended to minimize profiling overhead in production)
+2) No
+>1
+Startup options configuration: step 2 of 5
+Should option 'disableexceptiontelemetry' be specified?
+1) Yes (recommended to minimize profiling overhead in production)
+2) No
+>1
+Startup options configuration: step 3 of 5
+Built-in probes:
+
+1) Enabled: recommended for use in DEVELOPMENT; gives high level profiling results, but may add overhead
+2) Disabled: recommended for use in PRODUCTION to minimise overhead, or for troubleshooting
+
+Hint: It's recommended to choose #1 in development and #2 in production.
+If choosing #1 makes profiling overhead big or there are startup issues, re-run the integration and choose #2.
+>1
+Startup options configuration: step 4 of 5
+Should option 'delay=10000' be specified?
+1) Yes (recommended)
+2) No
+>1
+Startup options configuration: step 5 of 5
+Please specify comma-separated list of additional startup options, or press Enter for no additional options:
+>
+
+To enable profiling in the server, add the following JVM option:
+
+-agentpath:/opt/elasticsearch/yjp-2016.02/bin/linux-x86-64/libyjpagent.so=disablestacktelemetry,disableexceptiontelemetry,delay=10000
+
+The way of adding the option depends on particular server. This can be done:
+- by editing the server's startup script
+- by editing the server's configuration file
+- via an administrative control panel, etc.
+
+If you have difficulties in finding how to specify the JVM options for your server,
+please consult the server's documentation.
+
+cs@ubuntu:/opt/elasticsearch/yjp-2016.02/lib$
+[30-Mar-16 6:22:28 PM] Nishant Naidu: cs@ubuntu:/opt/elasticsearch/elastic1/elasticsearch-2.2.1/bin$ nano elasticsearch
+
+
+
+
+
+[30-Mar-16 6:23:30 PM] Nishant Naidu: cs@ubuntu:/opt/elasticsearch/elastic1/elasticsearch-2.2.1/bin$ ./elasticsearch
+[30-Mar-16 6:23:43 PM] Nishant Naidu: cs@ubuntu:/opt/elasticsearch/yjp-2016.02/bin$ ./yjp.sh -attach
+[YourKit Java Profiler 2016.02-b32] Log file: /home/cs/.yjp/log/yjp-23711.log
+Running JVMs:
+
+
+
+

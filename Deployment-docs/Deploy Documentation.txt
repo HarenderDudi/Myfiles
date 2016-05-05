@@ -190,6 +190,19 @@ add node in cluster : https://developer.rackspace.com/blog/adding-devices-to-an-
 
 Problem - Quarantined objects on Delete : https://ask.openstack.org/en/question/62957/swift-read-problems/
 
+>>>>>>>>>>>>>>>>>>>>>>>>
+
+COMMON POST-DEVICE SETUP
+
+Add the following lines to /etc/rc.local (before the exit 0):
+
+mkdir -p /var/cache/swift /var/cache/swift2 /var/cache/swift3 /var/cache/swift4
+chown <your-user-name>:<your-group-name> /var/cache/swift*
+mkdir -p /var/run/swift
+chown <your-user-name>:<your-group-name> /var/run/swift
+
+>>>>>>>>>>>>>>>>>>>>>>
+
 
 ********************* DOCKER ********************
 

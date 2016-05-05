@@ -1,0 +1,1 @@
+http://www.petrikainulainen.net/getting-started-with-gradle/

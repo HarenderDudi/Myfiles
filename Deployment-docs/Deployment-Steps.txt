@@ -1,22 +1,21 @@
 take all files from 192.168.132.207
 
 
-
-1. go to /home/cs/scripts and run setup.sh
+take all files from 192.168.132.2071. go to /home/cs/scripts and run setup.sh
 2. edit /etc/facter/facts.d/config.txt as per requirement
 3. edit 
-		 
+		a. UI : "/REST/src/main/webapp/gui/app/screens/homescreen/tack/home-screen-request-mapping.js" (property : exports.assetServerURL)
+        b. Backend : "/REST/src/main/webapp/WEB-INF/applicationContext.xml" (bean :assetStoreURL)
+		#c. ElasticCacheImpl.java  /GitRepository/CS-Refactored/Strategy-InMemory/src/main/java/com/cs/base/strategy/inmemory
+		d. log-config.js  : REST/src/main/webapp/gui/app/libraries/logger/log-config.js
+		e. CS-Refactored/REST/src/main/webapp/gui/app/screens/homescreen/tack/asset-authenticate-details.js
 4. 	create directories for logging /var/log/contentsphere/elasticsearch | jetty | nodejs
 5.  create /contentsphere/elasticsearch/data [if require previously created data for elasticsearch]	
 
 TODO: a. fix config.txt in /home/cs/ [add run_pythonserver.pp variable and max min heap size]
 	  b. create dir for CS-Refactored files [applicationcontext.xml, log-config.js etc] for diffrent setups in keyweb and edit build file  accordingly /GitRepository/ContentSphereReleases/deployment/deploymentscripts/
       c. 
-	  
-	  
-	  
-	  
-	  
+	  	  
 	  
 **************************** Without Docker Container *****************
 

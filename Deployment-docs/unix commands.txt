@@ -7,7 +7,17 @@ ip-address: ifconfig  | grep 'inet addr:'| grep -v '127.0.0.1' | cut -d: -f2 | a
 
 change uuid .vdi file: 	VBoxManage internalcommands sethduuid "/home/user/VirtualBox VMs/drupal/drupal.vhd"
 
+>> VERSION OF PACKAGE
+    apt-show-versions <package>
+    apt-get install -V -y <package>
+        aptitude -V -s install <package>
+    dpkg -s <package> | grep Version
+
+
 elasticSearch start as root : bin/elasticsearch -Des.insecure.allow.root=true -d
+remove elastic plugin: bin/plugin remove contentsphere-plugin
+
+forever start start-log-server.js
 start jetty : java -jar start.jar
 python : uwsgi -ini uwsgi.ini*******
 
@@ -40,9 +50,6 @@ file Sharing
 compress and extract 
 	http://mylinuxnotebook.blogspot.in/2008/11/create-extract-targz-files.html
 	
-	
-Normal Linux Commands
-	print ENV variables (path): echo $<variable name>
 	
 Set JAVA_HOME 
 	http://askubuntu.com/questions/175514/how-to-set-java-home-for-java
