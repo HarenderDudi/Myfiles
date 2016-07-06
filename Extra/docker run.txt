@@ -1,0 +1,11 @@
+
+docker run -d -v "/contentsphere/neo4j/allianz/data:/var/lib/neo4j/data" -m 6g --memory-reservation 5g  -p 7474:7474 --name allianz-neo4j neo4j
+
+docker run -d -e "nodeserverip=192.168.134.224" -e "nodeserverport=4000" -e "nodeelasticsearchip=192.168.134.224" -e "nodeelasticsearchport=9200" -m  1g  --memory-reservation 500m -p 4000:4000 --name allianz-nodejs nodejs
+
+docker run -d -e "swiftIp=192.168.134.105" -e "swiftPort=8080" -m 3g --memory-reservation 2g  -p 8085:8085 --name allianz-pythonserver allianzpythonserver 
+
+
+docker run -d -e "maximumheapsize=-Xmx6g" -e "minimumheapsize=-Xmn1g" -e "logserverip=192.168.134.224" -e "logserverport=4000" -e "elastichost=192.168.134.224" -e "elasticport=9200" -v "/etc/timezone:/etc/timezone" -m 3g --memory-reservation 2g -p 8080:8080 --name allianz allianz 
+
+docker run -d -v "/contentsphere/elasticsearch/allianz/data:/usr/share/elasticsearch/data" -v "/var/log/contentsphere/allianz/elasticsearch/log:/usr/share/elasticsearch/logs" -m 8g --memory-reservation 7g -p 9200:9200 --name allianz-elasticsearch elasticsearch

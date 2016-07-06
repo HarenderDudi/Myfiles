@@ -1,0 +1,29 @@
+vi /etc/sysctl.conf >>>> fs.file-max = 100000 
+To load new values from the sysctl.conf file >>> sysctl -p /etc/sysctl.conf
+http://docs.oracle.com/cd/E19450-01/820-6168/file-descriptor-requirements.html
+    
+>> file descriptor vs ulimit : http://unix.stackexchange.com/questions/84227/limits-on-the-number-of-file-descriptors
+
+>> file-max is the maximum File Descriptors (FD) enforced on a kernel level, which cannot be surpassed by all processes without increasing. The ulimit is enforced on a process level, which can be less than the file-max
+
+>> According to the kernel documentation, /proc/sys/file-max is the maximum, total, global number of file descriptors the kernel will allocate before choking. This is the kernel's limit, not your current user's. So you can open 590432, provided you're alone on an idle system (single-user mode, no daemons running).
+
+The difference between soft and hard limits is answered here, on SE. You can raise or lower a soft limit as an ordinary user, provided you don't overstep the hard limit. You can also lower a hard limit (but you can't raise it again for that process). As the superuser, you can raise and lower both hard and soft limits. The dual limit scheme is used to enforce system policies, but also allow ordinary users to set temporary limits for themselves and later change them.
+
+Note that if you try to lower a hard limit below the soft limit (and you're not the superuser), you'll get EINVAL back (Invalid Argument).
+
+So, in your particular case, ulimit (which is the same as ulimit -Sf) says you don't have a soft limit on the size of files written by the shell and its subprocesses. (that's probably a good idea in most cases)
+
+Your other invocation, ulimit -Hn reports on the -n limit (maximum number of open file descriptors), not the -f limit, which is why the soft limit seems higher than the hard limit. If you enter ulimit -Hf you'll also get ‘unlimited’.
+
+
+
+>> A hard limit can only be raised by root (any process can lower it). So it is useful for security: a non-root process cannot overstep a hard limit. But it's inconvenient in that a non-root process can't have a lower limit than its children.
+
+A soft limit can be changed by the process at any time. So it's convenient as long as processes cooperate, but no good for security.
+
+A typical use case for soft limits is to disable core dumps (ulimit -Sc 0) while keeping the option of enabling them for a specific process you're debugging ((ulimit -Sc unlimited; myprocess)).
+
+The ulimit shell command is a wrapper around the setrlimit system call, so that's where you'll find the definitive documentation.
+
+Note that some systems may not implement all limits. Specifically, some systems don't support per-process limits on file descriptors (Linux does); if yours doesn't, the shell command may be a no-op.

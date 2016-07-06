@@ -1,0 +1,4 @@
+elasticsearch snapshots are incremental if sanpshots are in same repository
+
+elasticsearch sanpshots can be restored to specific sanpshot unlike neo4j
+

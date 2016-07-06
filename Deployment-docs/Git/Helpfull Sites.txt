@@ -1,0 +1,1 @@
+http://genomewiki.ucsc.edu/index.php/Resolving_merge_conflicts_in_Git

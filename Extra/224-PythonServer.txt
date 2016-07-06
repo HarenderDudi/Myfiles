@@ -1,0 +1,395 @@
+apt-get update -qq && apt-get install -y
+apt-get update && apt-get install -y ghostscript
+apt-get install -y libgs-dev
+apt-get install imagemagick
+wget http://www.sno.phy.queensu.ca/~phil/exiftool/Image-ExifTool-10.15.tar.gz
+
+
+mv Image-ExifTool-10.15.tar.gz /opt/
+cd /opt/
+ls
+tar -xvf Image-ExifTool-10.15.tar.gz
+ls
+cd Image-ExifTool-10.15/
+ls
+perl Makefile.PL
+make test
+sudo make install
+man exiftool
+clear
+
+  
+wget https://ffmpeg.org/releases/ffmpeg-3.0.1.tar.xz
+   
+   
+https://gist.github.com/xdamman/e4f713c8cd1a389a5917   
+   
+>>>>>>>>>>>>>>>> 224 HISTORY >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+ 2401  nano swiftAPI/settings.py
+ 2402  clear
+ 2403  cd ..
+ 2404  ls
+ 2405  cd AssetManager/
+ 2406  ls
+ 2407  nano req
+ 2408  nano req.txt
+ 2409  pip install -r requirements.txt
+ 2410  clear
+ 2411  apt-get update -qq && apt-get install -y
+ 2412  apt-get update && apt-get install -y ghostscript
+ 2413  apt-get install -y libgs-dev
+ 2414  apt-get install imagemagick
+ 2415  cd /opt/
+ 2416  ls
+ 2417  wget http://www.sno.phy.queensu.ca/~phil/exiftool/Image-ExifTool-10.15.tar.gz
+ 2418  tar -xvf Image-ExifTool-10.15.tar.gz
+ 2419  ls
+ 2420  cd Image-ExifTool-10.15/
+ 2421  ls
+ 2422  make test
+ 2423  sudo make install
+ 2424  man exiftool
+ 2425  ls
+ 2426  make test
+ 2427  make
+ 2428  cat README
+ 2429  perl
+ 2430  ./exiftool
+ 2431  perl
+ 2432  man perl
+ 2433  ls
+ 2434  clear
+ 2435  ls
+ 2436  perl Makefile.PL
+ 2437  make test
+ 2438  make install
+ 2439  man exiftool
+ 2440  clear
+ 2441  ls
+ 2442  cd -
+ 2443  cd pythonserver/
+ 2444  man js
+ 2445  man gs
+ 2446  clear
+ 2447  cd AssetManager/
+ 2448  ls
+ 2449  nano manage.py
+ 2450  clear
+ 2451  cd ..
+ 2452  nano uwsgi.ini
+ 2453  uwsgi --ini uwsgi.ini
+ 2454  netstat -tupln | grep 8085
+ 2455  cd /opt/LogServer/
+ 2456  ls
+ 2457  forever start start-log-server.js
+ 2458  clear
+ 2459  cd /opt/elasticsearch-2.1.1/
+ 2460  bin/elasticsearch -Des.insecure.allow.root=true -d
+ 2461  clear
+ 2462  netstat -tupln | grep 7474
+ 2463  clear
+ 2464  cd /opt/jetty/
+ 2465  cd bin/
+ 2466  ./jetty.sh start
+ 2467  cd ../logs/
+ 2468  ls
+ 2469  rm *
+ 2470  ls
+ 2471  rm -r *
+ 2472  cd ../bin/
+ 2473  ./jetty.sh restart
+ 2474  cd ../logs/
+ 2475  ls
+ 2476  tail -100f 2016_05_04.stderrout.log
+ 2477  tail -200f 2016_05_04.stderrout.log
+ 2478  rm -r *
+ 2479  ls
+ 2480  cd ../webapps
+ 2481  ls
+ 2482  rm -r allianz.war
+ 2483  clear
+ 2484  chmod -R 777 /opt/pythonserver/logs/
+ 2485  clear
+ 2486  cd /etc/swift/
+ 2487  ls
+ 2488  swift -A http://192.168.134.224:8080/auth/v1.0 -U allianz:allianz -K pass@123 list
+ 2489  swift -A http://192.168.134.224:8080/auth/v1.0 -U allianz:allianz -K pass@123 post Document
+ 2490  swift -A http://192.168.134.224:8080/auth/v1.0 -U allianz:allianz -K pass@123 post Video
+ 2491  swift -A http://192.168.134.224:8080/auth/v1.0 -U allianz:allianz -K pass@123 list
+ 2492  cd -
+ 2493  clear
+ 2494  asm
+ 2495  whereis nasm
+ 2496  cd ../..
+ 2497  ls
+ 2498  cd /opt/jetty/webapps
+ 2499  ls
+ 2500  cp /home/cs/allianz/CS-Refactored/REST/build/libs/allianz.war .
+ 2501  ls
+ 2502  chmod 777 allianz.war
+ 2503  ls
+ 2504  cd ..
+ 2505  cd logs/
+ 2506  ls
+ 2507  cd ../bin/
+ 2508  ./jetty.sh start
+ 2509  ./jetty.sh restart
+ 2510  cd ../logs/
+ 2511  tail -100f 2016_05_04.stderrout.log
+ 2512  cd ..
+ 2513  wget http://olex.openlogic.com/package_versions/21018/download?package_version_id=99706&path=https%3A%2F%2Folex-secure.openlogic.com%2Fcontent%2Fprivate%2F5e6a6f0815e830bba705e79e4a0470fbee8a5880%2F%2Folex-secure.openlogic.com%2Fjetty-distribution-9.2.1.v20140609.tar.gz
+ 2514  ls
+ 2515  rm Image-ExifTool-10.15.tar.gz
+ 2516  ls
+ 2517  rm fdk-aac-0.1.0.tar.gz
+ 2518  ls
+ 2519  rm neo4j-enterprise-2.3.2-unix.tar.gz
+ 2520  ls
+ 2521  rm yjp-2016.02-b35-linux.tar.bz2
+ 2522  ls
+ 2523  wget http://olex.openlogic.com/package_versions/21018/download?package_version_id=99706&path=https%3A%2F%2Folex-secure.openlogic.com%2Fcontent%2Fprivate%2F5e6a6f0815e830bba705e79e4a0470fbee8a5880%2F%2Folex-secure.openlogic.com%2Fjetty-distribution-9.2.1.v20140609.tar.gz
+ 2524  ls
+ 2525  rm download\?package_version_id=99706
+ 2526  rm -f download\?package_version_id=99706
+ 2527  rm -f download\?package_version_id=99706.1
+ 2528  ls
+ 2529  clear
+ 2530  mv /home/cs/jetty-distribution-9.2.1.v20140609.tar.gz .
+ 2531  ls
+ 2532  tar -xvf jetty-distribution-9.2.1.v20140609.tar.gz
+ 2533  ls
+ 2534  mv jetty-distribution-9.2.1.v20140609 jetty-9.2.1
+  
+   
+   
+   
+   
+   
+   
+ >>>>>>>>>>>>>>>>>>>>>>>>>>>> 2.65 HISTORY >>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+ ls /opts/
+  607  ls /opt/
+  608  cd /opt/
+  609  wget https://ffmpeg.org/releases/ffmpeg-3.0.1.tar.xz
+  610  tar -xvf ffmpeg-3.0.1.tar.xz
+  611  ls
+  612  cd ffmpeg-3.0.1/
+  613  ls
+  614  make install
+  615  make
+  616  nano INSTALL.md
+  617  ./configure
+  618  nano INSTALL.md
+  619  configure --help
+  620  ./configure --help
+  621  ./configure
+  622  sudo apt-get install yasm
+  623  ./configure
+  624  nano INSTALL.md
+  625  make
+  626  make install
+  627  ffmpeg
+  628  cd ..
+  629  ffmpeg
+  630  cd home
+  631  cd ../home
+  632  cd cs
+  633  cd assetmanager-22-Apr/
+  634  ffmpeg
+  635  cat logs/swiftAPI.log
+  636  nano /usr/local/lib/python2.7/dist-packages/converter/ffmpeg.py
+  637  fuser -k 8086/tcp
+  638  uwsgi --ini uwsgi.ini
+  639  netstat -tupln | grep 8086
+  640  cat logs/swiftAPI.log
+  641  nano AssetManager/swiftAPI/views.py
+  642  nano /usr/local/lib/python2.7/dist-packages/converter/ffmpeg.py
+  643  fuser -k 8086/tcp
+  644  uwsgi --ini uwsgi.ini
+  645  netstat -tupln | grep 8086
+  646  cat logs/swiftAPI.log
+  647  nano /usr/local/lib/python2.7/dist-packages/converter/ffmpeg.py
+  648  fuser -k 8086/tcp
+  649  uwsgi --ini uwsgi.ini
+  650  netstat -tupln | grep 8086
+  651  cat logs/swiftAPI.log
+  652  nano /usr/local/lib/python2.7/dist-packages/converter/ffmpeg.py
+  653  fuser -k 8086/tcp
+  654  uwsgi --ini uwsgi.ini
+  655  cat logs/swiftAPI.log
+  656  sudo apt-get install libx264-dev
+  657  ls
+  658  cd /opt/
+  659  ls
+  660  cd ffmpeg-3.0.1/
+  661  ls
+  662  ./configure --enable-libx264
+  663  ./configure --enable-libx264 --enable-gpl
+  664  make
+  665  ls
+  666  $PATH
+  667  cd $PATH
+  668  ls $HOMR
+  669  ls $HOME
+  670  $HOME
+  671  cd $HOME
+  672  ls
+  673  nano requirements.txt
+  674  cd /
+  675  ls -la
+  676  ls -l
+  677  ls -a
+  678  ls -la
+  679  ls $HOME
+  680  $HOME
+  681  $HOME/bin
+  682  $PATH
+  683  $HOME/bin:$PATH
+  684  cd home
+  685  ls
+  686  cd cs
+  687  cd /opt/
+  688  ls
+  689  cd ffmpeg-3.0.1/
+  690  ls
+  691  mkdir dependencies
+  692  ls dependencies/
+  693  cd
+  694  cd dependencies/
+  695  ls
+  696  wget http://storage.googleapis.com/downloads.webmproject.org/releases/webm/libvpx-1.5.0.tar.bz2
+  697  tar xjvf libvpx-1.5.0.tar.bz2
+  698  cd libvpx-1.5.0
+  699  ls
+  700  PATH
+  701  sudo apt-get -y install autoconf automake build-essential libass-dev libfreetype6-dev   libsdl1.2-dev libtheora-dev libtool libva-dev libvdpau-dev libvorbis-dev libxcb1-dev libxcb-shm0-dev   libxcb-xfixes0-dev pkg-config texinfo zlib1g-dev
+  702  cd ..
+  703  ./configure ./configure   --prefix="$HOME/ffmpeg_build"   --pkg-config-flags="--static"   --extra-cflags="-I$HOME/ffmpeg_build/include"   --extra-ldflags="-L$HOME/ffmpeg_build/lib"   --bindir="$HOME/bin"   --enable-gpl   --enable-libass   --enable-libfdk-aac   --enable-libfreetype   --enable-libmp3lame   --enable-libopus   --enable-libtheora   --enable-libvorbis   --enable-libvpx   --enable-libx264   --enable-libx265 \
+  704  ./configure   --prefix="$HOME/ffmpeg_build"   --pkg-config-flags="--static"   --extra-cflags="-I$HOME/ffmpeg_build/include"   --extra-ldflags="-L$HOME/ffmpeg_build/lib"   --bindir="$HOME/bin"   --enable-gpl   --enable-libass   --enable-libfdk-aac   --enable-libfreetype   --enable-libmp3lame   --enable-libopus   --enable-libtheora   --enable-libvorbis   --enable-libvpx   --enable-libx264   --enable-libx265   --enable-nonfree
+  705  ./configure   --prefix="$HOME/ffmpeg_build"   --pkg-config-flags="--static"   --extra-cflags="-I$HOME/ffmpeg_build/include"   --extra-ldflags="-L$HOME/ffmpeg_build/lib"   --bindir="$HOME/bin"   --enable-gpl   --enable-libass   --enable-libfreetype   --enable-libmp3lame   --enable-libopus   --enable-libtheora   --enable-libvorbis   --enable-libvpx   --enable-libx264   --enable-libx265   --enable-nonfree
+  706  ./configure   --prefix="$HOME/ffmpeg_build"   --pkg-config-flags="--static"   --extra-cflags="-I$HOME/ffmpeg_build/include"   --extra-ldflags="-L$HOME/ffmpeg_build/lib"   --bindir="$HOME/bin"   --enable-gpl   --enable-libass   --enable-libfreetype   --enable-libopus   --enable-libtheora   --enable-libvorbis   --enable-libvpx   --enable-libx264   --enable-libx265   --enable-nonfree
+  707  ./configure   --prefix="$HOME/ffmpeg_build"   --pkg-config-flags="--static"   --extra-cflags="-I$HOME/ffmpeg_build/include"   --extra-ldflags="-L$HOME/ffmpeg_build/lib"   --bindir="$HOME/bin"   --enable-gpl   --enable-libass   --enable-libfreetype   --enable-libtheora   --enable-libvorbis   --enable-libvpx   --enable-libx264   --enable-libx265   --enable-nonfree
+  708  ls
+  709  cd $PATH
+  710  cd $PATH[0]
+  711  sudo apt-get update
+  712  sudo apt-get -y install build-essential checkinstall git libfaac-dev libgpac-dev   libmp3lame-dev libopencore-amrnb-dev libopencore-amrwb-dev librtmp-dev libtheora-dev     libvorbis-dev pkg-config texi2html yasm zlib1g-dev
+  713  sudo apt-get -y install libx264-dev
+  714  cd
+  715  ls
+  716  cd /opt/
+  717  git clone --depth 1 git://git.videolan.org/x264
+  718  cd x264
+  719  ./configure --enable-static
+  720  make
+  721  sudo checkinstall --pkgname=x264 --pkgversion="3:$(./version.sh | \
+  722    awk -F'[" ]' '/POINT/{print $4"+git"$5}')" --backup=no --deldoc=yes     --fstrans=no --default
+  723  ls
+  724  cd
+  725  ls
+  726  cd /opt/
+  727  wget http://downloads.sourceforge.net/opencore-amr/fdk-aac-0.1.0.tar.gz
+  728  tar xzvf fdk-aac-0.1.0.tar.gz
+  729  cd fdk-aac-0.1.0
+  730  ./configure
+  731  make
+  732  sudo checkinstall --pkgname=fdk-aac --pkgversion="0.1.0" --backup=no   --deldoc=yes --fstrans=no --default
+  733  cd ...
+  734  cd ..
+  735  git clone --depth 1 https://chromium.googlesource.com/webm/libvpx
+  736  cd libvpx
+  737  ./configure
+  738  make
+  739  sudo checkinstall --pkgname=libvpx --pkgversion="1:$(date +%Y%m%d%H%M)-git" --backup=no   --deldoc=yes --fstrans=no --default
+  740  cd ~/x264
+  741  make distclean
+  742  ./configure --enable-static
+  743  make
+  744  sudo checkinstall --pkgname=x264 --pkgversion="3:$(./version.sh | \
+  745    awk -F'[" ]' '/POINT/{print $4"+git"$5}')" --backup=no --deldoc=yes   --fstrans=no --default
+  746  sudo checkinstall --pkgname=x264 --pkgversion="3:$(./version.sh | \
+  747    awk -F'[" ]' '/POINT/{print $4"+git"$5}')" --backup=no --deldoc=yes   --fstrans=no --default
+  748  cd ..
+  749  ls
+  750  cd x264/
+  751  make distclean
+  752  ./configure --enable-static
+  753  make
+  754  sudo checkinstall --pkgname=x264 --pkgversion="3:$(./version.sh | \
+  755    awk -F'[" ]' '/POINT/{print $4"+git"$5}')" --backup=no --deldoc=yes   --fstrans=no --default
+  756  cd ..
+  757  git clone --depth 1 git://source.ffmpeg.org/ffmpeg
+  758  cd ffmpeg
+  759  ./configure --enable-gpl --enable-libfaac --enable-libmp3lame --enable-libopencore-amrnb   --enable-libopencore-amrwb --enable-librtmp --enable-libtheora --enable-libvorbis     --enable-libvpx --enable-libx264 --enable-nonfree --enable-version3
+  760  make
+  761  sudo checkinstall --pkgname=ffmpeg --pkgversion="5:$(date +%Y%m%d%H%M)-git" --backup=no   --deldoc=yes --fstrans=no --default
+  762  has x264
+  763  hash x264
+  764  hash ffmpeg
+  765  hash ls
+  766  ls
+  767  make tools/qt-faststart
+  768  sudo checkinstall --pkgname=qt-faststart --pkgversion="$(date +%Y%m%d%H%M)-git" --backup=no   --deldoc=yes --fstrans=no --default install -Dm755 tools/qt-faststart   /usr/local/bin/qt-faststart
+  769  ffmpeg
+  770  cd ..
+  771  ffmpeg
+  772  cd ..
+  773  ls
+  774  cd home
+  775  ls
+  776  cd cs
+  777  ls
+  778  cd assetmanager-22-Apr/
+  779  cat logs/
+  780  cat logs/swiftAPI.log
+  781  ls
+  782  cd ass
+  783  cd AssetManager/
+  784  ls
+  785  /usr/local/bin/ffmpeg -i small.avi.avi_1461580055805test -an -vcodec libx264 -crf 25 -sn -f mp4 -y small.avi.avi_1461580055805test.mp4
+  786  /usr/local/bin/ffmpeg -i small.avi.avi_1461580055805test.mp4 -an -vcodec libx264 -crf 25 -sn -f mp4 -y small.avi.avi_14ll61580055805test.mp4
+  787  ls
+  788  ls -la
+ 
+ 
+ 
+ 
+ 
+ 2016-05-04 23:11:54.691:INFO:oejs.Server:main: jetty-9.0.7.v20131107
+2016-05-04 23:11:54.772:INFO:oejdp.ScanningAppProvider:main: Deployment monitor [file:/opt/jetty/webapps/] at interval 1
+2016-05-04 23:12:04.217:WARN:oejw.WebAppContext:main: Failed startup of context o.e.j.w.WebAppContext@19d37183{/allianz,file:/tmp/jetty-0.0.0.0-8081-allianz.war-_allianz-any-/webapp/,STARTING}{/allianz.war}
+java.lang.ArrayIndexOutOfBoundsException: 9578
+        at org.objectweb.asm.ClassReader.readClass(Unknown Source)
+        at org.objectweb.asm.ClassReader.accept(Unknown Source)
+        at org.objectweb.asm.ClassReader.accept(Unknown Source)
+        at org.eclipse.jetty.annotations.AnnotationParser.scanClass(AnnotationParser.java:1007)
+        at org.eclipse.jetty.annotations.AnnotationParser.parseJarEntry(AnnotationParser.java:990)
+        at org.eclipse.jetty.annotations.AnnotationParser.parseJar(AnnotationParser.java:949)
+        at org.eclipse.jetty.annotations.AnnotationParser.parse(AnnotationParser.java:906)
+        at org.eclipse.jetty.annotations.AnnotationParser.parse(AnnotationParser.java:879)
+        at org.eclipse.jetty.annotations.AnnotationConfiguration.parseWebInfLib(AnnotationConfiguration.java:488)
+        at org.eclipse.jetty.annotations.AnnotationConfiguration.configure(AnnotationConfiguration.java:199)
+        at org.eclipse.jetty.webapp.WebAppContext.configure(WebAppContext.java:464)
+        at org.eclipse.jetty.webapp.WebAppContext.startContext(WebAppContext.java:1317)
+        at org.eclipse.jetty.server.handler.ContextHandler.doStart(ContextHandler.java:732)
+        at org.eclipse.jetty.webapp.WebAppContext.doStart(WebAppContext.java:490)
+        at org.eclipse.jetty.util.component.AbstractLifeCycle.start(AbstractLifeCycle.java:69)
+        at org.eclipse.jetty.deploy.bindings.StandardStarter.processBinding(StandardStarter.java:41)
+        at org.eclipse.jetty.deploy.AppLifeCycle.runBindings(AppLifeCycle.java:186)
+        at org.eclipse.jetty.deploy.DeploymentManager.requestAppGoal(DeploymentManager.java:495)
+        at org.eclipse.jetty.deploy.DeploymentManager.addApp(DeploymentManager.java:146)
+        at org.eclipse.jetty.deploy.providers.ScanningAppProvider.fileAdded(ScanningAppProvider.java:175)
+        at org.eclipse.jetty.deploy.providers.ScanningAppProvider$1.fileAdded(ScanningAppProvider.java:64)
+        at org.eclipse.jetty.util.Scanner.reportAddition(Scanner.java:605)
+        at org.eclipse.jetty.util.Scanner.reportDifferences(Scanner.java:528)
+        at org.eclipse.jetty.util.Scanner.scan(Scanner.java:391)
+        at org.eclipse.jetty.util.Scanner.doStart(Scanner.java:313)
+        at org.eclipse.jetty.util.component.AbstractLifeCycle.start(AbstractLifeCycle.java:69)
+        at org.eclipse.jetty.deploy.providers.ScanningAppProvider.doStart(ScanningAppProvider.java:145)
+        at org.eclipse.jetty.util.component.AbstractLifeCycle.start(AbstractLifeCycle.java:69)
+        at org.eclipse.jetty.deploy.DeploymentManager.startAppProvider(DeploymentManager.java:557)
+        at org.eclipse.jetty.deploy.DeploymentManager.doStart(DeploymentManager.java:232)
+        at org.eclipse.jetty.util.component.AbstractLifeCycle.start(AbstractLifeCycle.java:69)
+        at org.eclipse.jetty.util.component.ContainerLifeCycle.start(ContainerLifeCycle.java:118)

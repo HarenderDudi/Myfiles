@@ -1,0 +1,46 @@
+https://www.elastic.co/guide/en/elasticsearch/guide/current/heap-sizing.html
+https://www.elastic.co/guide/en/elasticsearch/reference/current/setup-configuration.html
+
+merging[throttle]: https://www.elastic.co/blog/performance-considerations-elasticsearch-indexing
+mapping : http://blog.thetaphi.de/2012/07/use-lucenes-mmapdirectory-on-64bit.html
+
+conclusion:
+
+1. 50-50 memory for elastic and Lucene [more caching for lucene].
+2. dont cross 32 gb heap memory for elastic [compressed ordinary object pointers will be disabled].
+3. turn off swapping or lower swappiness, For most Linux systems, this is configured using the sysctl value: vm.swappiness = 1 or you should enable bootstrap.mlockall: true             elasticsearch.yml
+4. increase file descriptor: 64k is recommended [for machine or user running elasticsearch]  
+    ulimit was set at 65535 file handles, which should be more than enough for a server with a single index.  
+    generally limited to 40k on ubuntu
+    localhost:9200/_nodes/stats/process?pretty  
+    vi /etc/sysctl.conf >>>> fs.file-max = 100000 
+    To load new values from the sysctl.conf file >>> sysctl -p /etc/sysctl.conf
+    http://docs.oracle.com/cd/E19450-01/820-6168/file-descriptor-requirements.html
+        
+5. MMapFS : Ensure that you configure the maximum map count so that there is ample virtual memory available for mmapped files
+    sysctl -w vm.max_map_count=262144        
+
+6. merging[throttle]: for spinning disks you should set index.merge.scheduler.max_thread_count to 1 and indices.store.throttle.max_bytes_per_sec=20mb
+    https://www.elastic.co/guide/en/elasticsearch/guide/current/indexing-performance.html#_other
+  
+7. meting api forced merge API  
+   
+8. index.translog.flush_threshold_size from the default 512 MB to something larger, such as 1 GB [By letting larger segments build, you flush less often, and the larger segments merge less often. All of this adds up to less disk I/O overhead and better indexing rates].
+
+9. compression
+
+10 index buffer size [10% or 512mb max] 
+   
+   
+    
+NOTE :  Find open files limit per process: ulimit -n
+        Count all opened files by all process: lsof | wc -l
+        Get maximum open files count allowd: cat /proc/sys/fs/file-max       
+        
+        disable throttling when importing bcz throttling reduces incoming indexing requests to a single thread, which we don't want while importing.
+        
+        increase refresh interval if only indexing no searching.
+        
+        refresh_interval: 1s   – 2.0K docs/s
+        refresh_interval: 5s   – 2.5K docs/s
+        refresh_interval: 30s – 3.4K docs/s

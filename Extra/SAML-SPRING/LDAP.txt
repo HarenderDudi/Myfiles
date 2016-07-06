@@ -1,0 +1,17 @@
+http://javarevisited.blogspot.in/2011/11/ldap-authentication-active-directory.html  
+http://krams915.blogspot.in/2011/01/spring-security-mvc-using-ldap.html
+http://krams915.blogspot.in/2010/12/spring-security-3-mvc-using-simple-user.html
+
+
+https://www.youtube.com/watch?v=-p5o2C2T_ok
+
+>>>>> LDAP Tutorials
+
+    https://docs.oracle.com/cd/E19957-01/816-6402-10/ldap.htm
+    https://itconnect.uw.edu/wares/msinf/authn/ldap/ldap-authentication-primer/
+    
+LDAP vs AD
+    https://www.reddit.com/r/sysadmin/comments/305coj/ldap_vs_saml/
+    
+
+

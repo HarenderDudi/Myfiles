@@ -1,0 +1,131 @@
+root@puppet:/home/cs# free -g
+             total       used       free     shared    buffers     cached
+Mem:            31         12         19          0          0          1
+-/+ buffers/cache:         10         21
+Swap:            0          0          0
+root@puppet:/home/cs# free -g
+             total       used       free     shared    buffers     cached
+Mem:            31         12         18          0          0          1
+-/+ buffers/cache:         10         20
+Swap:            0          0          0
+root@puppet:/home/cs# cd /contentsphere/elasticsearch/allianz/
+root@puppet:/contentsphere/elasticsearch/allianz# ls
+data
+root@puppet:/contentsphere/elasticsearch/allianz# du -sh data/
+158M    data/
+root@puppet:/contentsphere/elasticsearch/allianz# clear
+root@puppet:/contentsphere/elasticsearch/allianz# free -g
+             total       used       free     shared    buffers     cached
+Mem:            31         12         18          0          0          1
+-/+ buffers/cache:         10         20
+Swap:            0          0          0
+root@puppet:/contentsphere/elasticsearch/allianz# free -g
+             total       used       free     shared    buffers     cached
+Mem:            31         12         18          0          0          1
+-/+ buffers/cache:         10         20
+Swap:            0          0          0
+root@puppet:/contentsphere/elasticsearch/allianz# free -g
+             total       used       free     shared    buffers     cached
+Mem:            31         17         13          0          0          2
+-/+ buffers/cache:         15         16
+Swap:            0          0          0
+root@puppet:/contentsphere/elasticsearch/allianz# free -g
+             total       used       free     shared    buffers     cached
+Mem:            31         19         12          0          0          2
+-/+ buffers/cache:         16         14
+Swap:            0          0          0
+root@puppet:/contentsphere/elasticsearch/allianz# free -g
+             total       used       free     shared    buffers     cached
+Mem:            31         20         11          0          0          2
+-/+ buffers/cache:         17         13
+Swap:            0          0          0
+root@puppet:/contentsphere/elasticsearch/allianz# free -g
+             total       used       free     shared    buffers     cached
+Mem:            31         21         10          0          0          2
+-/+ buffers/cache:         18         12
+Swap:            0          0          0
+root@puppet:/contentsphere/elasticsearch/allianz# netstat -tupln | grep 9200
+tcp6       0      0 192.168.134.224:9200    :::*                    LISTEN      3316/java
+root@puppet:/contentsphere/elasticsearch/allianz# free -g
+             total       used       free     shared    buffers     cached
+Mem:            31         27          4          0          0          5
+-/+ buffers/cache:         21         10
+Swap:            0          0          0
+root@puppet:/contentsphere/elasticsearch/allianz# free -g
+             total       used       free     shared    buffers     cached
+Mem:            31         27          3          0          0          6
+-/+ buffers/cache:         21         10
+Swap:            0          0          0
+root@puppet:/contentsphere/elasticsearch/allianz# netstat -tupln | grep 9200
+tcp6       0      0 192.168.134.224:9200    :::*                    LISTEN      3316/java
+root@puppet:/contentsphere/elasticsearch/allianz# free -g
+             total       used       free     shared    buffers     cached
+Mem:            31         28          2          0          0          6
+-/+ buffers/cache:         21         10
+Swap:            0          0          0
+root@puppet:/contentsphere/elasticsearch/allianz# free -g
+             total       used       free     shared    buffers     cached
+Mem:            31         30          0          0          0          8
+-/+ buffers/cache:         21         10
+Swap:            0          0          0
+(failed reverse-i-search)`echo ': bin/elasticsearch -Des.ins^Cure.allow.root=true -d
+root@puppet:/contentsphere/elasticsearch/allianz# free -g
+             total       used       free     shared    buffers     cached
+Mem:            31         31          0          0          0          9
+-/+ buffers/cache:         21         10
+Swap:            0          0          0
+root@puppet:/contentsphere/elasticsearch/allianz# free -m
+             total       used       free     shared    buffers     cached
+Mem:         32176      31931        245          3        299       9720
+-/+ buffers/cache:      21911      10264
+Swap:            0          0          0
+root@puppet:/contentsphere/elasticsearch/allianz# free -m
+             total       used       free     shared    buffers     cached
+Mem:         32176      31639        537          3        294      10174
+-/+ buffers/cache:      21170      11005
+Swap:            0          0          0
+root@puppet:/contentsphere/elasticsearch/allianz# free -m
+             total       used       free     shared    buffers     cached
+Mem:         32176      31964        212          3        181       9439
+-/+ buffers/cache:      22342       9833
+Swap:            0          0          0
+root@puppet:/contentsphere/elasticsearch/allianz# free -m
+             total       used       free     shared    buffers     cached
+Mem:         32176      31950        225          3         75      10738
+-/+ buffers/cache:      21136      11039
+Swap:            0          0          0
+root@puppet:/contentsphere/elasticsearch/allianz# echo 1 > /proc/sys/vm/drop_caches
+root@puppet:/contentsphere/elasticsearch/allianz# free -m
+             total       used       free     shared    buffers     cached
+Mem:         32176      20983      11192          3          0         56
+-/+ buffers/cache:      20926      11249
+Swap:            0          0          0
+root@puppet:/contentsphere/elasticsearch/allianz# free -g
+             total       used       free     shared    buffers     cached
+Mem:            31         20         10          0          0          0
+-/+ buffers/cache:         20         10
+Swap:            0          0          0
+root@puppet:/contentsphere/elasticsearch/allianz# free -g
+             total       used       free     shared    buffers     cached
+Mem:            31         20         10          0          0          0
+-/+ buffers/cache:         20         10
+Swap:            0          0          0
+
+
+top - 15:21:32 up 15 days, 19:11,  1 user,  load average: 0.49, 0.64, 1.19
+Tasks: 172 total,   1 running, 171 sleeping,   0 stopped,   0 zombie
+%Cpu(s):  2.9 us,  1.4 sy,  0.0 ni, 95.5 id,  0.0 wa,  0.0 hi,  0.2 si,  0.0 st
+KiB Mem:  32948580 total, 21513636 used, 11434944 free,     1876 buffers
+KiB Swap:        0 total,        0 used,        0 free.    79676 cached Mem
+
+  PID USER      PR  NI    VIRT    RES    SHR S  %CPU %MEM     TIME+ COMMAND
+ 3316 root      20   0 18.855g 0.012t  16.8m S   2.7 37.7  55:54.13 java
+  569 root      20   0 8891.3m 3.620g  18.9m S   3.2 11.5  42:35.30 java
+ 9090 root      20   0 9547.5m 2.771g  19.0m S   0.0  8.8  27:55.64 java
+ 5139 root      20   0 11.500g 999.7m   0.0m S   0.0  3.1   8:46.38 java
+28912 root      20   0 1006.2m 140.6m   9.0m S   0.0  0.4   4:01.18 nodejs
+14637 root      20   0  537.5m 125.3m   8.4m S   0.0  0.4   0:37.58 uwsgi
+14634 root      20   0  407.4m  81.0m   9.9m S   0.0  0.3   0:13.91 uwsgi
+14635 root      20   0  482.0m  77.5m   6.1m S   0.0  0.2   0:07.58 uwsgi
+14636 root      20   0  487.3m  76.9m   5.6m S   0.0  0.2   0:16.89 uwsgi
+14633 root      20   0  227.6m  45.1m   6.1m S   0.0  0.1   0:06.74 uwsgi

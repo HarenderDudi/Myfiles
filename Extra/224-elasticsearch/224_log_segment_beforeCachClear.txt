@@ -1,0 +1,496 @@
+{
+  "_shards": {
+    "total": 10,
+    "successful": 5,
+    "failed": 0
+  },
+  "indices": {
+    "applicationlogindex": {
+      "shards": {
+        "0": [
+          {
+            "routing": {
+              "state": "STARTED",
+              "primary": true,
+              "node": "O6v3zkUtQAmsml4HbHL0hg"
+            },
+            "num_committed_segments": 8,
+            "num_search_segments": 8,
+            "segments": {
+              "_2d3": {
+                "generation": 3063,
+                "num_docs": 4,
+                "deleted_docs": 0,
+                "size_in_bytes": 13056,
+                "memory_in_bytes": 4755,
+                "committed": true,
+                "search": true,
+                "version": "5.3.1",
+                "compound": true
+              },
+              "_2d4": {
+                "generation": 3064,
+                "num_docs": 2,
+                "deleted_docs": 0,
+                "size_in_bytes": 6967,
+                "memory_in_bytes": 4723,
+                "committed": true,
+                "search": true,
+                "version": "5.3.1",
+                "compound": true
+              },
+              "_2d5": {
+                "generation": 3065,
+                "num_docs": 5616,
+                "deleted_docs": 0,
+                "size_in_bytes": 15353546,
+                "memory_in_bytes": 23084,
+                "committed": true,
+                "search": true,
+                "version": "5.3.1",
+                "compound": false
+              },
+              "_2d6": {
+                "generation": 3066,
+                "num_docs": 1,
+                "deleted_docs": 0,
+                "size_in_bytes": 6746,
+                "memory_in_bytes": 4659,
+                "committed": true,
+                "search": true,
+                "version": "5.3.1",
+                "compound": true
+              },
+              "_2d7": {
+                "generation": 3067,
+                "num_docs": 6,
+                "deleted_docs": 0,
+                "size_in_bytes": 27949,
+                "memory_in_bytes": 4937,
+                "committed": true,
+                "search": true,
+                "version": "5.3.1",
+                "compound": true
+              },
+              "_2d8": {
+                "generation": 3068,
+                "num_docs": 1,
+                "deleted_docs": 0,
+                "size_in_bytes": 6754,
+                "memory_in_bytes": 4659,
+                "committed": true,
+                "search": true,
+                "version": "5.3.1",
+                "compound": true
+              },
+              "_2d9": {
+                "generation": 3069,
+                "num_docs": 2,
+                "deleted_docs": 0,
+                "size_in_bytes": 7892,
+                "memory_in_bytes": 4723,
+                "committed": true,
+                "search": true,
+                "version": "5.3.1",
+                "compound": true
+              },
+              "_2da": {
+                "generation": 3070,
+                "num_docs": 2,
+                "deleted_docs": 0,
+                "size_in_bytes": 8741,
+                "memory_in_bytes": 4691,
+                "committed": true,
+                "search": true,
+                "version": "5.3.1",
+                "compound": true
+              }
+            }
+          }
+        ],
+        "1": [
+          {
+            "routing": {
+              "state": "STARTED",
+              "primary": true,
+              "node": "O6v3zkUtQAmsml4HbHL0hg"
+            },
+            "num_committed_segments": 10,
+            "num_search_segments": 10,
+            "segments": {
+              "_1sl": {
+                "generation": 2325,
+                "num_docs": 4420,
+                "deleted_docs": 0,
+                "size_in_bytes": 18736021,
+                "memory_in_bytes": 20445,
+                "committed": true,
+                "search": true,
+                "version": "5.3.1",
+                "compound": false
+              },
+              "_29a": {
+                "generation": 2926,
+                "num_docs": 1103,
+                "deleted_docs": 0,
+                "size_in_bytes": 1801466,
+                "memory_in_bytes": 9575,
+                "committed": true,
+                "search": true,
+                "version": "5.3.1",
+                "compound": true
+              },
+              "_29v": {
+                "generation": 2947,
+                "num_docs": 40,
+                "deleted_docs": 0,
+                "size_in_bytes": 696905,
+                "memory_in_bytes": 7248,
+                "committed": true,
+                "search": true,
+                "version": "5.3.1",
+                "compound": true
+              },
+              "_29w": {
+                "generation": 2948,
+                "num_docs": 2,
+                "deleted_docs": 0,
+                "size_in_bytes": 9450,
+                "memory_in_bytes": 4723,
+                "committed": true,
+                "search": true,
+                "version": "5.3.1",
+                "compound": true
+              },
+              "_29x": {
+                "generation": 2949,
+                "num_docs": 1,
+                "deleted_docs": 0,
+                "size_in_bytes": 7387,
+                "memory_in_bytes": 4659,
+                "committed": true,
+                "search": true,
+                "version": "5.3.1",
+                "compound": true
+              },
+              "_29y": {
+                "generation": 2950,
+                "num_docs": 2,
+                "deleted_docs": 0,
+                "size_in_bytes": 8695,
+                "memory_in_bytes": 4723,
+                "committed": true,
+                "search": true,
+                "version": "5.3.1",
+                "compound": true
+              },
+              "_29z": {
+                "generation": 2951,
+                "num_docs": 3,
+                "deleted_docs": 0,
+                "size_in_bytes": 10882,
+                "memory_in_bytes": 4739,
+                "committed": true,
+                "search": true,
+                "version": "5.3.1",
+                "compound": true
+              },
+              "_2a0": {
+                "generation": 2952,
+                "num_docs": 8,
+                "deleted_docs": 0,
+                "size_in_bytes": 13136,
+                "memory_in_bytes": 4819,
+                "committed": true,
+                "search": true,
+                "version": "5.3.1",
+                "compound": true
+              },
+              "_2a1": {
+                "generation": 2953,
+                "num_docs": 1,
+                "deleted_docs": 0,
+                "size_in_bytes": 6231,
+                "memory_in_bytes": 4659,
+                "committed": true,
+                "search": true,
+                "version": "5.3.1",
+                "compound": true
+              },
+              "_2a2": {
+                "generation": 2954,
+                "num_docs": 2,
+                "deleted_docs": 0,
+                "size_in_bytes": 14431,
+                "memory_in_bytes": 4723,
+                "committed": true,
+                "search": true,
+                "version": "5.3.1",
+                "compound": true
+              }
+            }
+          }
+        ],
+        "2": [
+          {
+            "routing": {
+              "state": "STARTED",
+              "primary": true,
+              "node": "O6v3zkUtQAmsml4HbHL0hg"
+            },
+            "num_committed_segments": 4,
+            "num_search_segments": 4,
+            "segments": {
+              "_2bf": {
+                "generation": 3003,
+                "num_docs": 5608,
+                "deleted_docs": 0,
+                "size_in_bytes": 11619074,
+                "memory_in_bytes": 22750,
+                "committed": true,
+                "search": true,
+                "version": "5.3.1",
+                "compound": false
+              },
+              "_2bg": {
+                "generation": 3004,
+                "num_docs": 1,
+                "deleted_docs": 0,
+                "size_in_bytes": 6843,
+                "memory_in_bytes": 4659,
+                "committed": true,
+                "search": true,
+                "version": "5.3.1",
+                "compound": true
+              },
+              "_2bh": {
+                "generation": 3005,
+                "num_docs": 1,
+                "deleted_docs": 0,
+                "size_in_bytes": 7533,
+                "memory_in_bytes": 4659,
+                "committed": true,
+                "search": true,
+                "version": "5.3.1",
+                "compound": true
+              },
+              "_2bi": {
+                "generation": 3006,
+                "num_docs": 1,
+                "deleted_docs": 0,
+                "size_in_bytes": 6375,
+                "memory_in_bytes": 4659,
+                "committed": true,
+                "search": true,
+                "version": "5.3.1",
+                "compound": true
+              }
+            }
+          }
+        ],
+        "3": [
+          {
+            "routing": {
+              "state": "STARTED",
+              "primary": true,
+              "node": "O6v3zkUtQAmsml4HbHL0hg"
+            },
+            "num_committed_segments": 9,
+            "num_search_segments": 9,
+            "segments": {
+              "_2a9": {
+                "generation": 2961,
+                "num_docs": 5410,
+                "deleted_docs": 0,
+                "size_in_bytes": 12281727,
+                "memory_in_bytes": 21870,
+                "committed": true,
+                "search": true,
+                "version": "5.3.1",
+                "compound": false
+              },
+              "_2aa": {
+                "generation": 2962,
+                "num_docs": 5,
+                "deleted_docs": 0,
+                "size_in_bytes": 11907,
+                "memory_in_bytes": 4771,
+                "committed": true,
+                "search": true,
+                "version": "5.3.1",
+                "compound": true
+              },
+              "_2ab": {
+                "generation": 2963,
+                "num_docs": 5,
+                "deleted_docs": 0,
+                "size_in_bytes": 11925,
+                "memory_in_bytes": 4755,
+                "committed": true,
+                "search": true,
+                "version": "5.3.1",
+                "compound": true
+              },
+              "_2ac": {
+                "generation": 2964,
+                "num_docs": 1,
+                "deleted_docs": 0,
+                "size_in_bytes": 6135,
+                "memory_in_bytes": 4659,
+                "committed": true,
+                "search": true,
+                "version": "5.3.1",
+                "compound": true
+              },
+              "_2ad": {
+                "generation": 2965,
+                "num_docs": 3,
+                "deleted_docs": 0,
+                "size_in_bytes": 9353,
+                "memory_in_bytes": 4739,
+                "committed": true,
+                "search": true,
+                "version": "5.3.1",
+                "compound": true
+              },
+              "_2ae": {
+                "generation": 2966,
+                "num_docs": 4,
+                "deleted_docs": 0,
+                "size_in_bytes": 24718,
+                "memory_in_bytes": 4893,
+                "committed": true,
+                "search": true,
+                "version": "5.3.1",
+                "compound": true
+              },
+              "_2af": {
+                "generation": 2967,
+                "num_docs": 2,
+                "deleted_docs": 0,
+                "size_in_bytes": 8870,
+                "memory_in_bytes": 4659,
+                "committed": true,
+                "search": true,
+                "version": "5.3.1",
+                "compound": true
+              },
+              "_2ag": {
+                "generation": 2968,
+                "num_docs": 2,
+                "deleted_docs": 0,
+                "size_in_bytes": 8710,
+                "memory_in_bytes": 4723,
+                "committed": true,
+                "search": true,
+                "version": "5.3.1",
+                "compound": true
+              },
+              "_2ah": {
+                "generation": 2969,
+                "num_docs": 1,
+                "deleted_docs": 0,
+                "size_in_bytes": 10289,
+                "memory_in_bytes": 4659,
+                "committed": true,
+                "search": true,
+                "version": "5.3.1",
+                "compound": true
+              }
+            }
+          }
+        ],
+        "4": [
+          {
+            "routing": {
+              "state": "STARTED",
+              "primary": true,
+              "node": "O6v3zkUtQAmsml4HbHL0hg"
+            },
+            "num_committed_segments": 7,
+            "num_search_segments": 7,
+            "segments": {
+              "_2ao": {
+                "generation": 2976,
+                "num_docs": 5511,
+                "deleted_docs": 0,
+                "size_in_bytes": 13679453,
+                "memory_in_bytes": 22514,
+                "committed": true,
+                "search": true,
+                "version": "5.3.1",
+                "compound": false
+              },
+              "_2ap": {
+                "generation": 2977,
+                "num_docs": 10,
+                "deleted_docs": 0,
+                "size_in_bytes": 15278,
+                "memory_in_bytes": 4843,
+                "committed": true,
+                "search": true,
+                "version": "5.3.1",
+                "compound": true
+              },
+              "_2aq": {
+                "generation": 2978,
+                "num_docs": 1,
+                "deleted_docs": 0,
+                "size_in_bytes": 23764,
+                "memory_in_bytes": 4729,
+                "committed": true,
+                "search": true,
+                "version": "5.3.1",
+                "compound": true
+              },
+              "_2ar": {
+                "generation": 2979,
+                "num_docs": 6,
+                "deleted_docs": 0,
+                "size_in_bytes": 12120,
+                "memory_in_bytes": 4787,
+                "committed": true,
+                "search": true,
+                "version": "5.3.1",
+                "compound": true
+              },
+              "_2as": {
+                "generation": 2980,
+                "num_docs": 1,
+                "deleted_docs": 0,
+                "size_in_bytes": 8020,
+                "memory_in_bytes": 4659,
+                "committed": true,
+                "search": true,
+                "version": "5.3.1",
+                "compound": true
+              },
+              "_2at": {
+                "generation": 2981,
+                "num_docs": 2,
+                "deleted_docs": 0,
+                "size_in_bytes": 7774,
+                "memory_in_bytes": 4723,
+                "committed": true,
+                "search": true,
+                "version": "5.3.1",
+                "compound": true
+              },
+              "_2au": {
+                "generation": 2982,
+                "num_docs": 1,
+                "deleted_docs": 0,
+                "size_in_bytes": 6407,
+                "memory_in_bytes": 4659,
+                "committed": true,
+                "search": true,
+                "version": "5.3.1",
+                "compound": true
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}

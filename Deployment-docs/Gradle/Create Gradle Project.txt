@@ -1,0 +1,2 @@
+copy or create /src/main/java and /src/main/resources and /src/main/webapp
+gradle eclipse

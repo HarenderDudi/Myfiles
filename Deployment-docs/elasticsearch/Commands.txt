@@ -1,0 +1,11 @@
+List all indices in elasticsearch
+    curl http://localhost:9200/_aliases
+    
+Get Settings of index
+    curl -XGET 'http://localhost:9200/twitter/_settings'
+    
+List of close indices
+    http://192.168.134.106:9200/_cluster/state/blocks?pretty" 
+    
+Index open/close    
+    curl -XHEAD -i 'http://192.168.134.106:9200/applicationlogindex-*'

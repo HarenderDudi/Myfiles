@@ -1,0 +1,74 @@
+************  For security, your best option is Kerberos. Kerberos is specifically designed to handle authentication. It will not do the information lookup that LDAP does. It avoids       password security problems and enables single-sign-on (a very useful feature!).
+
+>>>>Let me try to explain this another way...
+    General rule: Your password should only be accessible to a trusted computer.
+
+    There are three computers in a potential transaction.
+
+    1. The Client Computer   -- Trusted
+    2. The KDC/LDAP Server   -- Trusted
+    3. The Server            -- UNTRUSTED
+
+    When using Kerberos you enter your password into your (trusted)
+    client. It performs a transaction with the server which permits the
+    server to authenticate you. However the server never gets your
+    password, so it doesn't have to be trusted to not abuse it.
+
+    With LDAP you authenticate to the server by sending the server your
+    username and password (hopefully over a secure or encrypted path). The
+    Server then supplies your username and password to the LDAP server
+    (again, hopefully over a secure or encrypted path). The LDAP server
+    then returns to the server whether or not the username/password pair
+    were valid. In this scenario the SERVER has access to the unencrypted
+    user password. If it is not trusted, then it might steal it. This is
+    why LDAP isn't a good solution for authentication.
+
+    In many cases client computers are necessarily trusted (like my
+    laptop, which I own and control). One must necessarily trust the
+    authentication server, whether it is a Kerberos KDC or an LDAP
+    server. However it is often the case that you don't want to have to
+    trust the server. Here Kerberos wins and LDAP loses.
+    
+    
+>>>>The SASL/GSS mechanism supported by the LDAP server is used to securely access the directory. Using SASL/GSS and LDAP does not help authenticate a user so he/she can use an        application which then presents the users identity to another application components in a secure manner - this is one of the many requirements for application security which           Kerberos is idealy suited.
+
+    I think we need to compare the LDAP directory and Kerberos protocol in order to answer the original question asked. Admitedly, if SASL/GSS is used to securely access a directory so that a password can be read and compared, then LDAP can be used to authenticate a user.
+
+    I have provided a short list of some differences, not necessarily a complete list so maybe others on this email discussion can add comments and think of other important differences ?
+
+    LDAP server for user authentication
+     - can be used to store password + other information about users.
+     - useful for simple user authentication requirements where checking of password is all that is required.
+
+    Kerberos for user authentication
+        - uses security credentials which have a lifetime - LDAP does not have this capability
+        - built in prevention from network replay attacks and protect against other network security concerns - LDAP does not protect against these issues
+        - removes the need to pass any form of password across a network - LDAP requires password transmission
+        - A protocol that alows support for userid/password, token card, smart card authentication and other forms of user authentication - LDAP is only suited to userid/password
+        - works well in a client/server and multi-tier environment especially when using credential delegation or impersonation
+        - can be used to setup a security context between application components on the network - LDAP cannot be used for this.
+        - provide mutual authentication, integrity, confidentiality services - LDAP does not do any of these
+        - makes single signon easy, especially since Microsoft Active Directory does the Kerberos authentication when a user logs onto a MS network
+        - works well in a heterogeneous environment
+        - supported and utilised by a growing number of application vendors and standards
+        - a strategic protocol in many ways because of having many uses - it can even be used very effectively to allow an unattended application to authenticate itself to another application (e.g. ftp -> ftpd). 
+
+>>>> LDAP "authentication" is actually nothing more or less than using your
+    LDAP directory servers as a giant distributed /etc/shadow file.  You can
+    put the password checking in various places, but in the end you're
+    basically taking a step backwards towards something more like the
+    historical Unix authentication mechanism.
+
+    This means you lose all of the benefits of Kerberos (reusable credentials,
+    passwords never crossing the network encrypted or not, ticket forwarding,
+    etc.) in favor of something that's basically secure NIS.  If secure NIS is
+    something you're happy with, hey, great, but to me it feels like 1980s
+    security technology, long-since obsolete.        
+    
+>>>> What I want to say is that LDAP can well be and is being used as 
+    authentication infrastructure. The main advantage of  Kerberos is its 
+    SSO functionality. But again with GSSAPI/KRB5 you can integrate that in 
+    an LDAP authentication infrastructure as well. The advantage of LDAP is 
+    IMO that it can be used for more than authentication, e.g. 
+    authorization, contact data information system, certificate server, etc. 
+    etc.    

@@ -1,0 +1,141 @@
+http://www.haproxy.org/download/1.4/doc/configuration.txt
+
+ForwardedFor:
+
+	Since HAProxy works in reverse-proxy mode, the servers see its IP address as
+  their client address. This is sometimes annoying when the client's IP address
+  is expected in server logs. To solve this problem, the well-known HTTP header
+  "X-Forwarded-For" may be added by HAProxy to all requests sent to the server.
+  This header contains a value representing the client's IP address. Since this
+  header is always appended at the end of the existing header list, the server
+  must be configured to always use the last occurrence of this header only. See
+  the server's manual to find how to enable use of this standard header. Note
+  that only the last occurrence of the header must be used, since it is really
+  possible that the client has already brought one.
+
+  The keyword "header" may be used to supply a different header name to replace
+  the default "X-Forwarded-For". This can be useful where you might already
+  have a "X-Forwarded-For" header from a different application (eg: stunnel),
+  and you need preserve it. Also if your backend server doesn't use the
+  "X-Forwarded-For" header and requires different one (eg: Zeus Web Servers
+  require "X-Cluster-Client-IP").
+
+  It is important to note that by default, HAProxy works in tunnel mode and
+  only inspects the first request of a connection, meaning that only the first
+  request will have the header appended, which is certainly not what you want.
+  In order to fix this, ensure that any of the "httpclose", "forceclose" or
+  "http-server-close" options is set when using this option.
+
+
+
+
+
+timeout client <timeout>
+timeout clitimeout <timeout> (deprecated)
+  Set the maximum inactivity time on the client side.
+  May be used in sections :   defaults | frontend | listen | backend
+                                 yes   |    yes   |   yes  |   no
+  Arguments :
+    <timeout> is the timeout value specified in milliseconds by default, but
+              can be in any other unit if the number is suffixed by the unit,
+              as explained at the top of this document.
+
+  The inactivity timeout applies when the client is expected to acknowledge or
+  send data. In HTTP mode, this timeout is particularly important to consider
+  during the first phase, when the client sends the request, and during the
+  response while it is reading data sent by the server. The value is specified
+  in milliseconds by default, but can be in any other unit if the number is
+  suffixed by the unit, as specified at the top of this document. In TCP mode
+  (and to a lesser extent, in HTTP mode), it is highly recommended that the
+  client timeout remains equal to the server timeout in order to avoid complex
+  situations to debug. It is a good practice to cover one or several TCP packet
+  losses by specifying timeouts that are slightly above multiples of 3 seconds
+  (eg: 4 or 5 seconds).
+
+  This parameter is specific to frontends, but can be specified once for all in
+  "defaults" sections. This is in fact one of the easiest solutions not to
+  forget about it. An unspecified timeout results in an infinite timeout, which
+  is not recommended. Such a usage is accepted and works but reports a warning
+  during startup because it may results in accumulation of expired sessions in
+  the system if the system's timeouts are not configured either.
+
+  This parameter replaces the old, deprecated "clitimeout". It is recommended
+  to use it to write new configurations. The form "timeout clitimeout" is
+  provided only by backwards compatibility but its use is strongly discouraged.
+
+
+
+
+
+option http-pretend-keepalive
+no option http-pretend-keepalive
+  Define whether haproxy will announce keepalive to the server or not
+  May be used in sections :   defaults | frontend | listen | backend
+                                 yes   |    yes   |   yes  |   yes
+  Arguments : none
+
+  When running with "option http-server-close" or "option forceclose", haproxy
+  adds a "Connection: close" header to the request forwarded to the server.
+  Unfortunately, when some servers see this header, they automatically refrain
+  from using the chunked encoding for responses of unknown length, while this
+  is totally unrelated. The immediate effect is that this prevents haproxy from
+  maintaining the client connection alive. A second effect is that a client or
+  a cache could receive an incomplete response without being aware of it, and
+  consider the response complete.
+
+  By setting "option http-pretend-keepalive", haproxy will make the server
+  believe it will keep the connection alive. The server will then not fall back
+  to the abnormal undesired above. When haproxy gets the whole response, it
+  will close the connection with the server just as it would do with the
+  "forceclose" option. That way the client gets a normal response and the
+  connection is correctly closed on the server side.
+
+  It is recommended not to enable this option by default, because most servers
+  will more efficiently close the connection themselves after the last packet,
+  and release its buffers slightly earlier. Also, the added packet on the
+  network could slightly reduce the overall peak performance. However it is
+  worth noting that when this option is enabled, haproxy will have slightly
+  less work to do. So if haproxy is the bottleneck on the whole architecture,
+  enabling this option might save a few CPU cycles.
+
+  This option may be set both in a frontend and in a backend. It is enabled if
+  at least one of the frontend or backend holding a connection has it enabled.
+  This option may be compbined with "option httpclose", which will cause
+  keepalive to be announced to the server and close to be announced to the
+  client. This practice is discouraged though.
+
+  If this option has been enabled in a "defaults" section, it can be disabled
+  in a specific instance by prepending the "no" keyword before it.
+
+
+http-pretend-keepalive:
+
+	When running with "option http-server-close" or "option forceclose", haproxy
+  adds a "Connection: close" header to the request forwarded to the server.
+  Unfortunately, when some servers see this header, they automatically refrain
+  from using the chunked encoding for responses of unknown length, while this
+  is totally unrelated. The immediate effect is that this prevents haproxy from
+  maintaining the client connection alive. A second effect is that a client or
+  a cache could receive an incomplete response without being aware of it, and
+  consider the response complete.
+
+  By setting "option http-pretend-keepalive", haproxy will make the server
+  believe it will keep the connection alive. The server will then not fall back
+  to the abnormal undesired above. When haproxy gets the whole response, it
+  will close the connection with the server just as it would do with the
+  "forceclose" option. That way the client gets a normal response and the
+  connection is correctly closed on the server side.
+
+  It is recommended not to enable this option by default, because most servers
+  will more efficiently close the connection themselves after the last packet,
+  and release its buffers slightly earlier. Also, the added packet on the
+  network could slightly reduce the overall peak performance. However it is
+  worth noting that when this option is enabled, haproxy will have slightly
+  less work to do. So if haproxy is the bottleneck on the whole architecture,
+  enabling this option might save a few CPU cycles.	
+
+
+
+http-keep-alive:
+
+	

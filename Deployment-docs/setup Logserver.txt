@@ -1,0 +1,2 @@
+RUN this before running "forever start <script>"
+    npm install 

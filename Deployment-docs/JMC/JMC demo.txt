@@ -1,0 +1,3 @@
+http://www.oracle.com/technetwork/java/javaseproducts/mission-control/index.html
+
+http://stackoverflow.com/questions/28765144/how-to-connect-jmc-java-mission-control-to-remote-jvm-in-ubuntu

@@ -1,0 +1,5 @@
+http://lab.piszki.pl/data-domain-virtual-edition-installation-and-integration-with-veeam-backup/
+
+use:
+https://community.emc.com/docs/DOC-30123
+http://www.robsteele.co/best-practices-nfs-mount-for-data-domain/

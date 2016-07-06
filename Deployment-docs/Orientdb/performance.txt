@@ -1,0 +1,61 @@
+http://orientdb.com/docs/2.2/Performance-Tuning.html
+https://www.safaribooksonline.com/library/view/getting-started-with/9781782169956/ch04.html
+
+1. heap size: 1gb [https://groups.google.com/forum/#!topic/orient-database/PxgQggsOvU8]
+
+2. disk cache
+
+3. min/max pool size
+
+4. Disable sync on flush of pages[mprove throughput on writes]
+    -Dstorage.wal.syncOnPageFlush=false
+    http://orientdb.com/docs/2.0/orientdb.wiki/Performance-Tuning.html
+    
+5. storage.compressionMethod    
+
+
+ex: -Xmx1024M -Xms1024M -Dstorage.diskCache.bufferSize=40000 -Dstorage.useWAL=false
+
+
+NOTES:
+
+>> Mapping files
+    OrientDB uses NIO to map data files in memory. However, you can change the way this mapping is performed. This is achieved by modifying the file access strategy.
+
+    Mode 0: It uses the memory mapping for all the operations.
+    Mode 1 (default): It uses the memory mapping, but new reads are performed only if there is enough memory, otherwise the regular Java NIO file read/write is used.
+    Mode 2: It uses the memory mapping only if the data has been previously loaded.
+    Mode 3: It uses memory mapping until there is space available, then use regular JAVA NIO file read/write.
+    Mode 4: It disables all the memory mapping techniques.
+
+>> (1) The first one, memory.optimizeThreshold, tells to the OrientDB engine when to call the memory optimization routines. In facts it's well known that Java applications suffer of
+    the "Garbage Collector effect", namely when the GC runs and clean the objects no more used. This could be very expensive, specially when you have millions of objects in memory. Furthermore you risk a MemoryError if the heap becomes full. Now when the optimization is invoked the registered listeners are called such as MVRB+Tree indexes and Cache to free memory as much as they can.
+
+    Memory	memory.optimizeThreshold	0.85	0.5-0.95	Threshold of heap memory where to start the optimization of memory usage
+
+    (2) The second one, file.mmap.maxMemory, is not properly new, but by changing this parameter you application could be much, much faster! file.mmap.maxMemory tells how much memory to use for the Memory Mapping at the storage level. The default value is very tiny (134 Mb) but with 32-bit architecture you have a lot of limitation and you need to pay attention to set it too large. On 64 bit systems I suggest to set it to: ( os tot memory - orientdb heap ) * 85%. 85% should be reduced when you're running other memory expensive process on your OS.
+
+    File (I/O)	file.mmap.maxMemory	134217728	100000-the maximum allowed by OS	Max memory allocable by memory mapping manager. Note that on 32bit OS the limit is to 2Gb but can change to OS by OS
+
+    (3) The last one, file.mmap.strategy, is more technical. It tells to the storage engine the strategy to use when access to the file system. Previous versions always used the 0 strategy, namely uses Memory Mapping techniques for all. Mode 1 tells to use Memory Mapping but on reads only if there is room in memory, otherwise regular Java NIO file channel read will be used. The strategy 2 is more conservative since reads will use Memory Mapping only if the requested data has already been loaded in memory. The strategy 3 means use Memory Mapping until there is space in the pool, then use regular Java NIO file channel read/write.    
+
+>> For example if you can assign maximum 8GB to the Java process, it's usually better assigning small heap and large disk cache buffer (off-heap memory). So rather than:
+
+    java -Xmx8g ...
+    try ..
+    java -Xmx800m -Dstorage.diskCache.bufferSize=7200 ... (v2.2)
+    NOTE - If the sum of maximum heap and disk cache buffer is too high, it could cause the OS to swap with huge slowdown.
+    The storage.diskCache.bufferSize setting (with old "local" storage it was file.mmap.maxMemory) is in MB and tells how much memory to use for Disk Cache component. By default is 4GB.
+    [64bit: (os-orient)*80%][default for 64bit: (os-orient)/2]
+    
+>> The Write Ahead Log (or WAL) is used to restore storage data after a non-soft shutdown:
+    Hard kill of the OrientDB process
+    Crash/Failure of the Java Virtual Machine that runs OrientDB
+    Crash/Failure of the Operating System that is hosting OrientDB
+    All the operations on plocal components are logged in WAL before they are performed. WAL is an append only data structure. You can think of it as a list of records which contain information about operations performed on storage components.
+
+    WAL flush
+    WAL content is flushed to the disk on these events:
+    every 1 second in background thread (flush interval can be changed in storage.wal.commitTimeout configuration property)
+    synchronously if the amount of RAM used by WAL exceeds 65Mb (can be changed in storage.wal.cacheSize configuration property).
+    As result if OrientDB crashes, all data changes done during <=1 second interval before crash will be lost. This is a trade off between performance and durability.    

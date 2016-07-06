@@ -1,0 +1,3 @@
+http://neo4j.com/docs/operations-manual/current/#backup
+
+neo4j backup are incremental but we cannot restore from specific period...it will restore to state of last sanpshot

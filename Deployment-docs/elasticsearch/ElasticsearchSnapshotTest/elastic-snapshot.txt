@@ -1,0 +1,17 @@
+get all repositories
+curl -XGET 'http://192.168.134.224:9200/_snapshot/_all'
+
+register repository [my_backup] :
+curl -XPUT 'http://192.168.134.224:9200/_snapshot/my_backup' -d '{"type": "fs", "settings": {"location": "/mount/ftp/elasticsearch/allianz/my_backup", "compress": true }}'
+
+take snapshot :  curl -XPUT 'http://192.168.134.224:9200/_snapshot/my_backup/snapshot_7?wait_for_completion=true' 
+
+
+restore snapshot : 
+	close open indices : curl -XPOST 'http://192.168.134.224:9200/allianz/_close'
+						 curl -XPOST 'http://192.168.134.224:9200/applicationlogindex/_close'
+						 
+	restore : 			curl -XPOST 'http://192.168.134.224:9200/_snapshot/my_backup/snapshot_5/_restore'					 
+						 
+                         
+ CREATE : curl -b headers -X PUT -H "content-type:application/json"  "http://192.168.134.224:8081/allianz/runtime/klassinstances" --data @data.txt                        

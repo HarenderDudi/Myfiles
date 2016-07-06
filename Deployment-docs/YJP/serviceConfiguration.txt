@@ -1,0 +1,42 @@
+Jetty : start.ini [port, java options,]
+
+yjp configuration : edit start.ini or jetty.sh
+
+
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+elasticsearch : config/elasticsearch.yml  ** for port and network host
+				bin/elasticsearch	export ES_HEAP_SIZE=4g
+				echo $ES_HEAP_SIZE
+					
+YJP configuration : edit bin/elasticsearch
+
+					# manual parsing to find out, if process should be detached
+					daemonized=`echo $* | grep -E -- '(^-d |-d$| -d |--daemonize$|--daemonize )'`
+					if [ -z "$daemonized" ] ; then
+						exec "$JAVA" $JAVA_OPTS $ES_JAVA_OPTS -Des.path.home="$ES_HOME" -cp "$ES_CLASSPATH" \
+							  org.elasticsearch.bootstrap.Elasticsearch start "$@"
+					else
+						exec "$JAVA" $JAVA_OPTS $ES_JAVA_OPTS -agentpath:/opt/yjp-2016.02/bin/linux-x86-64/libyjpagent.so=disablestacktelemetry,disableexceptiontelemetry,delay=10000  -Des$
+							  org.elasticsearch.bootstrap.Elasticsearch start "$@" <&- &
+						retval=$?
+
+
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>> NEO$J *****************************
+				
+neo4j : 			conf/neo4j-wrapper.conf
+
+neo4j-server.properties >> for ip and  network host
+
+yjp configuration : edit bin/neo4j
+
+					findBaseDirAndCdThere
+					source bin/utils
+					parseConfig
+
+					JAVA_OPTS="-agentpath:/opt/yjp-2016.02/bin/linux-x86-64/libyjpagent.so=disablestacktelemetry,disableexceptiontelemetry,delay=10000 -server -XX:+DisableExplicitGC ${wra$
+					[ -z "${wrapper_java_initmemory}" ] || JAVA_OPTS="$JAVA_OPTS -Xms${wrapper_java_initmemory}m"
+					[ -z "${wrapper_java_maxmemory}" ] || JAVA_OPTS="$JAVA_OPTS -Xmx${wrapper_java_maxmemory}m"
+
+
+
+ 

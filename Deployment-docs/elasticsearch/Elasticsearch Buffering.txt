@@ -1,0 +1,35 @@
+*** https://www.elastic.co/guide/en/elasticsearch/guide/current/translog.html
+https://www.elastic.co/guide/en/elasticsearch/reference/current/index-modules-translog.html
+https://www.elastic.co/guide/en/elasticsearch/reference/current/indexing-buffer.html
+
+
+stats: https://www.elastic.co/guide/en/elasticsearch/reference/current/cluster-nodes-stats.html
+       https://www.elastic.co/blog/found-elasticsearch-from-the-bottom-up
+
+
+Refresh vs Flush
+http://stackoverflow.com/questions/19963406/refresh-vs-flush
+
+
+Note : flush : every 30min or when translog becomes too big.
+       refresh : every 1sec.
+       translog backup: 5sec.
+              
+>> translog setting : index.translog.flush_threshold_size: Once the translog hits this size, a flush will happen. Defaults to 512mb.
+                      index.translog.flush_threshold_ops: After how many operations to flush. Defaults to unlimited.
+                      index.translog.flush_threshold_period: How long to wait before triggering a flush regardless of translog size. Defaults to 30m.
+                      index.translog.interval: How often to check if a flush is needed, randomized between the interval value and 2x the interval value. Defaults to 5s
+                      
+>> The 30% indexing buffer has nothing to do with refreshes, but with flushes. An automatic flush is triggered when the index buffer gets full or when one of the transaction log 
+    thresholds is passed:
+    http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/index-modules-translog.html
+    Increasing the buffer and translog sizes will make ES flush less often and, again depending on your hardware, might decrease the overall time ES spends flushing.     
+
+>>>>>> my understanding::
+    every refresh makes recent documents visible for searching and after every refresh these document are stored in cache(** may be in-buffer memory).
+    there is also translog which log every operation after last commit.
+    A commit depends upon translog size, ops, time(30m), in-buffer memory size.
+    translog size : 10%
+    in-buffer memory : 10% or max 512mb.
+    
+                      
