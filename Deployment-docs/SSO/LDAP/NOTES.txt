@@ -1,2 +1,0 @@
-LDAP (Lightweight Directory Access Protocol) is basically a way of organizing information and providing access to it.
-LDAP is directory service provider 

@@ -1,0 +1,5 @@
+edit bin/server.sh
+
+if [ -z "$ORIENTDB_OPTS_MEMORY" ] ; then
+    ORIENTDB_OPTS_MEMORY="-Xms5120m -Xmx5120m"
+fi

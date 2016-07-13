@@ -1,6 +1,8 @@
 video : https://www.youtube.com/watch?v=LzaQKKp58JI
 BOOK: https://swiftstack.com/openstack-swift/
 
+http://gholt.github.io/swauth/dev/api.html
+
 https://swift.readthedocs.org/en/1.4.0/howto_installmultinode.html
 https://wikitech.wikimedia.org/wiki/Swift/How_To#Show_account_information
 
@@ -111,6 +113,10 @@ Xie5xeephox3Iechei4E
 kd33612001@disc.keyweb.de
 pass: W?!T-;D5
 
+
+95.169.183.146
+root
+ArvFxHK5wW
 
 
 ftp://192.168.134.223/files/

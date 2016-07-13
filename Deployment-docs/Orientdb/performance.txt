@@ -14,7 +14,7 @@ https://www.safaribooksonline.com/library/view/getting-started-with/978178216995
 5. storage.compressionMethod    
 
 
-ex: -Xmx1024M -Xms1024M -Dstorage.diskCache.bufferSize=40000 -Dstorage.useWAL=false
+ex: -Xmx1024M -Xms1024M -Dstorage.diskCache.bufferSize=40000 -Dstorage.useWAL=false[true]
 
 
 NOTES:

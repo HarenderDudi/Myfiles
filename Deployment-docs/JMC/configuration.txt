@@ -1,0 +1,21 @@
+ELASTICSEARCH
+
+edit bin/elasticsearch
+
+if [ -z "$daemonized" ] ; then
+    echo ">> I M here !!!"
+    exec "$JAVA" $JAVA_OPTS $ES_JAVA_OPTS -Dcom.sun.management.jmxremote=true -Dcom.sun.management.jmxremote.port=7091 -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false -Des.path.home="$ES_HOME" -cp "$ES_CLASSPATH" \
+          org.elasticsearch.bootstrap.Elasticsearch start "$@"
+else
+    exec "$JAVA" $JAVA_OPTS $ES_JAVA_OPTS -Dcom.sun.management.jmxremote=true -Dcom.sun.management.jmxremote.port=7091 -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false -Des.path.home="$ES_HOME" -cp "$ES_CLASSPATH" \
+          org.elasticsearch.bootstrap.Elasticsearch start "$@" <&- &
+    retval=$?
+    pid=$!
+
+    
+TOMCAT
+bin/setenv.sh
+
+
+ORIENTDB:
+server.sh

@@ -1,5 +1,7 @@
-https://blogs.msdn.microsoft.com/chiranth/2014/04/17/setting-up-kerberos-authentication-for-a-website-in-iis/
+LDAP (Lightweight Directory Access Protocol) is basically a way of organizing information and providing access to it.
+LDAP is directory service provider 
 
+https://blogs.msdn.microsoft.com/chiranth/2014/04/17/setting-up-kerberos-authentication-for-a-website-in-iis/
 
 https://jazz.net/help-dev/rational-automated-framework/index.jsp?topic=/com.ibm.rational.buildforge.doc/topics/config_sec_sso_spnego.html
 
@@ -13,12 +15,6 @@ http://spnego.sourceforge.net/pre_flight.html
 http://doc.mapr.com/display/MapR/Configuring+Kerberos+Authentication+for+Windows
 
 https://blogs.oracle.com/blogbypuneeth/entry/configure_kerberos_with_weblogic_server
-
-
-
-
-ktpass /princ HTTP/haproxy.contentsphere.local@CONTENTSPHERE.LOCAL /mapuser http-lb@CONTENTSPHERE.LOCAL /pass pass@123 /crypto all /ptype KRB5_NT
-_PRINCIPAL /out C:/http-loadbalancer.keytab
 
 https://technet.microsoft.com/en-us/magazine/2005.01.activedirectory.aspx
 
@@ -35,11 +31,20 @@ win-auth xml example
 	******** http://docs.spring.io/autorepo/docs/spring-security-kerberos/1.0.2.BUILD-SNAPSHOT/reference/html/samples-sec-server-win-auth.html
 	http://docs.spring.io/autorepo/docs/spring-security-kerberos/1.0.2.BUILD-SNAPSHOT/reference/html/ssk-spnego.html
 
-	ktpass /princ HTTP/cs12.contentserv.local@CONTENTSERV.LOCAL /mapuser http-web /pass pass@123 /crypto all /ptype KRB5_NT_PRINCIPAL /out C:/http5july.keytab
+	**** ktpass /princ HTTP/haproxy.contentsphere.local@CONTENTSPHERE.LOCAL /mapuser http-lb@CONTENTSPHERE.LOCAL /pass pass@123 /crypto all /ptype KRB5_NT
+_PRINCIPAL /out C:/http-loadbalancer.keytab
+
+	**** ktpass /princ HTTP/ubuntu.contentsphere.local@CONTENTSPHERE.LOCAL /mapuser http-lix@CONTENTSPHERE.LOCAL /pass pass@123 /crypto all /ptype KRB5_NT
+_PRINCIPAL /out C:/http-linux.keytab	
 
 	paste keytab file in build/lib/ folder of project
 
 	RUN: java -jar sec-server-win-auth-1.0.2.BUILD-SNAPSHOT.jar
+
+
+JCE: http://www.oracle.com/technetwork/java/javase/downloads/jce8-download-2133166.html
+
+
 
 
 
@@ -50,8 +55,7 @@ win-auth xml example
 
 
 	
-ktpass /princ HTTP/ubuntu.contentsphere.local@CONTENTSPHERE.LOCAL /mapuser http-lix@CONTENTSPHERE.LOCAL /pass pass@123 /crypto all /ptype KRB5_NT
-_PRINCIPAL /out C:/http-linux.keytab	
+
 	
 
 kerberos windows commands
@@ -63,7 +67,6 @@ klist:
 	java sun.security.krb5.internal.tools.Klist -k -t krba01.keytab
 	
 	
-ktpass /princ HTTP/ubuntu /mapuser http-lix /pass pass@123 /crypto all /ptype KRB5_NT_PRINCIPAL /out C:/http-lix.keytab	
 	
 LOADBALANCER : 
 		https://ssimo.org/blog/id_019.html
@@ -99,3 +102,8 @@ ssl:
       key-store-password: "pass@123"
       key-password: "pass@123"	
 	
+
+Yes, AD has LDAP as one component. You don't need to do anything to AD to allow an LDAP client to connect.
+
+You need to bind (authenticate) to LDAP to be able to browse it; you need to put in your full DN in JXplorer as part of the credentials, and of course your password. Without knowing what you've tried so far, I can't give you much more direction.
+ADAM (AD LDS) is what you would use if you needed something almost entirely like AD, without needing an actual domain.

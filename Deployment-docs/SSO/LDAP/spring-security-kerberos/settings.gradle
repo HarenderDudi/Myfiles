@@ -1,0 +1,14 @@
+rootProject.name = 'spring-security-kerberos'
+
+include 'spring-security-kerberos-core'
+include 'spring-security-kerberos-client'
+include 'spring-security-kerberos-test'
+include 'spring-security-kerberos-web'
+include 'spring-security-kerberos-samples'
+include 'spring-security-kerberos-samples:sec-server-win-auth'
+
+rootProject.children.find {
+	if (it.name == 'spring-security-kerberos-samples') {
+		it.name = 'spring-security-kerberos-samples-common'
+	}
+}
