@@ -17,21 +17,21 @@ remove device from ring : swift-ring-builder <builder-file> remove <ip_address>/
 
 
 get auth url
-	curl -i -X GET -H 'X-Auth-User: allianz:allianz' -H 'X-Auth-Key: pass@123' http://192.168.134.105:8080/auth/v1.0/
+	curl -i -X GET -H 'X-Auth-User: edeka:edeka' -H 'X-Auth-Key: pass@123' http://95.169.183.152:8080/auth/v1.0/
 	[x-auth-key : password of user while creating user account not admin_key]
 	
 add user/account
-	swauth-add-user -A http://192.168.132.36:8080/auth/ -K pass@123 -a dudi dudi pass@123
+	swauth-add-user -A http://95.169.183.152:8080/auth/ -K pass@123 -a edeka edeka pass@123
 	swauth-add-user -A http://192.168.132.107:8080/auth/ -K pass@123 -a proxy2 dudi pass@123
 
 account-list
 	swauth-list -A http://192.168.134.90:8080/auth/ -K pass@123
 
 Create Container
-	swift -A http://192.168.134.90:8080/auth/v1.0 -U dudi:dudi -K pass@123 post container1
+	swift -A http://95.169.183.152:8080/auth/v1.0 -U edeka:edeka -K pass@123 post Image
 	
 upload file:
-	swift -A http://192.168.132.155:8080/auth/v1.0 -U proxy1:dudi -K pass@123 upload .test .
+	swift -A http://95.169.183.152:8080/auth/v1.0 -U edeka:edeka -K pass@123 upload Image photo.png
 	
 List all containres in a account
 	swift -A http://192.168.134.105:8080/auth/v1.0 -U allianz:allianz -K pass@123 list
@@ -58,16 +58,16 @@ CURL COMMAND
 Statistics of an Account:
 	curl -i $STORAGE_URL -X GET -H “X-Auth-Token:$TOKEN”
 
-> Create Account and user 
+> Create account
+	curl -D - https://192.168.134.90:8080/auth/v2/<new_account> -H "X-Auth-Admin-User: .super_admin" -H "X-Auth-Admin-Key: pass@123"
+    
+> Add user to account 
 	curl -XPUT -D - http://192.168.134.90:8080/auth/v2/dudi_test2/dudi -H "X-Auth-Admin-User: .super_admin" -H "X-Auth-Admin-Key: swauthkey" -H "X-Auth-User-Admin: true" -H "X-Auth-User-Key: pass@123"
 	
 	
 > List of account
 	curl -D - https://192.168.134.90/auth/v2/ -H "X-Auth-Admin-User: .super_admin" -H "X-Auth-Admin-Key: pass@123"
 
-> Create account
-
-	curl -D - https://192.168.134.90/auth/v2/<new_account> -H "X-Auth-Admin-User: .super_admin" -H "X-Auth-Admin-Key: pass@123"
 	
 > Create a Container:
 	curl  -H "X-Auth-Token: AUTH_tkc6ad6b615f7a48748a3aae85a1cac94f" -X PUT http://192.168.132.107:8080/v1/AUTH_5ee5ca16-30df-41b6-897f-db58ecb125f5/container3

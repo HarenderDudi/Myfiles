@@ -13,6 +13,10 @@ nohup java -DSTOP.PORT=8089 -DSTOP.KEY=pass123 -jar start.jar &
 nohup java -DSTOP.PORT=8089 -DSTOP.KEY=pass123 -jar start.jar --stop
 https://wiki.eclipse.org/Jetty/Howto/Secure_Termination
 
+>> MAIL
+
+echo testing|mail -s 'Test Mail' rahul@contentsphere.com
+
 
 >> DATE FORMAT
 
