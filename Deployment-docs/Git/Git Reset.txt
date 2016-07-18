@@ -5,3 +5,8 @@ Be careful that this will create an "alternate reality" for people who have alre
 If you want to still have it in your local repository and only remove it from the remote, then you can use:
 
     git push origin +HEAD^:<name of your branch, most likely 'master'>
+    
+   
+Undoing Local Changes: https://githowto.com/undoing_local_changes   
+Undoing Staged Changes: https://githowto.com/undoing_staged_changes    
+Undoing Committed Changes: https://githowto.com/undoing_committed_changes
