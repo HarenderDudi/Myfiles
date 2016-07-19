@@ -1,1 +1,3 @@
 http://genomewiki.ucsc.edu/index.php/Resolving_merge_conflicts_in_Git
+
+git reset soft vs hard: http://stackoverflow.com/questions/3528245/whats-the-difference-between-git-reset-mixed-soft-and-hard
