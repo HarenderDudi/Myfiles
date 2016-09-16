@@ -1,0 +1,80 @@
+ssh elastic VM
+stop elasticsearch
+check if service is down or not
+take backup of data 
+take bakup of logs
+start elasticsearch
+check if service is up or not
+update sheet size of data and logs in sheet: https://docs.google.com/spreadsheets/d/1D4PixNI8hD3ZdKiepj9wL76Firu8qMq6JWl9CcvPhco/edit#gid=0
+copy same backup in tmp directory of OMD VM
+exit elastic vm
+
+ssh orientdb VM
+stop orientdb
+check if service is down or not
+take backup of data 
+take bakup of logs
+start orientdb
+check if service is up or not
+update sheet size of data and logs in sheet: https://docs.google.com/spreadsheets/d/1D4PixNI8hD3ZdKiepj9wL76Firu8qMq6JWl9CcvPhco/edit#gid=0
+copy same backup in tmp directory of OMD VM
+exit orientdb vm
+
+ssh tomcat VM
+stop tomcat
+check if service is down or not
+take bakup of logs
+start tomcat
+check if service is up or not
+update sheet size logs in sheet: https://docs.google.com/spreadsheets/d/1D4PixNI8hD3ZdKiepj9wL76Firu8qMq6JWl9CcvPhco/edit#gid=0
+copy same backup in tmp directory of OMD VM
+exit tomcat vm
+
+
+Commands: 
+Access OMD VM via Putty
+
+ssh elastic@elastic
+cd /opt/cs/elastic/elasticsearch-2.1.1/
+fuser -k 9200/tcp
+netstat -tulpn|grep 9200
+ps -ef | grep elastic
+tar -zcvf /opt/cs/backups/edeka_prod_elastic_data_12_sept_16_2225_IST.tar.gz data/
+tar -zcvf /opt/cs/backups/edeka_prod_elastic_logs_12_sept_16_2225_IST.tar.gz logs/
+/opt/cs/elastic/elasticsearch-2.1.1/bin/elasticsearch -Des.insecure.allow.root=true -d
+netstat -tulpn|grep 9200
+ps -ef | grep elastic
+cd /opt/cs/backups/
+du -sh *
+scp edeka_prod_elastic_data_12_sept_16_2225_IST.tar.gz edeka_prod_elastic_logs_12_sept_16_2225_IST.tar.gz omd@95.169.183.149:/tmp
+Exit Elastic VM (Ctrl+D)
+
+ssh orientdb@orientdb
+cd /opt/cs/orientdb/orientdb-community-2.1.16/
+bin/orientdb.sh stop
+netstat -tulpn|grep 2480
+ps -ef | grep orient
+tar -zcvf /opt/cs/backups/edeka_prod_orient_data_12_Sep_16_2225_IST.tar.gz databases/
+tar -zcvf /opt/cs/backups/edeka_prod_orient_log_12_Sep_16_2225_IST.tar.gz log/
+bin/orientdb.sh start
+netstat -tulpn|grep 2480
+ps -ef | grep orient
+cd /opt/cs/backups/
+du -sh *
+scp edeka_prod_orient_data_12_Sep_16_2225_IST.tar.gz edeka_prod_orient_log_12_Sep_16_2225_IST.tar.gz omd@95.169.183.149:/tmp
+Exit OriendDB VM (Ctrl+D)
+
+ssh tomcat@tomcat
+cd /opt/cs/tomcat/apache-tomcat-9.0.0.M6/
+fuser -k 8080/tcp
+netstat -tulpn|grep 8080
+ps -ef | grep tomcat
+tar -cvzf /opt/cs/backups/edeka_prod_tomcat_logs_12_sept_16_2225_IST.tar.gz logs/
+bin/startup.sh
+netstat -tulpn|grep 8080
+ps -ef | grep tomcat
+cd /opt/cs/backups/
+du -sh *
+scp edeka_prod_tomcat_logs_12_sept_16_2225_IST.tar.gz omd@omd:/tmp
+Exit Tomcat VM (Ctrl+D)
+

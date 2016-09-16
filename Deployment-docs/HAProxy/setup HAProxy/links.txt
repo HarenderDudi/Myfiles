@@ -1,0 +1,4 @@
+https://www.suse.com/documentation/sle-ha-12/book_sleha/data/sec_ha_lb_haproxy.html
+http://software.opensuse.org/download.html?project=server%3Ahttp&package=haproxy
+
+UI Access Link: http://192.168.134.231:9204/haproxy?stats

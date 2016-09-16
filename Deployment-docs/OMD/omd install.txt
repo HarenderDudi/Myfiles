@@ -1,0 +1,12 @@
+wget http://files.omdistro.org/releases/debian_ubuntu/omd-1.20.trusty.amd64.deb
+apt-get install gdebi-core
+gdebi omd-1.20.trusty.amd64.deb
+a2enmod proxy_http
+/etc/init.d/apache2 restart
+omd create forrester
+omd start forrester
+wget http://mathias-kettner.de/download/check-mk-agent_1.2.4p5-2_all.deb
+dpkg -i check-mk-agent_1.2.4p5-2_all.deb
+apt-get install xinetd
+/etc/init.d/xinetd restart
+check_mk_agent

@@ -1,0 +1,55 @@
+global
+  maxconn 256
+  daemon
+
+defaults
+  log     global
+  mode    http
+  option  httplog
+  option  dontlognull
+  retries 3
+  option redispatch
+  maxconn 2000
+  timeout connect   5000
+  timeout client    50s
+  timeout server    50000
+
+#listen stats
+#  bind 192.168.134.231:9204
+#  mode http
+#  stats enable
+#  stats uri /haproxy?stats
+
+#  stats auth someuser:somepassword
+#  balance leastconn
+#  cookie JSESSIONID prefix
+#  option httpclose
+#  option forwardfor
+#  option httpchk GET /robots.txt HTTP/1.0
+#  server ElasticSearchNode1 192.168.134.231:9201 cookie A check
+# server ElasticSearchNode2 192.168.134.231:9202 cookie B check
+
+frontend localnodes
+        bind *:80/edeka
+        mode http
+        default_backend nodes
+
+backend nodes
+        mode http
+        balance source
+#       balance roundrobin
+#       stick match src
+        stick-table type ip size 200k expire 30m
+        stick on src
+#        server ElasticSearchNode1 192.168.134.231:9200 check
+        server websvr1 192.168.134.77:8080/ weight 1 maxconn check
+        server websvr2 192.168.134.78:8080/ weight 1 maxconn check
+#        server ElasticNode2 192.168.134.81:8080/edeka check
+#        server ElasticNode3 192.168.134.73:9200 check
+#        server TomcatNode4 192.168.134.80:8080 check
+#        server TomcatNode5 192.168.134.81:8080 check
+
+listen stats
+        bind *:9204
+        stats enable
+        stats uri /haproxy?stats

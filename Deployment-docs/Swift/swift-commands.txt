@@ -59,10 +59,10 @@ Statistics of an Account:
 	curl -i $STORAGE_URL -X GET -H “X-Auth-Token:$TOKEN”
 
 > Create account
-	curl -D - https://192.168.134.90:8080/auth/v2/<new_account> -H "X-Auth-Admin-User: .super_admin" -H "X-Auth-Admin-Key: pass@123"
+	curl -XPUT http://192.168.134.90:8080/auth/v2/<new_account> -H "X-Auth-Admin-User: .super_admin" -H "X-Auth-Admin-Key: pass@123"
     
 > Add user to account 
-	curl -XPUT -D - http://192.168.134.90:8080/auth/v2/dudi_test2/dudi -H "X-Auth-Admin-User: .super_admin" -H "X-Auth-Admin-Key: swauthkey" -H "X-Auth-User-Admin: true" -H "X-Auth-User-Key: pass@123"
+	curl -XPUT http://192.168.134.90:8080/auth/v2/dudi_test2/dudi -H "X-Auth-Admin-User: .super_admin" -H "X-Auth-Admin-Key: swauthkey" -H "X-Auth-User-Admin: true" -H "X-Auth-User-Key: pass@123"
 	
 	
 > List of account
@@ -81,13 +81,13 @@ Statistics of an Account:
 	curl -i http://192.168.132.155:8080/v1/AUTH_6d570578-c133-4d64-8bda-ba3d9d93af4c/VM -X DELETE -H "X-Auth-Token: AUTH_tk9179520449cc48e5932a47b42e8cc971"
 	 
 > Upload Object
-	curl -i $STORAGE_URL/container-1/helloworld.txt -X PUT -H "Content-Length: 1" -H "Content-Type: text/html; charset=UTF-8" -H "X-Auth-Token: $TOKEN" -T test.txt
+	curl -i $STORAGE_URL/container-1/helloworld.txt -X PUT -H "Content-Type: text/html; charset=UTF-8" -H "X-Auth-Token: $TOKEN" -T test.txt
 	
 > DELETE Object
 	curl -i $STORAGE_URL/container-1/helloworld -X DELETE -H "X-Auth-Token: $TOKEN"
 
 > Download Object
-	curl -v -H  'X-Auth-Token:  AUTH_tkfb81ccff2b5a4e59aa8f4e8d9c7dc5dd'  http://192.168.134.92:8080/v1/AUTH_2f5f4389-2482-4b0c-a085-7a0e30eb2259
+	curl -v -H  'X-Auth-Token:  AUTH_tkfb81ccff2b5a4e59aa8f4e8d9c7dc5dd'  http://192.168.134.92:8080/v1/AUTH_2f5f4389-2482-4b0c-a085-7a0e30eb2259/<container>/<object>
 	
 > Object Metadata
 	curl -i  http://192.168.132.155:8080/v1/AUTH_6d570578-c133-4d64-8bda-ba3d9d93af4c/VM/ubuntu -X HEAD -H "X-Auth-Token: AUTH_tk9179520449cc48e5932a47b42e8cc971"
@@ -104,7 +104,10 @@ Statistics of an Account:
 	
 	liberasurecode-dev
 	
-	
+PILLOW JPEG ERROR : pip uninstall PIL
+pip install PIL --upgrade	
+    
+    
 62.141.57.53
 root
 Xie5xeephox3Iechei4E
@@ -119,8 +122,16 @@ root
 ArvFxHK5wW
 
 
+
 ftp://192.168.134.223/files/
 cs/pass@123
 
 
 http://askubuntu.com/questions/320746/how-to-mount-ftp-resources-with-fstab-when-connection-is-available
+
+
+Forrester:
+    IP :67.227.238.28
+    U :root
+    P :xyzm7Xygpn_38
+

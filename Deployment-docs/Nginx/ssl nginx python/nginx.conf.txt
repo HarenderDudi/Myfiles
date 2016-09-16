@@ -1,0 +1,39 @@
+worker_processes  1;
+events {
+    worker_connections  1024;
+}
+
+http {
+client_max_body_size 2M;
+    include       mime.types;
+    default_type  application/octet-stream;
+    sendfile        on;
+    keepalive_timeout  65;
+
+
+    server {
+        #listen       80;
+        listen       1443 ssl;
+
+#       server_name  192.168.134.234;
+        server_name  192.168.134.239;
+
+        ssl_certificate      /etc/nginx/ssl/example.com/server.crt;
+        ssl_certificate_key  /etc/nginx/ssl/example.com/server.key;
+
+#new block
+        location /{
+            proxy_pass http://114.143.194.158:5100;
+       }
+
+
+
+
+        error_page   500 502 503 504  /50x.html;
+        location = /50x.html {
+            root   html;
+        }
+
+    }
+
+}

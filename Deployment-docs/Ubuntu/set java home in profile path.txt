@@ -1,0 +1,1 @@
+http://www.cyberciti.biz/faq/linux-unix-set-java_home-path-variable/

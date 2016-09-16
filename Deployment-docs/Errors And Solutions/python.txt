@@ -1,0 +1,3 @@
+JPEG decoder not found:
+    pip uninstall PIL
+    pip install PIL --upgrade

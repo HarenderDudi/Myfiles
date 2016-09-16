@@ -1,0 +1,168 @@
+  446  apt-get update && apt-get upgrade -y
+  447  apt-get install nginx
+  448  mkdir -p /etc/nginx/ssl/example.com
+  449  cd /etc/nginx/ssl/example.com
+  450  openssl genrsa -des3 -out server.key 2048
+  451  openssl rsa -in server.key -out server.key
+  452  openssl req -new -key server.key -out server.csr
+  453  openssl x509 -req -days 365 -in server.csr -signkey server.key -out server.crt
+  454  ll
+  455  service nginx status
+  456  service nginx start
+  457  service nginx status
+  458  service apache2 status
+  459  service apache2 stop
+  460  service nginx status
+  461  service nginx start
+  462  service nginx status
+  463  cd /etc/nginx/
+  464  ll
+  465  vim nginx.conf
+  466  ll
+  467  cd sites-available/
+  468  ll
+  469  vim default
+  470  clear
+  471  ll
+  472  cp default default_old
+  473  vim default
+  474  ll
+  475  cd ..
+  476  ll
+  477  cd ..
+  478  ll
+  479  cd nginx/
+  480  ll
+  481  cd conf.d/
+  482  ll
+  483  cd ..
+  484  ll
+  485  cler
+  486  clear
+  487  ll
+  488  cd sites-available/
+  489  cd ..
+  490  cd sites-enabled/
+  491  ll
+  492  cd ..
+  493  cd sites-available/
+  494  ll
+  495  vim default
+  496  cim /usr/share/nginx/html/
+  497  vim /usr/share/nginx/html/
+  498  vim /usr/share/nginx/html/index.html
+  499  ll
+  500  vim default
+  501  cd ..
+  502  vim nginx.conf
+  503  cp nginx.conf nginx.conf_original
+  504  ll
+  505  cd sites-available/
+  506  vim default
+  507  cd ..
+  508  clear
+  509  ll
+  510  >nginx.conf
+  511  vim nginx.conf
+  512  service nginx stop
+  513  service nginx stats
+  514  service nginx status
+  515  service nginx start
+  516  service nginx status
+  517  service nginx stop
+  518  vim nginx.conf
+  519  service nginx status
+  520  service nginx start
+  521  service nginx status
+  522  service nginx stop
+  523  vim nginx.conf
+  524  service nginx status
+  525  service nginx start
+  526  service nginx status
+  527  service nginx stop
+  528  vim nginx.conf
+  529  service nginx stop
+  530  service nginx status
+  531  service nginx start
+  532  service nginx status
+  533  vim nginx.conf
+  534  service nginx status
+  535  service nginx stop
+  536  service nginx start
+  537  vim nginx.conf
+  538  cp nginx.conf nginx.conf_working_simple
+  539  >nginx.conf
+  540  service nginx stop
+  541  service nginx status
+  542  vim nginx.conf
+  543  service nginx start
+  544  service nginx status
+  545  service nginx stop
+  546  vim nginx.conf
+  547  service nginx status
+  548  service nginx start
+  549  service nginx status
+  550*  -t -c /etc/nginx/nginx.conf
+  551  / usr/nginx/sbin/nginx -t -c /etc/nginx/nginx.conf
+  552* /usr/nginx/sbin/nginx -t -c /etc/nginx/nginx.conf/
+  553  /usr/sbin/nginx -t -c /etc/nginx/nginx.conf
+  554  clear
+  555  /usr/sbin/nginx -t -c /etc/nginx/nginx.conf
+  556  vim nginx.conf
+  557  cp nginx.conf_working_simple nginx.conf
+  558  vim nginx.conf
+  559  service nginx status
+  560  service nginx start
+  561  service nginx status
+  562  service nginx stop
+  563  vim nginx.conf
+  564  service nginx status
+  565  service nginx start
+  566  service nginx status
+  567  /usr/sbin/nginx -t -c /etc/nginx/nginx.conf
+  568  netstat -tulpn | grep 443
+  569  vim nginx.conf
+  570  service nginx status
+  571  service nginx start
+  572  service nginx status
+  573  /usr/sbin/nginx -t -c /etc/nginx/nginx.conf
+  574  netstat -tulpn | grep 443
+  575  vim nginx.conf
+  576  service nginx status
+  577  service nginx start
+  578  service nginx status
+  579  netstat -tulpn | grep 443
+  580  vim nginx.conf
+  581  service nginx status
+  582  service nginx start
+  583  service nginx stop
+  584  service nginx start
+  585  service nginx stop
+  586  service nginx status
+  587  service nginx start
+  588  service nginx status
+  589  netstat -tulpn | grep 443
+  590  vim nginx.conf
+  591  service nginx stop
+  592  service nginx start
+  593  service nginx status
+  594  vim nginx.conf
+  595  service nginx stop
+  596  service nginx status
+  597  service nginx start
+  598  service nginx status
+  599  cleear
+  600  clear
+  601  cat nginx.conf
+  602  netstat -tulpn | grep 1443
+  603  ifconfig
+  604  ls
+  605  cd conf.d/
+  606  ls
+  607  cd ..
+  608  ls
+  609  vim nginx.conf
+  610  clear
+  611  ll
+  612  history
+root@qawebserver:/etc/nginx#

@@ -1,0 +1,1 @@
+http://nemec.lu/en/how-to/~django-nginx-uwsgi-ssl

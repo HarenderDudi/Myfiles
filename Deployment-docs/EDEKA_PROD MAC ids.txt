@@ -1,34 +1,41 @@
+95.169.183.146
+
 95.169.183.148  elastic
-95.169.183.149  OMD
-95.169.183.150  orientdb
-95.169.183.151  tomcat
+95.169.183.149  OMD  Cdu6n8w^TV=B
+95.169.183.150  orientdb  N&Hv6DhWQ57K
+95.169.183.151  tomcat  ~Ye@y9a=[X_X
 95.169.183.152  swift
 
-IP: 87.118.122.14 for Mac: 00:0c:29:9e:5e:65
-IP: 87.118.123.14 for Mac: 00:0c:29:83:93:e9
-IP: 87.118.122.18 for Mac: 00:0c:29:b1:0f:16
-IP: 87.118.123.18 for Mac: 00:0c:29:e9:b6:49
-IP: 87.118.122.19 for Mac: 00:0c:29:24:89:17
-IP: 87.118.123.19 for Mac: 00:0c:29:98:a3:df
+Tomcat 
+Root: 38W_}}<EhTn(
+cs: ^3^[e5CTC,g8
+tomcat: ~Ye@y9a=[X_X
+
+Elastic:
+Root: Ngx_'93rH[5Q
+cs: r]CT'Rg~J9us
+elastic: {fZYp7Hqdr%E 
+
+OrientDB
+Root: S}fHJ9>zN=;9
+cs: KJme3[X)g66`
+orientdb: N&Hv6DhWQ57K
+
+OMD:
+Root: 'YG%d%>9d4fF
+cs: 2Hz/u)<T!!t8
+omd: Cdu6n8w^TV=B
+
+Swift:
+Root: 9Gf^Refr<L^,
+cs: $_E&S9PvZz;2
+swift: 3/hd%3Zb,&mx
+Python: S)hdaJKZH$2@
 
 
 
- mv REST/src/main/webapp/gui/app/screens/homescreen/tack/asset-authenticate-details.js ../config/asset-authenticate-details.js
- mv REST/src/main/webapp/gui/app/screens/homescreen/tack/home-screen-request-mapping.js ../config/home-screen-request-mapping.js
- 
- 
-mv ../config/applicationContext.xml REST/src/main/webapp/WEB-INF/applicationContext.xml
-mv ../config/web.xml REST/src/main/webapp/WEB-INF/web.xml
-mv ../config/asset-authenticate-details.js REST/src/main/webapp/gui/app/screens/homescreen/tack/asset-authenticate-details.js
-mv ../config/home-screen-request-mapping.js REST/src/main/webapp/gui/app/screens/homescreen/tack/home-screen-request-mapping.js
-mv ../config/Constants.java ServerPlugins/elasticsearch/src/main/java/com/cs/plugin/util/Constants.java
- 
-   modified:   REST/build.gradle
-        modified:   REST/src/main/webapp/WEB-INF/applicationContext.xml
-        modified:   REST/src/main/webapp/WEB-INF/web.xml
-        modified:   REST/src/main/webapp/gui/app/screens/homescreen/tack/asset-authenticate-details.js
-        modified:   REST/src/main/webapp/gui/app/screens/homescreen/tack/home-screen-request-mapping.js
-        modified:   ServerPlugins/elasticsearch/src/main/java/com/cs/plugin/util/Constants.java
-        modified:   ServerPlugins/elasticsearch/target/contentsphere-plugin-1.0.0-SNAPSHOT.jar
-        modified:   ServerPlugins/elasticsearch/target/releases/contentsphere-plugin-1.0.0-SNAPSHOT.zip
-        modified:   gradlew
+Keyweb Ticket:
+
+    https://kcm.keyweb.de/
+    33612
+    C0nt3ntsph3r3@123

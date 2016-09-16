@@ -1,0 +1,8 @@
+Load_Test_System Details
+    Elastic: 192.168.134.231
+    Orientdb: 192.168.132.109
+    Tomcat: 192.168.134.232
+    Swift: 192.168.134.234
+    Python : 192.168.134.236
+    omd : 4.233
+    

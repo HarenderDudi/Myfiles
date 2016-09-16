@@ -152,3 +152,7 @@ sudo n stable
 sudo ln -sf /usr/local/n/versions/node/<VERSION>/bin/node /usr/bin/node 
 
 install 5.x version : https://github.com/nodesource/distributions#debinstall
+
+
+
+<Resources cachingAllowed="true" cacheMaxSize="100000" />

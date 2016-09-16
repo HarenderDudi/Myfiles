@@ -1,0 +1,19 @@
+Link:
+https://software.opensuse.org/download.html?project=filesystems&package=sshfs
+
+zypper addrepo http://download.opensuse.org/repositories/filesystems/SLE_11_SP4/filesystems.repo
+zypper refresh
+zypper install sshfs
+
+fstab entry
+
+Elastic 
+sshfs#kd33612001@disc.keyweb.de:/files/edekaloadtest/elastic /opt/cs/backups fuse allow_other,uid=1001,gid=1000, 0 0
+
+
+OrientDB
+sshfs#kd33612001@disc.keyweb.de:/files/edekaloadtest/orientdb /opt/cs/backups fuse allow_other,uid=1001,gid=1000, 0 0
+
+
+Command
+mount -a
