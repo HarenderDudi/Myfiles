@@ -1,0 +1,1832 @@
+<!DOCTYPE html>
+<!-- saved from url=(0091)http://stackoverflow.com/questions/22544461/elasticsearch-optimal-number-of-shards-per-node -->
+<html itemscope="" itemtype="http://schema.org/QAPage"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<title>ElasticSearch - Optimal number of Shards per node - Stack Overflow</title>
+    <link rel="shortcut icon" href="http://cdn.sstatic.net/Sites/stackoverflow/img/favicon.ico?v=4f32ecc8f43d">
+    <link rel="apple-touch-icon image_src" href="http://cdn.sstatic.net/Sites/stackoverflow/img/apple-touch-icon.png?v=c78bd457575a">
+    <link rel="search" type="application/opensearchdescription+xml" title="Stack Overflow" href="http://stackoverflow.com/opensearch.xml">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:domain" content="stackoverflow.com">
+    <meta property="og:type" content="website">
+
+    <meta property="og:image" itemprop="image primaryImageOfPage" content="http://cdn.sstatic.net/Sites/stackoverflow/img/apple-touch-icon@2.png?v=73d79a89bded&amp;a">
+    <meta name="twitter:title" property="og:title" itemprop="title name" content="ElasticSearch - Optimal number of Shards per node">
+    <meta name="twitter:description" property="og:description" itemprop="description" content="I would appreciate if someone could suggest the optimal number of shards per ES node for optimal performance or provide any recommended way to arrive at the number of shards one should use, given the ">
+    <meta property="og:url" content="http://stackoverflow.com/questions/22544461/elasticsearch-optimal-number-of-shards-per-node">
+    <link rel="canonical" href="http://stackoverflow.com/questions/22544461/elasticsearch-optimal-number-of-shards-per-node">
+
+    
+    
+    <script async="" src="./ElasticSearch - Optimal number of Shards per node - Stack Overflow_files/quant.js.download"></script><script async="" src="./ElasticSearch - Optimal number of Shards per node - Stack Overflow_files/beacon.js.download"></script><script async="" src="./ElasticSearch - Optimal number of Shards per node - Stack Overflow_files/analytics.js.download"></script><script src="./ElasticSearch - Optimal number of Shards per node - Stack Overflow_files/jquery.min.js.download"></script>
+    <script src="./ElasticSearch - Optimal number of Shards per node - Stack Overflow_files/stub.en.js.download"></script>
+    <link rel="stylesheet" type="text/css" href="./ElasticSearch - Optimal number of Shards per node - Stack Overflow_files/all.css">
+
+            <link rel="alternate" type="application/atom+xml" title="Feed for question &#39;ElasticSearch - Optimal number of Shards per node&#39;" href="http://stackoverflow.com/feeds/question/22544461">
+            <meta name="twitter:app:country" content="US">
+            <meta name="twitter:app:name:iphone" content="Stack Exchange iOS">
+            <meta name="twitter:app:id:iphone" content="871299723">
+            <meta name="twitter:app:url:iphone" content="se-zaphod://stackoverflow.com/questions/22544461/elasticsearch-optimal-number-of-shards-per-node">
+            <meta name="twitter:app:name:ipad" content="Stack Exchange iOS">
+            <meta name="twitter:app:id:ipad" content="871299723">
+            <meta name="twitter:app:url:ipad" content="se-zaphod://stackoverflow.com/questions/22544461/elasticsearch-optimal-number-of-shards-per-node">
+            <meta name="twitter:app:name:googleplay" content="Stack Exchange Android">
+            <meta name="twitter:app:url:googleplay" content="http://stackoverflow.com/questions/22544461/elasticsearch-optimal-number-of-shards-per-node">
+            <meta name="twitter:app:id:googleplay" content="com.stackexchange.marvin">
+        <script>
+        
+            StackExchange.ready(function () {
+                    
+                    StackExchange.using("snippets", function () {
+                        StackExchange.snippets.initSnippetRenderer();
+                    });
+                    
+
+                StackExchange.using("postValidation", function () {
+                    StackExchange.postValidation.initOnBlurAndSubmit($('#post-form'), 2, 'answer');
+                });
+
+                
+                StackExchange.question.init({showAnswerHelp:true,totalCommentCount:1,shownCommentCount:1,highlightColor:'#F4A83D',backgroundColor:'#FFF',questionId:22544461});
+
+                styleCode();
+
+                    StackExchange.realtime.subscribeToQuestion('1', '22544461');
+                                                                    StackExchange.using("gps", function () { StackExchange.gps.trackOutboundClicks('#content', '.post-text'); });
+
+            });
+        </script>
+
+
+    <script>
+        StackExchange.init({"locale":"en","stackAuthUrl":"https://stackauth.com","networkMetaHostname":"meta.stackexchange.com","serverTime":1478699411,"routeName":"Questions/Show","site":{"name":"Stack Overflow","description":"Q&A for professional and enthusiast programmers","isNoticesTabEnabled":true,"recaptchaPublicKey":"6LdchgIAAAAAAJwGpIzRQSOFaO0pU6s44Xt8aTwc","recaptchaAudioLang":"en","enableNewTagCreationWarning":true,"insertSpaceAfterNameTabCompletion":false,"id":1,"enableInsertDocLinkDialog":true,"enableSocialMediaInSharePopup":true},"user":{"fkey":"2b9ae1f392a7f84246cbb8af227080f7","rep":0,"isAnonymous":true,"isAnonymousNetworkWide":true,"ab":{"be_nice_anons_edit":{"v":"a","g":2},"likelytoupmod":{"v":"DontShowNewsletterToAnonVoters:a","g":1}}},"events":{"postType":{"question":1},"postEditionSection":{"title":1,"body":2,"tags":3}}}, {"site":{"allowImageUploads":true,"enableUserHovercards":true,"styleCode":true,"enableNewLinkInsertDialog":true,"enableImgurHttps":true},"tags":{},"accounts":{"currentPasswordRequiredForChangingStackIdPassword":true},"flags":{"allowRetractingFlags":true},"snippets":{"snippetsEnabled":true,"renderDomain":"stacksnippets.net"},"markdown":{"asteriskIntraWordEmphasis":true}});
+        StackExchange.using.setCacheBreakers({"js/prettify-full.en.js":"c538a4fd8b97","js/moderator.en.js":"14a3f77b39a8","js/full-anon.en.js":"3c7f0cf05a5a","js/full.en.js":"2739b2292a6a","js/wmd.en.js":"00c9170e112a","js/third-party/jquery.autocomplete.min.js":"e5f01e97f7c3","js/third-party/jquery.autocomplete.min.en.js":"","js/mobile.en.js":"c84249f40166","js/help.en.js":"b50417081cc4","js/tageditor.en.js":"6411a03f27b9","js/tageditornew.en.js":"1a7cf8be41a4","js/inline-tag-editing.en.js":"2ddfa79492e7","js/revisions.en.js":"cf90cfea0ccf","js/review.en.js":"963f80070568","js/tagsuggestions.en.js":"d1ff9b84abe5","js/post-validation.en.js":"609d12b2272e","js/explore-qlist.en.js":"e71f14781288","js/events.en.js":"8aaf44fa02dd","js/keyboard-shortcuts.en.js":"6db4f3a25ea0","js/external-editor.en.js":"5441bf1fb1b5","js/external-editor.en.js":"5441bf1fb1b5","js/snippet-javascript.en.js":"07c320a2d73c","js/snippet-javascript-codemirror.en.js":"abf5eab67d03"});
+        StackExchange.using("gps", function() {
+             StackExchange.gps.init(true);
+        });
+    </script>
+    
+        <script>
+            StackExchange.ready(function () {
+                $('#nav-tour').click(function () {
+                    StackExchange.using("gps", function() {
+                        StackExchange.gps.track("aboutpage.click", { aboutclick_location: "headermain" }, true);
+                    });
+                });
+            });
+        </script>
+<script async="" src="./ElasticSearch - Optimal number of Shards per node - Stack Overflow_files/full-anon.en.js.download"></script><link type="text/css" rel="stylesheet" href="./ElasticSearch - Optimal number of Shards per node - Stack Overflow_files/cp.min.css"><script async="" src="./ElasticSearch - Optimal number of Shards per node - Stack Overflow_files/snippet-javascript.en.js.download"></script><script async="" src="./ElasticSearch - Optimal number of Shards per node - Stack Overflow_files/post-validation.en.js.download"></script><script async="" src="./ElasticSearch - Optimal number of Shards per node - Stack Overflow_files/external-editor.en.js.download"></script></head>
+<body class="question-page new-topbar">
+    <noscript>&lt;div id="noscript-padding"&gt;&lt;/div&gt;</noscript>
+            <script>(function () { var old = $.fn.contents; $.fn.contents = function () { try { return old.apply(this, arguments); } catch (e) { return $([]); } } })()</script>
+        
+
+
+
+
+    <div id="notify-container"></div>
+    <div id="custom-header"></div>
+
+
+
+
+
+<div class="topbar">
+    <div class="topbar-wrapper">
+
+        <div class="js-topbar-dialog-corral">
+
+
+    <div class="topbar-dialog siteSwitcher-dialog dno">
+        <div class="header">
+            <h3><a href="http://stackoverflow.com/">current community</a>
+            </h3>
+        </div>
+        <div class="modal-content current-site-container">
+            <ul class="current-site">
+                    <li>
+                            <div class="related-links">
+                    <a href="http://chat.stackoverflow.com/" class="js-gps-track" data-gps-track="site_switcher.click({ item_type:6 })">chat</a>
+            </div>
+
+
+
+
+    <a href="http://stackoverflow.com/" class="current-site-link site-link js-gps-track" data-id="1" data-gps-track="
+        site_switcher.click({ item_type:3 })">
+        <div class="site-icon favicon favicon-stackoverflow" title="Stack Overflow"></div>
+        Stack Overflow
+    </a>
+
+                    </li>
+                    <li class="related-site">
+                            <div class="L-shaped-icon-container">
+        <span class="L-shaped-icon"></span>
+    </div>
+
+                        
+
+
+
+    <a href="http://meta.stackoverflow.com/" class="site-link js-gps-track" data-id="552" data-gps-track="
+            site.switch({ target_site:552, item_type:3 }),
+        site_switcher.click({ item_type:4 })">
+        <div class="site-icon favicon favicon-stackoverflowmeta" title="Meta Stack Overflow"></div>
+        Meta Stack Overflow
+    </a>
+
+                    </li>
+            </ul>
+        </div>
+
+        <div class="header" id="your-communities-header">
+            <h3>
+your communities            </h3>
+
+        </div>
+        <div class="modal-content" id="your-communities-section">
+
+                <div class="call-to-login">
+<a href="https://stackoverflow.com/users/signup?ssrc=site_switcher&amp;returnurl=%2fusers%2fstory%2fcurrent&amp;amp;utm_source=stackoverflow.com&amp;amp;utm_medium=dev-story&amp;amp;utm_campaign=signup-redirect" class="login-link js-gps-track" data-gps-track="site_switcher.click({ item_type:10 })">Sign up</a> or <a href="https://stackoverflow.com/users/login?ssrc=site_switcher&amp;returnurl=http%3a%2f%2fstackoverflow.com%2fquestions%2f22544461%2felasticsearch-optimal-number-of-shards-per-node" class="login-link js-gps-track" data-gps-track="site_switcher.click({ item_type:11 })">log in</a> to customize your list.
+                </div>
+        </div>
+
+        <div class="header">
+            <h3><a href="http://stackexchange.com/sites">more stack exchange communities</a>
+            </h3>
+            <a href="http://stackoverflow.blog/" class="fr">company blog</a>
+        </div>
+        <div class="modal-content">
+                <div class="child-content"></div>
+        </div>        
+    </div>
+        </div>
+
+        <div class="network-items">
+                <a href="http://stackexchange.com/" class="topbar-icon icon-site-switcher yes-hover js-site-switcher-button js-gps-track" data-gps-track="site_switcher.show" title="A list of all 162 Stack Exchange sites">
+                    <span class="hidden-text">Stack Exchange</span>
+                </a>
+
+    <a href="http://stackoverflow.com/questions/22544461/elasticsearch-optimal-number-of-shards-per-node#" class="topbar-icon icon-inbox yes-hover js-inbox-button" title="Recent inbox messages">
+        <span class="hidden-text">Inbox</span>
+        <span class="unread-count" style="display:none"></span>
+    </a>
+    <a href="http://stackoverflow.com/questions/22544461/elasticsearch-optimal-number-of-shards-per-node#" class="topbar-icon icon-achievements yes-hover js-achievements-button" data-unread-class="" title="Recent achievements: reputation, badges, and privileges earned">
+        <span class="hidden-text">Reputation and Badges</span>
+        <span class="unread-count" style="display:none">
+            
+        </span>
+    </a>
+        </div>
+
+        <div class="topbar-links">
+
+                <div class="links-container">
+                <span class="topbar-menu-links">
+                                    <a href="https://stackoverflow.com/users/signup?ssrc=head&amp;returnurl=%2fusers%2fstory%2fcurrent&amp;utm_source=stackoverflow.com&amp;utm_medium=dev-story&amp;utm_campaign=signup-redirect" class="login-link">sign up</a>
+                                <a href="https://stackoverflow.com/users/login?ssrc=head&amp;returnurl=http%3a%2f%2fstackoverflow.com%2fquestions%2f22544461%2felasticsearch-optimal-number-of-shards-per-node" class="login-link">log in</a>
+
+                            <a href="http://stackoverflow.com/tour">tour</a>
+        <a href="http://stackoverflow.com/questions/22544461/elasticsearch-optimal-number-of-shards-per-node#" class="icon-help js-help-button" title="Help Center and other resources">
+            help
+            <span class="triangle"></span>
+        </a>
+    <div class="topbar-dialog help-dialog js-help-dialog dno">
+        <div class="modal-content">
+            <ul>
+                                    <li>
+                        <a href="http://stackoverflow.com/tour" class="js-gps-track" data-gps-track="help_popup.click({ item_type:1 })">
+                            Tour
+                            <span class="item-summary">
+                                Start here for a quick overview of the site
+                            </span>
+                        </a>
+                    </li>
+                <li>
+                    <a href="http://stackoverflow.com/help" class="js-gps-track" data-gps-track="help_popup.click({ item_type:4 })">
+                        Help Center
+                        <span class="item-summary">
+                            Detailed answers to any questions you might have
+                        </span>
+                    </a>
+                </li>
+                        <li>
+                            <a href="http://meta.stackoverflow.com/" class="js-gps-track" data-gps-track="help_popup.click({ item_type:2 })">
+                                Meta
+                                <span class="item-summary">
+                                    Discuss the workings and policies of this site
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://stackoverflow.com/company/about" class="js-gps-track" data-gps-track="help_popup.click({ item_type:6 })">
+                                About Us
+                                <span class="item-summary">
+                                    Learn more about Stack Overflow the company
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://business.stackoverflow.com/?ref=topbar_help" class="js-gps-track" data-gps-track="help_popup.click({ item_type:7 })">
+                                Business
+                                <span class="item-summary">
+                                    Learn more about hiring developers or posting ads with us
+                                </span>
+                            </a>
+                        </li>
+            </ul>
+        </div>
+    </div>
+                                            </span>
+                </div>
+
+            <div class="search-container">
+                <form id="search" action="http://stackoverflow.com/search" method="get" autocomplete="off">
+                    <input name="q" type="text" placeholder="Search Q&amp;A" value="" tabindex="1" autocomplete="off" maxlength="240">
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+    <script>
+        StackExchange.ready(function() { StackExchange.topbar.init(); });
+    </script>
+
+    <div class="container">
+        <div id="header">
+            <br class="cbt">
+            <div id="hlogo">
+                <a href="http://stackoverflow.com/">
+                    Stack Overflow
+                </a>
+            </div>
+            <div id="hmenus">
+                <div class="nav mainnavs">
+                    <ul>
+                            <li class="youarehere">
+        <a id="nav-questions" href="http://stackoverflow.com/questions" class="js-gps-track" data-gps-track="top_nav.click({is_current:true, location:3, destination:1})">
+        Questions
+        </a>
+    </li>
+
+    <li>
+        <a id="nav-jobs" href="http://stackoverflow.com/jobs?med=site-ui&amp;ref=jobs-tab" class="js-gps-track" data-gps-track="top_nav.click({is_current:false, location:3, destination:6})">
+        Jobs
+        </a>
+    </li>
+                            <li>
+        <a id="nav-docs" href="http://stackoverflow.com/documentation" class="js-gps-track" data-gps-track="top_nav.click({is_current:false, location:3, destination:7})">
+        Documentation
+        </a>
+    </li>
+                            <li>
+        <a id="nav-tags" href="http://stackoverflow.com/tags" class="js-gps-track" data-gps-track="top_nav.click({is_current:false, location:3, destination:2})">
+        Tags
+        </a>
+    </li>
+
+                            <li>
+        <a id="nav-users" href="http://stackoverflow.com/users" class="js-gps-track" data-gps-track="top_nav.click({is_current:false, location:3, destination:3})">
+        Users
+        </a>
+    </li>
+
+                            <li>
+        <a id="nav-badges" href="http://stackoverflow.com/help/badges" class="js-gps-track" data-gps-track="top_nav.click({is_current:false, location:3, destination:4})">
+        Badges
+        </a>
+    </li>
+
+                    </ul>
+                </div>
+                <div class="nav askquestion">
+                    <ul>
+                        <li>
+                            <a id="nav-askquestion" href="http://stackoverflow.com/questions/ask">Ask Question</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+
+
+
+        <div id="content" class="snippet-hidden">
+            
+
+<div itemscope="" itemtype="http://schema.org/Question">
+    <link itemprop="image" href="http://cdn.sstatic.net/Sites/stackoverflow/img/apple-touch-icon.png?v=c78bd457575a">
+			<div id="question-header">
+                <h1 itemprop="name"><a href="http://stackoverflow.com/questions/22544461/elasticsearch-optimal-number-of-shards-per-node" class="question-hyperlink">ElasticSearch - Optimal number of Shards per node</a></h1>
+		</div>
+			<div id="mainbar">
+
+			
+
+<div class="question" data-questionid="22544461" id="question">
+
+    <div class="everyonelovesstackoverflow clc-cp-lb clc-cp-jobs clc-cp-www-db-com-careers-en-prof-about-technology-india-html" id="clc-tlb"><div class="clc-cp-lb-header"><div class="clc-cp-lb-hero" style="background-image: url(//i.stack.imgur.com/0zTrXm.jpg);"></div><div class="clc-cp-lb-logo"><img src="./ElasticSearch - Optimal number of Shards per node - Stack Overflow_files/UIy2M.png" alt="Deutsche Bank Group"></div></div><div class="clc-cp-lb-body"><div class="clc-cp-lb-location">Pune, India</div><div class="clc-cp-lb-body-hdr">Work at <span>Deutsche Bank Group</span></div><ul class="clc-cp-lb-jobs"><li><div class="clc-cp-job-title ">Join Deutsche Bank technology team as a lead developer</div><div class="clc-cp-job-location"></div><span class="clc-cp-tag">html5</span><span class="clc-cp-tag">javascript</span></li><li><div class="clc-cp-job-title ">Join Deutsche Bank technology team as a Java developer</div><div class="clc-cp-job-location"></div><span class="clc-cp-tag">oracle11g</span><span class="clc-cp-tag">angularjs</span></li></ul></div><a class="clc-cp-link " href="http://stackoverflow.com/company/www-db-com-careers-en-prof-about-technology-india-html#jobs" data-at="1" data-tz="4" data-ti="1579" target="_blank"></a><img class="impression" src="./ElasticSearch - Optimal number of Shards per node - Stack Overflow_files/soi.gif" style="display:none;"></div>    <table>
+        <tbody><tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+        <input type="hidden" name="_id_" value="22544461">
+        <a class="vote-up-off" title="This question shows research effort; it is useful and clear">up vote</a>
+        <span itemprop="upvoteCount" class="vote-count-post ">19</span>
+        <a class="vote-down-off" title="This question does not show any research effort; it is unclear or not useful">down vote</a>
+
+        <a class="star-off" href="http://stackoverflow.com/questions/22544461/elasticsearch-optimal-number-of-shards-per-node#">favorite</a>
+        <div class="favoritecount"><b>5</b></div>
+
+
+</div>
+
+            </td>
+            
+<td class="postcell">
+<div>
+    <div class="post-text" itemprop="text">
+
+<p>I would appreciate if someone could suggest the optimal number of shards per ES node for optimal performance or provide any recommended way to arrive at the number of shards one should use, given the number of cores and memory foot print.</p>
+    </div>
+    <div class="post-taglist">
+        <a href="http://stackoverflow.com/questions/tagged/elasticsearch" class="post-tag js-gps-track" title="" rel="tag"><img src="./ElasticSearch - Optimal number of Shards per node - Stack Overflow_files/817gJ.png" height="16" width="18" alt="" class="sponsor-tag-img">elasticsearch</a> 
+    </div>
+    <table class="fw">
+    <tbody><tr>
+    <td class="vt">
+<div class="post-menu"><a href="http://stackoverflow.com/q/22544461" title="short permalink to this question" class="short-link" id="link-post-22544461">share</a><span class="lsep">|</span><a href="http://stackoverflow.com/posts/22544461/edit" class="suggest-edit-post" title="">improve this question</a></div>        
+    </td>
+    <td align="right" class="post-signature">
+<div class="user-info user-hover">
+    <div class="user-action-time">
+        <a href="http://stackoverflow.com/posts/22544461/revisions" title="show all edits to this post">edited <span title="2015-05-27 15:19:58Z" class="relativetime">May 27 '15 at 15:19</span></a>
+    </div>
+    <div class="user-gravatar32">
+        <a href="http://stackoverflow.com/users/654031/chris-pratt"><div class="gravatar-wrapper-32"><img src="./ElasticSearch - Optimal number of Shards per node - Stack Overflow_files/9d0a45dd92ecc2cb15cdbc5f80befb15" alt="" width="32" height="32"></div></a>
+    </div>
+    <div class="user-details">
+        <a href="http://stackoverflow.com/users/654031/chris-pratt">Chris Pratt</a>
+        <div class="-flair">
+            <span class="reputation-score" title="reputation score 102,453" dir="ltr">102k</span><span title="11 gold badges"><span class="badge1"></span><span class="badgecount">11</span></span><span title="155 silver badges"><span class="badge2"></span><span class="badgecount">155</span></span><span title="221 bronze badges"><span class="badge3"></span><span class="badgecount">221</span></span>
+        </div>
+    </div>
+</div>    </td>
+    <td class="post-signature owner">
+        <div class="user-info ">
+    <div class="user-action-time">
+        asked <span title="2014-03-20 20:34:53Z" class="relativetime">Mar 20 '14 at 20:34</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="http://stackoverflow.com/users/1072429/rajan"><div class="gravatar-wrapper-32"><img src="./ElasticSearch - Optimal number of Shards per node - Stack Overflow_files/5b307196cc3edd69b1a3c0efee13f965" alt="" width="32" height="32"></div></a>
+    </div>
+    <div class="user-details">
+        <a href="http://stackoverflow.com/users/1072429/rajan">Rajan</a>
+        <div class="-flair">
+            <span class="reputation-score" title="reputation score " dir="ltr">168</span><span title="1 gold badge"><span class="badge1"></span><span class="badgecount">1</span></span><span title="2 silver badges"><span class="badge2"></span><span class="badgecount">2</span></span><span title="7 bronze badges"><span class="badge3"></span><span class="badgecount">7</span></span>
+        </div>
+    </div>
+</div>
+    </td>
+    </tr>
+    </tbody></table>
+</div>
+</td>
+        </tr>
+                
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-22544461" class="comments ">
+		    <table>
+                <tbody data-remaining-comments-count="0" data-canpost="false" data-cansee="true" data-comments-unavailable="false" data-addlink-disabled="true">
+
+
+
+    <tr id="comment-34321922" class="comment ">
+        <td>
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                &nbsp;&nbsp;
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">Very good question...!</span>
+                    –&nbsp;<a href="http://stackoverflow.com/users/3090380/blackpop" title="3,523 reputation" class="comment-user">BlackPOP</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="http://stackoverflow.com/questions/22544461/elasticsearch-optimal-number-of-shards-per-node#comment34321922_22544461"><span title="2014-03-21 05:41:51Z" class="relativetime-clean">Mar 21 '14 at 5:41</span></a></span>
+                                                                            </div>
+                    </td>
+    </tr>
+                </tbody>
+		    </table>
+	    </div>
+
+        <div id="comments-link-22544461" data-rep="50" data-anon="true">
+
+                <a class="js-add-link comments-link disabled-link " title="Use comments to ask for more information or suggest improvements. Avoid answering questions in comments.">add a comment</a><span class="js-link-separator dno">&nbsp;|&nbsp;</span>
+            <a class="js-show-link comments-link dno" title="expand to show all comments on this post" href="http://stackoverflow.com/questions/22544461/elasticsearch-optimal-number-of-shards-per-node#" onclick=""></a>
+        </div>         
+    </td>
+</tr>        </tbody></table>
+</div>
+
+			<div id="answers">
+
+				<a name="tab-top"></a>
+				<div id="answers-header">
+					<div class="subheader answers-subheader">
+						<h2>
+								4 Answers
+                                <span style="display:none;" itemprop="answerCount">4</span>
+						</h2>
+						<div>
+							<div id="tabs">
+        <a href="http://stackoverflow.com/questions/22544461/elasticsearch-optimal-number-of-shards-per-node?answertab=active#tab-top" data-nav-xhref="" title="Answers with the latest activity first" data-value="active" data-shortcut="A">
+            active</a>
+        <a href="http://stackoverflow.com/questions/22544461/elasticsearch-optimal-number-of-shards-per-node?answertab=oldest#tab-top" data-nav-xhref="" title="Answers in the order they were provided" data-value="oldest" data-shortcut="O">
+            oldest</a>
+        <a class="youarehere" href="http://stackoverflow.com/questions/22544461/elasticsearch-optimal-number-of-shards-per-node?answertab=votes#tab-top" data-nav-xhref="" title="Answers with the highest score first" data-value="votes" data-shortcut="V">
+            votes</a>
+</div>
+						</div>
+					</div>    
+				</div>    
+
+
+
+
+  
+<a name="22558656"></a>
+<div id="answer-22558656" class="answer accepted-answer" data-answerid="22558656" itemscope="" itemtype="http://schema.org/Answer" itemprop="acceptedAnswer">
+    <table>
+        <tbody><tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+        <input type="hidden" name="_id_" value="22558656">
+        <a class="vote-up-off" title="This answer is useful">up vote</a>
+        <span itemprop="upvoteCount" class="vote-count-post ">5</span>
+        <a class="vote-down-off" title="This answer is not useful">down vote</a>
+
+
+
+        <span class="vote-accepted-on load-accepted-answer-date" title="loading when this answer was accepted...">accepted</span>
+
+</div>
+
+            </td>
+            
+
+
+<td class="answercell">
+    <div class="post-text" itemprop="text">
+<p>There are three condition you consider before sharding..</p>
+
+<p><strong><em>Situation 1)</em></strong> You want to use elasticsearch with failover and high availability. Then you go for sharding.
+In this case, you need to select number of shards according to number of nodes[ES instance] you want to use in production.</p>
+
+<p>Consider you wanna give 3 nodes in production. Then you need to choose 1 primary shard  and 2 replicas for every index. If you choose more shards than you need. </p>
+
+<p><strong><em>Situation 2)</em></strong> Your current server will hold the current data. But due to dynamic data increase future you may end up with no space on disk or your server cannot handle much data means, then you need to configure more no of shards like 2 or 3 shards (<strong>its up to your requirements</strong>) for each index. But there shouldn't  any replica.</p>
+
+<p><strong><em>Situation 3)</em></strong> In this situation you the combined situation of situation 1 &amp; 2. then you need to combine both configuration. Consider your data increased dynamically and also you need high availability and failover. Then you configure a index with 2 shards and 1 replica. Then you can share data among nodes and get an optimal performance..!</p>
+
+<p><strong>Note:</strong> <em>Then query will be processed in each shard and perform mapreduce on results from all shards and return the result to us. So the map reduce process is expensive process. Minimum shards gives us optimal performance</em></p>
+
+<p>If you are using only one node in production then, only one primary shards is optimal no of shards for each index.</p>
+
+<p>Hope it helps..!</p>
+    </div>
+    <table class="fw">
+    <tbody><tr>
+    <td class="vt">
+<div class="post-menu"><a href="http://stackoverflow.com/a/22558656" title="short permalink to this answer" class="short-link" id="link-post-22558656">share</a><span class="lsep">|</span><a href="http://stackoverflow.com/posts/22558656/edit" class="suggest-edit-post" title="">improve this answer</a></div>                    </td>
+    <td align="right" class="post-signature">
+<div class="user-info ">
+    <div class="user-action-time">
+        <a href="http://stackoverflow.com/posts/22558656/revisions" title="show all edits to this post">edited <span title="2016-08-10 17:52:14Z" class="relativetime">Aug 10 at 17:52</span></a>
+    </div>
+    <div class="user-gravatar32">
+        <a href="http://stackoverflow.com/users/334831/tombart"><div class="gravatar-wrapper-32"><img src="./ElasticSearch - Optimal number of Shards per node - Stack Overflow_files/bf2a7f4d71e1d892ce564fe4bd81193f" alt="" width="32" height="32"></div></a>
+    </div>
+    <div class="user-details">
+        <a href="http://stackoverflow.com/users/334831/tombart">Tombart</a>
+        <div class="-flair">
+            <span class="reputation-score" title="reputation score 11,350" dir="ltr">11.4k</span><span title="5 gold badges"><span class="badge1"></span><span class="badgecount">5</span></span><span title="58 silver badges"><span class="badge2"></span><span class="badgecount">58</span></span><span title="69 bronze badges"><span class="badge3"></span><span class="badgecount">69</span></span>
+        </div>
+    </div>
+</div>    </td>
+            
+
+
+    <td align="right" class="post-signature">   
+       
+
+    <div class="user-info user-hover">
+    <div class="user-action-time">
+        answered <span title="2014-03-21 12:22:23Z" class="relativetime">Mar 21 '14 at 12:22</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="http://stackoverflow.com/users/3090380/blackpop"><div class="gravatar-wrapper-32"><img src="./ElasticSearch - Optimal number of Shards per node - Stack Overflow_files/rGK4C.jpg" alt="" width="32" height="32"></div></a>
+    </div>
+    <div class="user-details">
+        <a href="http://stackoverflow.com/users/3090380/blackpop">BlackPOP</a>
+        <div class="-flair">
+            <span class="reputation-score" title="reputation score " dir="ltr">3,523</span><span title="1 gold badge"><span class="badge1"></span><span class="badgecount">1</span></span><span title="13 silver badges"><span class="badge2"></span><span class="badgecount">13</span></span><span title="29 bronze badges"><span class="badge3"></span><span class="badgecount">29</span></span>
+        </div>
+    </div>
+</div>
+    </td>
+    </tr>
+    </tbody></table>
+</td>
+        </tr>
+        
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-22558656" class="comments ">
+		    <table>
+                <tbody data-remaining-comments-count="0" data-canpost="false" data-cansee="true" data-comments-unavailable="false" data-addlink-disabled="true">
+
+
+
+    <tr id="comment-47117547" class="comment ">
+        <td class="comment-actions">
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                <span title="number of &#39;useful comment&#39; votes received" class="cool">1</span>
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">I don't think you understand the concept of replicas. Let's say you set up your index to have 3 shards and 1 replica. That actually means you'll have  <b>6</b> shards, though only three will ever be actively used at one time. 1 replica means 1 replica for <i>each</i> shard. For the safest failover for 3 shards, you'd actually want to 2 replicas, so that you'd have one active shard and replicas of the other two active shards on each node.</span>
+                    –&nbsp;<a href="http://stackoverflow.com/users/654031/chris-pratt" title="102,453 reputation" class="comment-user">Chris Pratt</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="http://stackoverflow.com/questions/22544461/elasticsearch-optimal-number-of-shards-per-node#comment47117547_22558656"><span title="2015-04-06 19:46:41Z" class="relativetime-clean">Apr 6 '15 at 19:46</span></a></span>
+                                                                            </div>
+                    </td>
+    </tr>
+    <tr id="comment-47137183" class="comment ">
+        <td>
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                &nbsp;&nbsp;
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">i agree with your command @ChrisPratt, which point of above answer contradict with your command??</span>
+                    –&nbsp;<a href="http://stackoverflow.com/users/3090380/blackpop" title="3,523 reputation" class="comment-user">BlackPOP</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="http://stackoverflow.com/questions/22544461/elasticsearch-optimal-number-of-shards-per-node#comment47137183_22558656"><span title="2015-04-07 10:12:54Z" class="relativetime-clean">Apr 7 '15 at 10:12</span></a></span>
+                                                                            </div>
+                    </td>
+    </tr>
+    <tr id="comment-47233940" class="comment ">
+        <td>
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                &nbsp;&nbsp;
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">You suggested that if the OP has 3 nodes, then they should have 1 primary and 2 replicas. That would result in only one node being utilized because there's only one shard. Meanwhile, the other two nodes would merely get a replica each. That provides failover, but no load-balancing. For a three node setup, the optimal number of shards would 3 and the optimal number of replicas would be 2. That would give you the best performance and failover, but it also would not allow any horizontal expansion without reindexing.</span>
+                    –&nbsp;<a href="http://stackoverflow.com/users/654031/chris-pratt" title="102,453 reputation" class="comment-user">Chris Pratt</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="http://stackoverflow.com/questions/22544461/elasticsearch-optimal-number-of-shards-per-node#comment47233940_22558656"><span title="2015-04-09 14:17:54Z" class="relativetime-clean">Apr 9 '15 at 14:17</span></a></span>
+                                                                            </div>
+                    </td>
+    </tr>
+    <tr id="comment-50044616" class="comment ">
+        <td class="comment-actions">
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                <span title="number of &#39;useful comment&#39; votes received" class="cool">1</span>
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">The OP does not make it clear if read or write performance is more important for their scenario, but an index with 1 primary and 2 replica shards will, as BlackPOP suggests, take full advantage of a 3 node cluster for read operations; see <a href="https://www.elastic.co/guide/en/elasticsearch/guide/current/replica-shards.html" rel="nofollow noreferrer">elastic.co/guide/en/elasticsearch/guide/current/…</a></span>
+                    –&nbsp;<a href="http://stackoverflow.com/users/947986/dusty" title="856 reputation" class="comment-user">Dusty</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="http://stackoverflow.com/questions/22544461/elasticsearch-optimal-number-of-shards-per-node#comment50044616_22558656"><span title="2015-06-23 16:50:23Z" class="relativetime-clean">Jun 23 '15 at 16:50</span></a></span>
+                        <span class="edited-yes" title="this comment was edited 1 time"></span>
+                                                                            </div>
+                    </td>
+    </tr>
+                </tbody>
+		    </table>
+	    </div>
+
+        <div id="comments-link-22558656" data-rep="50" data-anon="true">
+
+                <a class="js-add-link comments-link disabled-link " title="Use comments to ask for more information or suggest improvements. Avoid comments like “+1” or “thanks”.">add a comment</a><span class="js-link-separator dno">&nbsp;|&nbsp;</span>
+            <a class="js-show-link comments-link dno" title="expand to show all comments on this post" href="http://stackoverflow.com/questions/22544461/elasticsearch-optimal-number-of-shards-per-node#" onclick=""></a>
+        </div>         
+    </td>
+</tr>    </tbody></table>
+</div>
+<div class="everyonelovesstackoverflow clc-cp-lb clc-cp-benefits clc-cp-www-db-com-careers-en-prof-about-technology-india-html" id="clc-mlb"><div class="clc-cp-lb-header"><div class="clc-cp-lb-hero" style="background-image: url(//i.stack.imgur.com/0zTrXm.jpg);"></div><div class="clc-cp-lb-logo"><img src="./ElasticSearch - Optimal number of Shards per node - Stack Overflow_files/UIy2M.png" alt="Deutsche Bank Group"></div></div><div class="clc-cp-lb-body"><div class="clc-cp-lb-location">Pune, India</div><div class="clc-cp-lb-body-hdr">Work at <span>Deutsche Bank Group</span></div><ul class="clc-cp-lb-benefits"><li class="clc-cp-lb-benefit b3"><i class="health"></i><span>Pension Scheme &amp; Healthcare</span></li><li class="clc-cp-lb-benefit b3"><i class="same-sex"></i><span>Equal opportunity employer</span></li><li class="clc-cp-lb-benefit b3"><i class="clock"></i><span>Flexible Working</span></li></ul></div><a class="clc-cp-link " href="http://stackoverflow.com/company/www-db-com-careers-en-prof-about-technology-india-html" data-at="1" data-tz="4" data-ti="1579" target="_blank"></a><img class="impression" src="./ElasticSearch - Optimal number of Shards per node - Stack Overflow_files/soi(1).gif" style="display:none;"></div>
+  
+<a name="27865188"></a>
+<div id="answer-27865188" class="answer" data-answerid="27865188" itemscope="" itemtype="http://schema.org/Answer">
+    <table>
+        <tbody><tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+        <input type="hidden" name="_id_" value="27865188">
+        <a class="vote-up-off" title="This answer is useful">up vote</a>
+        <span itemprop="upvoteCount" class="vote-count-post ">16</span>
+        <a class="vote-down-off" title="This answer is not useful">down vote</a>
+
+
+
+
+</div>
+
+            </td>
+            
+
+
+<td class="answercell">
+    <div class="post-text" itemprop="text">
+<p>I'm late to the party, but I just wanted to point out a couple of things:</p>
+
+<ol>
+<li>The optimal number of shards per <em>index</em> is always 1. However, that provides no possibility of horizontal scale.</li>
+<li>The optimal number of shards per <em>node</em> is always 1. However, then you cannot scale horizontally more than your current number of nodes.</li>
+</ol>
+
+<p>The main point is that shards have an inherent cost to both indexing and querying. Each shard is actually a separate Lucene index. When you run a query, Elasticsearch must run that query against each shard, and then compile the individual shard results together to come up with a final result to send back. The benefit to sharding is that the index can be distributed across the nodes in a cluster for higher availability. In other words, it's a trade-off.</p>
+
+<p>Finally, it should be noted that any more than 1 shard per node will introduce I/O considerations. Since each shard must be indexed and queried individually, a node with 2 or more shards would require 2 or more separate I/O operations, which can't be run at the same time. If you have SSDs on your nodes then the actual cost of this can be reduced, since all the I/O happens <em>much</em> quicker. Still, it's something to be aware of.</p>
+
+<p>That, then, begs the question of why would you want to have more than one shard per node? The answer to that is planned scalability. The number of shards in an index is fixed. The only way to add more shards later is to recreate the index and reindex all the data. Depending on the size of your index that may or may not be a big deal. At the time of writing, Stack Overflow's index is 203GB (see: <a href="https://stackexchange.com/performance">https://stackexchange.com/performance</a>). That's kind of a big deal to recreate all that data, so resharding would a nightmare. If you have 3 nodes and a total of 6 shards, that means that you can scale out to up to 6 nodes at a later point easily without resharding.</p>
+    </div>
+    <table class="fw">
+    <tbody><tr>
+    <td class="vt">
+<div class="post-menu"><a href="http://stackoverflow.com/a/27865188" title="short permalink to this answer" class="short-link" id="link-post-27865188">share</a><span class="lsep">|</span><a href="http://stackoverflow.com/posts/27865188/edit" class="suggest-edit-post" title="">improve this answer</a></div>                    </td>
+    <td align="right" class="post-signature">
+<div class="user-info ">
+    <div class="user-action-time">
+        <a href="http://stackoverflow.com/posts/27865188/revisions" title="show all edits to this post">edited <span title="2015-02-27 19:03:51Z" class="relativetime">Feb 27 '15 at 19:03</span></a>
+    </div>
+    <div class="user-gravatar32">
+        
+    </div>
+    <div class="user-details">
+        
+        <div class="-flair">
+            
+        </div>
+    </div>
+</div>    </td>
+            
+
+
+    <td align="right" class="post-signature">   
+       
+
+    <div class="user-info user-hover">
+    <div class="user-action-time">
+        answered <span title="2015-01-09 16:42:16Z" class="relativetime">Jan 9 '15 at 16:42</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="http://stackoverflow.com/users/654031/chris-pratt"><div class="gravatar-wrapper-32"><img src="./ElasticSearch - Optimal number of Shards per node - Stack Overflow_files/9d0a45dd92ecc2cb15cdbc5f80befb15" alt="" width="32" height="32"></div></a>
+    </div>
+    <div class="user-details">
+        <a href="http://stackoverflow.com/users/654031/chris-pratt">Chris Pratt</a>
+        <div class="-flair">
+            <span class="reputation-score" title="reputation score 102,453" dir="ltr">102k</span><span title="11 gold badges"><span class="badge1"></span><span class="badgecount">11</span></span><span title="155 silver badges"><span class="badge2"></span><span class="badgecount">155</span></span><span title="221 bronze badges"><span class="badge3"></span><span class="badgecount">221</span></span>
+        </div>
+    </div>
+</div>
+    </td>
+    </tr>
+    </tbody></table>
+</td>
+        </tr>
+        
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-27865188" class="comments ">
+		    <table>
+                <tbody data-remaining-comments-count="1" data-canpost="false" data-cansee="true" data-comments-unavailable="false" data-addlink-disabled="true">
+
+
+
+    <tr id="comment-46722260" class="comment ">
+        <td>
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                &nbsp;&nbsp;
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">Let's say that you are storing log data and each day's worth is stored to a new index.  If the query load is such that usually only the indices for recent days are searched, would there be a benefit from not loading the inverted indices of the older indices into memory?</span>
+                    –&nbsp;<a href="http://stackoverflow.com/users/86924/dan-hook" title="2,334 reputation" class="comment-user">Dan Hook</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="http://stackoverflow.com/questions/22544461/elasticsearch-optimal-number-of-shards-per-node#comment46722260_27865188"><span title="2015-03-25 15:35:30Z" class="relativetime-clean">Mar 25 '15 at 15:35</span></a></span>
+                                                                            </div>
+                    </td>
+    </tr>
+    <tr id="comment-46722472" class="comment ">
+        <td>
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                &nbsp;&nbsp;
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">@DanHook: Sorry, but I'm not sure I understand. Elasticsearch only loads into memory what it needs to work with. Each index is at least one lucene index, so if your query doesn't span all the indexes, then the others don't need to be touched. Is that what you're asking?</span>
+                    –&nbsp;<a href="http://stackoverflow.com/users/654031/chris-pratt" title="102,453 reputation" class="comment-user">Chris Pratt</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="http://stackoverflow.com/questions/22544461/elasticsearch-optimal-number-of-shards-per-node#comment46722472_27865188"><span title="2015-03-25 15:40:29Z" class="relativetime-clean">Mar 25 '15 at 15:40</span></a></span>
+                        <span class="edited-yes" title="this comment was edited 1 time"></span>
+                                                                            </div>
+                    </td>
+    </tr>
+    <tr id="comment-46731987" class="comment ">
+        <td>
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                &nbsp;&nbsp;
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">Pretty much.  I was a little surprised by hearing that "the optimal number of shards per node is always 1," so I started trying to come up with exceptions.</span>
+                    –&nbsp;<a href="http://stackoverflow.com/users/86924/dan-hook" title="2,334 reputation" class="comment-user">Dan Hook</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="http://stackoverflow.com/questions/22544461/elasticsearch-optimal-number-of-shards-per-node#comment46731987_27865188"><span title="2015-03-25 19:43:39Z" class="relativetime-clean">Mar 25 '15 at 19:43</span></a></span>
+                                                                            </div>
+                    </td>
+    </tr>
+    <tr id="comment-46732566" class="comment ">
+        <td class="comment-actions">
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                <span title="number of &#39;useful comment&#39; votes received" class="cool">3</span>
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">Yeah, it just boils down to how many Lucene indexes need to be searched and where they live. A shard is merely a separate Lucene index.  Each Elasticsearch index has at least one shard and therefore at least one Lucene index, but if you have 3 shards, for example, that's 3 Lucene indexes that have to be searched independently and then have their result sets combined before doing the final scoring and such.  The situation is worse if some of these Lucene indexes reside on the same drive, as then you can only query them serially rather than in parallel.</span>
+                    –&nbsp;<a href="http://stackoverflow.com/users/654031/chris-pratt" title="102,453 reputation" class="comment-user">Chris Pratt</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="http://stackoverflow.com/questions/22544461/elasticsearch-optimal-number-of-shards-per-node#comment46732566_27865188"><span title="2015-03-25 20:02:17Z" class="relativetime-clean">Mar 25 '15 at 20:02</span></a></span>
+                                                                            </div>
+                    </td>
+    </tr>
+    <tr id="comment-62144586" class="comment ">
+        <td>
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                &nbsp;&nbsp;
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">This advice is not so cut and dry as you are making it sound.  If you are reading every shard from disk then you have a bigger problem than shard count.  So having more than one shard per node on the same drive location should not typically require serial IO as the OS will be caching the shards that are being used.  As your box has many cores and possibly many processors, with many IO lanes to memory, parallel IO in this case should be stellar, and provide better performance.  I have been doing this since back when SOLR only supported 1 shard per index, scalability and performance suffered.</span>
+                    –&nbsp;<a href="http://stackoverflow.com/users/1279411/aaronm" title="613 reputation" class="comment-user">AaronM</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="http://stackoverflow.com/questions/22544461/elasticsearch-optimal-number-of-shards-per-node#comment62144586_27865188"><span title="2016-05-18 23:58:59Z" class="relativetime-clean">May 18 at 23:58</span></a></span>
+                                                                            </div>
+                    </td>
+    </tr>
+                </tbody>
+		    </table>
+	    </div>
+
+        <div id="comments-link-27865188" data-rep="50" data-anon="true">
+
+                <a class="js-add-link comments-link  dno" title="Use comments to ask for more information or suggest improvements. Avoid comments like “+1” or “thanks”."></a><span class="js-link-separator dno">&nbsp;|&nbsp;</span>
+            <a class="js-show-link comments-link " title="expand to show all comments on this post" href="http://stackoverflow.com/questions/22544461/elasticsearch-optimal-number-of-shards-per-node#" onclick="">show <b>1</b> more comment</a>
+        </div>         
+    </td>
+</tr>    </tbody></table>
+</div>
+
+  
+<a name="38419297"></a>
+<div id="answer-38419297" class="answer" data-answerid="38419297" itemscope="" itemtype="http://schema.org/Answer">
+    <table>
+        <tbody><tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+        <input type="hidden" name="_id_" value="38419297">
+        <a class="vote-up-off" title="This answer is useful">up vote</a>
+        <span itemprop="upvoteCount" class="vote-count-post ">1</span>
+        <a class="vote-down-off" title="This answer is not useful">down vote</a>
+
+
+
+
+</div>
+
+            </td>
+            
+
+
+<td class="answercell">
+    <div class="post-text" itemprop="text">
+<p>It might be also a good idea to have more than one primary shard per node, depends on use case. I have found out that bulk indexing was pretty slow, only one CPU core was used - so we had idle CPU power and very low IO, definitely hardware was not a bottleneck. Thread pool stats shown, that during indexing only one bulk thread was active. We have a lot of analyzers and complex tokenizer (decomposed analysis of German words). Increasing number of shards per node has resulted in more bulk threads being active (one per shard on node) and it has dramatically improved speed of indexing. </p>
+    </div>
+    <table class="fw">
+    <tbody><tr>
+    <td class="vt">
+<div class="post-menu"><a href="http://stackoverflow.com/a/38419297" title="short permalink to this answer" class="short-link" id="link-post-38419297">share</a><span class="lsep">|</span><a href="http://stackoverflow.com/posts/38419297/edit" class="suggest-edit-post" title="">improve this answer</a></div>                    </td>
+            
+
+
+    <td align="right" class="post-signature">   
+       
+
+    <div class="user-info ">
+    <div class="user-action-time">
+        answered <span title="2016-07-17 08:28:07Z" class="relativetime">Jul 17 at 8:28</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="http://stackoverflow.com/users/6599504/marekobu"><div class="gravatar-wrapper-32"><img src="./ElasticSearch - Optimal number of Shards per node - Stack Overflow_files/bc829e237f86e6216c91468b99de061d" alt="" width="32" height="32"></div></a>
+    </div>
+    <div class="user-details">
+        <a href="http://stackoverflow.com/users/6599504/marekobu">MarekObu</a>
+        <div class="-flair">
+            <span class="reputation-score" title="reputation score " dir="ltr">11</span><span title="1 bronze badge"><span class="badge3"></span><span class="badgecount">1</span></span>
+        </div>
+    </div>
+</div>
+    </td>
+    </tr>
+    </tbody></table>
+</td>
+        </tr>
+        
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-38419297" class="comments  dno">
+		    <table>
+                <tbody data-remaining-comments-count="0" data-canpost="false" data-cansee="true" data-comments-unavailable="false" data-addlink-disabled="true">
+
+                        <tr><td></td><td></td></tr>
+                </tbody>
+		    </table>
+	    </div>
+
+        <div id="comments-link-38419297" data-rep="50" data-anon="true">
+
+                <a class="js-add-link comments-link disabled-link " title="Use comments to ask for more information or suggest improvements. Avoid comments like “+1” or “thanks”.">add a comment</a><span class="js-link-separator dno">&nbsp;|&nbsp;</span>
+            <a class="js-show-link comments-link dno" title="expand to show all comments on this post" href="http://stackoverflow.com/questions/22544461/elasticsearch-optimal-number-of-shards-per-node#" onclick=""></a>
+        </div>         
+    </td>
+</tr>    </tbody></table>
+</div>
+
+  
+<a name="38547616"></a>
+<div id="answer-38547616" class="answer" data-answerid="38547616" itemscope="" itemtype="http://schema.org/Answer">
+    <table>
+        <tbody><tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+        <input type="hidden" name="_id_" value="38547616">
+        <a class="vote-up-off" title="This answer is useful">up vote</a>
+        <span itemprop="upvoteCount" class="vote-count-post ">1</span>
+        <a class="vote-down-off" title="This answer is not useful">down vote</a>
+
+
+
+
+</div>
+
+            </td>
+            
+
+
+<td class="answercell">
+    <div class="post-text" itemprop="text">
+<p>Just got back from configuring some log storage for 10 TB so let's talk sharding :D</p>
+
+<h1>Node limitations</h1>
+
+<p>Main source: <a href="https://www.elastic.co/guide/en/elasticsearch/guide/current/_limiting_memory_usage.html%20the%20definitive%20guide%20to%20elasticsearch" rel="nofollow">The definitive guide to elasticsearch</a></p>
+
+<p><strong>HEAP: 32 GB at most</strong>:</p>
+
+<blockquote>
+  <p>If the heap is less than 32 GB, the JVM can use compressed pointers, which saves a lot of memory: 4 bytes per pointer instead of 8 bytes. </p>
+</blockquote>
+
+<p><strong>HEAP: 50% of the server memory at most</strong>. The rest is left to filesystem caches (thus 64 GB servers are a common sweet spot):</p>
+
+<blockquote>
+  <p>Lucene makes good use of the filesystem caches, which are managed by the kernel. Without enough filesystem cache space, performance will suffer. Furthermore, the more memory dedicated to the heap means less available for all your other fields using doc values. </p>
+</blockquote>
+
+<p>[An index split in] <strong>N shards can spread the load over N servers</strong>:</p>
+
+<p>1 shard can use all the processing power from 1 node (it's like an independent index). Operations on sharded indices are run concurrently on all shards and the result is aggregated.</p>
+
+<p><strong>Less shards is better (the ideal is 1 shard)</strong>:</p>
+
+<p>The overhead of sharding is significant. See this benchmark for numbers <a href="https://blog.trifork.com/2014/01/07/elasticsearch-how-many-shards/" rel="nofollow">https://blog.trifork.com/2014/01/07/elasticsearch-how-many-shards/</a></p>
+
+<p><strong>Less servers is better (the ideal is 1 server (with 1 shard)])</strong>:</p>
+
+<p>The load on an index can only be split across nodes by sharding (A shard is enough to use all resources on a node). More shards allow to use more servers but more servers bring more overhead for data aggregation... There is no free lunch.</p>
+
+<h1>Configuration</h1>
+
+<h2>Usage: A single big index</h2>
+
+<p>We put everything in a single big index and let elasticsearch do all the hard work relating to sharding data. There is no logic whatsoever in the application so it's easier to dev and maintain.</p>
+
+<p>Let's suppose that we plan for the index to be at most 111 GB in the future and we've got 50 GB servers (25 GB heap) from our cloud provider.</p>
+
+<p>That means we should have 5 shards.</p>
+
+<p><strong>Note</strong>: Most people tend to overestimate their growth, try to be realistic. For instance, this 111GB example is already a BIG index. For comparison the stackoverflow index is 430 GB (2016) and it's a top 50 site worldwide, made entirely of written texts by millions of people.</p>
+
+<h2>Usage: Index by time</h2>
+
+<p>When there're too much data for a single index or it's getting too annoying to manage, the next thing is to split the index by time period.</p>
+
+<p>The most extreme example is logging applications (logstach and graylog) which are using a new index every day.</p>
+
+<p>The ideal configuration of 1-single-shard-per-index makes perfect sense in scenario. The index rotation period can be adjusted, if necessary, to keep the index smaller than the heap.</p>
+
+<p><strong>Special case</strong>: Let's imagine a popular internet forum with monthly indices. 99% of requests are hitting the last index. We have to set multiple shards (e.g. 3) to spread the load over multiple nodes. (Note: It's probably unnecessary optimization. A 99% hitrate is unlikely in the real world and the shard replica could distribute part of the read-only load anyway).</p>
+
+<h3>Usage: Going Exascale (just for the record)</h3>
+
+<p>ElasticSearch is magic. It's the easiest database to setup in cluster and it's one of the very few able to scale to many nodes (excluding <a href="https://en.wikipedia.org/wiki/Spanner_(database)" rel="nofollow" title="Spanner">Spanner</a> ).</p>
+
+<p>It's possible to go exascale with hundreds of elasticsearch nodes. There must be many indices and shards to spread the load on that many machines and that takes an appropriate sharding configuration (eventually adjusted per index).</p>
+
+<p>The final bit of magic is to tune elasticsearch routing to target specific nodes for specific operations.</p>
+
+<hr>
+    </div>
+    <table class="fw">
+    <tbody><tr>
+    <td class="vt">
+<div class="post-menu"><a href="http://stackoverflow.com/a/38547616" title="short permalink to this answer" class="short-link" id="link-post-38547616">share</a><span class="lsep">|</span><a href="http://stackoverflow.com/posts/38547616/edit" class="suggest-edit-post" title="">improve this answer</a></div>                    </td>
+    <td align="right" class="post-signature">
+<div class="user-info ">
+    <div class="user-action-time">
+        <a href="http://stackoverflow.com/posts/38547616/revisions" title="show all edits to this post">edited <span title="2016-07-24 13:57:58Z" class="relativetime">Jul 24 at 13:57</span></a>
+    </div>
+    <div class="user-gravatar32">
+        
+    </div>
+    <div class="user-details">
+        
+        <div class="-flair">
+            
+        </div>
+    </div>
+</div>    </td>
+            
+
+
+    <td align="right" class="post-signature">   
+       
+
+    <div class="user-info ">
+    <div class="user-action-time">
+        answered <span title="2016-07-24 00:31:01Z" class="relativetime">Jul 24 at 0:31</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="http://stackoverflow.com/users/5994461/user5994461"><div class="gravatar-wrapper-32"><img src="./ElasticSearch - Optimal number of Shards per node - Stack Overflow_files/aab1d1f8d1313f4c0b943d6666f89522" alt="" width="32" height="32"></div></a>
+    </div>
+    <div class="user-details">
+        <a href="http://stackoverflow.com/users/5994461/user5994461">user5994461</a>
+        <div class="-flair">
+            <span class="reputation-score" title="reputation score " dir="ltr">260</span><span title="2 silver badges"><span class="badge2"></span><span class="badgecount">2</span></span><span title="8 bronze badges"><span class="badge3"></span><span class="badgecount">8</span></span>
+        </div>
+    </div>
+</div>
+    </td>
+    </tr>
+    </tbody></table>
+</td>
+        </tr>
+        
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-38547616" class="comments ">
+		    <table>
+                <tbody data-remaining-comments-count="0" data-canpost="false" data-cansee="true" data-comments-unavailable="false" data-addlink-disabled="true">
+
+
+
+    <tr id="comment-64487188" class="comment ">
+        <td>
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                &nbsp;&nbsp;
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">"thus 64 GB servers top, then scale horizontally" &gt; This is not a valid statement. You <i>do</i> need a 64 GB machine to max out the heap to just <b>under</b> 32 GB (to get compressed object pointers), but Elasticsearch and Lucene will heavily benefit from extra memory because it can use it for the file system cache. If you have 256 GB of memory and only one instance of ES running with 30 GB of heap, then the remaining 226 GB of RAM is available to use for the file system and ES will use as much as it can, thus letting it perform <i>extremely</i> well.</span>
+                    –&nbsp;<a href="http://stackoverflow.com/users/706724/pickypg" title="14,107 reputation" class="comment-user">pickypg</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="http://stackoverflow.com/questions/22544461/elasticsearch-optimal-number-of-shards-per-node#comment64487188_38547616"><span title="2016-07-24 00:50:51Z" class="relativetime-clean">Jul 24 at 0:50</span></a></span>
+                                                                            </div>
+                    </td>
+    </tr>
+    <tr id="comment-64496974" class="comment ">
+        <td>
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                &nbsp;&nbsp;
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">True, there are huge dataset where going over 64GB makes sense. They're uncommon and people will have to do their own benchmarking to discover the good settings for them. Generally speaking, 3 x 64 GB servers give 96GB heap + 96 GB cache. That can store tons of data, more than most people will ever have. If you dare having 256GB data on a SINGLE node on purpose, you just sacrified all form of redundancy and you failed at your job.</span>
+                    –&nbsp;<a href="http://stackoverflow.com/users/5994461/user5994461" title="260 reputation" class="comment-user">user5994461</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="http://stackoverflow.com/questions/22544461/elasticsearch-optimal-number-of-shards-per-node#comment64496974_38547616"><span title="2016-07-24 14:29:57Z" class="relativetime-clean">Jul 24 at 14:29</span></a></span>
+                        <span class="edited-yes" title="this comment was edited 2 times"></span>
+                                                                            </div>
+                    </td>
+    </tr>
+                </tbody>
+		    </table>
+	    </div>
+
+        <div id="comments-link-38547616" data-rep="50" data-anon="true">
+
+                <a class="js-add-link comments-link disabled-link " title="Use comments to ask for more information or suggest improvements. Avoid comments like “+1” or “thanks”.">add a comment</a><span class="js-link-separator dno">&nbsp;|&nbsp;</span>
+            <a class="js-show-link comments-link dno" title="expand to show all comments on this post" href="http://stackoverflow.com/questions/22544461/elasticsearch-optimal-number-of-shards-per-node#" onclick=""></a>
+        </div>         
+    </td>
+</tr>    </tbody></table>
+</div>
+									<a name="new-answer"></a>
+						<form id="post-form" action="http://stackoverflow.com/questions/22544461/answer/submit" method="post" class="post-form">
+						    <input type="hidden" id="post-id" value="22544461">
+                            <input type="hidden" id="qualityBanWarningShown" name="qualityBanWarningShown" value="false">
+                            <input type="hidden" name="referrer" value="https://www.google.co.in/">
+							<h2 class="space">Your Answer</h2>
+
+
+            <script>
+            StackExchange.ifUsing("editor", function () {
+                StackExchange.using("externalEditor", function () {
+                    StackExchange.using("snippets", function () {
+                        StackExchange.snippets.init();
+                    });
+                });
+            }, "code-snippets");
+        </script>
+    
+
+<script>
+    StackExchange.ready(function() {
+        initTagRenderer("".split(" "), "".split(" "));
+       
+        StackExchange.using("externalEditor", function() {
+                // Have to fire editor after snippets, if snippets enabled
+                if (StackExchange.settings.snippets.snippetsEnabled) {
+                    StackExchange.using("snippets", function() {
+                        createEditor();
+                    });
+                }
+                else {
+                    createEditor();
+                }
+            });
+
+            function createEditor() {
+                prepareEditor({
+                    heartbeatType: 'answer',
+                convertImagesToLinks: true,
+                reputationToPostImages: 10,
+                bindNavPrevention: true,
+                postfix: "",
+                    onDemand: true,
+                    discardSelector: ".discard-answer"
+                    ,immediatelyShowMarkdownHelp:true
+                    });
+                
+
+        }
+    });  
+</script>
+
+
+<div id="post-editor" class="post-editor js-post-editor">
+
+    <div style="position: relative;">     
+        <div class="wmd-container">
+            <div id="wmd-button-bar" class="wmd-button-bar"><ul id="wmd-button-row" class="wmd-button-row"><li id="wmd-bold-button" class="wmd-button" style="left: 0px;"><span style="background-position: 0px -20px;"></span></li><li id="wmd-italic-button" class="wmd-button" style="left: 25px;"><span style="background-position: -20px -20px;"></span></li><li id="wmd-spacer1" class="wmd-spacer" style="left: 50px;"><span style="background-position: -40px -20px;"></span></li><li id="wmd-link-button" class="wmd-button" style="left: 75px;"><span style="background-position: -40px -20px;"></span></li><li id="wmd-quote-button" class="wmd-button" style="left: 100px;"><span style="background-position: -60px -20px;"></span></li><li id="wmd-code-button" class="wmd-button" style="left: 125px;"><span style="background-position: -80px -20px;"></span></li><li id="wmd-image-button" class="wmd-button" style="left: 150px;"><span style="background-position: -100px -20px;"></span></li><li id="wmd-spacer2" class="wmd-spacer" style="left: 175px;"><span style="background-position: -120px -20px;"></span></li><li id="wmd-olist-button" class="wmd-button" style="left: 200px;"><span style="background-position: -120px -20px;"></span></li><li id="wmd-ulist-button" class="wmd-button" style="left: 225px;"><span style="background-position: -140px -20px;"></span></li><li id="wmd-heading-button" class="wmd-button" style="left: 250px;"><span style="background-position: -160px -20px;"></span></li><li id="wmd-hr-button" class="wmd-button" style="left: 275px;"><span style="background-position: -180px -20px;"></span></li><li id="wmd-spacer3" class="wmd-spacer" style="left: 300px;"><span style="background-position: -200px -20px;"></span></li><li id="wmd-undo-button" class="wmd-button" style="left: 325px;"><span style="background-position: -200px -20px;"></span></li><li id="wmd-redo-button" class="wmd-button" style="left: 350px;"><span style="background-position: -220px -20px;"></span></li></ul></div>
+            <textarea id="wmd-input" class="wmd-input" name="post-text" cols="92" rows="15" tabindex="101" data-min-length=""></textarea>
+        </div>
+    </div>
+
+    <div class="fl" style="margin-top: 8px; height:24px;">&nbsp;</div>
+    <div id="draft-saved" class="draft-saved community-option fl" style="margin-top: 8px; height:24px; display:none;">draft saved</div>
+
+    <div id="draft-discarded" class="draft-discarded community-option fl" style="margin-top: 8px; height:24px; display:none;">draft discarded</div>
+
+
+
+    <div id="wmd-preview" class="wmd-preview"></div>
+    <div></div>
+    <div class="edit-block">
+        <input id="fkey" name="fkey" type="hidden" value="2b9ae1f392a7f84246cbb8af227080f7">
+        <input id="author" name="author" type="text">
+    </div>
+
+
+
+</div>
+							<div style="position: relative;">
+								
+								            <div class="form-item new-post-login">
+        
+                <div class="new-login-form">
+                    <div class="new-login-left">
+                        <h3>Sign up or <a id="login-link" href="http://stackoverflow.com/users/login?ssrc=question_page&amp;returnurl=http%3a%2f%2fstackoverflow.com%2fquestions%2f22544461%2felasticsearch-optimal-number-of-shards-per-node%23new-answer">log in</a></h3>
+                        <script>
+                            StackExchange.ready(function () {
+                                StackExchange.helpers.onClickDraftSave('#login-link');
+                            });
+                        </script>
+                        <div class="preferred-login google-login">
+                            <p><span class="icon"></span><span>Sign up using Google</span></p>
+                        </div>
+                        <div class="preferred-login facebook-login">
+                            <p><span class="icon"></span><span>Sign up using Facebook</span></p>
+                        </div>
+                        <div class="preferred-login stackexchange-login">
+                            <p><span class="icon"></span><span>Sign up using Email and Password</span></p>
+                        </div>
+                    </div>
+                    <input type="hidden" name="manual-openid" class="manual-openid">
+                    <input type="hidden" name="use-facebook" class="use-facebook" value="false">
+                    <input type="hidden" name="use-google" class="use-google" value="false">
+                    <input type="button" class="submit-openid" value="Submit" style="display:none">
+                    <div class="new-login-right">
+                                <h3>Post as a guest</h3>
+    <div class="form-item">
+        <table>
+        <tbody><tr>
+                    <td class="vm">
+                <div>
+                    <label for="display-name">Name</label>
+                    <input id="display-name" name="display-name" type="text" size="30" maxlength="30" value="" tabindex="105">
+                </div>
+                <div>
+                    <label for="m-address">Email</label>
+                    <input id="m-address" name="m-address" type="email" size="30" maxlength="100" value="" tabindex="106" placeholder="required, but never shown">
+                </div>
+            </td>
+        </tr>
+        </tbody></table>
+    </div>
+
+                    </div>
+                </div>
+            </div>
+            <script>
+                StackExchange.ready(
+                    function () {
+                        StackExchange.openid.initPostLogin('.new-post-login', 'http%3a%2f%2fstackoverflow.com%2fquestions%2f22544461%2felasticsearch-optimal-number-of-shards-per-node%23new-answer', 'question_page');
+                    }
+                );
+            </script>
+            <noscript>
+                        &lt;h3&gt;Post as a guest&lt;/h3&gt;
+    &lt;div class="form-item"&gt;
+        &lt;table&gt;
+        &lt;tr&gt;
+                    &lt;td class="vm"&gt;
+                &lt;div&gt;
+                    &lt;label for="display-name"&gt;Name&lt;/label&gt;
+                    &lt;input id="display-name" name="display-name" type="text" size="30" maxlength="30" value="" tabindex="105"&gt;
+                &lt;/div&gt;
+                &lt;div&gt;
+                    &lt;label for="m-address"&gt;Email&lt;/label&gt;
+                    &lt;input id="m-address" name="m-address" type="email" size="30" maxlength="100" value="" tabindex="106" placeholder="required, but never shown" /&gt;
+                &lt;/div&gt;
+            &lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;/table&gt;
+    &lt;/div&gt;
+
+            </noscript>
+
+							</div>
+           
+															<div class="form-submit cbt">
+									<input id="submit-button" type="submit" value="Post Your Answer" tabindex="110">
+									<a href="http://stackoverflow.com/questions/22544461/elasticsearch-optimal-number-of-shards-per-node#" class="btn-clear discard-answer dno">discard</a>
+
+<p class="privacy-policy-agreement">
+By posting your answer, you agree to the <a href="http://stackexchange.com/legal/privacy-policy" target="_blank">privacy policy</a> and <a href="http://stackexchange.com/legal/terms-of-service" target="_blank">terms of service</a>.</p>
+<input type="hidden" name="legalLinksShown" value="1">								</div>
+						</form>
+
+
+
+						<h2 class="bottom-notice" data-loc="1">
+Not the answer you're looking for?							Browse other questions tagged <a href="http://stackoverflow.com/questions/tagged/elasticsearch" class="post-tag" title="show questions tagged &#39;elasticsearch&#39;" rel="tag"><img src="./ElasticSearch - Optimal number of Shards per node - Stack Overflow_files/817gJ.png" height="16" width="18" alt="" class="sponsor-tag-img">elasticsearch</a>  or <a href="http://stackoverflow.com/questions/ask">ask your own question</a>.						</h2>
+			</div>
+		</div>
+				<div id="sidebar" class="show-votes">
+						    <div class="module question-stats">
+			        <table id="qinfo">
+			            <tbody><tr>
+			                <td>
+			                    <p class="label-key">asked</p>
+			                </td>
+			                <td style="padding-left: 10px">
+			                    <p class="label-key" title="2014-03-20 20:34:53Z"><b>2 years ago</b></p>
+			                </td>
+			            </tr>
+			            <tr>
+			                <td>
+			                    <p class="label-key">viewed</p>
+			                </td>
+
+			                <td style="padding-left: 10px">
+			                    <p class="label-key">
+			                        <b>10748 times</b>
+			                    </p>
+			                </td>
+			            </tr>
+			                <tr>
+			                    <td>
+			                        <p class="label-key">active</p>
+			                    </td>
+			                    <td style="padding-left: 10px">
+			                        <p class="label-key"><b><a href="http://stackoverflow.com/questions/22544461/elasticsearch-optimal-number-of-shards-per-node?lastactivity" class="lastactivity-link" title="2016-08-10 17:52:14Z">3 months ago</a></b></p>
+			                    </td>
+			                </tr>
+			        </tbody></table>
+			    </div>
+			<div class="module community-bulletin" data-tracker="cb=1">
+    <div class="related">
+                <div class="bulletin-title">
+                    Upcoming Events
+                </div>
+                <hr>
+    <div class="spacer bulletin-item-important">
+        
+    <div class="bulletin-item-type"><a href="http://stackoverflow.com/election?cb=1" class="question-hyperlink"><div class="favicon favicon-stackoverflow" title="Stack Overflow"></div></a></div>
+    <div class="bulletin-item-content">
+        <a href="http://stackoverflow.com/election?cb=1" class="question-hyperlink">2016 Community Moderator Election</a>
+        <div>ends <span title="2016-11-22 20:00:00Z">Nov 22</span></div>
+    </div>
+    <br class="cbt">
+</div>
+    </div>
+</div>			
+			<div class="everyonelovesstackoverflow clc-cp-sb clc-cp-jobs clc-cp-www-db-com-careers-en-prof-about-technology-india-html" id="hireme"><div class="clc-cp-sb-header"><div class="clc-cp-sb-hero" style="background-image: url(//i.stack.imgur.com/0zTrXm.jpg);"></div><div class="clc-cp-sb-logo"><img src="./ElasticSearch - Optimal number of Shards per node - Stack Overflow_files/UIy2M.png" alt="Deutsche Bank Group"></div></div><div class="clc-cp-sb-body"><div class="clc-cp-sb-info"><div>Work at <span class="clc-cp-sb-name">Deutsche Bank Group</span></div><p class="clc-cp-sb-loc"><span class="loc">Pune, India</span></p><div class="clc-cp-sb-open-jobs">3 open jobs</div></div><ul class="clc-cp-sb-jobs"><li><div class="clc-cp-job-title ">Join Deutsche Bank technology team as a lead developer</div><div class="clc-cp-job-location">Pune, India</div><span class="clc-cp-tag">html5</span><span class="clc-cp-tag">javascript</span></li><li><div class="clc-cp-job-title ">Join Deutsche Bank technology team as a Java developer</div><div class="clc-cp-job-location">Pune, India</div><span class="clc-cp-tag">oracle11g</span><span class="clc-cp-tag">angularjs</span></li><li><div class="clc-cp-job-title ">Join Deutsche Bank technology team as developer</div><div class="clc-cp-job-location">Pune, India</div><span class="clc-cp-tag">html5</span><span class="clc-cp-tag">ajax</span></li></ul></div><div class="clc-cp-sb-button">view company page</div><a class="clc-cp-link " href="http://stackoverflow.com/company/www-db-com-careers-en-prof-about-technology-india-html#jobs" data-at="1" data-tz="4" data-ti="1579" target="_blank"></a><img class="impression" src="./ElasticSearch - Optimal number of Shards per node - Stack Overflow_files/soi(2).gif" style="display:none;"></div>
+        <script>
+;(function(n){var u=Object.assign||function(n){for(var i,r,u,f,e=[],t=1;t<arguments.length;t++)e[t-1]=arguments[t];for(i=0,r=e;i<r.length;i++){u=r[i];for(f in u)n[f]=u[f]}return n},r,t,f,i;try{if(typeof[].indexOf!="function")return;if(window.attachEvent&&!window.addEventListener)return;if(r=["stackoverflow.com","serverfault.com","careers.stackoverflow.com","blog.codinghorror.com","joelonsoftware.com","www.joelonsoftware.com","talent.stackoverflow.com"],r[0]!=="*"&&r.indexOf(location.hostname)===-1)return;t=window;f=t.clc_opts?u({},window.clc_opts):{};t.clc_opts=u(n,f);void 0;t.clc_opts.autoload&&(t.clc_init=t.clc_init||[],t.clc_init.push(function(){return t.clc.load()}));i=document.createElement("script");i.async=!0;void 0;i.src=t.clc_opts.lib;document.body.appendChild(i)}catch(e){void 0}}).call(null, {"azw":true,"kt":2000,"tto":true,"autoload":true,"d":{"sb":["hireme","clc-sb"],"tlb":["careers1","clc-tlb"],"mlb":["careers3","clc-mlb"]},"allowed":["stackoverflow.com","serverfault.com","careers.stackoverflow.com","blog.codinghorror.com","joelonsoftware.com","www.joelonsoftware.com","talent.stackoverflow.com"],"h":"clc.stackoverflow.com","u":"//clc.stackoverflow.com/p.js","lib":"//cdn.sstatic.net/clc/clc.min.js?v=0b93ded9c111"});        </script>
+            <script>
+window.clcfl_request = 'AQAAAABNAFgBAgAAAAIAAAABDwAAAHxlbGFzdGljc2VhcmNofADMF3KRPbI7aoF0';
+                ;(function(n){var t,i;try{if(typeof[].indexOf!="function")return;if(window.attachEvent&&!window.addEventListener)return;if(n.allowed[0]!=="*"&&n.allowed.indexOf(location.hostname)===-1)return;t=window;t.clcfl=t.clcfl||{};t.clcfl_request||void 0;t.clcfl.init=t.clcfl.init||[];t.clcfl.init.push(function(n){return n.load()});t.clcfl.options=n;i=document.createElement("script");i.async=!0;i.src=n.lib;document.body.appendChild(i)}catch(r){}}).call(null, {"azw":true,"kt":2000,"tto":true,"autoload":true,"d":{"sb":["hireme","clc-sb"],"tlb":["careers1","clc-tlb"],"mlb":["careers3","clc-mlb"]},"allowed":["stackoverflow.com","serverfault.com","careers.stackoverflow.com","blog.codinghorror.com","joelonsoftware.com","www.joelonsoftware.com","talent.stackoverflow.com"],"h":"clc.stackoverflow.com","u":"//clc.stackoverflow.com/fl/markup-bg.js","lib":"//cdn.sstatic.net/clc/fl/clc.min.js?v=896d1e931c04"});
+            </script>
+			
+
+            <div class="module sidebar-linked">
+	<h4 id="h-linked">Linked</h4>
+	<div class="linked" data-tracker="lq=1">
+
+<div class="spacer">
+	<a href="http://stackoverflow.com/q/22748200?lq=1" title="Vote score (upvotes - downvotes)">
+		<div class="answer-votes  default">4</div>
+	</a>
+	<a href="http://stackoverflow.com/questions/22748200/elasticsearch-high-memory-usage?noredirect=1&amp;lq=1" class="question-hyperlink">Elasticsearch high memory usage</a>
+</div>
+<div class="spacer">
+	<a href="http://stackoverflow.com/q/26379293?lq=1" title="Vote score (upvotes - downvotes)">
+		<div class="answer-votes  default">1</div>
+	</a>
+	<a href="http://stackoverflow.com/questions/26379293/elastic-search-disc-space-calculation?noredirect=1&amp;lq=1" class="question-hyperlink">Elastic search disc space calculation</a>
+</div>			</div>
+</div>
+
+				<div class="module sidebar-related">
+					<h4 id="h-related">Related</h4>
+                    <div class="related js-gps-related-questions" data-tracker="rq=1">
+                        <div class="spacer js-gps-track"><a href="http://stackoverflow.com/q/16231614?rq=1" title="Vote score (upvotes - downvotes)"><div class="answer-votes answered-accepted default">8</div></a><a href="http://stackoverflow.com/questions/16231614/quick-recovery-after-node-restart-in-elasticsearch?rq=1" class="question-hyperlink">quick recovery after node restart in elasticsearch</a></div><div class="spacer js-gps-track"><a href="http://stackoverflow.com/q/23926644?rq=1" title="Vote score (upvotes - downvotes)"><div class="answer-votes default">4</div></a><a href="http://stackoverflow.com/questions/23926644/how-to-configure-number-of-shards-per-cluster-in-elasticsearch?rq=1" class="question-hyperlink">How to configure number of shards per cluster in elasticsearch</a></div><div class="spacer js-gps-track"><a href="http://stackoverflow.com/q/30375287?rq=1" title="Vote score (upvotes - downvotes)"><div class="answer-votes answered-accepted default">2</div></a><a href="http://stackoverflow.com/questions/30375287/elasticsearch-segments-per-index?rq=1" class="question-hyperlink">ElasticSearch Segments Per Index</a></div><div class="spacer js-gps-track"><a href="http://stackoverflow.com/q/30461205?rq=1" title="Vote score (upvotes - downvotes)"><div class="answer-votes default">0</div></a><a href="http://stackoverflow.com/questions/30461205/elasticsearch-unassigned-shard?rq=1" class="question-hyperlink">ElasticSearch Unassigned Shard</a></div><div class="spacer js-gps-track"><a href="http://stackoverflow.com/q/30530711?rq=1" title="Vote score (upvotes - downvotes)"><div class="answer-votes default">1</div></a><a href="http://stackoverflow.com/questions/30530711/broadcast-get-to-all-shards-in-elasticsearch?rq=1" class="question-hyperlink">Broadcast get to all shards in Elasticsearch</a></div><div class="spacer js-gps-track"><a href="http://stackoverflow.com/q/32205730?rq=1" title="Vote score (upvotes - downvotes)"><div class="answer-votes default">0</div></a><a href="http://stackoverflow.com/questions/32205730/elasticsearch-nodes-not-participating-in-indexing?rq=1" class="question-hyperlink">Elasticsearch nodes not participating in indexing</a></div><div class="spacer js-gps-track"><a href="http://stackoverflow.com/q/34012525?rq=1" title="Vote score (upvotes - downvotes)"><div class="answer-votes default">1</div></a><a href="http://stackoverflow.com/questions/34012525/nodes-loading-but-elasticsearch-has-0-shards?rq=1" class="question-hyperlink">Nodes loading, but Elasticsearch has 0 shards</a></div><div class="spacer js-gps-track"><a href="http://stackoverflow.com/q/35463802?rq=1" title="Vote score (upvotes - downvotes)"><div class="answer-votes default">0</div></a><a href="http://stackoverflow.com/questions/35463802/what-is-the-impact-of-shard-number-in-elasticsearch?rq=1" class="question-hyperlink">what is the impact of shard number in elasticsearch?</a></div><div class="spacer js-gps-track"><a href="http://stackoverflow.com/q/37255798?rq=1" title="Vote score (upvotes - downvotes)"><div class="answer-votes default">1</div></a><a href="http://stackoverflow.com/questions/37255798/elasticsearch-deciding-number-of-nodes-shards-based-on-heap-usage?rq=1" class="question-hyperlink">Elasticsearch - Deciding number of nodes/shards based on heap usage</a></div><div class="spacer js-gps-track"><a href="http://stackoverflow.com/q/39161164?rq=1" title="Vote score (upvotes - downvotes)"><div class="answer-votes default">0</div></a><a href="http://stackoverflow.com/questions/39161164/elasticsearch-replica-shard?rq=1" class="question-hyperlink">Elasticsearch replica shard</a></div>
+                    </div>
+				</div>
+            
+<div id="hot-network-questions" class="module">
+    <h4>
+        <a href="http://stackexchange.com/questions?tab=hot" class="js-gps-track" data-gps-track="posts_hot_network.click({ item_type:1, location:11 })">
+            Hot Network Questions
+        </a>
+    </h4>
+    <ul>
+            <li>
+                <div class="favicon favicon-magento" title="Magento Stack Exchange"></div><a href="http://magento.stackexchange.com/questions/144883/add-customer-to-group-when-registering" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:479 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Add customer to group when registering
+                </a>
+
+            </li>
+            <li>
+                <div class="favicon favicon-worldbuilding" title="Worldbuilding Stack Exchange"></div><a href="http://worldbuilding.stackexchange.com/questions/60724/in-a-world-with-time-travel-could-one-change-the-present-by-changing-the-future" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:579 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    In a world with time travel, could one change the present by changing the future?
+                </a>
+
+            </li>
+            <li>
+                <div class="favicon favicon-puzzling" title="Puzzling Stack Exchange"></div><a href="http://puzzling.stackexchange.com/questions/45481/river-crossing-puzzle" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:559 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    River Crossing Puzzle
+                </a>
+
+            </li>
+            <li>
+                <div class="favicon favicon-stackoverflow" title="Stack Overflow"></div><a href="http://stackoverflow.com/questions/40483266/why-is-a-256-different-than-a-0xff" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:1 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Why is (a % 256) different than (a &amp; 0xFF)?
+                </a>
+
+            </li>
+            <li>
+                <div class="favicon favicon-math" title="Mathematics Stack Exchange"></div><a href="http://math.stackexchange.com/questions/2004630/is-area-of-a-circle-always-irrational" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:69 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Is Area of a circle always irrational
+                </a>
+
+            </li>
+            <li class="dno js-hidden" style="display: list-item;">
+                <div class="favicon favicon-superuser" title="Super User"></div><a href="http://superuser.com/questions/1143100/my-cat-sat-down-on-my-laptop-now-the-right-side-of-my-keyboard-types-the-wrong" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:3 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    My cat sat down on my laptop, now the right side of my keyboard types the wrong characters
+                </a>
+
+            </li>
+            <li class="dno js-hidden" style="display: list-item;">
+                <div class="favicon favicon-politics" title="Politics Stack Exchange"></div><a href="http://politics.stackexchange.com/questions/13066/can-trump-undo-the-un-climate-change-agreement" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:475 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Can Trump undo the UN climate change agreement?
+                </a>
+
+            </li>
+            <li class="dno js-hidden" style="display: list-item;">
+                <div class="favicon favicon-philosophy" title="Philosophy Stack Exchange"></div><a href="http://philosophy.stackexchange.com/questions/38942/do-humans-have-an-ethical-obligation-to-prevent-animal-on-animal-violence" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:265 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Do humans have an ethical obligation to prevent animal on animal violence?
+                </a>
+
+            </li>
+            <li class="dno js-hidden" style="display: list-item;">
+                <div class="favicon favicon-softwareengineering" title="Software Engineering Stack Exchange"></div><a href="http://softwareengineering.stackexchange.com/questions/335504/why-do-languages-require-parenthesis-around-expressions-when-used-with-if-and" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:131 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Why do languages require parenthesis around expressions when used with "if" and "while"?
+                </a>
+
+            </li>
+            <li class="dno js-hidden" style="display: list-item;">
+                <div class="favicon favicon-codegolf" title="Programming Puzzles &amp; Code Golf Stack Exchange"></div><a href="http://codegolf.stackexchange.com/questions/99094/alternating-fibonacci" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:200 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Alternating Fibonacci
+                </a>
+
+            </li>
+            <li class="dno js-hidden" style="display: list-item;">
+                <div class="favicon favicon-unix" title="Unix &amp; Linux Stack Exchange"></div><a href="http://unix.stackexchange.com/questions/321697/why-is-looping-over-finds-output-bad-practice" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:106 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Why is looping over find's output bad practice?
+                </a>
+
+            </li>
+            <li class="dno js-hidden" style="display: list-item;">
+                <div class="favicon favicon-politics" title="Politics Stack Exchange"></div><a href="http://politics.stackexchange.com/questions/13075/what-went-wrong-with-polling" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:475 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    What went wrong with polling?
+                </a>
+
+            </li>
+            <li class="dno js-hidden" style="display: list-item;">
+                <div class="favicon favicon-history" title="History Stack Exchange"></div><a href="http://history.stackexchange.com/questions/33708/on-1941-dec-7-could-japan-have-destroyed-the-panama-canal-instead-of-pearl-harb" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:324 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    On 1941 Dec 7, could Japan have destroyed the Panama Canal instead of Pearl Harbor in a surprise attack?
+                </a>
+
+            </li>
+            <li class="dno js-hidden" style="display: list-item;">
+                <div class="favicon favicon-ell" title="English Language Learners Stack Exchange"></div><a href="http://ell.stackexchange.com/questions/108879/what-does-there-lived-here-then-mean" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:481 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    What does "there lived here then" mean?
+                </a>
+
+            </li>
+            <li class="dno js-hidden" style="display: list-item;">
+                <div class="favicon favicon-worldbuilding" title="Worldbuilding Stack Exchange"></div><a href="http://worldbuilding.stackexchange.com/questions/60574/what-crime-would-be-illegal-to-uncover-in-medieval-europe" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:579 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    What crime would be illegal to uncover in medieval Europe?
+                </a>
+
+            </li>
+            <li class="dno js-hidden" style="display: list-item;">
+                <div class="favicon favicon-electronics" title="Electrical Engineering Stack Exchange"></div><a href="http://electronics.stackexchange.com/questions/267789/how-safe-is-48v-dc" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:135 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    How safe is 48V DC?
+                </a>
+
+            </li>
+            <li class="dno js-hidden" style="display: list-item;">
+                <div class="favicon favicon-codegolf" title="Programming Puzzles &amp; Code Golf Stack Exchange"></div><a href="http://codegolf.stackexchange.com/questions/99026/build-me-a-brick-wall" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:200 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Build me a brick wall!
+                </a>
+
+            </li>
+            <li class="dno js-hidden" style="display: list-item;">
+                <div class="favicon favicon-parenting" title="Parenting Stack Exchange"></div><a href="http://parenting.stackexchange.com/questions/27665/teenage-daughter-refusing-to-go-to-school" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:228 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Teenage daughter refusing to go to school
+                </a>
+
+            </li>
+            <li class="dno js-hidden" style="display: list-item;">
+                <div class="favicon favicon-physics" title="Physics Stack Exchange"></div><a href="http://physics.stackexchange.com/questions/291491/why-is-professor-lewin-correct-regarding-dimensional-analysis-and-im-not" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:151 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Why is Professor Lewin correct regarding dimensional analysis, and I'm not?
+                </a>
+
+            </li>
+            <li class="dno js-hidden" style="display: list-item;">
+                <div class="favicon favicon-codegolf" title="Programming Puzzles &amp; Code Golf Stack Exchange"></div><a href="http://codegolf.stackexchange.com/questions/98945/product-catalog" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:200 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Product catalog
+                </a>
+
+            </li>
+            <li class="dno js-hidden" style="display: list-item;">
+                <div class="favicon favicon-parenting" title="Parenting Stack Exchange"></div><a href="http://parenting.stackexchange.com/questions/27726/should-i-allow-my-child-to-make-an-alternate-meal-if-they-do-not-like-anything-s" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:228 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Should I allow my child to make an alternate meal if they do not like anything served at mealtime?
+                </a>
+
+            </li>
+            <li class="dno js-hidden" style="display: list-item;">
+                <div class="favicon favicon-tex" title="TeX - LaTeX Stack Exchange"></div><a href="http://tex.stackexchange.com/questions/338302/what-is-the-meaning-of-meaning" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:85 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    What is the meaning of \meaning?
+                </a>
+
+            </li>
+            <li class="dno js-hidden" style="display: list-item;">
+                <div class="favicon favicon-mechanics" title="Motor Vehicle Maintenance &amp; Repair Stack Exchange"></div><a href="http://mechanics.stackexchange.com/questions/38452/does-increased-load-of-electronic-devices-from-your-car-reduce-fuel-economy" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:224 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Does increased load of electronic devices from your car reduce fuel economy?
+                </a>
+
+            </li>
+            <li class="dno js-hidden" style="display: list-item;">
+                <div class="favicon favicon-codegolf" title="Programming Puzzles &amp; Code Golf Stack Exchange"></div><a href="http://codegolf.stackexchange.com/questions/98730/count-trailing-truths" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:200 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Count trailing truths
+                </a>
+
+            </li>
+    </ul>
+
+        
+</div>
+		</div>
+	
+<div id="feed-link">
+    <div id="feed-link-text">
+        <a href="http://stackoverflow.com/feeds/question/22544461" title="feed of this question and its answers">
+            <span class="feed-icon"></span>question feed
+        </a>
+    </div>
+</div>	<script>
+StackExchange.ready(function(){$.get('/posts/22544461/ivc/df8c');});
+</script>
+<noscript>
+    &lt;div&gt;&lt;img src="/posts/22544461/ivc/df8c" class="dno" alt="" width="0" height="0"&gt;&lt;/div&gt;
+</noscript><div style="display:none" id="prettify-lang"></div></div>
+
+
+        </div>
+    </div><script async="" src="./ElasticSearch - Optimal number of Shards per node - Stack Overflow_files/clc.min.js.download"></script><script async="" src="./ElasticSearch - Optimal number of Shards per node - Stack Overflow_files/clc.min.js(1).download"></script>
+    <div id="footer" class="categories">
+        <div class="footerwrap">            
+            <div id="footer-menu">
+                <div class="top-footer-links">
+                    <a href="http://stackoverflow.com/company/about">about us</a>
+                        <a href="http://stackoverflow.com/tour">tour</a>
+                    <a href="http://stackoverflow.com/help">help</a>
+                    <a href="http://stackoverflow.blog/?blb=1">blog</a>
+                        <a href="http://chat.stackoverflow.com/">chat</a>
+                    <a href="http://data.stackexchange.com/">data</a>
+                    <a href="http://stackexchange.com/legal">legal</a>
+                    <a href="http://stackexchange.com/legal/privacy-policy">privacy policy</a>
+                    <a href="http://stackoverflow.com/company/work-here">work here</a>
+                    <a href="http://stackexchange.com/mediakit">advertising info</a>
+
+                    <a onclick="StackExchange.switchMobile(&quot;on&quot;)">mobile</a>
+                    <b><a href="http://stackoverflow.com/contact">contact us</a></b>
+                        <b><a href="http://meta.stackoverflow.com/">feedback</a></b>
+                    
+                </div>
+                <div id="footer-sites">
+                    <table>
+    <tbody><tr>
+            <th colspan="4">
+                Technology
+            </th>
+            <th colspan="2">
+                Life / Arts
+            </th>
+            <th colspan="2">
+                Culture / Recreation
+            </th>
+            <th colspan="2">
+                Science
+            </th>
+            <th>
+                Other
+            </th>
+    </tr>
+    <tr>
+            <td>
+                <ol>
+                        <li><a href="http://stackoverflow.com/" title="professional and enthusiast programmers">Stack Overflow</a></li>
+                        <li><a href="http://serverfault.com/" title="system and network administrators">Server Fault</a></li>
+                        <li><a href="http://superuser.com/" title="computer enthusiasts and power users">Super User</a></li>
+                        <li><a href="http://webapps.stackexchange.com/" title="power users of web applications">Web Applications</a></li>
+                        <li><a href="http://askubuntu.com/" title="Ubuntu users and developers">Ask Ubuntu</a></li>
+                        <li><a href="http://webmasters.stackexchange.com/" title="pro webmasters">Webmasters</a></li>
+                        <li><a href="http://gamedev.stackexchange.com/" title="professional and independent game developers">Game Development</a></li>
+                        <li><a href="http://tex.stackexchange.com/" title="users of TeX, LaTeX, ConTeXt, and related typesetting systems">TeX - LaTeX</a></li>
+                            </ol></td><td><ol>
+                        <li><a href="http://softwareengineering.stackexchange.com/" title="professionals, academics, and students working within the systems development life cycle who care about creating, delivering, and maintaining software responsibly">Software Engineering</a></li>
+                        <li><a href="http://unix.stackexchange.com/" title="users of Linux, FreeBSD and other Un*x-like operating systems">Unix &amp; Linux</a></li>
+                        <li><a href="http://apple.stackexchange.com/" title="power users of Apple hardware and software">Ask Different (Apple)</a></li>
+                        <li><a href="http://wordpress.stackexchange.com/" title="WordPress developers and administrators">WordPress Development</a></li>
+                        <li><a href="http://gis.stackexchange.com/" title="cartographers, geographers and GIS professionals">Geographic Information Systems</a></li>
+                        <li><a href="http://electronics.stackexchange.com/" title="electronics and electrical engineering professionals, students, and enthusiasts">Electrical Engineering</a></li>
+                        <li><a href="http://android.stackexchange.com/" title="enthusiasts and power users of the Android operating system">Android Enthusiasts</a></li>
+                        <li><a href="http://security.stackexchange.com/" title="information security professionals">Information Security</a></li>
+                            </ol></td><td><ol>
+                        <li><a href="http://dba.stackexchange.com/" title="database professionals who wish to improve their database skills and learn from others in the community">Database Administrators</a></li>
+                        <li><a href="http://drupal.stackexchange.com/" title="Drupal developers and administrators">Drupal Answers</a></li>
+                        <li><a href="http://sharepoint.stackexchange.com/" title="SharePoint enthusiasts">SharePoint</a></li>
+                        <li><a href="http://ux.stackexchange.com/" title="user experience researchers and experts">User Experience</a></li>
+                        <li><a href="http://mathematica.stackexchange.com/" title="users of Mathematica">Mathematica</a></li>
+                        <li><a href="http://salesforce.stackexchange.com/" title="Salesforce administrators, implementation experts, developers and anybody in-between">Salesforce</a></li>
+                        <li><a href="http://expressionengine.stackexchange.com/" title="administrators, end users, developers and designers for ExpressionEngine® CMS">ExpressionEngine® Answers</a></li>
+                        <li><a href="http://crypto.stackexchange.com/" title="software developers, mathematicians and others interested in cryptography">Cryptography</a></li>
+                            </ol></td><td><ol>
+                        <li><a href="http://codereview.stackexchange.com/" title="peer programmer code reviews">Code Review</a></li>
+                        <li><a href="http://magento.stackexchange.com/" title="users of the Magento e-Commerce platform">Magento</a></li>
+                        <li><a href="http://dsp.stackexchange.com/" title="practitioners of the art and science of signal, image and video processing">Signal Processing</a></li>
+                        <li><a href="http://raspberrypi.stackexchange.com/" title="users and developers of hardware and software for Raspberry Pi">Raspberry Pi</a></li>
+                        <li><a href="http://codegolf.stackexchange.com/" title="programming puzzle enthusiasts and code golfers">Programming Puzzles &amp; Code Golf</a></li>
+                    
+                        <li>
+                            <a href="http://stackexchange.com/sites#technology" class="more">
+                                more (7)
+                            </a>
+                        </li>
+                </ol>
+            </td>
+            <td>
+                <ol>
+                        <li><a href="http://photo.stackexchange.com/" title="professional, enthusiast and amateur photographers">Photography</a></li>
+                        <li><a href="http://scifi.stackexchange.com/" title="science fiction and fantasy enthusiasts">Science Fiction &amp; Fantasy</a></li>
+                        <li><a href="http://graphicdesign.stackexchange.com/" title="Graphic Design professionals, students, and enthusiasts">Graphic Design</a></li>
+                        <li><a href="http://movies.stackexchange.com/" title="movie and tv enthusiasts">Movies &amp; TV</a></li>
+                        <li><a href="http://music.stackexchange.com/" title="musicians, students, and enthusiasts">Music: Practice &amp; Theory</a></li>
+                        <li><a href="http://cooking.stackexchange.com/" title="professional and amateur chefs">Seasoned Advice (cooking)</a></li>
+                        <li><a href="http://diy.stackexchange.com/" title="contractors and serious DIYers">Home Improvement</a></li>
+                        <li><a href="http://money.stackexchange.com/" title="people who want to be financially literate">Personal Finance &amp; Money</a></li>
+                            </ol></td><td><ol>
+                        <li><a href="http://academia.stackexchange.com/" title="academics and those enrolled in higher education">Academia</a></li>
+                    
+                        <li>
+                            <a href="http://stackexchange.com/sites#lifearts" class="more">
+                                more (8)
+                            </a>
+                        </li>
+                </ol>
+            </td>
+            <td>
+                <ol>
+                        <li><a href="http://english.stackexchange.com/" title="linguists, etymologists, and serious English language enthusiasts">English Language &amp; Usage</a></li>
+                        <li><a href="http://skeptics.stackexchange.com/" title="scientific skepticism">Skeptics</a></li>
+                        <li><a href="http://judaism.stackexchange.com/" title="those who base their lives on Jewish law and tradition and anyone interested in learning more">Mi Yodeya (Judaism)</a></li>
+                        <li><a href="http://travel.stackexchange.com/" title="road warriors and seasoned travelers">Travel</a></li>
+                        <li><a href="http://christianity.stackexchange.com/" title="committed Christians, experts in Christianity and those interested in learning more">Christianity</a></li>
+                        <li><a href="http://ell.stackexchange.com/" title="speakers of other languages learning English">English Language Learners</a></li>
+                        <li><a href="http://japanese.stackexchange.com/" title="students, teachers, and linguists wanting to discuss the finer points of the Japanese language">Japanese Language</a></li>
+                        <li><a href="http://gaming.stackexchange.com/" title="passionate videogamers on all platforms">Arqade (gaming)</a></li>
+                            </ol></td><td><ol>
+                        <li><a href="http://bicycles.stackexchange.com/" title="people who build and repair bicycles, people who train cycling, or commute on bicycles">Bicycles</a></li>
+                        <li><a href="http://rpg.stackexchange.com/" title="gamemasters and players of tabletop, paper-and-pencil role-playing games">Role-playing Games</a></li>
+                        <li><a href="http://anime.stackexchange.com/" title="anime and manga fans">Anime &amp; Manga</a></li>
+                        <li><a href="http://mechanics.stackexchange.com/" title="mechanics and DIY enthusiast owners of cars, trucks, and motorcycles">Motor Vehicle Maintenance &amp; Repair</a></li>
+                    
+                        <li>
+                            <a href="http://stackexchange.com/sites#culturerecreation" class="more">
+                                more (17)
+                            </a>
+                        </li>
+                </ol>
+            </td>
+            <td>
+                <ol>
+                        <li><a href="http://mathoverflow.net/" title="professional mathematicians">MathOverflow</a></li>
+                        <li><a href="http://math.stackexchange.com/" title="people studying math at any level and professionals in related fields">Mathematics</a></li>
+                        <li><a href="http://stats.stackexchange.com/" title="people interested in statistics, machine learning, data analysis, data mining, and data visualization">Cross Validated (stats)</a></li>
+                        <li><a href="http://cstheory.stackexchange.com/" title="theoretical computer scientists and researchers in related fields">Theoretical Computer Science</a></li>
+                        <li><a href="http://physics.stackexchange.com/" title="active researchers, academics and students of physics">Physics</a></li>
+                        <li><a href="http://chemistry.stackexchange.com/" title="scientists, academics, teachers and students">Chemistry</a></li>
+                        <li><a href="http://biology.stackexchange.com/" title="biology researchers, academics, and students">Biology</a></li>
+                        <li><a href="http://cs.stackexchange.com/" title="students, researchers and practitioners of computer science">Computer Science</a></li>
+                            </ol></td><td><ol>
+                        <li><a href="http://philosophy.stackexchange.com/" title="those interested in the study of the fundamental nature of knowledge, reality, and existence">Philosophy</a></li>
+                    
+                        <li>
+                            <a href="http://stackexchange.com/sites#science" class="more">
+                                more (3)
+                            </a>
+                        </li>
+                </ol>
+            </td>
+            <td>
+                <ol>
+                        <li><a href="http://meta.stackexchange.com/" title="meta-discussion of the Stack Exchange family of Q&amp;A websites">Meta Stack Exchange</a></li>
+                        <li><a href="http://stackapps.com/" title="apps, scripts, and development with the Stack Exchange API">Stack Apps</a></li>
+                        <li><a href="http://area51.stackexchange.com/" title="proposing new sites in the Stack Exchange network">Area 51</a></li>
+                        <li><a href="http://talent.stackoverflow.com/">Stack Overflow Talent</a></li>
+                    
+                </ol>
+            </td>
+    </tr>
+</tbody></table>
+                </div>
+            </div>
+            <div id="copyright">
+                site design / logo © 2016 Stack Exchange Inc; user contributions licensed under <a href="https://creativecommons.org/licenses/by-sa/3.0/" rel="license">cc by-sa 3.0</a> 
+                with <a href="http://blog.stackoverflow.com/2009/06/attribution-required/" rel="license">attribution required</a>
+            </div>
+            <div id="svnrev">
+                rev 2016.11.9.4178
+            </div>
+                </div>
+    </div>
+    <noscript>
+        &lt;div id="noscript-warning"&gt;Stack Overflow works best with JavaScript enabled&lt;img src="http://pixel.quantserve.com/pixel/p-c1rF4kxgLUzNc.gif" alt="" class="dno"&gt;&lt;/div&gt;
+    </noscript>
+        <script> setTimeout(function() { $("#adzerk-user-match").remove(); }, 2000);</script>
+
+    <script>
+            (function(i, s, o, g, r, a, m) {
+                i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function() { (i[r].q = i[r].q || []).push(arguments) }, i[r].l = 1 * new Date(); a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m);
+            })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+            
+            ga('create', 'UA-5620270-1');
+            ga('set', 'dimension2', '|elasticsearch|');             ga('send', 'pageview');
+        
+        var _qevents = _qevents || [],
+            _comscore = _comscore || [];
+        (function () {
+            var ssl='https:'==document.location.protocol,
+                s=document.getElementsByTagName('script')[0],
+                qc=document.createElement('script');
+                qc.async = true;
+                qc.src = (ssl ? 'https://secure' : 'http://edge') + '.quantserve.com/quant.js';
+                s.parentNode.insertBefore(qc, s);
+                _qevents.push({ qacct: "p-c1rF4kxgLUzNc" });
+                            var sc=document.createElement('script');
+                sc.async=true;
+                sc.src=(ssl?'https://sb':'http://b') + '.scorecardresearch.com/beacon.js';
+                s.parentNode.insertBefore(sc, s);
+                _comscore.push({ c1: "2", c2: "17440561" });
+        })();
+
+    </script>
+                <iframe id="teststackoverflow" style="display:none" src="./ElasticSearch - Optimal number of Shards per node - Stack Overflow_files/saved_resource.html"></iframe>
+        <script>$(window).on("load", function () { $('#teststackoverflow').attr('src', 'http://teststackoverflow.com/?test=ExDNS_3\u0026size=1024'); });</script>
+
+    
+            <script type="text/javascript">
+                
+                (function(appendChild) {
+                    Node.prototype.appendChild = function() {
+                        var parent = this;
+                        var newNode = arguments[0];
+                        if (parent.nodeName === 'HEAD'
+                            && newNode
+                            && newNode.nodeName === 'SCRIPT'
+                            && newNode.src) {
+                            
+                            window.setTimeout(function() {
+                                var result = newNode.src.match(/^https:\/\/maps\.googleapis\.com\/maps\/api\/place\/js\/(\w+)Service\./i) || [];
+                                var service = result[1];
+                                if (service) {
+                                    if (service === 'Autocompletion') service =  2;
+                                    else if (service === 'Place') service = 1;
+                                    else service = 0;
+                                    StackExchange.using('gps', function() {
+                                        StackExchange.gps.track('google_maps_places_api.call', { service: service });
+                                    });
+                                }
+                            }, 0);
+                        }
+                        return appendChild.apply(this, arguments);
+                    };
+                })(Node.prototype.appendChild);
+            </script>
+    
+<script async="" src="./ElasticSearch - Optimal number of Shards per node - Stack Overflow_files/p.js.download"></script><img src="./ElasticSearch - Optimal number of Shards per node - Stack Overflow_files/impression.gif" class="impression" style="display: none;"></body></html>

@@ -28,4 +28,7 @@ Unstage
 Reason For Confict While Pulling
     If any of the remote changes overlap with local uncommitted changes, the merge will be automatically cancelled and the work tree untouched. It is generally best to get any local changes in working order before pulling or stash them away with git-stash[1].
     
+    
+NOTE: local Git maintain not only local repo but also local copy of remote repository. on "git fetch" it update the local remote repository and can do "git diff" for conflicts.  
+    
 

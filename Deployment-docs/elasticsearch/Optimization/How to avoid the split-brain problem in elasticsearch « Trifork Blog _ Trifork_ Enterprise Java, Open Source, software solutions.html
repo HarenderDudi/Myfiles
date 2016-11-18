@@ -1,0 +1,525 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0089)http://blog.trifork.com/2013/10/24/how-to-avoid-the-split-brain-problem-in-elasticsearch/ -->
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head profile="http://gmpg.org/xfn/11"><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><script async="" src="http://static.ak.fbcdn.net/connect.php/js/FB.Share?_=1478701255194"></script>
+
+
+<title>How to avoid the split-brain problem in elasticsearch «  Trifork Blog / Trifork: Enterprise Java, Open Source, software solutions</title>
+
+<link rel="stylesheet" href="./How to avoid the split-brain problem in elasticsearch « Trifork Blog _ Trifork_ Enterprise Java, Open Source, software solutions_files/style.css" type="text/css" media="screen">
+<link rel="alternate" type="application/rss+xml" title="Trifork News RSS" href="http://blog.trifork.nl/feed/rss/"> 
+<link rel="alternate" type="application/rss+xml" title="Trifork Blog RSS Feed" href="http://blog.trifork.com/feed/">
+<link rel="alternate" type="application/atom+xml" title="Trifork Blog Atom Feed" href="http://blog.trifork.com/feed/atom/">
+<link rel="pingback" href="http://blog.trifork.com/xmlrpc.php">
+<!--[if IE 9 ]> <style>.post .comments a{top:1px;}</style><![endif]-->
+
+<meta name="keywords" content="Java, Software, Custom, Development Custom Software Development, Search, Enterprise Search, Facet Search, Open Source, Spring, DWR, GWT, Solr, Lucene, E-Commerce, ECommerce, J2EE, JEE, Expertise, Amsterdam, The Netherlands, Nederland">
+
+<!-- Google DFP Script -->
+<script type="text/javascript" async="" src="./How to avoid the split-brain problem in elasticsearch « Trifork Blog _ Trifork_ Enterprise Java, Open Source, software solutions_files/munchkin.js.download"></script><script type="text/javascript" async="" src="./How to avoid the split-brain problem in elasticsearch « Trifork Blog _ Trifork_ Enterprise Java, Open Source, software solutions_files/ga.js.download"></script><script type="text/javascript" src="./How to avoid the split-brain problem in elasticsearch « Trifork Blog _ Trifork_ Enterprise Java, Open Source, software solutions_files/google_service.js.download">
+</script>
+
+<script type="text/javascript">
+GS_googleAddAdSenseService("ca-pub-3096288565993592");
+GS_googleEnableAllServices();
+</script><script src="./How to avoid the split-brain problem in elasticsearch « Trifork Blog _ Trifork_ Enterprise Java, Open Source, software solutions_files/google_ads.js.download"></script>
+
+<script type="text/javascript">
+GA_googleAddSlot("ca-pub-3096288565993592", "Sidebar");
+</script>
+
+<script type="text/javascript">
+GA_googleFetchAds();
+</script>
+
+
+<link rel="dns-prefetch" href="http://s0.wp.com/">
+<link rel="dns-prefetch" href="http://s.gravatar.com/">
+<link rel="dns-prefetch" href="http://s.w.org/">
+<link rel="alternate" type="application/rss+xml" title="Trifork Blog » How to avoid the split-brain problem in elasticsearch Comments Feed" href="http://blog.trifork.com/2013/10/24/how-to-avoid-the-split-brain-problem-in-elasticsearch/feed/">
+		<script type="text/javascript">
+			window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/2\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/2\/svg\/","svgExt":".svg","source":{"concatemoji":"http:\/\/blog.trifork.com\/wp-includes\/js\/wp-emoji-release.min.js?ver=4.6.1"}};
+			!function(a,b,c){function d(a){var c,d,e,f,g,h=b.createElement("canvas"),i=h.getContext&&h.getContext("2d"),j=String.fromCharCode;if(!i||!i.fillText)return!1;switch(i.textBaseline="top",i.font="600 32px Arial",a){case"flag":return i.fillText(j(55356,56806,55356,56826),0,0),!(h.toDataURL().length<3e3)&&(i.clearRect(0,0,h.width,h.height),i.fillText(j(55356,57331,65039,8205,55356,57096),0,0),c=h.toDataURL(),i.clearRect(0,0,h.width,h.height),i.fillText(j(55356,57331,55356,57096),0,0),d=h.toDataURL(),c!==d);case"diversity":return i.fillText(j(55356,57221),0,0),e=i.getImageData(16,16,1,1).data,f=e[0]+","+e[1]+","+e[2]+","+e[3],i.fillText(j(55356,57221,55356,57343),0,0),e=i.getImageData(16,16,1,1).data,g=e[0]+","+e[1]+","+e[2]+","+e[3],f!==g;case"simple":return i.fillText(j(55357,56835),0,0),0!==i.getImageData(16,16,1,1).data[0];case"unicode8":return i.fillText(j(55356,57135),0,0),0!==i.getImageData(16,16,1,1).data[0];case"unicode9":return i.fillText(j(55358,56631),0,0),0!==i.getImageData(16,16,1,1).data[0]}return!1}function e(a){var c=b.createElement("script");c.src=a,c.type="text/javascript",b.getElementsByTagName("head")[0].appendChild(c)}var f,g,h,i;for(i=Array("simple","flag","unicode8","diversity","unicode9"),c.supports={everything:!0,everythingExceptFlag:!0},h=0;h<i.length;h++)c.supports[i[h]]=d(i[h]),c.supports.everything=c.supports.everything&&c.supports[i[h]],"flag"!==i[h]&&(c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&c.supports[i[h]]);c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&!c.supports.flag,c.DOMReady=!1,c.readyCallback=function(){c.DOMReady=!0},c.supports.everything||(g=function(){c.readyCallback()},b.addEventListener?(b.addEventListener("DOMContentLoaded",g,!1),a.addEventListener("load",g,!1)):(a.attachEvent("onload",g),b.attachEvent("onreadystatechange",function(){"complete"===b.readyState&&c.readyCallback()})),f=c.source||{},f.concatemoji?e(f.concatemoji):f.wpemoji&&f.twemoji&&(e(f.twemoji),e(f.wpemoji)))}(window,document,window._wpemojiSettings);
+		</script><script src="./How to avoid the split-brain problem in elasticsearch « Trifork Blog _ Trifork_ Enterprise Java, Open Source, software solutions_files/wp-emoji-release.min.js.download" type="text/javascript"></script>
+		<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 .07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+<link rel="stylesheet" id="siteorigin-panels-front-css" href="./How to avoid the split-brain problem in elasticsearch « Trifork Blog _ Trifork_ Enterprise Java, Open Source, software solutions_files/front.css" type="text/css" media="all">
+<link rel="stylesheet" id="digg-digg-css" href="./How to avoid the split-brain problem in elasticsearch « Trifork Blog _ Trifork_ Enterprise Java, Open Source, software solutions_files/diggdigg-style.css" type="text/css" media="screen">
+<link rel="stylesheet" id="jetpack_css-css" href="./How to avoid the split-brain problem in elasticsearch « Trifork Blog _ Trifork_ Enterprise Java, Open Source, software solutions_files/jetpack.css" type="text/css" media="all">
+<script type="text/javascript" src="./How to avoid the split-brain problem in elasticsearch « Trifork Blog _ Trifork_ Enterprise Java, Open Source, software solutions_files/jquery.js.download"></script>
+<script type="text/javascript" src="./How to avoid the split-brain problem in elasticsearch « Trifork Blog _ Trifork_ Enterprise Java, Open Source, software solutions_files/jquery-migrate.min.js.download"></script>
+<link rel="https://api.w.org/" href="http://blog.trifork.com/wp-json/">
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://blog.trifork.com/xmlrpc.php?rsd">
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://blog.trifork.com/wp-includes/wlwmanifest.xml"> 
+<link rel="prev" title="Apportable (a much better alternative to Phonegap) and AFNetworking 2.0" href="http://blog.trifork.com/2013/10/22/apportable-a-much-better-alternative-to-phonegap-and-afnetworking-2-0/">
+<link rel="next" title="Puppet from the trenches – How to prevent overwritten user configuration with a custom type" href="http://blog.trifork.com/2013/10/29/puppet-from-the-trenches-how-to-prevent-overwritten-user-configuration-with-a-custom-type/">
+<meta name="generator" content="WordPress 4.6.1">
+<link rel="canonical" href="http://blog.trifork.com/2013/10/24/how-to-avoid-the-split-brain-problem-in-elasticsearch/">
+<link rel="shortlink" href="http://wp.me/p3j5mO-2va">
+<link rel="alternate" type="application/json+oembed" href="http://blog.trifork.com/wp-json/oembed/1.0/embed?url=http%3A%2F%2Fblog.trifork.com%2F2013%2F10%2F24%2Fhow-to-avoid-the-split-brain-problem-in-elasticsearch%2F">
+<link rel="alternate" type="text/xml+oembed" href="http://blog.trifork.com/wp-json/oembed/1.0/embed?url=http%3A%2F%2Fblog.trifork.com%2F2013%2F10%2F24%2Fhow-to-avoid-the-split-brain-problem-in-elasticsearch%2F&amp;format=xml">
+
+<script type="text/javascript">
+var g_hanaFlash = false;
+try {
+  var fo = new ActiveXObject('ShockwaveFlash.ShockwaveFlash');
+  if(fo) g_hanaFlash = true;
+}catch(e){
+  if(navigator.mimeTypes ['application/x-shockwave-flash'] != undefined) g_hanaFlash = true;
+}
+function hanaTrackEvents(arg1,arg2,arg3,arg4) { if ( typeof( pageTracker ) !=='undefined') { pageTracker._trackEvent(arg1, arg2, arg3, arg4);} else if ( typeof(_gaq) !=='undefined'){  _gaq.push(['_trackEvent', arg1, arg2, arg3, arg4]);}}
+function hana_check_mobile_device(){ if(navigator.userAgent.match(/iPhone/i) || navigator.userAgent.match(/iPod/i) || navigator.userAgent.match(/iPad/i)  || navigator.userAgent.match(/Android/i)) { return true; }else return false; }
+</script>
+
+<link rel="dns-prefetch" href="http://v0.wordpress.com/">
+<link rel="shortcut icon" href="http://blog.trifork.com/wp-content/themes/company-wp/favicon.ico" type="image/x-icon">
+
+<!-- Jetpack Open Graph Tags -->
+<meta property="og:type" content="article">
+<meta property="og:title" content="How to avoid the split-brain problem in elasticsearch">
+<meta property="og:url" content="http://blog.trifork.com/2013/10/24/how-to-avoid-the-split-brain-problem-in-elasticsearch/">
+<meta property="og:description" content="We’ve all been there – we started to plan for an elasticsearch cluster and one of the first questions that comes up is “How many nodes should the cluster have?”. As I’…">
+<meta property="article:published_time" content="2013-10-24T11:51:51+00:00">
+<meta property="article:modified_time" content="2013-11-01T16:38:31+00:00">
+<meta property="og:site_name" content="Trifork Blog">
+<meta property="og:image" content="http://blog.trifork.com/wp-content/uploads/2013/10/cluster_bad.jpg">
+<meta property="og:image:width" content="561">
+<meta property="og:image:height" content="312">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary">
+<link rel="stylesheet" type="text/css" href="./How to avoid the split-brain problem in elasticsearch « Trifork Blog _ Trifork_ Enterprise Java, Open Source, software solutions_files/shCore.css"><link rel="stylesheet" type="text/css" href="./How to avoid the split-brain problem in elasticsearch « Trifork Blog _ Trifork_ Enterprise Java, Open Source, software solutions_files/shThemeDefault.css"><style type="text/css" id="syntaxhighlighteranchor"></style>
+<style>.ios7.web-app-mode.has-fixed header{ background-color: rgba(3,122,221,.88);}</style>
+<style id="custom-css-css">section#content img{max-width:100% !important;height:auto !important}.widget_black-studio-tinymce h6{font-weight:400;font-size:13px;margin:0}.widget_black-studio-tinymce h6 + h6{margin-top:20px}.widget_black-studio-tinymce ul{margin:10px;padding:0 0 0 20px;list-style-type:square}.widget_black-studio-tinymce ul li{width:auto;margin-bottom:10px;color:#f60}.widget_black-studio-tinymce ul li h6{color:#000}.syntaxhighlighter{overflow-y:hidden !important;overflow-x:auto !important}</style>
+
+<script type="text/javascript">
+    document.createElement("article");  
+    document.createElement("footer");  
+    document.createElement("header");  
+    document.createElement("hgroup");  
+    document.createElement("nav");  
+    document.createElement("section");  
+</script>	
+<link rel="stylesheet" type="text/css" id="gravatar-card-css" href="./How to avoid the split-brain problem in elasticsearch « Trifork Blog _ Trifork_ Enterprise Java, Open Source, software solutions_files/hovercard.css"><link rel="stylesheet" type="text/css" id="gravatar-card-services-css" href="./How to avoid the split-brain problem in elasticsearch « Trifork Blog _ Trifork_ Enterprise Java, Open Source, software solutions_files/services.css"><script type="text/javascript" charset="utf-8" async="" src="https://platform.twitter.com/js/button.09a4c69b9e9879b3a066b7ecd72136d2.js"></script></head>
+
+
+<body id="sub-template">
+
+    <section id="meta-nav">
+        <div class="wrapper-12">
+			        </div>
+    </section>
+
+
+    <header>
+        <div class="wrapper-12">
+
+			            <h1 id="company-logo"><a href="http://blog.trifork.com/">Trifork Blog</a></h1>
+						<form method="get" id="searchform" action="http://blog.trifork.com/">
+              <div>
+                <input type="text" value="" name="s" id="s">
+                <input type="submit" id="searchsubmit" value="">
+              </div>
+            </form>
+        </div>
+    </header>
+
+	<style>
+.nivoSlider {
+margin-top: 35px;
+height: 200px;
+width: 940px;
+overflow:hidden;
+-webkit-box-shadow: none;
+-moz-box-shadow: none;
+box-shadow: none;
+}
+
+</style>
+
+<!-- meta slider -->
+<div style="max-width: 940px; margin: 0 auto;" class="metaslider metaslider-nivo metaslider-11083 ml-slider">
+    
+    <div id="metaslider_container_11083">
+        <div class="slider-wrapper theme-default">
+            <div class="ribbon"></div>
+            <div id="metaslider_11083" class="nivoSlider">
+                <a href="http://www.gotoacademy.nl/collections/cqrs" target="_blank" class="nivo-imageLink" style="display: none;"><img src="./How to avoid the split-brain problem in elasticsearch « Trifork Blog _ Trifork_ Enterprise Java, Open Source, software solutions_files/axon_immersion_training_banner_blog.jpg" height="200" width="940" title="Axon Immersion Training" alt="" class="slider-11083 slide-11123" style="width: 940px; visibility: hidden; display: inline;"></a>
+                <a href="http://www.gotoacademy.nl/collections/spring" target="_blank" class="nivo-imageLink" style="display: none;"><img src="./How to avoid the split-brain problem in elasticsearch « Trifork Blog _ Trifork_ Enterprise Java, Open Source, software solutions_files/spring_banner2_blog.jpg" height="200" width="940" title="Spring Training" alt="" class="slider-11083 slide-11130" style="width: 940px; visibility: hidden; display: inline;"></a>
+                <a href="http://www.gotoacademy.nl/collections/angularjs" target="_blank" class="nivo-imageLink" style="display: block;"><img src="./How to avoid the split-brain problem in elasticsearch « Trifork Blog _ Trifork_ Enterprise Java, Open Source, software solutions_files/blog_angularjs_training_new.jpg" height="200" width="940" title="AngularJS training" alt="" class="slider-11083 slide-12170" style="width: 940px; visibility: hidden; display: inline;"></a>
+                <a href="https://gotocon.com/accelerate-2016" target="_blank" class="nivo-imageLink" style="display: none;"><img src="./How to avoid the split-brain problem in elasticsearch « Trifork Blog _ Trifork_ Enterprise Java, Open Source, software solutions_files/GOTO-Accelerate-Blog-Banner.png" height="200" width="940" title="GOTO Accelerate London 2016" alt="" class="slider-11083 slide-14809" style="width: 940px; visibility: hidden; display: inline;"></a>
+            <img class="nivo-main-image" src="./How to avoid the split-brain problem in elasticsearch « Trifork Blog _ Trifork_ Enterprise Java, Open Source, software solutions_files/blog_angularjs_training_new.jpg" style="display: inline; width: 940px; height: 200px;"><div class="nivo-caption"></div><div class="nivo-slice" name="0" style="left: 0px; width: 940px; height: 200px; opacity: 1; overflow: hidden;"><img src="./How to avoid the split-brain problem in elasticsearch « Trifork Blog _ Trifork_ Enterprise Java, Open Source, software solutions_files/blog_angularjs_training_new.jpg" style="position:absolute; width:940px; height:auto; display:block !important; top:0; left:-0px;"></div><div class="nivo-slice" name="1" style="left: 63px; width: 63px; height: 200px; opacity: 0; overflow: hidden;"><img src="./How to avoid the split-brain problem in elasticsearch « Trifork Blog _ Trifork_ Enterprise Java, Open Source, software solutions_files/blog_angularjs_training_new.jpg" style="position:absolute; width:940px; height:auto; display:block !important; top:0; left:-63px;"></div><div class="nivo-slice" name="2" style="left: 126px; width: 63px; height: 200px; opacity: 0; overflow: hidden;"><img src="./How to avoid the split-brain problem in elasticsearch « Trifork Blog _ Trifork_ Enterprise Java, Open Source, software solutions_files/blog_angularjs_training_new.jpg" style="position:absolute; width:940px; height:auto; display:block !important; top:0; left:-126px;"></div><div class="nivo-slice" name="3" style="left: 189px; width: 63px; height: 200px; opacity: 0; overflow: hidden;"><img src="./How to avoid the split-brain problem in elasticsearch « Trifork Blog _ Trifork_ Enterprise Java, Open Source, software solutions_files/blog_angularjs_training_new.jpg" style="position:absolute; width:940px; height:auto; display:block !important; top:0; left:-189px;"></div><div class="nivo-slice" name="4" style="left: 252px; width: 63px; height: 200px; opacity: 0; overflow: hidden;"><img src="./How to avoid the split-brain problem in elasticsearch « Trifork Blog _ Trifork_ Enterprise Java, Open Source, software solutions_files/blog_angularjs_training_new.jpg" style="position:absolute; width:940px; height:auto; display:block !important; top:0; left:-252px;"></div><div class="nivo-slice" name="5" style="left: 315px; width: 63px; height: 200px; opacity: 0; overflow: hidden;"><img src="./How to avoid the split-brain problem in elasticsearch « Trifork Blog _ Trifork_ Enterprise Java, Open Source, software solutions_files/blog_angularjs_training_new.jpg" style="position:absolute; width:940px; height:auto; display:block !important; top:0; left:-315px;"></div><div class="nivo-slice" name="6" style="left: 378px; width: 63px; height: 200px; opacity: 0; overflow: hidden;"><img src="./How to avoid the split-brain problem in elasticsearch « Trifork Blog _ Trifork_ Enterprise Java, Open Source, software solutions_files/blog_angularjs_training_new.jpg" style="position:absolute; width:940px; height:auto; display:block !important; top:0; left:-378px;"></div><div class="nivo-slice" name="7" style="left: 441px; width: 63px; height: 200px; opacity: 0; overflow: hidden;"><img src="./How to avoid the split-brain problem in elasticsearch « Trifork Blog _ Trifork_ Enterprise Java, Open Source, software solutions_files/blog_angularjs_training_new.jpg" style="position:absolute; width:940px; height:auto; display:block !important; top:0; left:-441px;"></div><div class="nivo-slice" name="8" style="left: 504px; width: 63px; height: 200px; opacity: 0; overflow: hidden;"><img src="./How to avoid the split-brain problem in elasticsearch « Trifork Blog _ Trifork_ Enterprise Java, Open Source, software solutions_files/blog_angularjs_training_new.jpg" style="position:absolute; width:940px; height:auto; display:block !important; top:0; left:-504px;"></div><div class="nivo-slice" name="9" style="left: 567px; width: 63px; height: 200px; opacity: 0; overflow: hidden;"><img src="./How to avoid the split-brain problem in elasticsearch « Trifork Blog _ Trifork_ Enterprise Java, Open Source, software solutions_files/blog_angularjs_training_new.jpg" style="position:absolute; width:940px; height:auto; display:block !important; top:0; left:-567px;"></div><div class="nivo-slice" name="10" style="left: 630px; width: 63px; height: 200px; opacity: 0; overflow: hidden;"><img src="./How to avoid the split-brain problem in elasticsearch « Trifork Blog _ Trifork_ Enterprise Java, Open Source, software solutions_files/blog_angularjs_training_new.jpg" style="position:absolute; width:940px; height:auto; display:block !important; top:0; left:-630px;"></div><div class="nivo-slice" name="11" style="left: 693px; width: 63px; height: 200px; opacity: 0; overflow: hidden;"><img src="./How to avoid the split-brain problem in elasticsearch « Trifork Blog _ Trifork_ Enterprise Java, Open Source, software solutions_files/blog_angularjs_training_new.jpg" style="position:absolute; width:940px; height:auto; display:block !important; top:0; left:-693px;"></div><div class="nivo-slice" name="12" style="left: 756px; width: 63px; height: 200px; opacity: 0; overflow: hidden;"><img src="./How to avoid the split-brain problem in elasticsearch « Trifork Blog _ Trifork_ Enterprise Java, Open Source, software solutions_files/blog_angularjs_training_new.jpg" style="position:absolute; width:940px; height:auto; display:block !important; top:0; left:-756px;"></div><div class="nivo-slice" name="13" style="left: 819px; width: 63px; height: 200px; opacity: 0; overflow: hidden;"><img src="./How to avoid the split-brain problem in elasticsearch « Trifork Blog _ Trifork_ Enterprise Java, Open Source, software solutions_files/blog_angularjs_training_new.jpg" style="position:absolute; width:940px; height:auto; display:block !important; top:0; left:-819px;"></div><div class="nivo-slice" name="14" style="left: 882px; width: 58px; height: 200px; opacity: 0; overflow: hidden;"><img src="./How to avoid the split-brain problem in elasticsearch « Trifork Blog _ Trifork_ Enterprise Java, Open Source, software solutions_files/blog_angularjs_training_new.jpg" style="position:absolute; width:940px; height:auto; display:block !important; top:0; left:-882px;"></div></div>
+        </div>
+        
+    </div>
+    <script type="text/javascript">
+        var metaslider_11083 = function($) {
+            $('#metaslider_11083').nivoSlider({ 
+                boxCols:7,
+                boxRows:5,
+                pauseTime:4500,
+                effect:"fade",
+                controlNav:false,
+                directionNav:false,
+                pauseOnHover:true,
+                animSpeed:600,
+                prevText:"&lt;",
+                nextText:"&gt;",
+                slices:15,
+                manualAdvance:false
+            });
+        };
+        var timer_metaslider_11083 = function() {
+            var slider = !window.jQuery ? window.setTimeout(timer_metaslider_11083, 100) : !jQuery.isReady ? window.setTimeout(timer_metaslider_11083, 1) : metaslider_11083(window.jQuery);
+        };
+        timer_metaslider_11083();
+    </script>
+</div>
+<!--// meta slider-->	 <section id="content">
+        <div class="wrapper-12">
+ 
+            <div class="grid-9">
+
+                <article class="paper">
+
+                    <div class="chrome-top"></div>
+					                        <div class="post-9620 post type-post status-publish format-standard hentry category-elasticsearch-2 tag-elasicsearch" id="post-9620">
+                            <h1><a href="http://blog.trifork.com/2013/10/24/how-to-avoid-the-split-brain-problem-in-elasticsearch/" rel="bookmark" title="Permanent Link to How to avoid the split-brain problem in elasticsearch">How to avoid the split-brain problem in elasticsearch</a></h1>
+                            	<small>October 24th, 2013 by <span class="author"><a href="http://blog.trifork.com/author/bogdan/" title="Posts by Bogdan Dumitrescu" rel="author">Bogdan Dumitrescu</a></span><br></small>
+                                <small class="edit">
+									 |
+                                      
+                                 </small>
+                
+                            <div class="entry">
+                                <a id="dd_start"></a><p><img src="./How to avoid the split-brain problem in elasticsearch « Trifork Blog _ Trifork_ Enterprise Java, Open Source, software solutions_files/elasticsearch.png" alt="Elasticsearch Logo" style="float: left;margin-right: 10px">We’ve all been there – we started to plan for an elasticsearch cluster and one of the first questions that comes up is “How many nodes should the cluster have?”. As I’m sure you already know, the answer to that question depends on a lot of factors, like expected load, data size, hardware etc. In this blog post I’m not going to go into the detail of how to size your cluster, but instead will talk about something equally important – how to avoid the split-brain problem.</p>
+<p><span id="more-9620"></span><br>
+</p><h2>What is split-brain?</h2>
+<p>Let’s take as an example a simple situation of en elasticsearch cluster with two nodes. The cluster holds a single index with one shard and one replica. Node 1 was elected as master at cluster start-up and holds the primary shard (marked as <strong>0P</strong> in the schema below), while Node 2 holds the replica shard (<strong>0R</strong>). </p>
+<p><a href="./How to avoid the split-brain problem in elasticsearch « Trifork Blog _ Trifork_ Enterprise Java, Open Source, software solutions_files/cluster_ok.jpg"><img src="./How to avoid the split-brain problem in elasticsearch « Trifork Blog _ Trifork_ Enterprise Java, Open Source, software solutions_files/cluster_ok.jpg" alt="cluster_ok" class="alignnone size-full wp-image-9650"></a></p>
+<p>Now, what would happen if, for any reason, communication between the two nodes would fail? This could happen because of network failures or simply because one of the nodes becomes unresponsive (like in a case of a stop-the-world garbage collection). </p>
+<p><a href="./How to avoid the split-brain problem in elasticsearch « Trifork Blog _ Trifork_ Enterprise Java, Open Source, software solutions_files/cluster_nok.jpg"><img src="./How to avoid the split-brain problem in elasticsearch « Trifork Blog _ Trifork_ Enterprise Java, Open Source, software solutions_files/cluster_nok.jpg" alt="cluster_nok" class="alignnone size-full wp-image-9649"></a></p>
+<p>Both nodes believe that the other has failed. Node 1 will do nothing, because it’s already elected as master. But Node 2 will automatically elect itself as master, because it believes it’s part of a cluster which does not have a master anymore. In an elasticsearch cluster, it’s the responsability of the master node to allocate the shards equally among the nodes. Node 2 holds a replica shard, but it believes that the primary shard is no longer available. Because of this it will automatically promote the replica shard to a primary.</p>
+<p><a href="./How to avoid the split-brain problem in elasticsearch « Trifork Blog _ Trifork_ Enterprise Java, Open Source, software solutions_files/cluster_bad.jpg"><img src="./How to avoid the split-brain problem in elasticsearch « Trifork Blog _ Trifork_ Enterprise Java, Open Source, software solutions_files/cluster_bad.jpg" alt="cluster_bad" class="alignnone size-full wp-image-9648"></a></p>
+<p>Our cluster is now in an inconsistent state. Indexing requests that will hit Node 1 will index data in its copy of the primary shard, while the requests that go to Node 2 will fill the second copy of the shard. In this situation the two copies of the shard have diverged and it would be really difficult (if not impossible) to realign them without a full reindexing. Even worse, for a non-cluster aware indexing client (e.g. one using the REST interface) this problem will be totally transparent – indexing requests will be successfully completed every time, regardless of which node is called. The problem would only be slightly noticeable when searching for data: depending on the node the search request hits, results will differ.</p>
+<h2>How to avoid the split-brain problem</h2>
+<p>The elasticsearch configuration has excellent defaults. However the elasticsearch team can’t know in advance all the details of your particular situation. That is why some configuration parameters should be changed to suit your specific needs. All the parameters mentioned in this post can be changed in the <strong>elasticsearch.yml</strong> file, found in the <strong>config</strong> folder of your elasticsearch installation.</p>
+<p>For avoiding the split-brain situation, the first parameter we can look at is <strong>discovery.zen.minimum_master_nodes</strong>. This parameter determines how many nodes need to be in communication in order to elect a master. It’s default value is 1. The rule of thumb is that this should be set to N/2 + 1, where N is the number of nodes in the cluster. For example in the case of a 3 node cluster, the minimum_master_nodes should be set to 3/2 + 1 = 2 (rounding down to the nearest integer).</p>
+<p>Let’s imagine what would have happened in the case described above if we would had set the <strong>discovery.zen.minimum_master_nodes</strong> to 2 (2/2 + 1). When the communication between the two nodes would have been lost, Node 1 would lose it’s master status while Node 2 would have never been elected as master. None of the nodes would accept indexing or search requests, making the problem immediately evident for all clients. Moreover none of the shards would be in an inconsistent state.</p>
+<p>Another parameter you could tweak is the <strong>discovery.zen.ping.timeout</strong>. It’s default value is 3 seconds and it determines how much time a node will wait for a response from other nodes in the cluster before assuming that the node has failed. Slightly increasing the default value is definitely a good idea in the case of a slower network. This parameter not only caters for higher network latency, but also helps in the case of a node that is slower to respond because of it being overloaded.</p>
+<h2>Two node cluster?</h2>
+<p>If you think that it’s wrong (or at least unintuitive) to set the minimum_master_nodes parameter to 2 in the case of a two node cluster, you are probably right. In this case the moment a node fails, the whole cluster fails. Although this removes the possibility of the split-brain occurring, it also negates one of the great features of elasticsearch – the built in high-availability mechanism through the usage of replica shards.</p>
+<p>If you’re just starting out with elasticsearch, the recommendation is to plan for a 3 node cluster. This way you can set the minimum_master_nodes to 2, limiting the chance of the split-brain problem, but still keeping the high availability advantage: if you configured replicas you can afford to lose a node but still keep the cluster up-and-running.</p>
+<p>But what if you’re already running a two-node elasticsearch cluster? You could chose to live with the possibility of the split-brain while keeping the high availability, or chose to avoid the split brain but lose the high availability. To avoid the compromise, the best option in this case is to add a node to the cluster. This sounds very drastic, but it doesn’t have to be. For each elasticsearch node you can chose if that node will hold data or not by setting the <strong>node.data</strong> parameter. The default value is “true”, meaning that by default every elasticsearch node will also be a data node.</p>
+<p>With a two-node cluster, you could add a new node to it for which the <strong>node.data</strong> parameter is set to “false”. This means that the node will never hold any shards, but it can be elected as master (default behavior). Because the new node is a data-less node, it can be started on less expensive hardware. Now you have a cluster of three nodes, can safely set the minimum_master_nodes to 2, avoiding the split-brain and still afford to lose a node without losing data.</p>
+<h2>In conclusion</h2>
+<p>The split-brain problem is apparently difficult to solve permanently. In elasticsearch’s issue tracker there is still an <a href="https://github.com/elasticsearch/elasticsearch/issues/2488">open issue</a> about this, describing a corner case where even with a correct value of the minimum_master_nodes parameter the split-brain still occurred. The elasticsearch team is currently working on a better implementation of the master election algorithm, but if you are already running an elasticsearch cluster it’s important to be aware of this potential problem. </p>
+<p>It’s also very important to identify it as soon as possible. An easy way to detect that something is wrong is to schedule a check for the response of the <strong>/_nodes</strong> endpoint for each node. This endpoint returns a short status report of all the nodes in the cluster. If two nodes are reporting a different composition of the cluster, it’s a telltale sign that a split-brain situation has occurred.</p>
+<p>If you have concerns regarding your your current elasticsearch configuration or would like some help starting a new elasticsearch project, we are always ready to help, just <a href="http://www.trifork.nl/en/home/contact-us.html">contact us</a>.</p>
+<p><i>Update: if you’re curious how Java clients behave in a split-brain situation, take a look at <a href="http://blog.trifork.com/2013/10/31/java-clients-behavior-during-creating-a-split-brain-situation-in-elasticsearch/">this blog post</a>.</i></p>
+<a id="dd_end"></a><script type="text/javascript">var dd_offset_from_content = 90;var dd_top_offset_from_content = 0;var dd_override_start_anchor_id = "";var dd_override_top_offset = "";</script><script type="text/javascript" src="./How to avoid the split-brain problem in elasticsearch « Trifork Blog _ Trifork_ Enterprise Java, Open Source, software solutions_files/diggdigg-floating-bar.js.download"></script><script type="text/javascript"> jQuery(document).ready(function($) { window.setTimeout('loadTwitter_9620()',1000);window.setTimeout('loadDzone_9620()',1000);window.setTimeout('loadFBShare_9620()',1000); }); </script><script type="text/javascript"> function loadTwitter_9620(){ jQuery(document).ready(function($) { $('.dd-twitter-9620').remove();$.getScript('http://platform.twitter.com/widgets.js'); }); } function loadDzone_9620(){ jQuery(document).ready(function($) { $('.dd-dzone-9620').remove();$('.DD_DZONE_AJAX_9620').attr('width','50');$('.DD_DZONE_AJAX_9620').attr('height','70');$('.DD_DZONE_AJAX_9620').attr('src','http://widgets.dzone.com/links/widgets/zoneit.html?url=http%3A%2F%2Fblog.trifork.com%2F2013%2F10%2F24%2Fhow-to-avoid-the-split-brain-problem-in-elasticsearch%2F&title=How%20to%20avoid%20the%20split-brain%20problem%20in%20elasticsearch&t=1'); }); } function loadFBShare_9620(){ jQuery(document).ready(function($) { $('.dd-fbshare-9620').remove(); $.getScript('http://static.ak.fbcdn.net/connect.php/js/FB.Share'); }); }</script>                
+                                                                                                <small><p class="postmetadata">Tags: <a href="http://blog.trifork.com/tag/elasicsearch/" rel="tag">elasicsearch</a> Posted in: <a href="http://blog.trifork.com/category/big_data_search/enterprise-search/elasticsearch-2/" rel="category tag">Elasticsearch</a></p></small>
+                            </div>
+                        </div>
+                
+                    
+<!-- You can start editing here. -->
+	<h4 id="comments">8 Responses</h4>
+	<div class="navigation">
+		<div class="alignleft"></div>
+		<div class="alignright"></div>
+	</div>
+	<ol class="commentlist">
+			<li class="comment even thread-even depth-1" id="li-comment-35690">
+		<div id="comment-35690">
+			<div class="comment-author vcard">
+				<img alt="" src="./How to avoid the split-brain problem in elasticsearch « Trifork Blog _ Trifork_ Enterprise Java, Open Source, software solutions_files/f868a06bec1beccf985676d4d1d09715" srcset="http://0.gravatar.com/avatar/f868a06bec1beccf985676d4d1d09715?s=64&amp;r=g 2x" class="avatar avatar-32 photo grav-hashed grav-hijack" height="32" width="32" id="grav-f868a06bec1beccf985676d4d1d09715-0">				<small>October 30, 2013 at 17:45</small>				<small>by Chad</small>			</div>
+						<div class="comment-meta commentmetadata"><small> | </small></div>
+			<p>I thought you perhaps had a workaround to the issue you posted at the end, but instead it is just the same ol’ “set minimum_master_nodes”. Your post is about how to avoid split brain, but it real does not since that issue still exists. Here is another one: <a href="https://github.com/elasticsearch/elasticsearch/issues/2117" rel="nofollow">https://github.com/elasticsearch/elasticsearch/issues/2117</a></p>
+		</div>
+</li><!-- #comment-## -->
+	<li class="comment byuser comment-author-bogdan bypostauthor odd alt thread-odd thread-alt depth-1" id="li-comment-35698">
+		<div id="comment-35698">
+			<div class="comment-author vcard">
+				<img alt="" src="./How to avoid the split-brain problem in elasticsearch « Trifork Blog _ Trifork_ Enterprise Java, Open Source, software solutions_files/1007e6833c484c4b41a774cf1724bb6a" srcset="http://1.gravatar.com/avatar/1007e6833c484c4b41a774cf1724bb6a?s=64&amp;r=g 2x" class="avatar avatar-32 photo grav-hashed grav-hijack" height="32" width="32" id="grav-1007e6833c484c4b41a774cf1724bb6a-0">				<small>October 30, 2013 at 22:56</small>				<small>by Bogdan Dumitrescu</small>			</div>
+						<div class="comment-meta commentmetadata"><small> | </small></div>
+			<p>Hi Chad,</p>
+<p>Thank you for your comment. I don’t want to get into semantics, but the title of the blog is “How to avoid”, not “How to completely eliminate” <img draggable="false" class="emoji" alt="🙂" src="./How to avoid the split-brain problem in elasticsearch « Trifork Blog _ Trifork_ Enterprise Java, Open Source, software solutions_files/1f642.svg"> </p>
+<p>Kidding aside, I believe it’s useful to spread the word about the potential problem and what can be done to minimize the risks – not everybody knows everything about elasticsearch.</p>
+<p>As I said in my conclusion, the problem can’t be totally eliminated (yet). Fortunately the split brain occurrences are much rarer in the newer versions of elasticsearch because of improvements in garbage collection. Also, I know that the elasticsearch team is hard at work to fix the problem, so hopefully we’ll see further improvements with future releases.</p>
+<p>All the best,</p>
+<p>Bogdan.</p>
+		</div>
+</li><!-- #comment-## -->
+	<li class="comment even thread-even depth-1" id="li-comment-46935">
+		<div id="comment-46935">
+			<div class="comment-author vcard">
+				<img alt="" src="./How to avoid the split-brain problem in elasticsearch « Trifork Blog _ Trifork_ Enterprise Java, Open Source, software solutions_files/66a1b221f4d64b9a5b07d287d4f5db27" srcset="http://0.gravatar.com/avatar/66a1b221f4d64b9a5b07d287d4f5db27?s=64&amp;r=g 2x" class="avatar avatar-32 photo grav-hashed grav-hijack" height="32" width="32" id="grav-66a1b221f4d64b9a5b07d287d4f5db27-0">				<small>January 10, 2014 at 21:44</small>				<small>by Charlez</small>			</div>
+						<div class="comment-meta commentmetadata"><small> | </small></div>
+			<p>It has been my experience that split-brain can’t be eliminated entirely by simply altering configuration parameters (as alluded to in your post).  During my testing, despite trying numerous configuration settings, the split-brain condition could never be completely eliminated.</p>
+<p>However, I learned that (in my case) the most important factor to create/eliminate split-brain was related to the timing of node start-up.  Starting nodes simultaneously often yielded split-brain.  When nodes were started serially with a delay (5 seconds in my case) between node start-up, split-brain rarely occurred.</p>
+<p>My suggestion: have logic that orchestrates ElasticSearch node start-up, and have such logic ensure there exists an appropriate delay between starting ElasticSearch nodes.</p>
+		</div>
+</li><!-- #comment-## -->
+	<li class="comment odd alt thread-odd thread-alt depth-1" id="li-comment-47473">
+		<div id="comment-47473">
+			<div class="comment-author vcard">
+				<img alt="" src="./How to avoid the split-brain problem in elasticsearch « Trifork Blog _ Trifork_ Enterprise Java, Open Source, software solutions_files/66a1b221f4d64b9a5b07d287d4f5db27" srcset="http://0.gravatar.com/avatar/66a1b221f4d64b9a5b07d287d4f5db27?s=64&amp;r=g 2x" class="avatar avatar-32 photo grav-hashed grav-hijack" height="32" width="32" id="grav-66a1b221f4d64b9a5b07d287d4f5db27-1">				<small>January 14, 2014 at 21:41</small>				<small>by Charlez</small>			</div>
+						<div class="comment-meta commentmetadata"><small> | </small></div>
+			<p>To follow up on my comment (because it was incomplete):<br>
+  1) First start ElasticSearch Master nodes, thus attaining minimum_master_nodes.<br>
+  2) Only after Master nodes are started and operating in concert start Replica nodes.</p>
+		</div>
+</li><!-- #comment-## -->
+	<li class="comment even thread-even depth-1" id="li-comment-51284">
+		<div id="comment-51284">
+			<div class="comment-author vcard">
+				<img alt="" src="./How to avoid the split-brain problem in elasticsearch « Trifork Blog _ Trifork_ Enterprise Java, Open Source, software solutions_files/e5f4f9837e27d32920292e3f2e7e7cbf" srcset="http://2.gravatar.com/avatar/e5f4f9837e27d32920292e3f2e7e7cbf?s=64&amp;r=g 2x" class="avatar avatar-32 photo grav-hashed grav-hijack" height="32" width="32" id="grav-e5f4f9837e27d32920292e3f2e7e7cbf-0">				<small>March 14, 2014 at 01:44</small>				<small>by Henley Wing</small>			</div>
+						<div class="comment-meta commentmetadata"><small> | </small></div>
+			<p>@Charlez</p>
+<p>The split brain scenario is more worrisome/common while the nodes are up and running, not during startup, which happens rarely. The common scenario is when the 2 nodes stop responding to each other via pings.</p>
+<p>IMO, there is a valid use case to have 2 separate clusters with 1 node each, instead of a 3-node cluster. This resolves the problems with split-brain, as well as high availability (but you need some sort of heartbeat to determine when to stop querying one of the nodes). Now what if one of the cluster dies.. isn’t that split brain, you say? Yes, temporarily, but you see most indexing ES APIs throw an exception if the cluster is down and you try to index data in it. If you’re smart you have retrying logic to reindex that data again if it fails. Thus split brain resolves itself soon after the cluster comes back up.</p>
+<p>Also, in many cases you may encounter problems with a cluster if you mess up the configuration in production. Thus it doesn’t matter how many replicas you have – I’ve seen scenarios where 1 node fails and the entire cluster goes down because of wrong configurations. Do u wanna deal with that scenario or just quickly change a flag, and make all queries go to a secondary cluster?</p>
+		</div>
+</li><!-- #comment-## -->
+	<li class="pingback odd alt thread-odd thread-alt depth-1" id="li-comment-412226">
+		<div id="comment-412226">
+			<div class="comment-author vcard">
+				<img alt="" src="./How to avoid the split-brain problem in elasticsearch « Trifork Blog _ Trifork_ Enterprise Java, Open Source, software solutions_files/saved_resource" srcset="http://1.gravatar.com/avatar/?s=64&amp;r=g 2x" class="avatar avatar-32 photo avatar-default grav-hashed grav-hijack" height="32" width="32" id="grav-false-0">				<small>September 23, 2014 at 11:12</small>				<small>by <a href="http://deviantony.wordpress.com/2014/09/23/how-to-setup-an-elasticsearch-cluster-with-logstash-on-ubuntu-12-04/" rel="external nofollow" class="url">How to setup an Elasticsearch cluster with Logstash on Ubuntu 12.04 | deviantony</a></small>			</div>
+						<div class="comment-meta commentmetadata"><small> | </small></div>
+			<p>[…] See this post for more information on this scenario:&nbsp;http://blog.trifork.com/2013/10/24/how-to-avoid-the-split-brain-problem-in-elasticsearch/ […]</p>
+		</div>
+</li><!-- #comment-## -->
+	<li class="comment even thread-even depth-1" id="li-comment-1019020">
+		<div id="comment-1019020">
+			<div class="comment-author vcard">
+				<img alt="" src="./How to avoid the split-brain problem in elasticsearch « Trifork Blog _ Trifork_ Enterprise Java, Open Source, software solutions_files/825a733618a573546e8857de530e4c32" srcset="http://2.gravatar.com/avatar/825a733618a573546e8857de530e4c32?s=64&amp;r=g 2x" class="avatar avatar-32 photo grav-hashed grav-hijack" height="32" width="32" id="grav-825a733618a573546e8857de530e4c32-0">				<small>January 30, 2015 at 22:29</small>				<small>by Greybear</small>			</div>
+						<div class="comment-meta commentmetadata"><small> | </small></div>
+			<p>I do not understand: it’s not hard to implement some witness role, that could be placed on a 3rd location.</p>
+<p>Why reinvent the wheel?</p>
+		</div>
+</li><!-- #comment-## -->
+	<li class="comment odd alt thread-odd thread-alt depth-1" id="li-comment-1099539">
+		<div id="comment-1099539">
+			<div class="comment-author vcard">
+				<img alt="" src="./How to avoid the split-brain problem in elasticsearch « Trifork Blog _ Trifork_ Enterprise Java, Open Source, software solutions_files/3e25497cba6dbac4a59cd6c779eef5cc" srcset="http://0.gravatar.com/avatar/3e25497cba6dbac4a59cd6c779eef5cc?s=64&amp;r=g 2x" class="avatar avatar-32 photo grav-hashed grav-hijack" height="32" width="32" id="grav-3e25497cba6dbac4a59cd6c779eef5cc-0">				<small>March 13, 2015 at 14:16</small>				<small>by Jay</small>			</div>
+						<div class="comment-meta commentmetadata"><small> | </small></div>
+			<p>Hi Bogdan ,<br>
+This is a wonderful article however , as you had mentioned above which is “For avoiding the split-brain situation, the first parameter we can look at is discovery.zen.minimum_master_nodes. This parameter determines how many nodes need to be in communication in order to elect a master. It’s default value is 1.”  is incorrect .<br>
+the value discovery.zen.minimum_master_nodes determines how many Master nodes should be available to form a cluster, I tested this and it failed as it did not count the data nodes available but was looking for Master nodes .</p>
+<p>Regards<br>
+Jay</p>
+		</div>
+</li><!-- #comment-## -->
+	</ol>
+	<div class="navigation">
+		<div class="alignleft"></div>
+		<div class="alignright"></div>
+	</div>
+ 
+                
+                                                <div class="navigation">
+                                <div class="alignleft">« <a href="http://blog.trifork.com/2013/10/22/apportable-a-much-better-alternative-to-phonegap-and-afnetworking-2-0/" rel="prev">Apportable (a much better alternative to Phonegap) and AFNetworking 2.0</a></div>
+                                <div class="alignright"><a href="http://blog.trifork.com/2013/10/29/puppet-from-the-trenches-how-to-prevent-overwritten-user-configuration-with-a-custom-type/" rel="next">Puppet from the trenches – How to prevent overwritten user configuration with a custom type</a> »</div>
+                            </div>
+           <div class="chrome-bottom"></div>	
+            </article>
+        </div>	
+
+
+        <div class="grid-3 white-background">
+            <ul>
+                
+                    
+
+                   <li id="widget_sp_image-8" class="widget widget_sp_image"><a href="http://gotocon.com/" id="" target="_blank" class="widget_sp_image-image-link" title="GOTO Conference" rel=""><img width="216" height="81" alt="GOTO Conference" class="attachment-large" style="max-width: 100%;" src="./How to avoid the split-brain problem in elasticsearch « Trifork Blog _ Trifork_ Enterprise Java, Open Source, software solutions_files/goto_conference_logo.jpg"></a><div class="widget_sp_image-description"><h3><a href="http://gotocph.com/"><span style="color: #0099cc;"><br>
+GOTO Copenhagen<br>
+Oct. 3 - 6, 2016</span></a><br>
+</h3>
+<h3><a href="https://gotocon.com/london-2016/"><br>
+<span style="color: #4d4d4d;">GOTO London<br>
+Oct. 12 - 14, 2016</span></a><br>
+</h3>
+<h3><a href="https://gotocon.com/berlin-2016/"><br>
+<span style="color: #33cc00;">GOTO Berlin<br>
+Nov. 14 - 16, 2016</span></a><br>
+</h3>
+<h3><a href="https://gotocon.com/accelerate-2016"><br>
+<span style="color: #00663c;">GOTO Accelerate<br>
+Nov. 17th, 2016</span></a><br>
+</h3>
+<h3><a href="https://gotosthlm.com//"><br>
+<span style="color: #490154;">GOTO Stockholm<br>
+May 2017</span></a><br>
+</h3>
+<h3><a href="https://gotocon.com/chicago-2016/"><br>
+<span style="color: #cc0033;">GOTO Chicago<br>
+May 2017</span></a><br>
+</h3>
+<h3><a href="https://gotocon.com/amsterdam-2016/"><br>
+<span style="color: #ff9900;">GOTO Amsterdam<br>
+June 12 - 14, 2017</span></a><br>
+</h3>
+</div></li><li id="widget_sp_image-5" class="widget widget_sp_image"><a href="http://trifork.com/careers/" id="" target="_blank" class="widget_sp_image-image-link" title="" rel=""><img width="210" height="176" alt="" class="attachment-210x176" style="max-width: 100%;" src="./How to avoid the split-brain problem in elasticsearch « Trifork Blog _ Trifork_ Enterprise Java, Open Source, software solutions_files/jobs_banner_blog.gif"></a></li>
+            </ul>
+
+        </div>
+   	</div>
+</section>
+
+	      <footer>
+            <div class="wrapper-12">
+                <div class="grid-6">
+                    <h2>About this blog</h2>
+                    The content on this blog is developed mostly by our own developers. It contains a selection of best practices, trends and technical information on different open source technologies. Our blog is where we can share our experiences with technologies we are experimenting with, advancing with and more often than not indulging in.
+
+                    In true open source community style, we don't hold back and we share code snippets, screen shots and provide insight wherever we can. We particularly enjoy setting up a dialogue with our readers and often there is also a thread of question and answers in the blogs too. Our blogs are not however all about just the technical successes but also our less successful efforts too ;-)
+                </div>
+                <div class="grid-6">
+                    <h2 class="invisible">trifork</h2>
+                    In many of our blogs, you'll find we endeavour to take you on a journey of our thought process. This means some of our blogs can often become epics and have a whole series associated with them.
+
+                    We think that most of our readers appreciate reading about our experiences on new products, releases, conferences and technologies and to be honest its what makes us tick and what we thrive on most. Every now and then we also invite partners, industry leaders and others around us as guest writers or we share some interesting conversations we have had with them.
+                    Suggestions, input and feedback is always welcome, <a target="_blank" href="http://www.trifork.nl/en/home/contact-us.html">just drop us a note</a> and we'd be happy to hear from you.
+                </div>
+            </div>
+          </footer>
+
+
+           
+          
+
+       <script type="text/javascript">
+
+		  var _gaq = _gaq || [];
+		  _gaq.push(['_setAccount', 'UA-3645698-7']);
+		  _gaq.push(['_setDomainName', 'trifork.com']);
+		  _gaq.push(['_setAllowLinker', true]);
+		  _gaq.push(['_trackPageview']);
+		
+		  (function() {
+			var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		  })();
+		
+		</script>
+
+        <script src="./How to avoid the split-brain problem in elasticsearch « Trifork Blog _ Trifork_ Enterprise Java, Open Source, software solutions_files/munchkin.js(1).download" type="text/javascript"></script> <script>mktoMunchkin("096-SLE-656");</script>
+
+    <!-- Powered by WPtouch: 4.3.4 -->	<div style="display:none">
+	<div class="grofile-hash-map-f868a06bec1beccf985676d4d1d09715">
+	</div>
+	<div class="grofile-hash-map-1007e6833c484c4b41a774cf1724bb6a">
+	</div>
+	<div class="grofile-hash-map-66a1b221f4d64b9a5b07d287d4f5db27">
+	</div>
+	<div class="grofile-hash-map-e5f4f9837e27d32920292e3f2e7e7cbf">
+	</div>
+	<div class="grofile-hash-map-825a733618a573546e8857de530e4c32">
+	</div>
+	<div class="grofile-hash-map-3e25497cba6dbac4a59cd6c779eef5cc">
+	</div>
+	</div>
+<script type="text/javascript" src="./How to avoid the split-brain problem in elasticsearch « Trifork Blog _ Trifork_ Enterprise Java, Open Source, software solutions_files/shCore.js.download"></script>
+<script type="text/javascript" src="./How to avoid the split-brain problem in elasticsearch « Trifork Blog _ Trifork_ Enterprise Java, Open Source, software solutions_files/shBrushAS3.js.download"></script>
+<script type="text/javascript" src="./How to avoid the split-brain problem in elasticsearch « Trifork Blog _ Trifork_ Enterprise Java, Open Source, software solutions_files/shBrushBash.js.download"></script>
+<script type="text/javascript" src="./How to avoid the split-brain problem in elasticsearch « Trifork Blog _ Trifork_ Enterprise Java, Open Source, software solutions_files/shBrushColdFusion.js.download"></script>
+<script type="text/javascript" src="./How to avoid the split-brain problem in elasticsearch « Trifork Blog _ Trifork_ Enterprise Java, Open Source, software solutions_files/shBrushClojure.js.download"></script>
+<script type="text/javascript" src="./How to avoid the split-brain problem in elasticsearch « Trifork Blog _ Trifork_ Enterprise Java, Open Source, software solutions_files/shBrushCpp.js.download"></script>
+<script type="text/javascript" src="./How to avoid the split-brain problem in elasticsearch « Trifork Blog _ Trifork_ Enterprise Java, Open Source, software solutions_files/shBrushCSharp.js.download"></script>
+<script type="text/javascript" src="./How to avoid the split-brain problem in elasticsearch « Trifork Blog _ Trifork_ Enterprise Java, Open Source, software solutions_files/shBrushCss.js.download"></script>
+<script type="text/javascript" src="./How to avoid the split-brain problem in elasticsearch « Trifork Blog _ Trifork_ Enterprise Java, Open Source, software solutions_files/shBrushDelphi.js.download"></script>
+<script type="text/javascript" src="./How to avoid the split-brain problem in elasticsearch « Trifork Blog _ Trifork_ Enterprise Java, Open Source, software solutions_files/shBrushDiff.js.download"></script>
+<script type="text/javascript" src="./How to avoid the split-brain problem in elasticsearch « Trifork Blog _ Trifork_ Enterprise Java, Open Source, software solutions_files/shBrushErlang.js.download"></script>
+<script type="text/javascript" src="./How to avoid the split-brain problem in elasticsearch « Trifork Blog _ Trifork_ Enterprise Java, Open Source, software solutions_files/shBrushFSharp.js.download"></script>
+<script type="text/javascript" src="./How to avoid the split-brain problem in elasticsearch « Trifork Blog _ Trifork_ Enterprise Java, Open Source, software solutions_files/shBrushGroovy.js.download"></script>
+<script type="text/javascript" src="./How to avoid the split-brain problem in elasticsearch « Trifork Blog _ Trifork_ Enterprise Java, Open Source, software solutions_files/shBrushJava.js.download"></script>
+<script type="text/javascript" src="./How to avoid the split-brain problem in elasticsearch « Trifork Blog _ Trifork_ Enterprise Java, Open Source, software solutions_files/shBrushJavaFX.js.download"></script>
+<script type="text/javascript" src="./How to avoid the split-brain problem in elasticsearch « Trifork Blog _ Trifork_ Enterprise Java, Open Source, software solutions_files/shBrushJScript.js.download"></script>
+<script type="text/javascript" src="./How to avoid the split-brain problem in elasticsearch « Trifork Blog _ Trifork_ Enterprise Java, Open Source, software solutions_files/shBrushLatex.js.download"></script>
+<script type="text/javascript" src="./How to avoid the split-brain problem in elasticsearch « Trifork Blog _ Trifork_ Enterprise Java, Open Source, software solutions_files/shBrushMatlabKey.js.download"></script>
+<script type="text/javascript" src="./How to avoid the split-brain problem in elasticsearch « Trifork Blog _ Trifork_ Enterprise Java, Open Source, software solutions_files/shBrushObjC.js.download"></script>
+<script type="text/javascript" src="./How to avoid the split-brain problem in elasticsearch « Trifork Blog _ Trifork_ Enterprise Java, Open Source, software solutions_files/shBrushPerl.js.download"></script>
+<script type="text/javascript" src="./How to avoid the split-brain problem in elasticsearch « Trifork Blog _ Trifork_ Enterprise Java, Open Source, software solutions_files/shBrushPhp.js.download"></script>
+<script type="text/javascript" src="./How to avoid the split-brain problem in elasticsearch « Trifork Blog _ Trifork_ Enterprise Java, Open Source, software solutions_files/shBrushPlain.js.download"></script>
+<script type="text/javascript" src="./How to avoid the split-brain problem in elasticsearch « Trifork Blog _ Trifork_ Enterprise Java, Open Source, software solutions_files/shBrushPowerShell.js.download"></script>
+<script type="text/javascript" src="./How to avoid the split-brain problem in elasticsearch « Trifork Blog _ Trifork_ Enterprise Java, Open Source, software solutions_files/shBrushPython.js.download"></script>
+<script type="text/javascript" src="./How to avoid the split-brain problem in elasticsearch « Trifork Blog _ Trifork_ Enterprise Java, Open Source, software solutions_files/shBrushR.js.download"></script>
+<script type="text/javascript" src="./How to avoid the split-brain problem in elasticsearch « Trifork Blog _ Trifork_ Enterprise Java, Open Source, software solutions_files/shBrushRuby.js.download"></script>
+<script type="text/javascript" src="./How to avoid the split-brain problem in elasticsearch « Trifork Blog _ Trifork_ Enterprise Java, Open Source, software solutions_files/shBrushScala.js.download"></script>
+<script type="text/javascript" src="./How to avoid the split-brain problem in elasticsearch « Trifork Blog _ Trifork_ Enterprise Java, Open Source, software solutions_files/shBrushSql.js.download"></script>
+<script type="text/javascript" src="./How to avoid the split-brain problem in elasticsearch « Trifork Blog _ Trifork_ Enterprise Java, Open Source, software solutions_files/shBrushVb.js.download"></script>
+<script type="text/javascript" src="./How to avoid the split-brain problem in elasticsearch « Trifork Blog _ Trifork_ Enterprise Java, Open Source, software solutions_files/shBrushXml.js.download"></script>
+<script type="text/javascript">
+	(function(){
+		var corecss = document.createElement('link');
+		var themecss = document.createElement('link');
+		var corecssurl = "http://blog.trifork.com/wp-content/plugins/syntaxhighlighter/syntaxhighlighter2/styles/shCore.css?ver=2.1.364";
+		if ( corecss.setAttribute ) {
+				corecss.setAttribute( "rel", "stylesheet" );
+				corecss.setAttribute( "type", "text/css" );
+				corecss.setAttribute( "href", corecssurl );
+		} else {
+				corecss.rel = "stylesheet";
+				corecss.href = corecssurl;
+		}
+		document.getElementsByTagName("head")[0].insertBefore( corecss, document.getElementById("syntaxhighlighteranchor") );
+		var themecssurl = "http://blog.trifork.com/wp-content/plugins/syntaxhighlighter/syntaxhighlighter2/styles/shThemeDefault.css?ver=2.1.364";
+		if ( themecss.setAttribute ) {
+				themecss.setAttribute( "rel", "stylesheet" );
+				themecss.setAttribute( "type", "text/css" );
+				themecss.setAttribute( "href", themecssurl );
+		} else {
+				themecss.rel = "stylesheet";
+				themecss.href = themecssurl;
+		}
+		//document.getElementById("syntaxhighlighteranchor").appendChild(themecss);
+		document.getElementsByTagName("head")[0].insertBefore( themecss, document.getElementById("syntaxhighlighteranchor") );
+	})();
+	SyntaxHighlighter.config.clipboardSwf = 'http://blog.trifork.com/wp-content/plugins/syntaxhighlighter/syntaxhighlighter2/scripts/clipboard.swf';
+	SyntaxHighlighter.config.strings.expandSource = 'show source';
+	SyntaxHighlighter.config.strings.viewSource = 'view source';
+	SyntaxHighlighter.config.strings.copyToClipboard = 'copy to clipboard';
+	SyntaxHighlighter.config.strings.copyToClipboardConfirmation = 'The code is in your clipboard now';
+	SyntaxHighlighter.config.strings.print = 'print';
+	SyntaxHighlighter.config.strings.help = '?';
+	SyntaxHighlighter.config.strings.alert = 'SyntaxHighlighter\n\n';
+	SyntaxHighlighter.config.strings.noBrush = 'Can\'t find brush for: ';
+	SyntaxHighlighter.config.strings.brushNotHtmlScript = 'Brush wasn\'t configured for html-script option: ';
+	SyntaxHighlighter.defaults['pad-line-numbers'] = false;
+	SyntaxHighlighter.all();
+</script>
+<link rel="stylesheet" id="metaslider-nivo-slider-css" href="./How to avoid the split-brain problem in elasticsearch « Trifork Blog _ Trifork_ Enterprise Java, Open Source, software solutions_files/nivo-slider.css" type="text/css" media="all" property="stylesheet">
+<link rel="stylesheet" id="metaslider-public-css" href="./How to avoid the split-brain problem in elasticsearch « Trifork Blog _ Trifork_ Enterprise Java, Open Source, software solutions_files/public.css" type="text/css" media="all" property="stylesheet">
+<link rel="stylesheet" id="metaslider-nivo-slider-default-css" href="./How to avoid the split-brain problem in elasticsearch « Trifork Blog _ Trifork_ Enterprise Java, Open Source, software solutions_files/default.css" type="text/css" media="all" property="stylesheet">
+<script type="text/javascript" src="./How to avoid the split-brain problem in elasticsearch « Trifork Blog _ Trifork_ Enterprise Java, Open Source, software solutions_files/comment-reply.min.js.download"></script>
+<script type="text/javascript" src="./How to avoid the split-brain problem in elasticsearch « Trifork Blog _ Trifork_ Enterprise Java, Open Source, software solutions_files/devicepx-jetpack.js.download"></script>
+<script type="text/javascript" src="./How to avoid the split-brain problem in elasticsearch « Trifork Blog _ Trifork_ Enterprise Java, Open Source, software solutions_files/gprofiles.js.download"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var WPGroHo = {"my_hash":""};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./How to avoid the split-brain problem in elasticsearch « Trifork Blog _ Trifork_ Enterprise Java, Open Source, software solutions_files/wpgroho.js.download"></script>
+<script type="text/javascript" src="./How to avoid the split-brain problem in elasticsearch « Trifork Blog _ Trifork_ Enterprise Java, Open Source, software solutions_files/wp-embed.min.js.download"></script>
+<script type="text/javascript" src="./How to avoid the split-brain problem in elasticsearch « Trifork Blog _ Trifork_ Enterprise Java, Open Source, software solutions_files/jquery.nivo.slider.pack.js.download"></script>
+<script type="text/javascript" src="./How to avoid the split-brain problem in elasticsearch « Trifork Blog _ Trifork_ Enterprise Java, Open Source, software solutions_files/e-201645.js.download" async="" defer=""></script>
+<script type="text/javascript">
+	_stq = window._stq || [];
+	_stq.push([ 'view', {v:'ext',j:'1:4.3.2',blog:'48877874',post:'9620',tz:'1',srv:'blog.trifork.com'} ]);
+	_stq.push([ 'clickTrackerInit', '48877874', '9620' ]);
+</script>
+    
+
+<div class="dd_outer" style="position: absolute;"><div class="dd_inner" style="width: 874px;"><div id="dd_ajax_float" style="position: absolute; top: 2060px; left: -145px; display: block;"><div class="dd_button_v"><a href="http://twitter.com/share" class="twitter-share-button twitter-share-button-error" data-url="http://blog.trifork.com/2013/10/24/how-to-avoid-the-split-brain-problem-in-elasticsearch/" data-count="vertical" data-text="How to avoid the split-brain problem in elasticsearch" data-via="triforkams" data-twitter-extracted-i1478701258447719708="true"></a></div><div style="clear:left"></div><div class="dd_button_v"><iframe class="DD_DZONE_AJAX_9620" src="./How to avoid the split-brain problem in elasticsearch « Trifork Blog _ Trifork_ Enterprise Java, Open Source, software solutions_files/zoneit.html" height="70" width="50" scrolling="no" frameborder="0"></iframe></div><div style="clear:left"></div><div class="dd_button_v"><a class="DD_FBSHARE_AJAX_9620" name="fb_share" type="box_count" share_url="http://blog.trifork.com/2013/10/24/how-to-avoid-the-split-brain-problem-in-elasticsearch/" href="http://www.facebook.com/sharer.php"></a></div><div style="clear:left"></div><div class="dd_button_v"><script src="http://connect.facebook.net/en_US/all.js#xfbml=1"></script><fb:like href="http://blog.trifork.com/2013/10/24/how-to-avoid-the-split-brain-problem-in-elasticsearch/" send="false" show_faces="false" layout="box_count" width="50"></fb:like></div><div style="clear:left"></div><div id="dd_name"><a href="http://bufferapp.com/diggdigg" target="_blank">Digg Digg</a></div></div></div></div><img src="./How to avoid the split-brain problem in elasticsearch « Trifork Blog _ Trifork_ Enterprise Java, Open Source, software solutions_files/g.gif" alt=":)" width="6" height="5" id="wpstats"><iframe id="rufous-sandbox" scrolling="no" frameborder="0" allowtransparency="true" allowfullscreen="true" style="position: absolute; visibility: hidden; display: none; width: 0px; height: 0px; padding: 0px; border: none;" src="./How to avoid the split-brain problem in elasticsearch « Trifork Blog _ Trifork_ Enterprise Java, Open Source, software solutions_files/saved_resource.html"></iframe></body></html>

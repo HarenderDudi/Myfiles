@@ -1,0 +1,78 @@
+{
+  "size": 2000,
+  "sort": [
+    {
+      "startTime": {
+        "order": "desc",
+        "unmapped_type": "boolean"
+      }
+    }
+  ],
+  "query": {
+    "filtered": {
+      "query": {
+        "query_string": {
+          "analyze_wildcard": true,
+          "query": "*"
+        }
+      },
+      "filter": {
+        "bool": {
+          "must": [
+            {
+              "range": {
+                "startTime": {
+                  "gte": 1474396200000,
+                  "lte": 1474482599999,
+                  "format": "epoch_millis"
+                }
+              }
+            }
+          ],
+          "must_not": [
+            
+          ]
+        }
+      }
+    }
+  },
+  "highlight": {
+    "pre_tags": [
+      "@kibana-highlighted-field@"
+    ],
+    "post_tags": [
+      "@/kibana-highlighted-field@"
+    ],
+    "fields": {
+      "*": {
+        
+      }
+    },
+    "require_field_match": false,
+    "fragment_size": 2147483647
+  },
+  "aggs": {
+    "2": {
+      "date_histogram": {
+        "field": "startTime",
+        "interval": "30m",
+        "time_zone": "Asia/Kolkata",
+        "min_doc_count": 0,
+        "extended_bounds": {
+          "min": 1474396200000,
+          "max": 1474482599999
+        }
+      }
+    }
+  },
+  "fields": [
+    "*",
+    "_source"
+  ],
+  "script_fields": {
+    
+  },
+  "fielddata_fields": [
+    "startTime"
+  ]
+}    

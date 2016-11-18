@@ -2,3 +2,5 @@ http://stackoverflow.com/questions/20222093/elasticsearch-listen-to-multiple-ips
 
 network.bind_host: 0.0.0.0
 network.publish_host: <your external address>
+
+This is what I used in my configuration: network.bind_host: ["yourhost", "localhost"] and network.publish_host: yourhost as you don't want to send multicast packets on the loopback interface.

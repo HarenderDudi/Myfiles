@@ -1,0 +1,25 @@
+repositories {
+   flatDir {
+       dirs 'libs' // location of jar from root context
+   }
+}
+
+
+dependencies {
+   compile name: 'gson-2.2.4' // name of jar
+}
+
+
+****************************************
+
+
+repositories {
+  mavenCentral ()
+  flatDir {
+       dirs 'build/libs'
+   }
+}
+
+dependencies {
+    compile name: 'out'
+}

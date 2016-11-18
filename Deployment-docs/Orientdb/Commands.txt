@@ -1,0 +1,20 @@
+CLASS
+    Create: CREATE CLASS EMP EXTENDS V
+    Drop: Drop CLASS EMP
+    List: SELECT expand(classes) from metadata:schema
+    
+VERTEX
+    Create: CREATE VERTEX EMP CONTENT { "name" : "Jay", "surname" : "Miner" }
+    DROP ALL: DELETE VERTEX V             DELETE VERTEX #10:231
+    SELECT * FROM V
+    Update: UPDATE EMP set name = 'Jay266UP' WHERE name = 'Jay266'
+    
+    danbilzerian
+    
+    
+    
+    
+2.2.12 ERRORS 
+    com.orientechnologies.orient.server.distributed.ODistributedConfigurationChangedException: Local node 'node1' is not the owner for cluster 'emp' (it is 'node2')
+    
+    

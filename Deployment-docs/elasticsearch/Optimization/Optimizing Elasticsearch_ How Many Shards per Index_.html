@@ -1,0 +1,1177 @@
+<!DOCTYPE html>
+<!-- saved from url=(0071)https://qbox.io/blog/optimizing-elasticsearch-how-many-shards-per-index -->
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US" class="wf-lato-n4-active wf-lato-n7-active wf-lato-i3-active wf-lato-i4-active wf-lato-i7-active wf-lato-n3-active wf-active"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	
+
+				
+				
+				
+	<title>Optimizing Elasticsearch: How Many Shards per Index?</title>
+	<link rel="home" href="https://qbox.io/">
+	<link rel="canonical" href="https://qbox.io/blog/optimizing-elasticsearch-how-many-shards-per-index">
+	<meta name="Description" content="Reflecting on the extensive collective experience of our customers, we offer guidance on allocating shards in Elasticsearch.">
+
+	<meta property="og:site_name" content="Qbox.io">
+	<meta property="og:title" content="Optimizing Elasticsearch: How Many Shards per Index?">
+	<meta property="og:url" content="https://qbox.io/blog/optimizing-elasticsearch-how-many-shards-per-index">	<meta property="og:image" content="https://qbox.io/img/blog/_blogWidth/dichroic-blue-kyanite-blades.jpg">	<meta property="og:image:url" content="https://qbox.io/img/blog/_blogWidth/dichroic-blue-kyanite-blades.jpg">	<meta property="og:image:secure_url" content="https://qbox.io/img/blog/_blogWidth/dichroic-blue-kyanite-blades.jpg">	<meta property="og:description" content="A key question in the minds of most Elasticsearch users when they create an index is “How many shards should I use?&quot; In this article, we explain the design tradeoffs and performance consequences of choosing different values for the number of shards. Continue reading if you want to learn how to demystify and optimize your sharding strategy.
+">	<meta name="author" content="Ben Hundley">
+	<meta name="google-site-verification" content="aj7yP0xofpjgVl17DiTGo8wAwWgrXStQVItO16U5T1g">
+
+	<link rel="stylesheet" type="text/css" href="./Optimizing Elasticsearch_ How Many Shards per Index__files/main.min.css">
+	<link rel="shortcut icon" href="https://qbox.io/favicon.ico">
+	<script type="text/javascript" async="" src="./Optimizing Elasticsearch_ How Many Shards per Index__files/linkid.js.download"></script><script type="text/javascript" async="" src="./Optimizing Elasticsearch_ How Many Shards per Index__files/e7ddbc4f761acdadd2e2dffa9c18089dec1d22c5.1.js.download"></script><script type="text/javascript" async="" src="./Optimizing Elasticsearch_ How Many Shards per Index__files/i.js.download"></script><script type="text/javascript" async="" src="./Optimizing Elasticsearch_ How Many Shards per Index__files/atrk.js.download"></script><script type="text/javascript" async="" src="./Optimizing Elasticsearch_ How Many Shards per Index__files/roundtrip.js.download"></script><script type="text/javascript" async="" src="./Optimizing Elasticsearch_ How Many Shards per Index__files/analytics.js.download"></script><script async="" src="./Optimizing Elasticsearch_ How Many Shards per Index__files/gtm.js.download"></script><script src="./Optimizing Elasticsearch_ How Many Shards per Index__files/app.min.js.download"></script>
+<script type="text/javascript" async="" src="./Optimizing Elasticsearch_ How Many Shards per Index__files/embed.js.download"></script><link rel="stylesheet" href="./Optimizing Elasticsearch_ How Many Shards per Index__files/css" media="all"><script async="" type="text/javascript" src="./Optimizing Elasticsearch_ How Many Shards per Index__files/count.js.download"></script><script async="true" type="text/javascript" src="./Optimizing Elasticsearch_ How Many Shards per Index__files/O7T6VJHCSFD3VLSYIPVU2P"></script><div style="width: 1px; height: 1px; display: inline; position: absolute;"><img height="1" width="1" style="border-style:none;" alt="" src="./Optimizing Elasticsearch_ How Many Shards per Index__files/out"><img height="1" width="1" style="border-style:none;" alt="" src="./Optimizing Elasticsearch_ How Many Shards per Index__files/out(1)"><img height="1" width="1" style="border-style:none;" alt="" src="./Optimizing Elasticsearch_ How Many Shards per Index__files/out(2)"><img height="1" width="1" style="border-style:none;" alt="" src="./Optimizing Elasticsearch_ How Many Shards per Index__files/out(3)"></div><div style="width: 1px; height: 1px; display: inline; position: absolute;"><img height="1" width="1" style="border-style:none;" alt="" src="./Optimizing Elasticsearch_ How Many Shards per Index__files/out(4)">
+<img height="1" width="1" style="border-style:none;" alt="" src="https://d.adroll.com/cm/f/out">
+<img height="1" width="1" style="border-style:none;" alt="" src="./Optimizing Elasticsearch_ How Many Shards per Index__files/out(5)">
+<img height="1" width="1" style="border-style:none;" alt="" src="https://d.adroll.com/cm/w/out">
+<img height="1" width="1" style="border-style:none;" alt="" src="./Optimizing Elasticsearch_ How Many Shards per Index__files/out(6)">
+<img height="1" width="1" style="border-style:none;" alt="" src="./Optimizing Elasticsearch_ How Many Shards per Index__files/out(7)">
+<img height="1" width="1" style="border-style:none;" alt="" src="./Optimizing Elasticsearch_ How Many Shards per Index__files/out(8)">
+<img height="1" width="1" style="border-style:none;" alt="" src="./Optimizing Elasticsearch_ How Many Shards per Index__files/out(9)">
+</div><script src="./Optimizing Elasticsearch_ How Many Shards per Index__files/alfie.f51946af45e0b561c60f768335c9eb79.js.download" async="" charset="UTF-8"></script></head>
+
+<body id="blog_entry">
+
+	<!-- Google Tag Manager -->
+<noscript>&lt;iframe src="//www.googletagmanager.com/ns.html?id=GTM-5SS2ZN" height="0" width="0" style="display:none;visibility:hidden"&gt;&lt;/iframe&gt;</noscript>
+<script>
+  (function(w,d,s,l,i) {
+    w[l] = w[l]||[];
+    w[l].push({
+      'gtm.start': new Date().getTime(),
+      event:'gtm.js'
+    });
+    var f = d.getElementsByTagName(s)[0],
+        j = d.createElement(s),
+        dl = (l!='dataLayer') ? '&l='+l : '';
+        j.async = true;
+        j.src = '//www.googletagmanager.com/gtm.js?id=' + i + dl;
+        f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-5SS2ZN');
+</script>
+<!-- End Google Tag Manager -->
+
+<script>
+  // Custom click listeners for event tracking.
+  (function(){
+    window.dataLayer = window.dataLayer || [];
+    var docListeners = [];
+
+    var uiEvent = function(category, action, label) {
+      var payload = {
+        event: 'ui-event',
+        eventAttributes: {
+          category: category,
+          action:   action,
+          label:    label
+        }
+      };
+
+      window.dataLayer.push(payload);
+    };
+
+    var handleDocClick = function(e) {
+      for(var listener in docListeners) {
+        if(e.target.matches(listener)) {
+          docListeners[listener](e);
+        }
+      }
+    };
+
+    var addDocListener = function(key, action) {
+      docListeners[key] = action;
+    };
+
+    document.documentElement.addEventListener('click', function(e) {
+      handleDocClick(e);
+    });
+
+    addDocListener('a.reddit-share', function(e) {
+      uiEvent('Social', 'Reddit:Share', e.target.getAttribute('data-baseurl'));
+    });
+
+    addDocListener('a.linkedin-share', function(e) {
+      uiEvent('Social', 'LinkedIn:Share', e.target.getAttribute('data-baseurl'));
+    });
+
+    addDocListener('a.facebook-share', function(e) {
+      uiEvent('Social', 'Facebook:Share', e.target.getAttribute('data-baseurl'));
+    });
+
+    addDocListener('a.twitter-share', function(e) {
+      uiEvent('Social', 'Twitter:Share', e.target.getAttribute('data-baseurl'));
+    });
+
+    addDocListener('button.copy-share', function(e) {
+      uiEvent('Social', 'Copy URL', e.target.getAttribute('data-baseurl'));
+    });
+  })();
+</script>
+
+	
+	
+	<div class="site-header clearfix ">
+	<div class="container">
+		<div class="site-logo"><a href="https://qbox.io/"></a></div>
+
+		<nav class="site-nav" role="navigation">
+			<ul id="nav-left" class="pull-left">
+									<li><a href="https://qbox.io/pricing" class="">Pricing</a></li>
+									<li><a href="https://qbox.io/blog" class="active">Blog</a></li>
+				
+				<li class="dropdown"><a>Products</a>
+					<ul>
+						<li><a href="https://qbox.io/hosted-elasticsearch">Hosted Elasticsearch</a></li>
+
+						<li><a href="https://qbox.io/kibana">Hosted Kibana</a></li>
+
+						<li><a href="https://qbox.io/logstash">Hosted Logstash</a></li>
+
+						<li><a href="https://qbox.io/elk-stack">Hosted ELK Stack</a></li>
+					</ul>
+				</li>
+			</ul>
+
+			<ul id="nav-right" class="pull-right">
+									<li><a href="https://qbox.io/support" class="hidden-xs ">Support</a></li>
+									<li><a href="https://qbox.io/login" class="hidden-xs ">Login</a></li>
+				
+				<li><a id="nav-login" class="btn btn-info" href="http://qbox.io/signup">Get Started</a></li>
+			</ul>
+
+		</nav>
+	</div>
+</div>
+
+	<!--<div class="announcement">
+	  Introducing Supergiant, a fundamental change in hosted Elasticsearch. <a class="read-more" href="/supergiant-elasticsearch">Read more &#9656;</a>
+	</div>-->
+
+	<main id="content" role="main">
+		
+<div id="breadcrumbs">
+	<div class="container">
+		<ol class="breadcrumb">
+			<li><a href="https://qbox.io/blog">Blog</a></li>
+
+			
+			<li class="active">Optimizing Elasticsearch: How Many Shards per Index?</li>
+		</ol>
+	</div>
+</div>
+
+<div class="container">
+	<div class="row">
+		<div class="col-md-9">
+			<article>
+						<div class="full-image" style="background-image: url(https://qbox.io/img/blog/_blogWidth/dichroic-blue-kyanite-blades.jpg);">
+				<div class="article-header">
+					<h1><a href="https://qbox.io/blog/optimizing-elasticsearch-how-many-shards-per-index" title="Optimizing Elasticsearch: How Many Shards per Index?">Optimizing Elasticsearch: How Many Shards per Index?</a></h1>
+
+					<span class="date">Posted by <a href="https://qbox.io/blog/author/ben-hundley">Ben Hundley</a> on July 29, 2015</span>
+
+					<div class="author-image">
+						<a href="https://qbox.io/blog/author/ben-hundley" class="image-container" style="background-image: url(https://qbox.io/cpresources/userphotos/ben/120/ben.jpg?d=1452890104)"></a>
+					</div>
+				</div>
+			</div>
+			
+	
+	<aside class="article-share-top">
+		<div class="article-share-buttons">
+  <a class="reddit-share" href="http://www.reddit.com/submit?url=https%3A%2F%2Fqbox.io%2Fblog%2Foptimizing-elasticsearch-how-many-shards-per-index%3Futm_source%3DReddit%26utm_medium%3Dshare%26utm_name%3Dblog&amp;title=%E2%80%8BOptimizing%20Elasticsearch%3A%20How%20Many%20Shards%20per%20Index%3F" data-baseurl="https://qbox.io/blog/optimizing-elasticsearch-how-many-shards-per-index" data-tooltip="Share on Reddit" target="_blank">Share on Reddit</a>
+  <a class="linkedin-share" href="https://www.linkedin.com/shareArticle?&amp;mini=true&amp;url=https%3A%2F%2Fqbox.io%2Fblog%2Foptimizing-elasticsearch-how-many-shards-per-index%3Futm_source%3DLinkedIn%26utm_medium%3Dshare%26utm_name%3Dblog&amp;title=Optimizing%20Elasticsearch%3A%20How%20Many%20Shards%20per%20Index%3F&amp;summary=Reflecting%20on%20the%20extensive%20collective%20experience%20of%20our%20customers%2C%20we%20offer%20guidance%20on%20allocating%20shards%20in%20Elasticsearch.&amp;source=10617054" data-baseurl="https://qbox.io/blog/optimizing-elasticsearch-how-many-shards-per-index" data-tooltip="Share on LinkedIn" target="_blank">Share on LinkedIn</a>
+  <a class="facebook-share" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fqbox.io%2Fblog%2Foptimizing-elasticsearch-how-many-shards-per-index%3Futm_source%3DFacebook%26utm_medium%3Dshare%26utm_name%3Dblog" data-baseurl="https://qbox.io/blog/optimizing-elasticsearch-how-many-shards-per-index" data-tooltip="Share on Facebook" target="_blank">Share on Facebook</a>
+  <a class="twitter-share" href="http://twitter.com/share?text=@qboxio%3A%20Optimizing%20Elasticsearch%3A%20How%20Many%20Shards%20per%20Index%3F&amp;url=https%3A%2F%2Fqbox.io%2Fblog%2Foptimizing-elasticsearch-how-many-shards-per-index%3Futm_source%3DTwitter%26utm_medium%3Dshare%26utm_name%3Dblog&amp;hashtags=qboxio" data-baseurl="https://qbox.io/blog/optimizing-elasticsearch-how-many-shards-per-index" data-tooltip="Share on Twitter" target="_blank">Share on Twitter</a>
+  <button class="copy-share" href="https://qbox.io/blog/optimizing-elasticsearch-how-many-shards-per-index?utm_source=CopyURL&amp;utm_medium=share&amp;utm_name=blog" data-baseurl="https://qbox.io/blog/optimizing-elasticsearch-how-many-shards-per-index" data-tooltip="Copy URL" data-clipboard-text="https://qbox.io/blog/optimizing-elasticsearch-how-many-shards-per-index?utm_source=CopyURL&amp;utm_medium=share&amp;utm_name=blog">Copy URL</button>
+
+  <div class="article-share-text">
+    <input type="text" id="social-share-text" value="https://qbox.io/blog/optimizing-elasticsearch-how-many-shards-per-index?utm_source=CopyURL&amp;utm_medium=share&amp;utm_name=blog" onclick="this.setSelectionRange(0, this.value.length);">
+  </div>
+
+  <script>
+    if(clipboard) clipboard.destroy();
+    var clipboard = new Clipboard('button.copy-share');
+
+    clipboard.on('success', function(e) {
+      e.trigger.setAttribute('data-tooltip','URL copied!');
+      console.info('URL copied to clipboard!');
+      e.clearSelection();
+    });
+
+    clipboard.on('error', function(e) {
+      var parent = e.trigger.parentNode;
+      parent.querySelector('.article-share-text').className += ' visible';
+      parent.querySelector('.article-share-text input').select();
+    });
+  </script>
+</div>
+	</aside>
+
+	<div class="post-summary">
+									<p>A key question in the minds of most Elasticsearch users when they create an index is “How many shards should I use?" In this article, we explain the design tradeoffs and performance consequences of choosing different values for the number of shards. Continue reading if you want to learn how to demystify and optimize your sharding strategy.
+</p>
+
+				<h3>Why Bother?</h3>
+
+<p>This is an important topic, and many users are apprehensive as they approach it -- and for good reason. A major mistake in shard allocation could cause scaling problems in a production environment that maintains an ever-growing dataset.
+</p>
+
+
+
+
+
+
+
+
+
+
+
+<p>On the other hand, we know that there is little Elasticsearch documentation on this topic. Most users just want answers -- and they want specific answers, not vague number ranges and warnings for arbitrarily large numbers.
+</p>
+
+
+
+
+
+
+
+
+
+
+
+<p>Well, we have some answers. After covering a few definitions and some clarifications, we present several common use cases and provide our recommendations for each.
+</p>
+
+
+
+
+
+
+
+
+
+
+
+<h3>Definitions</h3>
+
+
+
+
+
+
+
+
+
+
+
+<p>If you're fairly new to Elasticsearch, it's important that you understand the basic jargon and grasp the elemental concepts. <br><br>(If you have some expertise with ES, you might want to skip to the next section.)<br><br>Consider this simple diagram of an Elasticsearch cluster:</p>
+
+
+
+
+
+
+
+
+
+
+
+<p><br><img src="./Optimizing Elasticsearch_ How Many Shards per Index__files/elasticsearch_cluster.png" alt="elasticsearch shards index" title="elasticsearch shards index" width="700"><br></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<p>Remember these definitions while refering to this diagram:</p>
+
+
+
+
+
+
+
+
+
+
+
+<p> <strong>cluster</strong> – An Elasticsearch cluster consists of one or more nodes and is identifiable by its cluster name.
+</p>
+
+
+
+
+
+
+
+
+
+
+
+<p><strong>node</strong> – A single Elasticsearch instance. In most environments, each node runs on a separate box or virtual machine.
+</p>
+
+
+
+
+
+
+
+
+
+
+
+<p><strong>index</strong> – In Elasticsearch, an index is a collection of documents.
+</p>
+
+
+
+
+
+
+
+
+
+
+
+<p><strong>shard</strong> – Because Elasticsearch is a distributed search engine, an index is usually split into elements known as shards that are distributed across multiple nodes. Elasticsearch automatically manages the arrangement of these shards. It also rebalances the shards as necessary, so users need not worry about the details.
+</p>
+
+
+
+
+
+
+
+
+
+
+
+<p><strong>replica</strong> – By default, Elasticsearch creates five primary shards and one replica for each index. This means that each index will consist of five primary shards, and each shard will have one copy.
+</p>
+
+
+
+
+
+
+
+
+
+
+
+<p>Allocating multiple shards and replicas is the essence of the design for distributed search capability, providing for high availability and quick access in searches against the documents within an index. The main difference between a primary and a replica shard is that only the primary shard can accept indexing requests. Both replica and primary shards can serve querying requests.
+</p>
+
+
+
+
+
+
+
+
+
+
+
+<p>In the diagram above, we have an Elasticsearch cluster consisting of two nodes in a default shard configuration. Elasticsearch automatically arranges the five primary shards split across the two nodes. There is one replica shard that corresponds to each primary shard, but the arrangement of these replica shards is altogether different from that of the primary shards. Again, think <em>distribution.</em>
+</p>
+
+
+
+
+
+
+
+
+
+
+
+<p>Allow us to clarify: Remember, the <code>number_of_shards</code> value pertains to indexes—not to the cluster as whole. This value specifies the number of shards <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-create-index.html" target="_blank">for each index</a> (not the total primary shards in the cluster).
+</p>
+
+
+
+
+
+
+
+
+
+
+
+<h3>A Word about Replicas</h3>
+
+
+
+
+
+
+
+
+
+
+
+<p>We don't elaborate in this article on Elasticsearch replicas. That is an entirely separate topic that <a href="http://blog.qbox.io/announcing-replicated-elasticsearch-clusters">we cover elsewhere</a>. Replicas are primarily for search performance, and a user can add or remove them at any time. As we explain in <a href="http://blog.qbox.io/announcing-replicated-elasticsearch-clusters">that article</a>, additional replicas give you additional capacity, higher throughput, and stronger failover.
+</p>
+
+
+
+
+
+
+
+
+
+
+
+<h3>Allocate Shards Carefully</h3>
+
+
+
+
+
+
+
+
+
+
+
+<p>After you configure an Elasticsearch cluster, it's critically important to realize that you cannot modify the shard allocation later. If you later find it necessary to change the number of shards, then you would need to reindex all the source documents. (Although reindexing is a long process, it can be done without downtime).
+</p>
+
+
+
+
+
+
+
+
+
+
+
+<p>The primary shard configuration is quite analogous to a hard disk partition, in which a repartition of raw disk space requires a user to back up, configure a new partition, and rewrite data onto the new partition.
+</p>
+
+
+
+
+
+
+
+
+
+
+
+<h3>Small Static Dataset, 2-3 GB</h3>
+
+
+
+
+
+
+
+
+
+
+
+<p>The key consideration as you allocate shards is your expectation for the growth of your dataset. <br></p>
+
+
+
+
+
+
+
+
+
+
+
+<p>We quite often see the tendency to unnecessarily overallocate on shard count. Since share count such a hot topic within the ES community, users may assume that overallocation is a safe bet. (By overallocation, we simply mean specifying more shards per index than is necessary for the current size (document count) for a particular dataset.)<br><br>Elastic was promoting this idea in the early days, but then many users began taking it too far—such as allocating 1,000 shards. Elastic now provides a bit more cautious <a href="https://www.elastic.co/guide/en/elasticsearch/guide/current/kagillion-shards.html">rationale</a>:
+</p>
+
+
+
+
+
+
+
+
+
+
+
+<blockquote>
+	"A little overallocation is good. A kagillion shards is bad. It is difficult to define what constitutes too many shards, as it depends on their size and how they are being used. A hundred shards that are seldom used may be fine, while two shards experiencing very heavy usage could be too many."
+</blockquote>
+
+
+
+
+
+
+
+
+
+
+
+<p>Remember that there is an additional cost for each shard that you allocate:</p>
+
+
+
+
+
+
+
+
+
+
+
+<ul><li>Since a shard is essentially a Lucene index, it consumes file handles, memory, and CPU resources.</li>
+	<li>Each search request will touch a copy of every shard in the index, which isn't a problem when the shards are spread across several nodes. Contention arises and performance decreases when the shards are competing for the same hardware resources.</li>
+	<li>Elasticsearch uses <a href="https://www.elastic.co/guide/en/elasticsearch/guide/current/relevance-intro.html" target="_blank">term frequency statistics to calculate relevance</a>, but these statistics correspond to individual shards. Maintaining only a small amount of data across a many shards will tend to result in poor document relevance.</li>
+</ul><p>Our customers expect their businesses to grow and their datasets to expand accordingly. There is therefore always a need for contingency planning. Many users convince themselves that they'll encounter explosive growth (although most never actually see an unmanageable spike). In addition, we all want to minimize downtime and avoid resharding.
+</p>
+
+
+
+
+
+
+
+
+
+
+
+<p>If you worry about rapid data growth, then we suggest a focus on a simple constraint: the <a href="https://www.elastic.co/guide/en/elasticsearch/guide/current/_limiting_memory_usage.html" target="_blank">maximum JVM heap size recommendation for Elasticsearch</a> is approximately 30-32GB. This is a solid estimate on the limit of your absolute maximum shard size. For example, if you really think it possible that you could reach 200GB (but not much further without other infrastructure changes), then we recommend an allocation of 7 shards, or 8 shards at most.
+</p>
+
+
+
+
+
+
+
+
+
+
+
+<p>By all means, don't allocate for an inappropriately high goal of 10 terabytes that you might attain three years from now. It's likely that you'll see some performance strain—sooner than you like.
+</p>
+
+
+
+
+
+
+
+
+
+
+
+<p>Although we aren't explaining replicas in detail here, we do recommend that you plan for a modest number of shards and consider increasing the number of replicas. If you're configuring a new environment, then perhaps you want to have a look at our <a href="http://blog.qbox.io/announcing-replicated-elasticsearch-clusters">replicated clusters</a>. With a replicated cluster, you get a three-node cluster that includes one replica with an option to easily increase the number of replicas as your requirements change.
+</p>
+
+
+
+
+
+
+
+
+
+
+
+<h3>Large and Growing Dataset</h3>
+
+
+
+
+
+
+
+
+
+
+
+<p>We strongly encourage you to <strong><em>rely on over-allocation </em></strong>for large datasets—but only modestly. You can still use the 30GB maximum shard size guideline that we give above.
+</p>
+
+
+
+
+
+
+
+
+
+
+
+<p>We do, however, suggest that you continue to picture the ideal scenario as being one shard per index, per node. A good launch point for capacity planning is to allocate shards with a factor of 1.5 to 3 times the number of nodes in your initial configuration. If you're starting with 3 nodes, then we recommend that you specify at most 3 x 3 = 9 shards.
+</p>
+
+
+
+
+
+
+
+
+
+
+
+<p>Your shard size may be getting too high if you're discovering issues through the <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/cluster-stats.html?q=cluster%20stat" target="_blank">cluster stats APIs</a> or encountering minor performance degradations. If this is the case, simply add a node and ES will will rebalance the shards acccordingly.
+</p>
+
+
+
+
+
+
+
+
+
+
+
+<p>Once again, please note that we're omitting the specification of replicas from our discussion here. The same ideal shard guideline of one shard per index per node also holds true for replica shards. So if you need only one replica, then you'll need twice as many nodes. Two replicas would require three times the number of nodes. For more details, see our article on <a href="http://blog.qbox.io/announcing-replicated-elasticsearch-clusters">Replicated Clusters</a>.<br></p>
+
+
+
+
+
+
+
+
+
+
+
+<h3>Logstash</h3>
+
+
+
+
+
+
+
+
+
+
+
+<p>Do you accumulate daily indices and yet incur only small search loads? Perhaps these indices number in the hundreds, but each index is 1GB or smaller. For these and similar problem spaces, our simple recommendation is that you choose one shard.<br><br>If you roll with the defaults for Logstash (daily indices) and ES (5 shards), you could generate up to 890 shards in 6 months. Further, your cluster will be hurting—unless you have 15 nodes or more.<br><br>Think about it: most Logstash users are infrequent searchers, performing fewer than one query per minute. Accordingly, we recommend a simple economical setup. Since search performance isn't a primary requirement for such cases, we don't need multiple replicas. A single replica is enough for basic redundancy. The data-to-memory ratio can also be quite high.<br><br>If you go with a single shard per index, then you could probably run a Logstash configuration for 6 months on a three-node cluster. Ideally, you'd use at least 4GB, but we'd recommend 8GB because 8GB is where network speed starts to get significantly better on most cloud platforms and much less resource-sharing.
+</p>
+
+
+
+
+
+
+
+
+
+
+
+<h3>Conclusion</h3>
+
+
+
+
+
+
+
+
+
+
+
+<p>We reiterate that <em><strong>shards consume resources</strong></em> and require processing overhead.
+</p>
+
+
+
+
+
+
+
+
+
+
+
+<p>To compile results from an index consisting of more than one shard, Elasticsearch must query each shard individually (although in parallel), and then it must perform operations on the aggregated results. Because of this, a machine with more IO headroom (SSDs) and a multi-core processor can definitely benefit from sharding, but you must consider the size, volatility, and future states of your dataset. While there is no one-size-for-all with respect to shard allocation, we hope that you can benefit from this discussion.
+</p>
+
+
+
+
+
+
+
+
+
+
+
+<p>Please leave comments or questions for us below.
+</p>
+
+
+
+
+
+
+
+
+
+
+
+<h3>Other Helpful Resources</h3>
+
+
+
+
+
+
+
+
+
+
+
+<p>Have a look at these other resources that can help you optimize your work with Elasticsearch:</p>
+
+<ul><li><a href="http://blog.qbox.io/launching-and-scaling-elasticsearch">Thoughts on Launching and Scaling Elasticsearch Clusters</a></li>
+</ul><ul><li><a href="http://blog.qbox.io/load-balancing-elasticsearch-clusters">L</a><a href="http://blog.qbox.io/load-balancing-elasticsearch-clusters">oad Balancing Elasticsearch Clusters</a></li>
+</ul><ul><li><a href="http://blog.qbox.io/how-to-quick-and-easy-resizing-of-your-elasticsearch-cluster">How-to: Quick-a</a><a href="http://blog.qbox.io/how-to-quick-and-easy-resizing-of-your-elasticsearch-cluster">nd-Easy Resizing of your Elasticsearch Cluster</a></li>
+</ul><ul><li><a href="http://blog.qbox.io/optimizing-search-results-in-elasticsearch-with-scoring-and-boosting">Optimizing Se</a><a href="http://blog.qbox.io/optimizing-search-results-in-elasticsearch-with-scoring-and-boosting">arch Results in Elasticsearch with Scoring and Boosting</a></li>
+</ul><ul><li><a href="http://blog.qbox.io/parent-child-relationships-in-elasticsearch">Parent-Child Relationsh</a><a href="http://blog.qbox.io/parent-child-relationships-in-elasticsearch">ips in Elasticsearch</a></li>
+</ul><h3>Give It a Whirl!</h3>
+
+
+
+
+
+
+
+
+
+
+
+<p>It's easy to spin up a standard hosted Elasticsearch cluster on any of our 47 Rackspace, Softlayer, Amazon or Microsoft Azure data centers. And you can now <a href="https://qbox.io/pricing">provision a replicated cluster</a>.
+</p>
+
+				<aside class="article-subscribe" id="article-end-form-container">
+  <h3>Get the Next Article</h3>
+
+  <div class="modular-form">
+    <div data-step="first">
+      <p>Sign up for our newsletter, and don't miss out on our top articles.</p>
+
+      <!-- Begin MailChimp Signup Form -->
+      <form action="https://qbox.us12.list-manage.com/subscribe/post?u=13fb83e3ef457e012879a347c&amp;id=484874b0ce" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank">
+        <input type="hidden" value="qbox-article-end" name="SOURCE">
+
+        <p>
+          <input type="email" class="form-control input-easy" placeholder="Your email address" id="mce-EMAIL" name="EMAIL" title="Enter your email address." required="">
+          <input type="submit" value="Sign up" name="subscribe" id="mc-embedded-subscribe" class="btn btn-primary btn-easy">
+        </p>
+
+        <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+        <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_13fb83e3ef457e012879a347c_484874b0ce" tabindex="-1" value=""></div>
+      </form>
+    </div>
+
+    <div data-step="thanks">
+      <p><b>Success!</b></p>
+
+      <p>Check your email. You will receive confirmation or a verification request.</p>
+    </div>
+  </div>
+
+  <script>
+    // --------------------------------------------------------------------------
+    // Subscribe Form 'article-end'
+    // --------------------------------------------------------------------------
+    (function(){
+      var formOptions = {
+        container: '#article-end-form-container',
+        label:     'article-end'
+      };
+      window.articleEndForm = new ModularForm(formOptions);
+    })();
+  </script>
+
+</aside>
+
+				<aside class="article-share-bottom">
+					<h3>If You Found this Helpful, Share!</h3>
+
+					<div class="article-share-buttons">
+  <a class="reddit-share" href="http://www.reddit.com/submit?url=https%3A%2F%2Fqbox.io%2Fblog%2Foptimizing-elasticsearch-how-many-shards-per-index%3Futm_source%3DReddit%26utm_medium%3Dshare%26utm_name%3Dblog&amp;title=%E2%80%8BOptimizing%20Elasticsearch%3A%20How%20Many%20Shards%20per%20Index%3F" data-baseurl="https://qbox.io/blog/optimizing-elasticsearch-how-many-shards-per-index" data-tooltip="Share on Reddit" target="_blank">Share on Reddit</a>
+  <a class="linkedin-share" href="https://www.linkedin.com/shareArticle?&amp;mini=true&amp;url=https%3A%2F%2Fqbox.io%2Fblog%2Foptimizing-elasticsearch-how-many-shards-per-index%3Futm_source%3DLinkedIn%26utm_medium%3Dshare%26utm_name%3Dblog&amp;title=Optimizing%20Elasticsearch%3A%20How%20Many%20Shards%20per%20Index%3F&amp;summary=Reflecting%20on%20the%20extensive%20collective%20experience%20of%20our%20customers%2C%20we%20offer%20guidance%20on%20allocating%20shards%20in%20Elasticsearch.&amp;source=10617054" data-baseurl="https://qbox.io/blog/optimizing-elasticsearch-how-many-shards-per-index" data-tooltip="Share on LinkedIn" target="_blank">Share on LinkedIn</a>
+  <a class="facebook-share" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fqbox.io%2Fblog%2Foptimizing-elasticsearch-how-many-shards-per-index%3Futm_source%3DFacebook%26utm_medium%3Dshare%26utm_name%3Dblog" data-baseurl="https://qbox.io/blog/optimizing-elasticsearch-how-many-shards-per-index" data-tooltip="Share on Facebook" target="_blank">Share on Facebook</a>
+  <a class="twitter-share" href="http://twitter.com/share?text=@qboxio%3A%20Optimizing%20Elasticsearch%3A%20How%20Many%20Shards%20per%20Index%3F&amp;url=https%3A%2F%2Fqbox.io%2Fblog%2Foptimizing-elasticsearch-how-many-shards-per-index%3Futm_source%3DTwitter%26utm_medium%3Dshare%26utm_name%3Dblog&amp;hashtags=qboxio" data-baseurl="https://qbox.io/blog/optimizing-elasticsearch-how-many-shards-per-index" data-tooltip="Share on Twitter" target="_blank">Share on Twitter</a>
+  <button class="copy-share" href="https://qbox.io/blog/optimizing-elasticsearch-how-many-shards-per-index?utm_source=CopyURL&amp;utm_medium=share&amp;utm_name=blog" data-baseurl="https://qbox.io/blog/optimizing-elasticsearch-how-many-shards-per-index" data-tooltip="Copy URL" data-clipboard-text="https://qbox.io/blog/optimizing-elasticsearch-how-many-shards-per-index?utm_source=CopyURL&amp;utm_medium=share&amp;utm_name=blog">Copy URL</button>
+
+  <div class="article-share-text">
+    <input type="text" id="social-share-text" value="https://qbox.io/blog/optimizing-elasticsearch-how-many-shards-per-index?utm_source=CopyURL&amp;utm_medium=share&amp;utm_name=blog" onclick="this.setSelectionRange(0, this.value.length);">
+  </div>
+
+  <script>
+    if(clipboard) clipboard.destroy();
+    var clipboard = new Clipboard('button.copy-share');
+
+    clipboard.on('success', function(e) {
+      e.trigger.setAttribute('data-tooltip','URL copied!');
+      console.info('URL copied to clipboard!');
+      e.clearSelection();
+    });
+
+    clipboard.on('error', function(e) {
+      var parent = e.trigger.parentNode;
+      parent.querySelector('.article-share-text').className += ' visible';
+      parent.querySelector('.article-share-text input').select();
+    });
+  </script>
+</div>
+				</aside>
+
+				<script>
+					$(function() {
+						$('pre').each(function(i, block) {
+							hljs.highlightBlock(block);
+							console.log(this);
+						});
+					});
+				</script>
+						</div>
+
+	<div class="article-footer clearfix">
+				<div class="tags">
+			<span>Categorized under: </span>
+			<ul>
+									<li><a href="https://qbox.io/blog/tag/hosted-elasticsearch">Hosted Elasticsearch</a></li>
+									<li><a href="https://qbox.io/blog/tag/failover-allocation">Failover Allocation</a></li>
+									<li><a href="https://qbox.io/blog/tag/shards">Shards</a></li>
+									<li><a href="https://qbox.io/blog/tag/elasticsearch-performance">Elasticsearch Performance</a></li>
+							</ul>
+		</div>
+			</div>
+
+</article>
+
+			<div class="article-footer">
+				<div class="cta default-cta">
+			<div class="row">
+			<div class="col-sm-8">
+			<div class="cta-body">
+				<p>Not yet enjoying the benefits of a hosted ELK-stack enterprise search on Qbox? Discover how easy it is to manage and scale your Elasticsearch environment.<br></p>
+			</div>
+			</div>
+			
+			<div class="col-sm-4">
+				<a href="https://qbox.io/signup" class="btn btn-success btn-block">Get Started</a>
+				<span class="button-tagline">5 minutes to get started</span>
+			</div>
+		</div>	
+		
+</div>
+			</div>
+
+			<div id="comments">
+				<div id="disqus_thread"><iframe id="dsq-app1" name="dsq-app1" allowtransparency="true" frameborder="0" scrolling="no" tabindex="0" title="Disqus" width="100%" src="./Optimizing Elasticsearch_ How Many Shards per Index__files/saved_resource.html" style="width: 1px !important; min-width: 100% !important; border: none !important; overflow: hidden !important; height: 301px !important;" horizontalscrolling="no" verticalscrolling="no"></iframe></div>
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'qboxio';
+    var disqus_identifier = 'optimizing-elasticsearch-how-many-shards-per-index';
+    var disqus_title = 'Optimizing Elasticsearch: How Many Shards per Index?';
+    var disqus_url = 'https://qbox.io/blog/optimizing-elasticsearch-how-many-shards-per-index';
+    var disqus_category_id = '';
+    
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+
+<noscript>Please enable JavaScript to view the &lt;a href="http://disqus.com/?ref_noscript"&gt;comments powered by Disqus.&lt;/a&gt;</noscript>
+
+			</div>
+		</div>
+
+		<div class="col-md-3">
+			<div class="sidebar-box blue" id="subscribe">
+	<p>Discover how easy it is to manage and scale your Elasticsearch environment with Qbox.</p>
+	<a class="btn btn-block btn-success" href="https://qbox.io/signup">Get Started</a>
+</div>
+			<div class="sidebar-box white" id="subscribe">
+		<h5>Get Qbox Updates</h5>
+	<p>Sign up for blog updates, straight to your email. We'll send you periodical emails full of Elasticsearch tutorials, tips &amp; tricks. We won't spam or send your information to anyone else.</p>
+	<!--<div class="form-group">
+			<input type="email" id="email" class="form-control" placeholder="email address" required />
+	</div>
+	<button type="submit" class="btn btn-default btn-block">Sign me up</button>-->
+
+	<form action="https://webto.salesforce.com/servlet/servlet.WebToLead?encoding=UTF-8" method="POST">
+	<input type="hidden" name="oid" value="00Di0000000diV2">
+  <input type="hidden" name="retURL" value="https://qbox.io/blog/subscribed">
+  <input type="hidden" name="lead_source" value="Blog Signup">
+
+	<div class="form-group">
+		<input type="email" id="field0" maxlength="80" name="email" class="form-control" placeholder="email address" required="">
+	</div>
+	
+	<input type="hidden" name="last_name" value="Unknown">
+	<input type="hidden" name="company" value="Unknown">
+	<input type="hidden" name="00N3100000GMkx4" value="1"><!-- Web to Lead var --> 
+	<input type="hidden" name="recordType" value="012i0000001EILr">
+
+	<button type="submit" class="btn btn-default btn-block">Sign me up</button>
+
+	</form>
+
+	
+</div>
+
+			<div class="sidebar-box white" id="subscribe">
+	<h5>Popular Tutorials</h5>
+	<p>Read and learn with our extensive Elasticsearch tutorials.</p>
+	<ul>
+					<li><a href="https://qbox.io/blog/series/elasticsearch-python-django-series">How To Use Elasticsearch With Python and Django </a></li>
+					<li><a href="https://qbox.io/blog/series/kibana-analytics">Kibana Analytics</a></li>
+					<li><a href="https://qbox.io/blog/series/using-elasticsearch-for-e-commerce">Using Elasticsearch for E-commerce</a></li>
+					<li><a href="https://qbox.io/blog/series/machine-learning">Machine Learning</a></li>
+					<li><a href="https://qbox.io/blog/series/getting-to-know-elasticsearch">Getting to Know Elasticsearch</a></li>
+					<li><a href="https://qbox.io/blog/series/elasticsearch-scripting">Elasticsearch Scripting</a></li>
+					<li><a href="https://qbox.io/blog/series/elasticsearch-basics">Elasticsearch Basics</a></li>
+			</ul>
+</div>		</div>
+	</div>
+</div>
+
+<div id="exitIntentModal" class="exitIntentModal" style="display: none;">
+  <div class="exitIntentModal__underlay"></div>
+  <aside class="exitIntentModal__exitModal exitModal">
+
+    <div class="exitModal__closeButton"></div>
+
+    <div class="exitModal__content exitModal__content--newsletter">
+  <div class="exitModal__form" data-step="first" style="display: block;">
+    <header class="exitModal__header">
+      <p class="exitModal__pretitle">
+        Don't miss out
+      </p>
+
+      <p class="exitModal__title">
+        Subscribe to our Newsletter
+      </p>
+
+      <p class="exitModal__subtitle">Get our top articles, like this one, sent regularly</p>
+    </header>
+
+    <div class="exitModal__body">
+      <!-- Begin MailChimp Signup Form -->
+      <form action="https://qbox.us12.list-manage.com/subscribe/post?u=13fb83e3ef457e012879a347c&amp;id=484874b0ce" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank">
+        <input type="hidden" value="qbox-modal" name="SOURCE" id="mce-MODAL">
+
+        <p>Enter your email address.</p>
+
+        <p>
+          <input type="email" class="exitModal__easyInput" placeholder="Your email address" id="mce-EMAIL" name="EMAIL" title="Enter your email address." required="" autofocus="">
+        </p>
+
+        <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+        <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_13fb83e3ef457e012879a347c_484874b0ce" tabindex="-1" value=""></div>
+
+        <input type="submit" value="Get the newsletter" name="subscribe" id="mc-embedded-subscribe" class="exitModal__easyButton">
+      </form>
+    </div>
+  </div>
+
+  <div class="exitModal__thanks" data-step="thanks" style="display: none;">
+    <header class="exitModal__header">
+      <p class="exitModal__pretitle">
+        Success!
+      </p>
+
+      <p class="exitModal__title">
+        Our newsletter will arrive soon
+      </p>
+
+      <p class="exitModal__subtitle">Thanks for using our form</p>
+    </header>
+
+    <div class="exitModal__body">
+
+      <p>Please share this article, if you found it valuable!</p>
+
+      <div class="article-share-buttons">
+  <a class="reddit-share" href="http://www.reddit.com/submit?url=https%3A%2F%2Fqbox.io%2Fblog%2Foptimizing-elasticsearch-how-many-shards-per-index%3Futm_source%3DReddit%26utm_medium%3Dshare%26utm_name%3Dblog&amp;title=%E2%80%8BOptimizing%20Elasticsearch%3A%20How%20Many%20Shards%20per%20Index%3F" data-baseurl="https://qbox.io/blog/optimizing-elasticsearch-how-many-shards-per-index" data-tooltip="Share on Reddit" target="_blank">Share on Reddit</a>
+  <a class="linkedin-share" href="https://www.linkedin.com/shareArticle?&amp;mini=true&amp;url=https%3A%2F%2Fqbox.io%2Fblog%2Foptimizing-elasticsearch-how-many-shards-per-index%3Futm_source%3DLinkedIn%26utm_medium%3Dshare%26utm_name%3Dblog&amp;title=Optimizing%20Elasticsearch%3A%20How%20Many%20Shards%20per%20Index%3F&amp;summary=Reflecting%20on%20the%20extensive%20collective%20experience%20of%20our%20customers%2C%20we%20offer%20guidance%20on%20allocating%20shards%20in%20Elasticsearch.&amp;source=10617054" data-baseurl="https://qbox.io/blog/optimizing-elasticsearch-how-many-shards-per-index" data-tooltip="Share on LinkedIn" target="_blank">Share on LinkedIn</a>
+  <a class="facebook-share" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fqbox.io%2Fblog%2Foptimizing-elasticsearch-how-many-shards-per-index%3Futm_source%3DFacebook%26utm_medium%3Dshare%26utm_name%3Dblog" data-baseurl="https://qbox.io/blog/optimizing-elasticsearch-how-many-shards-per-index" data-tooltip="Share on Facebook" target="_blank">Share on Facebook</a>
+  <a class="twitter-share" href="http://twitter.com/share?text=@qboxio%3A%20Optimizing%20Elasticsearch%3A%20How%20Many%20Shards%20per%20Index%3F&amp;url=https%3A%2F%2Fqbox.io%2Fblog%2Foptimizing-elasticsearch-how-many-shards-per-index%3Futm_source%3DTwitter%26utm_medium%3Dshare%26utm_name%3Dblog&amp;hashtags=qboxio" data-baseurl="https://qbox.io/blog/optimizing-elasticsearch-how-many-shards-per-index" data-tooltip="Share on Twitter" target="_blank">Share on Twitter</a>
+  <button class="copy-share" href="https://qbox.io/blog/optimizing-elasticsearch-how-many-shards-per-index?utm_source=CopyURL&amp;utm_medium=share&amp;utm_name=blog" data-baseurl="https://qbox.io/blog/optimizing-elasticsearch-how-many-shards-per-index" data-tooltip="Copy URL" data-clipboard-text="https://qbox.io/blog/optimizing-elasticsearch-how-many-shards-per-index?utm_source=CopyURL&amp;utm_medium=share&amp;utm_name=blog">Copy URL</button>
+
+  <div class="article-share-text">
+    <input type="text" id="social-share-text" value="https://qbox.io/blog/optimizing-elasticsearch-how-many-shards-per-index?utm_source=CopyURL&amp;utm_medium=share&amp;utm_name=blog" onclick="this.setSelectionRange(0, this.value.length);">
+  </div>
+
+  <script>
+    if(clipboard) clipboard.destroy();
+    var clipboard = new Clipboard('button.copy-share');
+
+    clipboard.on('success', function(e) {
+      e.trigger.setAttribute('data-tooltip','URL copied!');
+      console.info('URL copied to clipboard!');
+      e.clearSelection();
+    });
+
+    clipboard.on('error', function(e) {
+      var parent = e.trigger.parentNode;
+      parent.querySelector('.article-share-text').className += ' visible';
+      parent.querySelector('.article-share-text input').select();
+    });
+  </script>
+</div>
+
+      <p>
+        You may <a href="https://qbox.io/blog/optimizing-elasticsearch-how-many-shards-per-index#" data-action="next">close this modal</a> and return
+        to the article.
+      </p>
+
+    </div>
+  </div>
+
+  <script>
+    // --------------------------------------------------------------------------
+    // Exit Intent Modal 'newsletter'
+    // --------------------------------------------------------------------------
+    (function() {
+      // Track user behavior
+      oBehave.init('enter','scroll','click');
+
+      // Create the exit modal
+      var modalOptions = {
+        behavioral: oBehave,
+        label:      'newsletter'
+      };
+      window.exitModal = new ExitModal(modalOptions);
+    })();
+  </script>
+</div>
+    
+  </aside></div>
+
+
+	</main>
+
+	<footer id="footer">
+
+	<div class="container">
+
+		<div class="row">
+
+			<div class="col-xs-6 col-sm-4 col-md-3">
+								<h4><a href="https://qbox.io/about">About Qbox</a></h4>
+								<ul>
+											<li><a href="https://qbox.io/">Hosted Elasticsearch</a></li>
+												<li><a href="https://qbox.io/about">The Team</a></li>
+												<li><a href="https://qbox.io/pricing">Pricing</a></li>
+												<li><a href="https://qbox.io/blog" class="active">Blog</a></li>
+										</ul>
+			</div>
+
+			<div class="col-xs-6 col-sm-4 col-md-3">
+							<h4><a href="https://qbox.io/support">Support</a></h4>
+								<ul>
+											<li><a href="https://qbox.io/support">Help Center</a></li>
+												<li><a href="https://qbox.io/support/contact">Contact Us</a></li>
+												<li><a href="https://qbox.io/service-level-agreement">SLA</a></li>
+										</ul>
+			</div>
+
+			<div class="col-sm-4 col-md-6 sponsors">
+			
+			  <h4><a>Qbox Proudly Sponsors:</a></h4>
+			  
+			  <div class="sponsors">
+			  <div class="row">
+			    <div class="col-xs-6">
+			      <a class="supergiant" href="https://qbox.io/community">
+			        <img src="./Optimizing Elasticsearch_ How Many Shards per Index__files/footer_supergiant_logo.svg">
+			      </a>
+			    </div>
+			    <div class="col-xs-6">
+			      <a class="linux-foundation" href="https://qbox.io/community">
+			        <img src="./Optimizing Elasticsearch_ How Many Shards per Index__files/footer_linux_foundation_logo.png">
+			      </a>
+			    </div>
+			    <div class="col-xs-6">
+			      <a class="cncf" href="https://qbox.io/community">
+			        <img src="./Optimizing Elasticsearch_ How Many Shards per Index__files/footer_cncf_logo.png">
+			      </a>
+			    </div>
+			    
+			  </div>
+			  </div>
+			
+				<ul id="footer-social">
+					<li class="facebook"><a href="https://www.facebook.com/qboxio"></a></li>
+					<li class="twitter"><a href="https://twitter.com/qboxio"></a></li>
+					<li class="linkedin"><a href="https://www.linkedin.com/company/qbox-io"></a></li>
+					<li class="crunchbase"><a href="https://www.crunchbase.com/organization/qbox-io"></a></li>
+					<li class="angellist"><a href="https://angel.co/qbox-io"></a></li>
+				</ul>
+			</div>
+
+		</div>
+
+		<div id="footer-line">
+			<ul class="list-inline pull-right">
+				<li><a href="http://status.qbox.io/">System Status</a></li>
+			</ul>
+			
+			<ul class="list-inline">
+									<li><a href="https://qbox.io/">Cloud Elasticsearch</a></li>
+									<li><a href="https://qbox.io/terms">Terms of Service</a></li>
+									<li><a href="https://qbox.io/privacy-policy">Privacy Policy</a></li>
+							</ul>
+
+			<p class="note">
+				​© Copyright 2016 Qbox, Inc. All rights reserved.
+				Elasticsearch, Logstash, and Kibana are trademarks of Elasticsearch, BV,
+				registered in the U.S. and in other countries.  Elasticsearch, BV and
+				Qbox, Inc., a Delaware Corporation, are not affiliated.
+			</p>
+		</div>
+
+	</div>
+
+</footer>
+
+	<script type="text/javascript">
+	/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+	var disqus_shortname = 'qboxio';
+
+	/* * * DON'T EDIT BELOW THIS LINE * * */
+	(function () {
+	var s = document.createElement('script'); s.async = true;
+	s.type = 'text/javascript';
+	s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+	(document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+	}());
+	</script>
+
+	
+	
+
+
+<div style="display: none; visibility: hidden;">
+<script type="text/javascript">_atrk_opts={atrk_acct:"hvDnj1aAkN00a2",domain:"qbox.io",dynamic:!0};(function(){var a=document.createElement("script");a.type="text/javascript";a.async=!0;a.src="https://d31qbv1cthcecs.cloudfront.net/atrk.js";var b=document.getElementsByTagName("script")[0];b.parentNode.insertBefore(a,b)})();</script>
+<noscript></noscript>
+</div><script type="text/javascript" id="">var _kmq=_kmq||[],_kmk=_kmk||"e7ddbc4f761acdadd2e2dffa9c18089dec1d22c5";function _kms(c){setTimeout(function(){var a=document,b=a.getElementsByTagName("script")[0],a=a.createElement("script");a.type="text/javascript";a.async=!0;a.src=c;b.parentNode.insertBefore(a,b)},1)}_kms("//i.kissmetrics.com/i.js");_kms("//doug1izaerwt3.cloudfront.net/"+_kmk+".1.js");</script><script type="text/javascript" id="">(function(){var a=new Image;a.src="https://secure.adnxs.com/seg?add\x3d1235205\x26t\x3d2"});</script><script type="text/javascript" id="" src="./Optimizing Elasticsearch_ How Many Shards per Index__files/webfont.js.download"></script>
+<script type="text/javascript" id="">WebFont.load({google:{families:["Lato:300,400,700,300italic,400italic,700italic"]}});</script><iframe style="display: none;" src="./Optimizing Elasticsearch_ How Many Shards per Index__files/saved_resource(1).html"></iframe><script type="text/javascript" id="">window._kmq=window._kmq||[];var category,action,label,event;category=google_tag_manager["GTM-5SS2ZN"].macro('gtm1477317788284')||"Page";action=google_tag_manager["GTM-5SS2ZN"].macro('gtm1477317788286')||"Click";label=google_tag_manager["GTM-5SS2ZN"].macro('gtm1477317788288')||"undefined";event=action+"ed "+category+": "+label;_kmq.push(["record",event]);</script><script type="text/javascript" id="">window._kmq=window._kmq||[];var category,action,label,event;category=google_tag_manager["GTM-5SS2ZN"].macro('gtm1477317788298')||"Page";action=google_tag_manager["GTM-5SS2ZN"].macro('gtm1477317788300')||"Click";label=google_tag_manager["GTM-5SS2ZN"].macro('gtm1477317788302')||"undefined";event=action+"ed "+category+": "+label;_kmq.push(["record",event]);</script><script type="text/javascript" id="">window._kmq=window._kmq||[];var category,action,label,event;category=google_tag_manager["GTM-5SS2ZN"].macro('gtm1477317788312')||"Page";action=google_tag_manager["GTM-5SS2ZN"].macro('gtm1477317788314')||"Click";label=google_tag_manager["GTM-5SS2ZN"].macro('gtm1477317788316')||"undefined";event=action+"ed "+category+": "+label;_kmq.push(["record",event]);</script></body></html>

@@ -1,3 +1,6 @@
+Create Index
+
+
 List all indices in elasticsearch
     curl http://localhost:9200/_aliases
     
@@ -9,3 +12,15 @@ List of close indices
     
 Index open/close    
     curl -XHEAD -i 'http://192.168.134.106:9200/applicationlogindex-*'
+    
+    
+    
+    
+    
+    {
+  "title": "5",
+  "text":  "Just trying this out...",
+  "date":  "2014/01/01"
+}
+    
+    

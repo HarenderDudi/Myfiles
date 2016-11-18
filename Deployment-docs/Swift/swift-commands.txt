@@ -62,7 +62,7 @@ Statistics of an Account:
 	curl -XPUT http://192.168.134.90:8080/auth/v2/<new_account> -H "X-Auth-Admin-User: .super_admin" -H "X-Auth-Admin-Key: pass@123"
     
 > Add user to account 
-	curl -XPUT http://192.168.134.90:8080/auth/v2/dudi_test2/dudi -H "X-Auth-Admin-User: .super_admin" -H "X-Auth-Admin-Key: swauthkey" -H "X-Auth-User-Admin: true" -H "X-Auth-User-Key: pass@123"
+	curl -XPUT http://192.168.134.90:8080/auth/v2/dudi_test2/dudi -H "X-Auth-Admin-User: .super_admin" -H "X-Auth-Admin-Key: pass@123" -H "X-Auth-User-Admin: true" -H "X-Auth-User-Key: pass@123"
 	
 	
 > List of account
@@ -130,7 +130,7 @@ cs/pass@123
 http://askubuntu.com/questions/320746/how-to-mount-ftp-resources-with-fstab-when-connection-is-available
 
 
-Forrester:
+(Liquidweb)Forrester:
     IP :67.227.238.28
     U :root
     P :xyzm7Xygpn_38

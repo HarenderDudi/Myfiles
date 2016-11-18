@@ -1,0 +1,2 @@
+result=$(ping -c 1 192.168.134.224 | awk 'BEGIN {FS="[=]|[ ]"} NR==2')
+time=$(echo "$result" | awk 'BEGIN {FS="[=]|[ ]"} NR==1 {print $10}')

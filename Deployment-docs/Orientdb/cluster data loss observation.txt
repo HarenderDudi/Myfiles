@@ -1,0 +1,14 @@
+basically its not data loss, what orientdb is doing that data of first node(node which starts first in cluster) act as master data and then this node deploy master data to all the nodes in cluster.
+
+eg:
+initially (when all nodes are up) we have 1 vertex V1.
+make node3 down 
+create a new vertex V2.
+make node2 down
+create new vertex V3.
+take node1 down
+take nodes up in following manner: node3 then node2 and last node1
+we have only one vertex V1 which was there before taking node3 down.
+
+but if we take node 1 up first than there will be all 3 vertices.
+ 

@@ -31,9 +31,33 @@ conclusion:
 
 10 index buffer size [10% or 512mb max] 
    
-   
+11. Hard Drive Configuration
+    • Host-based replication isn’t required (just let ES manage)
+    • RAID 0 gives best disk utilization
+    • ES can simulate RAID0, but not as good as real RAID
+    • data.path=/mnt/drive1,/mnt/drive2
+    • Avoid NFS, has been tested/known to cause corruption and issues
+    • Prefer local drives over NAS & SAN as it tends to be slower than
+    since Elasticsearch has replicas, can tolerate loss of disk.
+    • If using NAS/SAN, test that latencies are acceptable   
     
-NOTE :  Find open files limit per process: ulimit -n
+    
+    LINKS : shards per index - https://qbox.io/blog/optimizing-elasticsearch-how-many-shards-per-index
+    
+NOTES :  
+     
+        1. Number of shards per node 
+            - http://blog.mikemccandless.com/2011/02/visualizing-lucenes-segment-merges.html
+        
+            - too many shards in single node may decrease performance Since a shard is essentially a Lucene index, it consumes file handles, memory, and CPU resources.
+            
+            - i think if we dont need horizontal scaling in future then 1 shard per node and 1 replica is good.
+            link: http://stackoverflow.com/questions/22544461/elasticsearch-optimal-number-of-shards-per-node
+
+            
+            
+
+        Find open files limit per process: ulimit -n
         Count all opened files by all process: lsof | wc -l
         Get maximum open files count allowd: cat /proc/sys/fs/file-max       
         

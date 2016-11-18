@@ -1,1 +1,4 @@
 http://www.petrikainulainen.net/getting-started-with-gradle/
+http://www.vogella.com/tutorials/Gradle/article.html
+
+https://docs.gradle.org/current/userguide/writing_build_scripts.html

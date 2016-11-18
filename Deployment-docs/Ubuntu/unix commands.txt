@@ -7,11 +7,20 @@ ip-address: ifconfig  | grep 'inet addr:'| grep -v '127.0.0.1' | cut -d: -f2 | a
 
 change uuid .vdi file: 	VBoxManage internalcommands sethduuid "/home/user/VirtualBox VMs/drupal/drupal.vhd"
 
+BACKUP
+tar -zcvf  /opt/cs/backup/orientdb/orientDB_`date +%d-%m-%Y_%H:%M:%S`.tar.gz databases/
 
-JETTY: nohup java -jar start.jar &
+NOHUP
+JAR :nohup java -jar start.jar &
+SH FILE : nohup ./server.sh &
+
 nohup java -DSTOP.PORT=8089 -DSTOP.KEY=pass123 -jar start.jar &
 nohup java -DSTOP.PORT=8089 -DSTOP.KEY=pass123 -jar start.jar --stop
+
 https://wiki.eclipse.org/Jetty/Howto/Secure_Termination
+
+
+
 
 >> MAIL
 
@@ -32,6 +41,7 @@ date +"%d-%B-%y" (%B for full month name)
     arch
     uname -a or uname -m
     
+>> ./bin/sh^m bad interpreter error: use dos2unix <file> to convert windows linecarage and return to unix    
     
 elasticSearch start as root : bin/elasticsearch -Des.insecure.allow.root=true -d
 remove elastic plugin: bin/plugin remove contentsphere-plugin

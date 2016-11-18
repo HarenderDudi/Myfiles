@@ -1,0 +1,1 @@
+(function(){stButtons.processCB({"clicks_total":43,"facebook":39,"twitter":4,"fblike":1,"total":44,"shares":{"all":1,"fblike":1},"url":"http:\/\/turnaroundfitness.com\/4-specialized-training-techniques-to-increase-testosterone\/","ourl":"http:\/\/turnaroundfitness.com\/4-specialized-training-techniques-to-increase-testosterone\/"})})();

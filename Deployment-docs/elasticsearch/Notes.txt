@@ -1,3 +1,5 @@
+Index(database) --> type/mapping(table) --> UID/Object/Document(entries)
+
 index
     An "index" in Elasticsearch is a bit like a database in a relational DB. It's where you store/index your data. But actually, that's just what your application sees. Internally, an index is a logical namespace that points to one or more shards.
 

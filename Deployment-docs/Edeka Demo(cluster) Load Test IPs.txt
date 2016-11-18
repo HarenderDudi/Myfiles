@@ -1,0 +1,39 @@
+Elastic1: 192.168.134.71
+Elastic2: 192.168.134.72
+Elastic3: 192.168.134.73
+
+OrientDB1: 192.168.134.74
+OrientDB2: 192.168.134.75
+OrientDB3: 192.168.134.76
+
+Tomcat1: 192.168.134.77
+Tomcat2: 192.168.134.78
+Tomcat3: 192.168.134.79
+Tomcat4: 192.168.134.80
+Tomcat5: 192.168.134.81
+
+Elastic_LB1: 192.168.134.82 Port 9200
+OrinetDB_LB2: 192.168.134.83 Port  2480
+Tomcat_LB3: 192.168.134.84 Port 8080
+
+OMD: 192.168.134.85
+Python: 192.168.134.86
+Swift: 192.168.134.87
+
+User: 
+Password : awslik@123$
+
+
+Do not use build server to create war
+Also Add IP of 
+Build Server
+192.168.132.208 local vim
+
+OMD Link: http://192.168.134.85/edeka/check_mk/index.py?start_url=%2Fedeka%2Fcheck_mk%2Fdashboard.py
+user: omdadmin
+passwd: omd
+
+Swift:
+Account : "edeka"
+User: "edeka"
+Password: pass@123
