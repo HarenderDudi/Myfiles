@@ -1,0 +1,4 @@
+http://stackoverflow.com/questions/20222093/elasticsearch-listen-to-multiple-ips
+
+network.bind_host: ["67.227.238.28", "_local_"] 
+network.publish_host: 67.227.238.28

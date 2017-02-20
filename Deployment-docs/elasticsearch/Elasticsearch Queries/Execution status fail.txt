@@ -1,0 +1,108 @@
+Execution Status Fail Query:
+
+{
+	"size": 5,
+	"sort": [{
+		"startTime": {
+			"order": "desc",
+			"unmapped_type": "boolean"
+		}
+	}],
+	"query": {
+		"filtered": {
+			"query": {
+				"query_string": {
+					"query": "*",
+					"analyze_wildcard": true
+				}
+			},
+			"filter": {
+				"bool": {
+					"must": [{
+						"query": {
+							"match": {
+								"executionStatus": {
+									"query": "FAILURE",
+									"type": "phrase"
+								}
+							}
+						}
+					}, {
+						"range": {
+							"startTime": {
+								"gte": 1480789800000,
+								"lte": 1481394599999,
+								"format": "epoch_millis"
+							}
+						}
+					}],
+					"must_not": []
+				}
+			}
+		}
+	}
+}
+
+
+
+
+
+
+
+"query": {
+            "bool": {
+                "must": [{
+                    "match": {"executionStatus": "SUCCESS"}}, {
+                    "match": {"requestMethod": "POST"}}
+                ],
+                "filter": {
+                    "range": {
+                        "startTime": {
+                            "gte": 1482318935,
+                            "lte": 1482322535,
+                            "format": "epoch_millis"
+                        }
+                    }
+                }
+
+            }
+        }
+        
+        
+	"query": {
+		"bool": {
+			"must": [{
+				"nested": {
+					"path": "<%=strategy%>",
+					"query": {
+						"bool": {
+							"must": [{
+								"match": {
+									"executionStatus": "SUCCESS"
+								}
+							}, {
+								"match": {
+									"requestMethod": "POST"
+								}
+							}]
+						}
+					}
+				}
+			}, {
+				"query": {
+					"match": {
+						"executionStatus": "<%=status%>"
+					}
+				}
+			}],
+			"filter": {
+				"range": {
+					"startTime": {
+						"gte": 1482318935,
+						"lte": 1482322535,
+						"format": "epoch_millis"
+					}
+				}
+			}
+		}
+	}

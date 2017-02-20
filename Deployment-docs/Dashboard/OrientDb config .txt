@@ -1,0 +1,2 @@
+                <command implementation="com.cs.config.strategy.plugin.backup.CreateBackup" pattern="POST|CreateBackup/*" stateful="false"/>
+                <command implementation="com.cs.config.strategy.plugin.backup.RestoreBackup" pattern="POST|RestoreBackup/*" stateful="false"/>

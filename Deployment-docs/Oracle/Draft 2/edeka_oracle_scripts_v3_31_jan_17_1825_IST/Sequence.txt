@@ -1,0 +1,8 @@
+DropSynonyms
+DropTables
+BasePlugin
+CreateTables
+CreateSynonymsWithoutComments
+CreatePK
+UniqueKeyConstraint
+CreateFK

@@ -1,0 +1,21 @@
+var obj = {"strategy": 150, "a" : 330, "b" : 150};
+for(o in obj){console.log(obj[o])}
+ 150
+ 330
+ 150
+
+
+for(o in obj){console.log(o)}
+ strategy
+ a
+ b
+ 
+ 
+ 
+ find if value exists in array or not :
+ ["a","x"].indexOf("x")
+ 
+ find if key in object or not:
+ "x" in obj
+ 
+ 

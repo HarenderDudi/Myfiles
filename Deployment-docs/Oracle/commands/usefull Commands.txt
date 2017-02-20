@@ -1,0 +1,3 @@
+Account Locked:    ALTER USER <Locked User> IDENTIFIED BY <password> ACCOUNT UNLOCK;
+
+Open Cursors:      select value from v$sesstat a, v$session b where a.SID = b.SID AND a.statistic# = 4 AND b.USERNAME = 'TEST';

@@ -1,0 +1,23 @@
+SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder().from(0).size(20);
+    BoolQueryBuilder filterQueryBuilder = new BoolQueryBuilder();  
+    BoolQueryBuilder boolQueryBuilder = new BoolQueryBuilder();
+    BoolQueryBuilder boolQueryBuilderAttributeId = new BoolQueryBuilder();
+    BoolQueryBuilder boolQueryBuilderValue = new BoolQueryBuilder();
+
+    /*boolQueryBuilderAttributeId
+        .must(QueryBuilders.matchQuery("attributes.attributeId","nameattribute"));
+    boolQueryBuilderValue.should(
+        QueryBuilders.matchQuery("attributes.value.exactValue", "Straight Desk LEXIK Imitation"));
+    
+    boolQueryBuilder.must(boolQueryBuilderAttributeId).must(boolQueryBuilderValue);
+    filterQueryBuilder
+        .must(QueryBuilders.nestedQuery("attributes", boolQueryBuilder));*/
+    QueryBuilders.termQuery("name", "Straight Desk LEXIK Imitation");
+    //searchSourceBuilder.query(boolQueryBuilder);
+    searchSourceBuilder.query(QueryBuilders.termQuery("name", "Straight Desk LEXIK Imitation"));
+    SearchRequest req = new SearchRequest("cs").extraSource(searchSourceBuilder)
+        .types(new ArrayList<>().toArray(new String[0])).searchType(SearchType.QUERY_THEN_FETCH);
+    ActionFuture<SearchResponse> future = client.search(req);
+    SearchResponse serachre = future.actionGet();
+    System.out.println(serachre);
+    client.close();

@@ -1,0 +1,1 @@
+UI: transaction store -> remove dependencies on index 

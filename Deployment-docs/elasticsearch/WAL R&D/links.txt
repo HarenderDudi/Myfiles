@@ -1,0 +1,30 @@
+http://stackoverflow.com/questions/26667063/elasticsearch-failed-to-recover-after-crash
+
+Disk Full Indicex Corrupted: https://unpunctualprogrammer.com/2014/05/13/corrupt-elasticsearch-translogs/
+
+https://opexsoftware.wordpress.com/2015/12/21/how-to-cleanup-corrupted-indexes-from-elasticsearch/
+
+https://www.confluent.io/blog/using-logs-to-build-a-solid-data-infrastructure-or-why-dual-writes-are-a-bad-idea/
+
+http://db.csail.mit.edu/madden/html/aries.pdf
+
+
+https://msdn.microsoft.com/en-us/library/jj835093(v=sql.120).aspx#WAL
+http://www.todo-backup.com/backup-resource/sql-backup-software/regular-sql-backup-vs-tansaction-log-backup.htm
+
+tp(https://blogs.technet.microsoft.com/beatrice/2008/07/24/full-backups-transaction-logs-backup/)
+
+https://www.elastic.co/guide/en/elasticsearch/guide/current/translog.html
+
+Corrupt WAL file: https://discuss.elastic.co/t/cannot-recover-index-because-of-missing-tanslog-files/38336
+
+
+
+
+
+
+
+{
+    "user" : "A1",
+    "message" : "trying out Elasticsearch"
+}

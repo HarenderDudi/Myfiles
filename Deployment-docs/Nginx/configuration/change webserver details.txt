@@ -1,0 +1,1 @@
+http://stackoverflow.com/questions/246227/how-do-you-change-the-server-header-returned-by-nginx

@@ -1,0 +1,44 @@
+SELECT owner, table_name FROM all_tables WHERE owner='CSDEPLOY'
+
+To get all our applicaton tables.
+
+#########################################################################################################################
+BEGIN
+   FOR R IN (SELECT owner, table_name FROM all_tables WHERE owner='CSDEPLOY') LOOP
+      EXECUTE IMMEDIATE 'grant select, insert, update, delete on "'||R.owner||'"."'||R.table_name||'" to CSUSER';
+   END LOOP;
+END;
+
+GRANT ALL.
+#########################################################################################################################
+
+CREATE OR REPLACE
+PROCEDURE GrantAccessToCSSUPPORT AS
+BEGIN
+   FOR R IN (SELECT owner, table_name FROM all_tables WHERE owner='CSDEPLOY') LOOP
+      EXECUTE IMMEDIATE 'grant select on "'||R.owner||'"."'||R.table_name||'" to CSSUPPORT';
+   END LOOP;
+END;
+
+
+CREATE OR REPLACE
+PROCEDURE GrantAccessToCSUSER AS
+BEGIN
+   FOR R IN (SELECT owner, table_name FROM all_tables WHERE owner='CSDEPLOY') LOOP
+      EXECUTE IMMEDIATE 'grant select, insert, update, delete on "'||R.owner||'"."'||R.table_name||'" to CSUSER';
+   END LOOP;
+END;
+#########################################################################################################################
+
+TEST :-
+
+INSERT INTO "CSDEPLOY"."User" ("id") values ('12') ;
+
+select * from "CSDEPLOY"."User";
+
+UPDATE "CSDEPLOY"."User"
+SET "lastModifiedBy" = 'Nishant'
+WHERE "id" = 12;
+
+DELETE FROM "CSDEPLOY"."User"
+WHERE "lastModifiedBy" = 'Nishant';

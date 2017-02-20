@@ -1,0 +1,116 @@
+systemUser: sys
+Password: Admin123
+
+Create USER edeploymentuser identified by Admin123;
+grant create session to edeploymentuser;
+grant alter session to edeploymentuser;
+grant create table to edeploymentuser;
+grant create view to edeploymentuser;
+GRANT CREATE ANY INDEX to edeploymentuser;
+grant create procedure to edeploymentuser;
+GRANT UNLIMITED TABLESPACE TO edeploymentuser;
+GRANT CREATE SYNONYM, CREATE DATABASE LINK, CREATE PUBLIC SYNONYM, DROP PUBLIC SYNONYM TO edeploymentuser;
+
+
+Create USER eappuser identified by eappuser;
+grant create session to eappuser;
+grant alter session to eappuser;
+
+
+Create USER esupuser identified by esupuser;
+grant create session to esupuser;
+
+*************************************************************
+
+connect edeploymentuser/Admin123;
+
+## run procedure to create tables
+
+## run procedure to grant permissions
+
+CREATE OR REPLACE
+PROCEDURE GrantAccessToCSSUPPORT AS
+BEGIN
+   FOR R IN (SELECT owner, table_name FROM all_tables WHERE owner='edeploymentuser') LOOP
+      EXECUTE IMMEDIATE 'grant select on "'||R.owner||'"."'||R.table_name||'" to esupuser';
+   END LOOP;
+END;
+
+
+CREATE OR REPLACE
+PROCEDURE GrantAccessToCSUSER AS
+BEGIN
+   FOR R IN (SELECT owner, table_name FROM all_tables WHERE owner='edeploymentuser') LOOP
+      EXECUTE IMMEDIATE 'grant select, insert, update, delete on "'||R.owner||'"."'||R.table_name||'" to eappuser';
+   END LOOP;
+END;
+
+
+*** GRANT EXECUTE ON <function name> TO user;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+EDEPLOYMENTUSER :-
+create user edeploymentuser identified by pass123;
+grant create table to edeploymentuser;
+grant create view to edeploymentuser;
+GRANT CREATE ANY INDEX to edeploymentuser;
+grant create procedure to edeploymentuser;
+# grant public synonym to deployemeny
+
+GRANT UNLIMITED TABLESPACE TO edeploymentuser;
+
+
+EAPPUSER :-
+create user eappuser identified by pass123;
+grant create session to eappuser;
+grant alter session to eappuser;
+GRANT SELECT, UPDATE, DELETE, INSERT ON edeploymentuser.demo to eappuser;
+GRANT EXECUTE ON <function name> TO user;
+
+
+connect edeploymentuser/pass123;
+SELECT table_name, status, num_rows FROM USER_TABLES;
+GRANT SELECT, UPDATE, DELETE, INSERT ON demo to eappuser;
+GRANT EXECUTE ON <function name> TO user;
+GRANT SELECT On edeploymentuser.demo to esupuser;
+
+ESUPPUSER :-
+create user esupuser identified by pass123;
+grant create session to esupuser;
+
+
+NOT WORKING :-
+
+#GRANT SELECT, UPDATE, DELETE, INSERT ON edeploymentuser.* to eappuser;
+#DOESENTWORKgrant select on edeploymentuser to eappuser;
+

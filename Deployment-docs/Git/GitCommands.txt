@@ -25,3 +25,23 @@ git add -u ## stages modified and deleted, without new
 
 > Delete changes to last commit or get state of last commit
 git checkout -- <target>
+
+
+git reset --hard [HEAD]
+completely remove all staged and unstaged changes to tracked files.
+I find myself often using hard resetting, when I'm like "just undo everything like if I had done a complete re-clone from the remote". In your case, where you just want your repo pristine, this would work.
+
+git clean [-f]
+Remove files that are not tracked.
+
+git checkout .
+undo unstaged changes in tracked files. It apparently doesn't touch staged changes and leaves untracked files alone.
+
+
+
+
+Generally, if you are confident you have committed and maybe pushed to a remote important changes, if you are just playing around or the like, using git reset --hard HEAD followed by git clean -f will definitively cleanse your code to the state, it would be in, had it just been cloned and checked out from a branch. It's really important to emphasize, that the resetting will also remove staged, but uncommitted changes. It will wipe everything that has not been committed (except untracked files, in which case, use clean).
+
+All the other commands are there to facilitate more complex scenarios, where a granularity of "undoing stuff" is needed :)
+
+I feel, your question #1 is covered, but lastly, to conclude on #2: the reason you never found the need to use git reset --hard was that you had never staged anything. Had you staged a change, neither  git checkout . nor git clean -f would have reverted that.

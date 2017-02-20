@@ -1,0 +1,60 @@
+mkdir imagemagick/
+cd imagemagick/
+wget ftp://ftp.imagemagick.org/pub/ImageMagick/ImageMagick.tar.gz
+tar -xvf ImageMagick.tar.gz
+cd ImageMagick-*
+zypper in gcc
+./configure
+make
+make install
+ldconfig
+convert -list configure
+convert
+
+
+
+
+# FFMPEG
+cd ../..
+mkdir ffmpeg
+cd ffmpeg
+wget http://ffmpeg.org/releases/ffmpeg-3.2.tar.bz2
+tar -xvf ffmpeg-3.2.tar.bz2
+cd ffmpeg-3.2/
+./configure --disable-yasm
+make
+make install
+ffmpeg
+
+
+#EXIFTOOL
+cd ../..
+mkdir exiftool
+cd exiftool/
+wget http://www.sno.phy.queensu.ca/~phil/exiftool/Image-ExifTool-10.36.tar.gz
+tar -xvf Image-ExifTool-10.36.tar.gz
+cd Image-ExifTool-10.36/
+perl Makefile.PL
+make test
+make install
+exiftool
+
+#ghostscript
+cd ../..
+mkdir ghostscript
+cd ghostscript/
+#wget https://github.com/ArtifexSoftware/ghostpdl-downloads/releases/download/gs920/ghostscript-9.20.tar.gz
+scp -r cs@192.168.132.135:/opt/cs/components/prepackages/tomcat/ghostscript/ghostscript-9.20.tar.gz .
+tar -xvf ghostscript-9.20.tar.gz
+cd ghostscript-9.20/
+./configure
+make
+make install
+make so
+cp sobin/libgs.so.9.20 /usr/lib
+ln -s /usr/lib/libgs.so.9.20 /usr/lib/libgs.so
+mkdir -p /etc/ld.so.conf.d/
+echo "/usr/lib/libgs.so" > /etc/ld.so.conf.d/libgs.conf
+ldconfig
+gs
+

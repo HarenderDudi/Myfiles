@@ -1,0 +1,1 @@
+VirtualSocket:2 VirtualCore:4

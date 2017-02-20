@@ -42,8 +42,10 @@ date +"%d-%B-%y" (%B for full month name)
     uname -a or uname -m
     
 >> ./bin/sh^m bad interpreter error: use dos2unix <file> to convert windows linecarage and return to unix    
-    
+
+
 elasticSearch start as root : bin/elasticsearch -Des.insecure.allow.root=true -d
+    
 remove elastic plugin: bin/plugin remove contentsphere-plugin
  netstat -tupln | grep 9200 | awk {'print $7'} | cut -f 1 -d /
 
