@@ -1,0 +1,15 @@
+[https://www.datadoghq.com/blog/elasticsearch-performance-scaling-problems/]
+indices.store.throttle.type : "none"
+index.merge.scheduler.max_thread_count: 1
+index.translog.flush_threshold_size : 1Gb
+indices.memory.index_buffer_size: default 10%
+index.refresh_interval : -1
+index.number_of_replicas: 0 (***)
+index.translog.durability: async
+
+[https://www.elastic.co/blog/performance-considerations-elasticsearch-indexing]
+
+Monoitoring: marvel monitoring
+
+
+Shard allocation: As a high-level strategy, if you are creating an index that you plan to update frequently, make sure you designate enough primary shards so that you can spread the indexing load evenly across all of your nodes. The general recommendation is to allocate one primary shard per node in your cluster, and possibly two or more primary shards per node, but only if you have a lot of CPU and disk bandwidth on those nodes. However, keep in mind that shard overallocation adds overhead and may negatively impact search, since search requests need to hit every shard in the index. On the other hand, if you assign fewer primary shards than the number of nodes, you may create hotspots, as the nodes that contain those shards will need to handle more indexing requests than nodes that don’t contain any of the index’s shards.

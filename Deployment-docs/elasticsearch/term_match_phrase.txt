@@ -1,0 +1,54 @@
+term query matches a single term as it is : the value is not analyzed. So, it doesn't have to be lowercased depending on what you have indexed.
+
+If you provided Bennett at index time and the value is not analyzed, the following query won't return anything :
+
+{
+  "query": {
+    "term" : { "user" : "bennett" }
+  }
+}
+match_phrase query will analyze the input if analyzers are defined for the queried field and find documents matching the following criterias :
+
+all the terms must appear in the field
+they must have the same order as the input value
+For example, if you index the following documents (using standard analyzer for the field foo):
+
+{ "foo":"I just said hello world" }
+
+{ "foo":"Hello world" }
+
+{ "foo":"World Hello" }
+This match_phrase query will only return the first and second documents :
+
+{
+  "query": {
+    "match_phrase": {
+      "foo": "Hello World"
+    }
+  }
+}
+query_string query search, by default, on a _all field which contains the text of several text fields at once. On top of that, it's parsed and supports some operators (AND/OR...), wildcards and so on (see related syntax).
+
+As the match_phrase queries, the input is analyzed according to the analyzer set on the queried field.
+
+Unlike the match_phrase, the terms obtained after analysis don't have to be in the same order, unless the user has used quotes around the input.
+
+For example, using the same documents as before, this query will return all the documents :
+
+{
+  "query": {
+    "query_string": {
+      "query": "hello World"
+    }
+  }
+}
+But this query will return the same 2 documents as the match_phrase query :
+
+{
+  "query": {
+    "query_string": {
+      "query": "\"Hello World\""
+    }
+  }
+}
+There is much more to say about the different options for those queries, please take a look at the related documentation :

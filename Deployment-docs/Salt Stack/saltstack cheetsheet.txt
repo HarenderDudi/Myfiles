@@ -1,0 +1,55 @@
+Salt master/minion service status:
+	service salt-master start
+	service salt-minion start
+	
+Run state in env:
+	salt -l debug '*2' state.apply update_yml env=elasticsearch
+	
+	
+*************************************************************************************************************************
+
+create property in grain:
+	sudo salt '*' grains.setval foo bar
+
+Get Property from grain:
+	sudo salt '*' grains.item foo
+
+	
+****************************************** MODULES ****************************************	
+Sync down all of the dynamic modules 	
+	salt '*' saltutil.sync_all
+
+List Functions	
+	salt '*' sys.list_functions elasticsearch_cs
+	
+Clear Cache from all nodes	
+	salt '*' saltutil.clear_cache
+	
+	
+	
+**************************************** PILLAR *******************************************
+
+salt '*' saltutil.refresh_pillar	
+salt '*' pillar.items	
+salt '*' pillar.item foo
+
+
+**************************************** MINES ********************************************
+omd:/srv/pillar # cat mines.sls
+mine_functions:
+  network.ip_addrs: []
+  
+>>>> salt '*' mine.get '*' network.ip_addrs	
+                    OR
+salt-run mine.get '*' network.interfaces
+
+
+
+
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+apply initial state:
+	salt 'tomcat*' state.apply init env=tomcat 
+
+apply update files and plugins:
+omd:/srv/salt --	salt '*' state.apply
+	

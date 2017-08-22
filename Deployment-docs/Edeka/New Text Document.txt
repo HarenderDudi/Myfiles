@@ -1,0 +1,25 @@
+https://ssl.minden.edeka.de/dana-na/auth/url_1/welcome.cgi
+1444833 / otp / green - 1254 - greeen - otp
+click on EDEKA Support TS 3 
+
+===========================
+RDP: EDEKA-MI\1444833
+pass: bcdefg
+===========================
+
+
+tomcat ip : 10.68.20.32
+tomcat/tomcat
+elasic ip : 10.68.20.31
+elastic/elastic
+orient ip : 10.68.20.30
+orientdb/orientdb
+
+
+dzdo su - tomcat
+dzdo su - elastic
+dzdo su - orientdb
+
+
+*IMPORTANT OrientDb
+always copy root password from old xml

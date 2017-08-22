@@ -13,6 +13,8 @@ shard
 
     A "primary shard" is the main home for a document. A "replica shard" is a copy of the primary shard that provides (1) failover in case the primary dies and (2) increased read throughput
 
+    https://www.elastic.co/guide/en/elasticsearch/reference/2.3/_basic_concepts.html#_shards_amp_replicas
+    
 segment
     Each shard contains multiple "segments", where a segment is an inverted index. A search in a shard will search each segment in turn, then combine their results into the final results for that shard.
 
