@@ -10,3 +10,5 @@ If you want to still have it in your local repository and only remove it from th
 Undoing Local Changes: https://githowto.com/undoing_local_changes   
 Undoing Staged Changes: https://githowto.com/undoing_staged_changes    
 Undoing Committed Changes: https://githowto.com/undoing_committed_changes
+
+https://stackoverflow.com/questions/2530060/can-you-explain-what-git-reset-does-in-plain-english

@@ -1,0 +1,4 @@
+users:
+  - larry
+  - moe
+  - curly

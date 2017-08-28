@@ -1,0 +1,1869 @@
+<!DOCTYPE html>
+<!-- saved from url=(0141)https://discourse.codinghorror.com/embed/comments?embed_url=https%3A%2F%2Fblog.codinghorror.com%2Fshould-all-developers-have-manycore-cpus%2F -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+
+    <link href="./embed_7eb3c63d02690c68d4527993346b5a7f4730f7e9.css" media="all" rel="stylesheet" data-target="embed">
+      <link href="./embedded_theme_2_7c8f7600f3c3edfc4c05d55587162fc10f138596.css" media="all" rel="stylesheet" data-target="embedded_theme">
+    <link rel="preload" href="./break_string-cc617154cd957804f2f6a1f3bc68258c9cdca3d4b9a322bf777d145fed04790e.js.download" as="script">
+<script src="./break_string-cc617154cd957804f2f6a1f3bc68258c9cdca3d4b9a322bf777d145fed04790e.js.download"></script>
+
+      <title>Should All Developers Have Manycore CPUs? - blog - Coding Horror Discussion</title>
+
+    <script>
+      (function() {
+
+        function postUp(msg) {
+          if (parent) {
+            parent.postMessage(msg, 'https://blog.codinghorror.com/should-all-developers-have-manycore-cpus/');
+          }
+        }
+
+        function clickPostLink(e) {
+          var postId = e.target.getAttribute('data-link-to-post');
+          if (postId) {
+            var postElement = document.getElementById('post-' + postId);
+            if (postElement) {
+              var rect = postElement.getBoundingClientRect();
+              if (rect && rect.top) {
+                postUp({type: 'discourse-scroll', top: rect.top});
+                e.preventDefault();
+                return false;
+              }
+            }
+          }
+        }
+
+        window.onload = function() {
+          // Send a post message with our loaded height
+          postUp({type: 'discourse-resize', height: document['body'].offsetHeight});
+
+          var postLinks = document.querySelectorAll("a[data-link-to-post]"),
+              i;
+
+          for (i=0; i<postLinks.length; i++) {
+            postLinks[i].onclick = clickPostLink;
+          }
+
+          // Make sure all links in the iframe point to _blank
+          var cookedLinks = document.querySelectorAll('.cooked a');
+          for (i=0; i<cookedLinks.length; i++) {
+            cookedLinks[i].target = "_blank";
+          }
+
+          // Adjust all names
+          var names = document.querySelectorAll('.username a');
+          for (i=0; i<names.length; i++) {
+            var username = names[i].innerHTML;
+            if (username) {
+              names[i].innerHTML = new BreakString(username).break();
+            }
+          }
+
+        };
+
+      })();
+    </script>
+  </head>
+  <body>
+    <header class="discourse">
+    <a class="button" target="_blank" href="https://discourse.codinghorror.com/t/should-all-developers-have-manycore-cpus/337/2">Continue Discussion</a>
+  <span class="replies">133 replies</span>
+</header>
+
+    <article class="post" id="post-43156">
+      <a title="April 19, 2008 12:00am" class="post-date" target="_blank" href="https://discourse.codinghorror.com/t/should-all-developers-have-manycore-cpus/337/2">Apr '08</a>
+
+      <div class="author">
+        <a href="https://discourse.codinghorror.com/u/PhillipG" target="_blank"><img src="./45.png" alt=""></a>
+      </div>
+      <div class="cooked">
+        <h3 class="username">
+          <a href="https://discourse.codinghorror.com/u/PhillipG" target="_blank" class="new-user">PhillipG</a>
+        </h3>
+        <p>Heretical question: Do more cores make result in <em>better</em> software?</p>
+
+<p>Sure, the compile is faster. But a compiler is just one more hurdle to circumvent to make it shut up (I've read a code comment to that effect).</p>
+
+<p>And the ever tighter edit-compile-debug loop takes away time to think about <em>what</em> one is doing, as opposed to <em>how</em> one is doing something.</p>
+
+<p>Not necessarily true, I concede that.</p>
+
+      </div>
+    </article>
+    <article class="post" id="post-43157">
+      <a title="April 19, 2008 12:00am" class="post-date" target="_blank" href="https://discourse.codinghorror.com/t/should-all-developers-have-manycore-cpus/337/3">Apr '08</a>
+
+      <div class="author">
+        <a href="https://discourse.codinghorror.com/u/RickB" target="_blank"><img src="./45(1).png" alt=""></a>
+      </div>
+      <div class="cooked">
+        <h3 class="username">
+          <a href="https://discourse.codinghorror.com/u/RickB" target="_blank" class="new-user">RickB</a>
+        </h3>
+        <p>"Heretical question: Do more cores make result in <em>better</em> software?"</p>
+
+<p>I'd say that's a reasonable thing to ask. I think the answer is the same as, "does more MHz result in better software" : maybe. <img src="./slight_smile.png" title=":slight_smile:" class="emoji" alt=":slight_smile:"> On the one hand you get the tirade about developers able to be "more lazy", but on the other hand you do get more honest performance which can be used to do things faster, sooner, or smarter, or even to just make things look nicer. <em>shrug</em> <img src="./slight_smile.png" title=":slight_smile:" class="emoji" alt=":slight_smile:"></p>
+
+      </div>
+    </article>
+    <article class="post" id="post-43158">
+      <a title="April 19, 2008 12:00am" class="post-date" target="_blank" href="https://discourse.codinghorror.com/t/should-all-developers-have-manycore-cpus/337/4">Apr '08</a>
+
+      <div class="author">
+        <a href="https://discourse.codinghorror.com/u/Peter_Hosey" target="_blank"><img src="./45(2).png" alt=""></a>
+      </div>
+      <div class="cooked">
+        <h3 class="username">
+          <a href="https://discourse.codinghorror.com/u/Peter_Hosey" target="_blank" class="new-user">Peter_<wbr>​<wbr>​Hosey</a>
+        </h3>
+        <p> If nothing else, dual-core CPUs protect you from badly written software; if a crashed program consumes all possible CPU time, all it can get is 50% of your CPU.</p>
+
+<p>Wait, what? On any pre-emptively scheduled operating system, no application should be able to monopolize the system; the scheduler should be allowing every other application some time on the CPU. A multi-core CPU doesn't give you any “protection” that you wouldn't have anyway; you should always be able to kill the runaway process.</p>
+
+<p> But what about us managed code developers, with our lack of pointers and explicit memory allocations? … I downloaded the very largest .NET project I could think of off the top of my head, SharpDevelop. The solution is satisfyingly huge; it contains 60 projects. I compiled it a few times in Visual Studio 2008, but task manager wasn't showing much use of even my measly little two cores:</p>
+
+<p> [<a href="http://www.codinghorror.com/blog/images/visual-studio-2008-compilation-task-manager.png%5D" rel="nofollow" target="_blank"></a><a href="http://www.codinghorror.com/blog/images/visual-studio-2008-compilation-task-manager.png" rel="nofollow" target="_blank">http://www.codinghorror.com/blog/images/visual-studio-2008-compilation-task-manager.png</a>]</p>
+
+<p> I did see a few peaks above 50%, but it's an awfully tepid result compared to the make -j4 one.</p>
+
+<p>Interesting. Surely if it's compiling multiple projects (and their source code) at once, it should get it done in about half the time—yet it appears to take exactly as long. That's very strange.</p>
+
+      </div>
+    </article>
+    <article class="post" id="post-43159">
+      <a title="April 19, 2008 12:00am" class="post-date" target="_blank" href="https://discourse.codinghorror.com/t/should-all-developers-have-manycore-cpus/337/5">Apr '08</a>
+
+      <div class="author">
+        <a href="https://discourse.codinghorror.com/u/Awedio" target="_blank"><img src="./45(3).png" alt=""></a>
+      </div>
+      <div class="cooked">
+        <h3 class="username">
+          <a href="https://discourse.codinghorror.com/u/Awedio" target="_blank" class="new-user">Awedio</a>
+        </h3>
+        <p>Digital audio workstation applications benefit tremendously from multiple cores! So will everybody just keep quiet about wasting electricity. I need everybody to buy quad-core, octa-core, whatever so that the chips are cheaper for ME.</p>
+
+      </div>
+    </article>
+    <article class="post" id="post-43160">
+      <a title="April 19, 2008 12:00am" class="post-date" target="_blank" href="https://discourse.codinghorror.com/t/should-all-developers-have-manycore-cpus/337/6">Apr '08</a>
+
+      <div class="author">
+        <a href="https://discourse.codinghorror.com/u/Tom" target="_blank"><img src="./45(4).png" alt=""></a>
+      </div>
+      <div class="cooked">
+        <h3 class="username">
+          <a href="https://discourse.codinghorror.com/u/Tom" target="_blank" class="new-user">Tom</a>
+        </h3>
+        <p>"And the ever tighter edit-compile-debug loop takes away time to think about <em>what</em> one is doing, as opposed to <em>how</em> one is doing something."<br>I'm not sure this holds water. The one thing you can't do during a compile is adjust the code. So if you spot another run-time bug, you either cancel the build, or wait for it to finish, . You can put the fix in while you're building and not save, but this generally screws up the debugger.<br>So you tend to leave it. One time I spent so long waiting for the build to finish I forgot what I needed to fix. And what I needed to test. And that I'd done a build at all.<br>By contrast, if you're the kind of person to rethink, you'll probably use the compile time to do that anyway, and if the build's finishing earlier, you'll ignore it till you're done reconsidering. But at least you won't come out of your codezone to find that it's still only halfway through the damn build.<br>It's a bit like the old User-Friendly quote "But crashes are good! They give the computer time to relax!"</p>
+
+      </div>
+    </article>
+    <article class="post" id="post-43161">
+      <a title="April 19, 2008 12:00am" class="post-date" target="_blank" href="https://discourse.codinghorror.com/t/should-all-developers-have-manycore-cpus/337/7">Apr '08</a>
+
+      <div class="author">
+        <a href="https://discourse.codinghorror.com/u/Mike" target="_blank"><img src="./45(5).png" alt=""></a>
+      </div>
+      <div class="cooked">
+        <h3 class="username">
+          <a href="https://discourse.codinghorror.com/u/Mike" target="_blank" class="new-user">Mike</a>
+        </h3>
+        <p>I purposely develop only on slow and outdated computers. Incremental builds make compile times negligible anyway, and it forces me to code as efficiently as possible to get the program to run smoothly.</p>
+
+<p>I've seen too many cases of 'rock star' developers buying the fastest hardware on the market and ultimately releasing a bloated and inefficient program that only runs fine on their computer. It's better to design around more modest hardware specs since that automatically have it absolutely SCREAM on the latest and greatest.</p>
+
+      </div>
+    </article>
+    <article class="post" id="post-43162">
+      <a title="April 19, 2008 12:00am" class="post-date" target="_blank" href="https://discourse.codinghorror.com/t/should-all-developers-have-manycore-cpus/337/8">Apr '08</a>
+
+      <div class="author">
+        <a href="https://discourse.codinghorror.com/u/PhillipG" target="_blank"><img src="./45.png" alt=""></a>
+      </div>
+      <div class="cooked">
+        <h3 class="username">
+          <a href="https://discourse.codinghorror.com/u/PhillipG" target="_blank" class="new-user">PhillipG</a>
+        </h3>
+        <p><a class="mention" href="https://discourse.codinghorror.com/users/tom" target="_blank">@Tom</a></p>
+
+<p>Yeah, fixing bugs is the how part. But the "what" question is when you think about design and code, instead of business-logic and code. I.e. the grand scheme of things, rather than code minutiae.</p>
+
+<p>And I said that it's not necessarily true.</p>
+
+<p>I prefer to sidestep the compiler completely anyhow. It doesn't save me from logical errors, only syntax errors. And an interpreted language that allows me to be more productive than any of the rather verbose compiled languages is more of a boon to me (yes, I trade speed for more productive coding. So?)</p>
+
+      </div>
+    </article>
+    <article class="post" id="post-43163">
+      <a title="April 19, 2008 12:00am" class="post-date" target="_blank" href="https://discourse.codinghorror.com/t/should-all-developers-have-manycore-cpus/337/9">Apr '08</a>
+
+      <div class="author">
+        <a href="https://discourse.codinghorror.com/u/Mike" target="_blank"><img src="./45(5).png" alt=""></a>
+      </div>
+      <div class="cooked">
+        <h3 class="username">
+          <a href="https://discourse.codinghorror.com/u/Mike" target="_blank" class="new-user">Mike</a>
+        </h3>
+        <p>I love you articles, but it gets a little old every time you tell me that no one's writing the apps that I'm writing and using.</p>
+
+<p>Try doing any government contract work (it's just a little, several-billion part of the industry) and tell me that few people are doing desktop application development.</p>
+
+      </div>
+    </article>
+    <article class="post" id="post-43164">
+      <a title="April 19, 2008 12:00am" class="post-date" target="_blank" href="https://discourse.codinghorror.com/t/should-all-developers-have-manycore-cpus/337/10">Apr '08</a>
+
+      <div class="author">
+        <a href="https://discourse.codinghorror.com/u/dbr" target="_blank"><img src="./45(6).png" alt=""></a>
+      </div>
+      <div class="cooked">
+        <h3 class="username">
+          <a href="https://discourse.codinghorror.com/u/dbr" target="_blank" class="new-user">dbr</a>
+        </h3>
+        <p>What about things like distcc? Most of the time, those four cores will sit utterly idle (typing doesn't need 4 cores). Distcc (or some other distributed compiler) would make use of all those cores sitting around doing nothing..</p>
+
+      </div>
+    </article>
+    <article class="post" id="post-43165">
+      <a title="April 19, 2008 12:00am" class="post-date" target="_blank" href="https://discourse.codinghorror.com/t/should-all-developers-have-manycore-cpus/337/11">Apr '08</a>
+
+      <div class="author">
+        <a href="https://discourse.codinghorror.com/u/PhillipG" target="_blank"><img src="./45.png" alt=""></a>
+      </div>
+      <div class="cooked">
+        <h3 class="username">
+          <a href="https://discourse.codinghorror.com/u/PhillipG" target="_blank" class="new-user">PhillipG</a>
+        </h3>
+        <p>Ruby uses threads. But green threads, not OS threads, and doesn't lend itself to multi-threading as Haskell or Erlang do.</p>
+
+<p>Currently, only JRuby uses native threads, via the Java virtual machine. I suspect that IronRuby will do something similar, as well as Rubinius, even though the latter two are far from production ready at this point in time.</p>
+
+<p>And let me point out a danger of using multi-core CPUs: It is difficult to find out how the application will perform on older platforms (this is especially important for managed code users). Sure, you could set up a virtualized computer to simulate that, but you can get all kinds of side effects with that.</p>
+
+<p>But I am surprised that Jeff didn't touch on a very useful use for n2-core computers: Running multiple virtualized computers at the same time, to test all kinds of nice things (need to find out how to deploy remotely on a Linxu machine? Fire up a Linux VM. Need to test networking code? Fire up a bunch of machines in a virtual network..).</p>
+
+      </div>
+    </article>
+    <article class="post" id="post-43166">
+      <a title="April 19, 2008 12:00am" class="post-date" target="_blank" href="https://discourse.codinghorror.com/t/should-all-developers-have-manycore-cpus/337/12">Apr '08</a>
+
+      <div class="author">
+        <a href="https://discourse.codinghorror.com/u/Derrick" target="_blank"><img src="./45(7).png" alt=""></a>
+      </div>
+      <div class="cooked">
+        <h3 class="username">
+          <a href="https://discourse.codinghorror.com/u/Derrick" target="_blank" class="new-user">Derrick</a>
+        </h3>
+        <p>As far as the C++ compiling, isn't that why there are specialized build servers?  If you compile large things that take more then a couple of seconds on a regular basis, your probably a big enough operation to bother building or buying a build server for your compiling.</p>
+
+      </div>
+    </article>
+    <article class="post" id="post-43167">
+      <a title="April 19, 2008 12:00am" class="post-date" target="_blank" href="https://discourse.codinghorror.com/t/should-all-developers-have-manycore-cpus/337/13">Apr '08</a>
+
+      <div class="author">
+        <a href="https://discourse.codinghorror.com/u/Tom" target="_blank"><img src="./45(4).png" alt=""></a>
+      </div>
+      <div class="cooked">
+        <h3 class="username">
+          <a href="https://discourse.codinghorror.com/u/Tom" target="_blank" class="new-user">Tom</a>
+        </h3>
+        <p><a class="mention" href="https://discourse.codinghorror.com/users/philip" target="_blank">@Philip</a><br>"Yeah, fixing bugs is the how part. But the "what" question is when you think about design and code, instead of business-logic and code. I.e. the grand scheme of things, rather than code minutiae."<br>Yes, but my badly-expressed point was that if you're the type of person to think about that stuff, you'll think about it anyway, you won't need to be artificially prevented from coding by a crippled compiler.<br>Those that don't automatically do it would just sit there staring at the code, surf the net, or go get a coffee. Certainly, if your compiler takes an age, the idea of rewriting a load of files to cope with a change in overall design is more of a hurdle.</p>
+
+<p>"And I said that it's not necessarily true."<br>I know. I wasn't saying you were inherently wrong, or anything, I was looking at the counter-arguments.</p>
+
+<p>"I prefer to sidestep the compiler completely anyhow. It doesn't save me from logical errors, only syntax errors. And an interpreted language that allows me to be more productive than any of the rather verbose compiled languages is more of a boon to me (yes, I trade speed for more productive coding. So?)"<br>What? I've got no problem with that. Zen Kode-an <span class="hashtag">#001:</span> "If a function takes twice as long to return, and no-one ever notices, is there a problem?"</p>
+
+      </div>
+    </article>
+    <article class="post" id="post-43168">
+      <a title="April 19, 2008 12:00am" class="post-date" target="_blank" href="https://discourse.codinghorror.com/t/should-all-developers-have-manycore-cpus/337/14">Apr '08</a>
+
+      <div class="author">
+        <a href="https://discourse.codinghorror.com/u/Bruce" target="_blank"><img src="./45(8).png" alt=""></a>
+      </div>
+      <div class="cooked">
+        <h3 class="username">
+          <a href="https://discourse.codinghorror.com/u/Bruce" target="_blank" class="new-user">Bruce</a>
+        </h3>
+        <p>Multi-core is good! Whether 4 cores is better than 2 depends on what you run.</p>
+
+<p>Sadly, I still see magazine articles that say there is no point in multi-core, because the applications aren't up to it!</p>
+
+<p>So, let's have a quick snapshot of how many threads a few applications use:</p>
+
+<p>iTunesHelper:   10<br>iPodService:    11<br>AVG Anti-virus:  8<br>SQLServer:      35<br>Outlook:        25</p>
+
+<p>HM, I think that means that applications are very thread-aware, as they have been for several years!</p>
+
+<p>They may well not make the best use of those threads, but the argument is possibly that they use too many, so the app spends it's time thread-swapping and missing out on useful work!</p>
+
+<p>Anyone remember IOCompletionPorts?</p>
+
+      </div>
+    </article>
+    <article class="post" id="post-43169">
+      <a title="April 19, 2008 12:00am" class="post-date" target="_blank" href="https://discourse.codinghorror.com/t/should-all-developers-have-manycore-cpus/337/15">Apr '08</a>
+
+      <div class="author">
+        <a href="https://discourse.codinghorror.com/u/Tom" target="_blank"><img src="./45(4).png" alt=""></a>
+      </div>
+      <div class="cooked">
+        <h3 class="username">
+          <a href="https://discourse.codinghorror.com/u/Tom" target="_blank" class="new-user">Tom</a>
+        </h3>
+        <p>"I love your articles, but it gets a little old every time you tell me that no one's writing the apps that I'm writing and using.<br>Try doing any government contract work (it's just a little, several-billion part of the industry) and tell me that few people are doing desktop application development."</p>
+
+<p>Is/has anyone studying/studied what developers are using/creating? It must be in language designer's interests, but I can't seem to find a good study.</p>
+
+      </div>
+    </article>
+    <article class="post" id="post-43170">
+      <a title="April 19, 2008 12:00am" class="post-date" target="_blank" href="https://discourse.codinghorror.com/t/should-all-developers-have-manycore-cpus/337/16">Apr '08</a>
+
+      <div class="author">
+        <a href="https://discourse.codinghorror.com/u/Tom" target="_blank"><img src="./45(4).png" alt=""></a>
+      </div>
+      <div class="cooked">
+        <h3 class="username">
+          <a href="https://discourse.codinghorror.com/u/Tom" target="_blank" class="new-user">Tom</a>
+        </h3>
+        <p>Come to think of it, seems like that would be a really good addition to stackoverflow.com<br>If you're looking to find the best tool for a job, the tools that other people have used are definitely worth investigating.</p>
+
+      </div>
+    </article>
+    <article class="post" id="post-43171">
+      <a title="April 19, 2008 12:00am" class="post-date" target="_blank" href="https://discourse.codinghorror.com/t/should-all-developers-have-manycore-cpus/337/17">Apr '08</a>
+
+      <div class="author">
+        <a href="https://discourse.codinghorror.com/u/blufive" target="_blank"><img src="./45(9).png" alt=""></a>
+      </div>
+      <div class="cooked">
+        <h3 class="username">
+          <a href="https://discourse.codinghorror.com/u/blufive" target="_blank" class="new-user">blufive</a>
+        </h3>
+        <p>I can't speak beyond Java, but in my experience, javac is more I/O bound than CPU-bound - it's the reading and writing of loads little files that delays things, not the number of compilation threads.</p>
+
+      </div>
+    </article>
+    <article class="post" id="post-43172">
+      <a title="April 19, 2008 12:00am" class="post-date" target="_blank" href="https://discourse.codinghorror.com/t/should-all-developers-have-manycore-cpus/337/18">Apr '08</a>
+
+      <div class="author">
+        <a href="https://discourse.codinghorror.com/u/MIHondo6" target="_blank"><img src="./45(10).png" alt=""></a>
+      </div>
+      <div class="cooked">
+        <h3 class="username">
+          <a href="https://discourse.codinghorror.com/u/MIHondo6" target="_blank" class="new-user">MI<wbr>​Hondo<wbr>​6</a>
+        </h3>
+        <p>The root need is CPU cycles. I can get them in a bunch of ways.</p>
+
+<p>1) 1 PC - 1 core. Fast as possible.  MOST (not all) will run fastest on this since MOST (not all) haven't the foggiest idea of how to take advantage of multiple cores. </p>
+
+<p>2) 1 PC - multiple cores.  Hard to buy a system now without at least 2.  </p>
+
+<p>3) 2 (or more?) PC's - single or multiple cores.. whatever.  The extra can be a server or a personal system.  </p>
+
+<p>I have a "developer" desktop system, relatively untouched by our corporate I/T department, and one "corporate controlled" laptop.   Development environments don't always play nice with the corporate version.</p>
+
+<p>No on has yet mentioned virtual systems.  I can be testing,installing, whatever on a virtual system while developing on the "real" system. <br>Multi-core systems are pretty good for that, although I have not benchmarked it myself  beyond checking the task manager...</p>
+
+      </div>
+    </article>
+    <article class="post" id="post-43173">
+      <a title="April 19, 2008 12:00am" class="post-date" target="_blank" href="https://discourse.codinghorror.com/t/should-all-developers-have-manycore-cpus/337/19">Apr '08</a>
+
+      <div class="author">
+        <a href="https://discourse.codinghorror.com/u/jackhatedance" target="_blank"><img src="./45(11).png" alt=""></a>
+      </div>
+      <div class="cooked">
+        <h3 class="username">
+          <a href="https://discourse.codinghorror.com/u/jackhatedance" target="_blank" class="new-user">jackhatedance</a>
+        </h3>
+        <p>i've noticed that our web server has 4 'cpus' and three of them are idle when i was seeing the task-manager.</p>
+
+      </div>
+    </article>
+    <article class="post" id="post-43174">
+      <a title="April 19, 2008 12:00am" class="post-date" target="_blank" href="https://discourse.codinghorror.com/t/should-all-developers-have-manycore-cpus/337/20">Apr '08</a>
+
+      <div class="author">
+        <a href="https://discourse.codinghorror.com/u/MathiasR" target="_blank"><img src="./45(12).png" alt=""></a>
+      </div>
+      <div class="cooked">
+        <h3 class="username">
+          <a href="https://discourse.codinghorror.com/u/MathiasR" target="_blank" class="new-user">MathiasR</a>
+        </h3>
+        <p>I sincerely believe that all developers should indeed have multi-core CPUs. Perhaps not quad-core, but definitely dual-core. With single-core CPUs, most developers are absolutely oblivious to the kinds of bugs that can occur on multi-core systems.</p>
+
+      </div>
+    </article>
+    <article class="post" id="post-43175">
+      <a title="April 19, 2008 12:00am" class="post-date" target="_blank" href="https://discourse.codinghorror.com/t/should-all-developers-have-manycore-cpus/337/21">Apr '08</a>
+
+      <div class="author">
+        <a href="https://discourse.codinghorror.com/u/Oli" target="_blank"><img src="./45(13).png" alt=""></a>
+      </div>
+      <div class="cooked">
+        <h3 class="username">
+          <a href="https://discourse.codinghorror.com/u/Oli" target="_blank" class="new-user">Oli</a>
+        </h3>
+        <p>On GCC:<br> The absolute numbers seem kind of small, but the percentages are incredibly compelling</p>
+
+<p>Well yeah. Take Wine for example. Here are the respective build times on my computer:</p>
+
+<p>-j1 (one thread) took 22 minutes.<br>-j3 (dual) took 12 minutes.<br>-j5 (quad) took 7 minutes.</p>
+
+<p>Slicing off ~65% of the build time is pretty significant on large projects. If you're compiling your entire system from source (eg Gentoo), you're saving hours of time.</p>
+
+      </div>
+    </article>
+    <article class="post" id="post-43176">
+      <a title="April 19, 2008 12:00am" class="post-date" target="_blank" href="https://discourse.codinghorror.com/t/should-all-developers-have-manycore-cpus/337/22">Apr '08</a>
+
+      <div class="author">
+        <a href="https://discourse.codinghorror.com/u/WillieR" target="_blank"><img src="./45(14).png" alt=""></a>
+      </div>
+      <div class="cooked">
+        <h3 class="username">
+          <a href="https://discourse.codinghorror.com/u/WillieR" target="_blank" class="new-user">WillieR</a>
+        </h3>
+        <p>Thank you. A brilliant article and well said. I often do speaking engagements with Students and Developers alike and the issue of who has the fastest processor always comes up. I often also find developers, myself included, highlight their threaded applications, until someone sat down one day and showed me how hard it really is to write for multi-processors. </p>
+
+<p>IT is unfortunately an environment where marketing always tend to twist the truth, and often IT specialist and non IT users alike get caught up in hype. I am reminded of my dual core notebook with 4GB of RAM outperforming a colleague Quad Core with 1 GB of RAM when doing Video Editing and Poser renders. He opted for the faster processor and sacrificed RAM.  He quickly realized his mistake, however it was a costly one.</p>
+
+      </div>
+    </article>
+    <article class="post" id="post-43177">
+      <a title="April 19, 2008 12:00am" class="post-date" target="_blank" href="https://discourse.codinghorror.com/t/should-all-developers-have-manycore-cpus/337/23">Apr '08</a>
+
+      <div class="author">
+        <a href="https://discourse.codinghorror.com/u/someone" target="_blank"><img src="./45(15).png" alt=""></a>
+      </div>
+      <div class="cooked">
+        <h3 class="username">
+          <a href="https://discourse.codinghorror.com/u/someone" target="_blank" class="new-user">someone</a>
+        </h3>
+        <p> Most developers aren't writing desktop applications today. They're writing web applications. Many of them may be writing in scripting languages that aren't compiled, but interpreted, like Ruby or Python or PHP. Heck, they're probably not even threaded.</p>
+
+<p>Ok - and what takes 50-99% time of typical web script?<br>Database - able to scale up to X cores where X = 32 generaly.<br>Also scripts runs usually concurrently, thanks to? Web server's dispatcher, which should scale almost linearly. Real time of just that script's execution is barely noticeable!!! It wouldn't matter if one request could use threads.</p>
+
+      </div>
+    </article>
+    <article class="post" id="post-43178">
+      <a title="April 19, 2008 12:00am" class="post-date" target="_blank" href="https://discourse.codinghorror.com/t/should-all-developers-have-manycore-cpus/337/24">Apr '08</a>
+
+      <div class="author">
+        <a href="https://discourse.codinghorror.com/u/Rob_Uttley" target="_blank"><img src="./45(16).png" alt=""></a>
+      </div>
+      <div class="cooked">
+        <h3 class="username">
+          <a href="https://discourse.codinghorror.com/u/Rob_Uttley" target="_blank" class="new-user">Rob_<wbr>​<wbr>​Uttley</a>
+        </h3>
+        <p>Most developers aren't writing desktop applications today.</p>
+
+<p>This is an interesting point - I wonder what the breakdown of development effort is? My own feeling is that there's still a lot more bespoke/vertical desktop development going on than people might think, and I'd be interested to know if there are any useful metrics anywhere that can be used to measure what might be going on. </p>
+
+<p>I've always thought that the prevailing job market is a BAD indicator of what's happening, as by definition you're analysing the movement of people between roles rather than what people are in general actually doing - as soon as you get a team of developers who are happily working in their field, they disappear from the job market and so as a data point they never get counted. I've never bought into the argument that because a tool doesn't appear very much in the job adverts, it must follow that nobody is using it anymore.</p>
+
+<p>What makes it even worse is that there are a lot of developers who simply don't interact with the online connected world - a small company I was talking to this week just don't read blogs, spend time on the websites or get involved in any kind of way whatsoever - to the outside world, they just don't exist. We see these online polls and the results are misleading because by definition you're only attracting the responses of people who tend to be more online, pro-active and 'outgoing'. <img src="./slight_smile.png" title=":slight_smile:" class="emoji" alt=":slight_smile:"></p>
+
+      </div>
+    </article>
+    <article class="post" id="post-43179">
+      <a title="April 19, 2008 12:00am" class="post-date" target="_blank" href="https://discourse.codinghorror.com/t/should-all-developers-have-manycore-cpus/337/25">Apr '08</a>
+
+      <div class="author">
+        <a href="https://discourse.codinghorror.com/u/PhillipG" target="_blank"><img src="./45.png" alt=""></a>
+      </div>
+      <div class="cooked">
+        <h3 class="username">
+          <a href="https://discourse.codinghorror.com/u/PhillipG" target="_blank" class="new-user">PhillipG</a>
+        </h3>
+        <p><a class="mention" href="https://discourse.codinghorror.com/users/jon" target="_blank">@Jon</a> Limjap</p>
+
+<p>Sure, most Ruby applications most of us encounter are Rails web applications. But Rails uses Ruby internally, and is constrained by its thread handling (not to mention that Rails is blocking server threads).</p>
+
+<p>However, that web applications need multiple instances is more a problem of the web server (and its usage of multiple cores), than Ruby's, PHP's, or Python's.</p>
+
+<p>Typically, web developers don't have to care about concurrency, since the application's server spawns interpreters for each instance of the web application, and RDBM servers should be ACIDic (if they aren't, I get a problem as web developer).</p>
+
+<p>And Rails' fun way of blocking server threads, leads to BackgroundRb, which works for long running tasks (scanning for viruses, fetching XML data, what have you), which, in turn, can again profit from multiple cores.</p>
+
+<p>However, all the Ruby solutions need their own Ruby process to take advantage of threads (since Ruby still doesn't support native threads :P).</p>
+
+<p>Long story short: Rails wouldn't benefit if Ruby were natively multi-threaded in any case. But: Rails can profit from multi-threaded webservers, whcih in turn can profit from n  1 cores. Multicores are now to the desktop workstation, but not to the server.</p>
+
+      </div>
+    </article>
+    <article class="post" id="post-43180">
+      <a title="April 19, 2008 12:00am" class="post-date" target="_blank" href="https://discourse.codinghorror.com/t/should-all-developers-have-manycore-cpus/337/26">Apr '08</a>
+
+      <div class="author">
+        <a href="https://discourse.codinghorror.com/u/Michael" target="_blank"><img src="./45(17).png" alt=""></a>
+      </div>
+      <div class="cooked">
+        <h3 class="username">
+          <a href="https://discourse.codinghorror.com/u/Michael" target="_blank" class="new-user">Michael</a>
+        </h3>
+        <p>"Should All Developers Have Manycore CPUs?"</p>
+
+<p>The answer is: No. It should be:</p>
+
+<p>"Should Everyone Have Manycore CPUs?"</p>
+
+<p>And the answer is: Yes. In my opinion, once you've tasted from the fountain of Dual-Core, going back to single-core is like exchanging a Pentium II against a 486. Sure, Benchmarks show that Dual or Quadcore is not always faster for a task, but: The whole system <em>feels</em> faster and more responding. So my Video Encoder still needs 2 hours, compared to 2:15 Hours because it's a badly optimized one? Maybe, but during that 2 hours, i can do other stuff, and my system simply feels better.</p>
+
+<p>Even for us engineers, there is still an emotion associated with working on a PC. I don't care as much about the raw numbers, as long as I have the feeling that I am in control and that i have a machine that obeys me, I am happy.</p>
+
+<p>And for Quad Core:<br>Not everyone has the luxury of more than 1 machine. I only have 1 PC. Visual Studio is not faster on a Quad Core compared to a dual core. But the VMWare Server on my machine that runs 2 Windows 2003 Server, one with Sharepoint and SQL Server thanks me for those 2 additional cores. A single 3.16 GHz Core 2 Duo may be faster than a single 2.4 GHz Core 2 Quad? Maybe, but i would not want running 3 Operating Systems, 2 Database Servers and a Sharepoint server on a Dual Core - or, God help, Single Core - anymore.</p>
+
+<p>That also leaves us with the definition of "Developer". I think that the term "Developer" is like the term "craftsman": It's too generic to be useful. If anyone who is still developing COBOL Stuff on an AS/400 is reading this, that person may think "Dual Core? Quad Core? Bah, my 486DX100 Terminal is all a developer needs", whereas a Sharepoint Developer who more or less has to run everything on 1 machine (Microsoft recommends that Sharepoint Developers have a local Sharepoint server) just looks at your "Quad Cores are a waste of electricity" post and asks himself "Wait, did someone replace Jeff Atwood with a Anti-Jeff-clone?"</p>
+
+<p>Anyway, glad to see that this Blog is still run by the real Jeff Atwood <img src="./slight_smile.png" title=":slight_smile:" class="emoji" alt=":slight_smile:"></p>
+
+      </div>
+    </article>
+    <article class="post" id="post-43181">
+      <a title="April 19, 2008 12:00am" class="post-date" target="_blank" href="https://discourse.codinghorror.com/t/should-all-developers-have-manycore-cpus/337/27">Apr '08</a>
+
+      <div class="author">
+        <a href="https://discourse.codinghorror.com/u/PhillipG" target="_blank"><img src="./45.png" alt=""></a>
+      </div>
+      <div class="cooked">
+        <h3 class="username">
+          <a href="https://discourse.codinghorror.com/u/PhillipG" target="_blank" class="new-user">PhillipG</a>
+        </h3>
+        <p><a class="mention" href="https://discourse.codinghorror.com/users/someone" target="_blank">@someone</a></p>
+
+<p>The point is, that developers don't have to care about concurrency, shared memory, and thread implementations of their web apps.</p>
+
+<p>The infrastructure takes care of that for them. The number of cores doesn't matter to a web developer. It does, however, matter to the developer of database and web servers.</p>
+
+      </div>
+    </article>
+    <article class="post" id="post-43182">
+      <a title="April 19, 2008 12:00am" class="post-date" target="_blank" href="https://discourse.codinghorror.com/t/should-all-developers-have-manycore-cpus/337/28">Apr '08</a>
+
+      <div class="author">
+        <a href="https://discourse.codinghorror.com/u/Zeroth" target="_blank"><img src="./45(18).png" alt=""></a>
+      </div>
+      <div class="cooked">
+        <h3 class="username">
+          <a href="https://discourse.codinghorror.com/u/Zeroth" target="_blank" class="new-user">Zeroth</a>
+        </h3>
+        <p>It may be hard to write a proper multi-threaded program, in say, C++, but have you ever tried Erlang, or Stackless Python? They make it goddamn /easy/ to write multi-threaded applications. Stackless can literally scale up to thousands of threadlets with no performance hit.</p>
+
+      </div>
+    </article>
+    <article class="post" id="post-43183">
+      <a title="April 19, 2008 12:00am" class="post-date" target="_blank" href="https://discourse.codinghorror.com/t/should-all-developers-have-manycore-cpus/337/29">Apr '08</a>
+
+      <div class="author">
+        <a href="https://discourse.codinghorror.com/u/aristo" target="_blank"><img src="./45(19).png" alt=""></a>
+      </div>
+      <div class="cooked">
+        <h3 class="username">
+          <a href="https://discourse.codinghorror.com/u/aristo" target="_blank" class="new-user">aristo</a>
+        </h3>
+        <p>Hi guys.</p>
+
+<p>Dual Core in Server?<br>It may sound funny but I just resigned from commercial web hosting and moved my website, ftp server and mail server to my place setting my own server at home. There is a small wardrobe in my room and inside it what?</p>
+
+<p>Pentium III 700 MHz<br>384 MB Ram<br>20GB HDD<br>Network Card</p>
+
+<p>Really old school PC (if you would try hard enought you would probably found one like this inside some rubbish bag outside some house <img src="./slight_smile.png" title=":slight_smile:" class="emoji" alt=":slight_smile:"></p>
+
+<p>It works fine, I am happy... and don't plan to upgrade it to multicore <img src="./slight_smile.png" title=":slight_smile:" class="emoji" alt=":slight_smile:"></p>
+
+<p>Greets<br>Mariusz</p>
+
+      </div>
+    </article>
+    <article class="post" id="post-43184">
+      <a title="April 19, 2008 12:00am" class="post-date" target="_blank" href="https://discourse.codinghorror.com/t/should-all-developers-have-manycore-cpus/337/30">Apr '08</a>
+
+      <div class="author">
+        <a href="https://discourse.codinghorror.com/u/Florian" target="_blank"><img src="./45(20).png" alt=""></a>
+      </div>
+      <div class="cooked">
+        <h3 class="username">
+          <a href="https://discourse.codinghorror.com/u/Florian" target="_blank" class="new-user">Florian</a>
+        </h3>
+        <p>I totally agree with the part that developers writing applications for the desktop should have multi-core CPUs.</p>
+
+<p>From my experience, there exits a totally different range of errors and pitfalls you as a developer can make with regard to multi-cores and that appear only on multi-core machines.</p>
+
+<p>I had a bug in my application that was impossible to trigger on a single-core machine -- and the time the bug has been reported I was still developing on a single-core machine. Fortunately I had access to a quad core terminal server, so it was possible to find the bug.</p>
+
+<p>So, to get a feeling of this special kind of errors and train yourself in designing your code to run safe on multi-cores, every developer writing applications for the desktop should have at least access to a dual-core machine for testing.</p>
+
+      </div>
+    </article>
+    <article class="post" id="post-43185">
+      <a title="April 19, 2008 12:00am" class="post-date" target="_blank" href="https://discourse.codinghorror.com/t/should-all-developers-have-manycore-cpus/337/31">Apr '08</a>
+
+      <div class="author">
+        <a href="https://discourse.codinghorror.com/u/F_O_R4" target="_blank"><img src="./45(21).png" alt=""></a>
+      </div>
+      <div class="cooked">
+        <h3 class="username">
+          <a href="https://discourse.codinghorror.com/u/F_O_R4" target="_blank" class="new-user">F_<wbr>​O_<wbr>​R<wbr>​4</a>
+        </h3>
+        <p>I'll be short on this topic:<br>1~ yes, software needs to catch up to hardware right now, and without software pushing the envelope, hardware will soon slow down its tech-upgrade curve;<br>2~ dual vs quad, right now, should be resolved as follows: get a dual core CPU, but make sure the mobo will support a quad if you want to upgrade;<br>3~ as far as developers goes.. depends on what you're developing for, of course. Definitely, your continuous integration servers could enjoy a boost for large, enterprise-grade apps, but your development desktop bottleneck might not be the PCU: for the past 3 years, I've been suffering from a disk I/O bottleneck, for instance.</p>
+
+<p>/cheers</p>
+
+      </div>
+    </article>
+    <article class="post" id="post-43186">
+      <a title="April 19, 2008 12:00am" class="post-date" target="_blank" href="https://discourse.codinghorror.com/t/should-all-developers-have-manycore-cpus/337/32">Apr '08</a>
+
+      <div class="author">
+        <a href="https://discourse.codinghorror.com/u/Mark" target="_blank"><img src="./45(22).png" alt=""></a>
+      </div>
+      <div class="cooked">
+        <h3 class="username">
+          <a href="https://discourse.codinghorror.com/u/Mark" target="_blank" class="new-user">Mark</a>
+        </h3>
+        <p>I've been out of the hardware loop for a while, but a brief search through the comments today and yesterday doesn't seem to show anybody talking about this:</p>
+
+<p>Has Intel finally implemented their version of DEC/AMD's "HyperTransport" bus? If not, there's hardly any point going above a single Core2Duo CPU on an Intel platform. With all the naive fighting over cache and RAM going on between the cores, you experience very rapidly diminishing returns. It seems like they're still focusing on simply bumping up bus clock speeds instead of redesigning their MMUs, which I guess is fairly predictable considering the last 30 years.</p>
+
+      </div>
+    </article>
+    <article class="post" id="post-43187">
+      <a title="April 19, 2008 12:00am" class="post-date" target="_blank" href="https://discourse.codinghorror.com/t/should-all-developers-have-manycore-cpus/337/33">Apr '08</a>
+
+      <div class="author">
+        <a href="https://discourse.codinghorror.com/u/RickB" target="_blank"><img src="./45(1).png" alt=""></a>
+      </div>
+      <div class="cooked">
+        <h3 class="username">
+          <a href="https://discourse.codinghorror.com/u/RickB" target="_blank" class="new-user">RickB</a>
+        </h3>
+        <p>Mariusz, re: P3-700</p>
+
+<p>I think the only reason you'd have to upgrade is if you could find an Intel Atom which could reduce your electricity bill <img src="./slight_smile.png" title=":slight_smile:" class="emoji" alt=":slight_smile:"> I don't remember if the Pentium III had good power management built-in -- but at ~20W it doesn't hold a candle to the ~2W of the Atom <img src="./slight_smile.png" title=":slight_smile:" class="emoji" alt=":slight_smile:"></p>
+
+<p>BTW, the ~20W figure is from here: a href="http://en.wikipedia.org/wiki/CPU_power_dissipation#Intel_Pentium_III"http://en.wikipedia.org/wiki/CPU_power_dissipation#Intel_Pentium_III/a</p>
+
+      </div>
+    </article>
+    <article class="post" id="post-43188">
+      <a title="April 19, 2008 12:00am" class="post-date" target="_blank" href="https://discourse.codinghorror.com/t/should-all-developers-have-manycore-cpus/337/34">Apr '08</a>
+
+      <div class="author">
+        <a href="https://discourse.codinghorror.com/u/DarrenS" target="_blank"><img src="./45(23).png" alt=""></a>
+      </div>
+      <div class="cooked">
+        <h3 class="username">
+          <a href="https://discourse.codinghorror.com/u/DarrenS" target="_blank" class="new-user">DarrenS</a>
+        </h3>
+        <p>I've been in corporate environments where an anti-virus program would take an entire core for an hour or more at a time.  If you say that applications such as excel could benefit from 2 cores and you throw in the fact that most people in large companies also run Outlook all day, I think you might be able to make the case for quad-core configurations.  Most companies load so much stuff up at machine startup, I would think a quad-core machine would make a big difference.</p>
+
+<p>As you said, developers are an extreme edge case but I think even web developers that are writing single threaded code will benefit directly from at least a quad-core configuration.  Early in development, I often find myself running a database server, a web server, a web browser, and my IDE debugging the server code all at the same time.</p>
+
+      </div>
+    </article>
+    <article class="post" id="post-43189">
+      <a title="April 19, 2008 12:00am" class="post-date" target="_blank" href="https://discourse.codinghorror.com/t/should-all-developers-have-manycore-cpus/337/35">Apr '08</a>
+
+      <div class="author">
+        <a href="https://discourse.codinghorror.com/u/Folbec" target="_blank"><img src="./45(24).png" alt=""></a>
+      </div>
+      <div class="cooked">
+        <h3 class="username">
+          <a href="https://discourse.codinghorror.com/u/Folbec" target="_blank" class="new-user">Folbec</a>
+        </h3>
+        <p>Most developers aren't writing desktop applications today.</p>
+
+<p>  I'm working on a web application, and I can use quite a few cores : I'm running on my development machine IIS, Oracle, VS2005/VS2008, IE and FF (and Cassini when not using IIS for debug).<br>  2 cores are a minimum, my 4 core machine feels more responsive, even if i never max out the CPU.<br>  BUt I agree that current computers are I/O bound, not CPU bound.</p>
+
+      </div>
+    </article>
+    <article class="post" id="post-43190">
+      <a title="April 19, 2008 12:00am" class="post-date" target="_blank" href="https://discourse.codinghorror.com/t/should-all-developers-have-manycore-cpus/337/36">Apr '08</a>
+
+      <div class="author">
+        <a href="https://discourse.codinghorror.com/u/Nicolas" target="_blank"><img src="./45(25).png" alt=""></a>
+      </div>
+      <div class="cooked">
+        <h3 class="username">
+          <a href="https://discourse.codinghorror.com/u/Nicolas" target="_blank" class="new-user">Nicolas</a>
+        </h3>
+        <p>Developers should have multicores to find more easily their concurrency bugs, and to compile faster. They should <em>also</em> have a 400MHz around, to test the application performance.</p>
+
+      </div>
+    </article>
+    <article class="post" id="post-43191">
+      <a title="April 19, 2008 12:00am" class="post-date" target="_blank" href="https://discourse.codinghorror.com/t/should-all-developers-have-manycore-cpus/337/37">Apr '08</a>
+
+      <div class="author">
+        <a href="https://discourse.codinghorror.com/u/David_Kean" target="_blank"><img src="./45(26).png" alt=""></a>
+      </div>
+      <div class="cooked">
+        <h3 class="username">
+          <a href="https://discourse.codinghorror.com/u/David_Kean" target="_blank" class="new-user">David_<wbr>​<wbr>​Kean</a>
+        </h3>
+        <p>MSBuild does parallel builds so on the developer desktop you should see some benefit (depending of course on your dependency tree). If you run FxCop a lot (like myself), you'll definitely see an improvement - we'll make use of as many cores/procs you have.</p>
+
+      </div>
+    </article>
+    <article class="post" id="post-43192">
+      <a title="April 19, 2008 12:00am" class="post-date" target="_blank" href="https://discourse.codinghorror.com/t/should-all-developers-have-manycore-cpus/337/38">Apr '08</a>
+
+      <div class="author">
+        <a href="https://discourse.codinghorror.com/u/Bruno" target="_blank"><img src="./45(27).png" alt=""></a>
+      </div>
+      <div class="cooked">
+        <h3 class="username">
+          <a href="https://discourse.codinghorror.com/u/Bruno" target="_blank" class="new-user">Bruno</a>
+        </h3>
+        <p>Just as a side note : Would you consider Java as being interpreted or compiled ? If you answer "compiled", then please correct your statement about Python being interpreted.</p>
+
+      </div>
+    </article>
+    <article class="post" id="post-43193">
+      <a title="April 19, 2008 12:00am" class="post-date" target="_blank" href="https://discourse.codinghorror.com/t/should-all-developers-have-manycore-cpus/337/39">Apr '08</a>
+
+      <div class="author">
+        <a href="https://discourse.codinghorror.com/u/LorenP" target="_blank"><img src="./45(28).png" alt=""></a>
+      </div>
+      <div class="cooked">
+        <h3 class="username">
+          <a href="https://discourse.codinghorror.com/u/LorenP" target="_blank" class="new-user">LorenP</a>
+        </h3>
+        <p>I disagree on not being able to use more than two cores even with stuff that average person might do.  How I've hit it routinely:</p>
+
+<p>There is non-interactive compute-intensive stuff running (as it's in a VM I can run task manager in there and see that it can saturate a core.  The VM is simply for isolation, the same stuff could have been run in the main environment.) and I'm playing something like Supreme Commander that can use two cores by itself.  While this is unlikely to saturate 4 cores it's definitely going to run faster than on a dual-core.</p>
+
+      </div>
+    </article>
+    <article class="post" id="post-43194">
+      <a title="April 19, 2008 12:00am" class="post-date" target="_blank" href="https://discourse.codinghorror.com/t/should-all-developers-have-manycore-cpus/337/40">Apr '08</a>
+
+      <div class="author">
+        <a href="https://discourse.codinghorror.com/u/DennisF" target="_blank"><img src="./45(29).png" alt=""></a>
+      </div>
+      <div class="cooked">
+        <h3 class="username">
+          <a href="https://discourse.codinghorror.com/u/DennisF" target="_blank" class="new-user">DennisF</a>
+        </h3>
+        <p>Jeff is picking an choosing from a lot of positions to justify his recommendations, so it's a little confusing.</p>
+
+<p>PCs are I/O bound anyways, unless you have a top-end, overclocked dual-core (upgrading from another high performance dual-core), but people aren't really in need of the extra power anyways, because the average person is sitting around waiting for their Web Mail javascript to complete (!), or for their SunSpider benchmarks to finish.</p>
+
+<p>It's honestly just baffling now.</p>
+
+<p>I wait on my PC very little, and barely notice the difference between any current generation system. Where I do wait on my PC (application builds, video encoding, or when I'm "doing a lot" and processes start impeding each other) just so happens to be those realms that are massively scalable across cores.</p>
+
+      </div>
+    </article>
+    <article class="post" id="post-43195">
+      <a title="April 19, 2008 12:00am" class="post-date" target="_blank" href="https://discourse.codinghorror.com/t/should-all-developers-have-manycore-cpus/337/41">Apr '08</a>
+
+      <div class="author">
+        <a href="https://discourse.codinghorror.com/u/StefanH" target="_blank"><img src="./45(30).png" alt=""></a>
+      </div>
+      <div class="cooked">
+        <h3 class="username">
+          <a href="https://discourse.codinghorror.com/u/StefanH" target="_blank" class="new-user">StefanH</a>
+        </h3>
+        <p>yeah I made the jump to 4 cores from one and so far I think it was mostly a waste. And I do spend a lot of time in photoshop but there still is not that much of a distance.</p>
+
+      </div>
+    </article>
+    <article class="post" id="post-43196">
+      <a title="April 19, 2008 12:00am" class="post-date" target="_blank" href="https://discourse.codinghorror.com/t/should-all-developers-have-manycore-cpus/337/42">Apr '08</a>
+
+      <div class="author">
+        <a href="https://discourse.codinghorror.com/u/ChrisL" target="_blank"><img src="./45(31).png" alt=""></a>
+      </div>
+      <div class="cooked">
+        <h3 class="username">
+          <a href="https://discourse.codinghorror.com/u/ChrisL" target="_blank" class="new-user">ChrisL</a>
+        </h3>
+        <p>So in the sense that mainstream developers are modelling server workloads on their desktops, I agree, they do probably need as many cores as they can get. </p>
+
+<p>Are you saying that you understand that web developers need a "many core" setup? or was that sarcasm?  </p>
+
+<p>In the event that it's sarcasm consider this: corporate web developers today are trying to mimick a complex environment on their desktop.  There may be a database server, a web server, and one or more web services running at the same time that the dev is debugging.  By definition, they are an edge case in multi tasking.</p>
+
+<p>I guess if you just work on small / simple websites that only interact with a small database backend then 2 cores and 2GB of RAM is enough.  However, if you're working on anything larger then the more the merrier.</p>
+
+      </div>
+    </article>
+    <article class="post" id="post-43197">
+      <a title="April 19, 2008 12:00am" class="post-date" target="_blank" href="https://discourse.codinghorror.com/t/should-all-developers-have-manycore-cpus/337/43">Apr '08</a>
+
+      <div class="author">
+        <a href="https://discourse.codinghorror.com/u/tommy1" target="_blank"><img src="./45(32).png" alt=""></a>
+      </div>
+      <div class="cooked">
+        <h3 class="username">
+          <a href="https://discourse.codinghorror.com/u/tommy1" target="_blank" class="new-user">tommy<wbr>​1</a>
+        </h3>
+        <p> Most developers aren't writing desktop applications today. They're writing web applications.</p>
+
+<p>That would be my guess as well, but do you have any actual numbers on this? And not only desktop vs web application developers, but <em>all</em> the different branches of our field, including the far too often forgotten/ignored embedded software developers (we may be a relatively small group, but we write software that powers something like 98% of all CPUs).</p>
+
+      </div>
+    </article>
+    <article class="post" id="post-43198">
+      <a title="April 19, 2008 12:00am" class="post-date" target="_blank" href="https://discourse.codinghorror.com/t/should-all-developers-have-manycore-cpus/337/44">Apr '08</a>
+
+      <div class="author">
+        <a href="https://discourse.codinghorror.com/u/Hoffmann" target="_blank"><img src="./45(33).png" alt=""></a>
+      </div>
+      <div class="cooked">
+        <h3 class="username">
+          <a href="https://discourse.codinghorror.com/u/Hoffmann" target="_blank" class="new-user">Hoffmann</a>
+        </h3>
+        <p>The only thing I do (as a CS student) that really scales well on a multi-core CPU is compiling VHDL in Quartus II. A student project takes up to 20 mins to compile on that damn compiler on an Athlon XP 2000. A single flip-flop that I did took almost 30 seconds to compile on my Intel Dual-Core 1.6 ghz. On the laboratory machines (the Athlon XP one) took almost a minute. Anyway, that is still better than logical ports I guess.</p>
+
+      </div>
+    </article>
+    <article class="post" id="post-43199">
+      <a title="April 19, 2008 12:00am" class="post-date" target="_blank" href="https://discourse.codinghorror.com/t/should-all-developers-have-manycore-cpus/337/45">Apr '08</a>
+
+      <div class="author">
+        <a href="https://discourse.codinghorror.com/u/SteveB" target="_blank"><img src="./45(34).png" alt=""></a>
+      </div>
+      <div class="cooked">
+        <h3 class="username">
+          <a href="https://discourse.codinghorror.com/u/SteveB" target="_blank" class="new-user">SteveB</a>
+        </h3>
+        <p>The one issue I have with the idea that developers need the most kick-ass boxes to develop on is that I think developers often lose sight of the more constrained environments people are going to use their software in.  Developers need to get in the habit of having at least one constrained box sitting around.</p>
+
+<p>That said, since my development system is a Linux box with XP running constantly in a VM, I'm sure I could get more out of four cores.</p>
+
+      </div>
+    </article>
+    <article class="post" id="post-43200">
+      <a title="April 19, 2008 12:00am" class="post-date" target="_blank" href="https://discourse.codinghorror.com/t/should-all-developers-have-manycore-cpus/337/46">Apr '08</a>
+
+      <div class="author">
+        <a href="https://discourse.codinghorror.com/u/MichaelB" target="_blank"><img src="./45(35).png" alt=""></a>
+      </div>
+      <div class="cooked">
+        <h3 class="username">
+          <a href="https://discourse.codinghorror.com/u/MichaelB" target="_blank" class="new-user">MichaelB</a>
+        </h3>
+        <p>Someone else mentioned it already, but VMWare is becoming a huge developer tool. In particular for Ruby or PHP developers running on Windows having a VMWare for deployment (or live programming on) is extremely beneficial as many subtle os and permissions bugs tend to creep in otherwise (not to mention the whole case sensitivity issue).</p>
+
+      </div>
+    </article>
+    <article class="post" id="post-43201">
+      <a title="April 19, 2008 12:00am" class="post-date" target="_blank" href="https://discourse.codinghorror.com/t/should-all-developers-have-manycore-cpus/337/47">Apr '08</a>
+
+      <div class="author">
+        <a href="https://discourse.codinghorror.com/u/Ningyu" target="_blank"><img src="./45(36).png" alt=""></a>
+      </div>
+      <div class="cooked">
+        <h3 class="username">
+          <a href="https://discourse.codinghorror.com/u/Ningyu" target="_blank" class="new-user">Ningyu</a>
+        </h3>
+        <p>'If you're a C++ developer, you need a quad-core CPU yesterday.'<br>I completely agree with you on this point. I compliled KDE on my two-dual-core-hyper-thread-cpu systems recently. The 'make -j9' is much much faster than the simple 'make', which make compiling the whole desktop suite possible in less than one hour.</p>
+
+      </div>
+    </article>
+    <article class="post" id="post-43202">
+      <a title="April 19, 2008 12:00am" class="post-date" target="_blank" href="https://discourse.codinghorror.com/t/should-all-developers-have-manycore-cpus/337/48">Apr '08</a>
+
+      <div class="author">
+        <a href="https://discourse.codinghorror.com/u/Philippe" target="_blank"><img src="./45(37).png" alt=""></a>
+      </div>
+      <div class="cooked">
+        <h3 class="username">
+          <a href="https://discourse.codinghorror.com/u/Philippe" target="_blank" class="new-user">Philippe</a>
+        </h3>
+        <p>Some facts:<br>On my Mac Pro with 8 cores, C++ build times are almost 4 times quicker than with a dual-core (using XCode / GCC).</p>
+
+<p>On the same hardware, with Visual C++ 2008, build times are faster than dual-core, but unfortunatly absolutly not in the proportion of GCC on the Mac (using both the option to build multiple projects in parallel, and the little known /MP compilation flag). I haven't tried incredibuild on this hardware (anyone has?)</p>
+
+<p>I have not tried Visual 2005 of this hardware, but I had a 30% boost on another machine building with VS 2005 using both CPUs thanks to this great freeware: a href="http://www.todobits.es/mpcl.html"http://www.todobits.es/mpcl.html/a<br>Same speed gain as using incredibuild on this machine.</p>
+
+<p>On all my tests, I have curiously noted no speed advantage using a Raptor 10k drive over a good 7.2k drive (caching I guess).</p>
+
+<p>Therefore, multi-CPUs machine are obvious for programmers that need to be productive.</p>
+
+<p>A last note: there are multiple reviews here and there about hardware and speed, with popular programs being benchmarked, but I do regret that we almost never see programmer tools being in these benchmarks.</p>
+
+      </div>
+    </article>
+    <article class="post" id="post-43203">
+      <a title="April 19, 2008 12:00am" class="post-date" target="_blank" href="https://discourse.codinghorror.com/t/should-all-developers-have-manycore-cpus/337/49">Apr '08</a>
+
+      <div class="author">
+        <a href="https://discourse.codinghorror.com/u/RyanS" target="_blank"><img src="./45(38).png" alt=""></a>
+      </div>
+      <div class="cooked">
+        <h3 class="username">
+          <a href="https://discourse.codinghorror.com/u/RyanS" target="_blank" class="new-user">RyanS</a>
+        </h3>
+        <p>As a couple of others have mentioned Virtual Machines can really benefit from multi-core systems. Some hypervisors even allowing you to specify how many cores you want your virtual machine to take advantage of.</p>
+
+      </div>
+    </article>
+    <article class="post" id="post-43204">
+      <a title="April 19, 2008 12:00am" class="post-date" target="_blank" href="https://discourse.codinghorror.com/t/should-all-developers-have-manycore-cpus/337/50">Apr '08</a>
+
+      <div class="author">
+        <a href="https://discourse.codinghorror.com/u/Rick" target="_blank"><img src="./45(39).png" alt=""></a>
+      </div>
+      <div class="cooked">
+        <h3 class="username">
+          <a href="https://discourse.codinghorror.com/u/Rick" target="_blank" class="new-user">Rick</a>
+        </h3>
+        <p>"task manager wasn't showing much use of even my measly little two cores"</p>
+
+<p>Jeff, take a look at xperf for a more accurate view of measuring system performance:</p>
+
+<p><a href="http://www.microsoft.com/whdc/system/sysperf/perftools.mspx" rel="nofollow" target="_blank"></a><a href="http://www.microsoft.com/whdc/system/sysperf/perftools.mspx" rel="nofollow" target="_blank">http://www.microsoft.com/whdc/system/sysperf/perftools.mspx</a></p>
+
+<p>its free...</p>
+
+<p>-Rick</p>
+
+      </div>
+    </article>
+    <article class="post" id="post-43205">
+      <a title="April 19, 2008 12:00am" class="post-date" target="_blank" href="https://discourse.codinghorror.com/t/should-all-developers-have-manycore-cpus/337/51">Apr '08</a>
+
+      <div class="author">
+        <a href="https://discourse.codinghorror.com/u/fudge" target="_blank"><img src="./45(40).png" alt=""></a>
+      </div>
+      <div class="cooked">
+        <h3 class="username">
+          <a href="https://discourse.codinghorror.com/u/fudge" target="_blank" class="new-user">fudge</a>
+        </h3>
+        <p>Testing multi-tier code using VMs for the tiers makes sense here.  Often the alternative is multiple boxes because the OSs or their configurations must be different, or the "smart" middleware runs in-process with different rules if all tiers are the same "machine."</p>
+
+<p>Web development?  That's <em>so</em> 2001.  We're headed back toward the future, doing more slim-client development today.  Productivity is higher along with user acceptance.  Ajax is a dead horse in my world.</p>
+
+      </div>
+    </article>
+    <article class="post" id="post-43206">
+      <a title="April 19, 2008 12:00am" class="post-date" target="_blank" href="https://discourse.codinghorror.com/t/should-all-developers-have-manycore-cpus/337/52">Apr '08</a>
+
+      <div class="author">
+        <a href="https://discourse.codinghorror.com/u/Xepol" target="_blank"><img src="./45(41).png" alt=""></a>
+      </div>
+      <div class="cooked">
+        <h3 class="username">
+          <a href="https://discourse.codinghorror.com/u/Xepol" target="_blank" class="new-user">Xepol</a>
+        </h3>
+        <p>Virtual machines are another area that can benefit from multi-core.  While the VM only runs on 1 CPU in most cases, if you have 2 or 3 VMs chugging away, the more cores the better.</p>
+
+<p>That said, I suspect that in the case of multitasking, the benchmarks reflect a fundamental and fatal flaw in the commonly tested platform ( (cough) WINDOWS (cough) ) - in that it seems to love bouncing apps between cores just for the heck of it, heck if the app is consuming most of the CPU resources, Windows almost seems up for a game of pong as it tosses it betwixt processors hoping for a better fit that it can never seem to find.  It is definitely time to reconsider how threads are allocated betwixt multi cores. </p>
+
+<p>Once you hit 4 cores or more, it starts to make sense to let the OS have one core all to its own and then pin threads to the other cores based on how they are behaving in general.  Maybe a CPU for low usage threads, and everything else gets sprinkled over the remaining cores, only moving once they prove a true trend.  If I have 4 low usage apps that each use 2% of the CPU, why waste time finding the best fit?  Leave them one one core, let the rest go idle.  Bring in an app that uses 25%?  Leave it with the other apps - there is still plenty of idle space on the core.  An app maxes out the core and stays there for a bit?  Now, maybe its time to consider moving it to an idle core and pinning it there.</p>
+
+<p>Heck, maybe the CPU can even keep usage stats on apps and recognize that they are CPU hogs and using that to figure out where they need to start. (some apps are ALWAYS low usage, some are almost always high usage - maybe its time to recognize that and be preemptive intead of reactive about it!)</p>
+
+      </div>
+    </article>
+    <article class="post" id="post-43207">
+      <a title="April 19, 2008 12:00am" class="post-date" target="_blank" href="https://discourse.codinghorror.com/t/should-all-developers-have-manycore-cpus/337/53">Apr '08</a>
+
+      <div class="author">
+        <a href="https://discourse.codinghorror.com/u/Tom" target="_blank"><img src="./45(4).png" alt=""></a>
+      </div>
+      <div class="cooked">
+        <h3 class="username">
+          <a href="https://discourse.codinghorror.com/u/Tom" target="_blank" class="new-user">Tom</a>
+        </h3>
+        <p>I'm a developer who skipped over dual-core and went straight to quad.</p>
+
+<p>If you're doing work with a big potential for deadlocks and race conditions, 4 is a magic number. A lot of code will have 1 master thread and multiple worker threads... and on a dual core system, you probably only end up with 1 worker thread. You will not notice any race conditions between multiple worker threads because you just don't have them.</p>
+
+<p>WRT multithreaded programming being tricky and difficult, yes and no. The implication is that there's just one way to make code parallel, which is almost always not the case. Most developers I've seen tend to err by having too many threads and having them do tasks that are too fine-grained. There's just too much effort spent starting, stopping, and synchronizing threads. With a lot of applications, it is not too hard (and pretty reliable) to divide up some work, have some threads do it in parallel with almost no communication, and write the results to some shared memory.</p>
+
+      </div>
+    </article>
+    <article class="post" id="post-43208">
+      <a title="April 19, 2008 12:00am" class="post-date" target="_blank" href="https://discourse.codinghorror.com/t/should-all-developers-have-manycore-cpus/337/54">Apr '08</a>
+
+      <div class="author">
+        <a href="https://discourse.codinghorror.com/u/Abdu" target="_blank"><img src="./45(42).png" alt=""></a>
+      </div>
+      <div class="cooked">
+        <h3 class="username">
+          <a href="https://discourse.codinghorror.com/u/Abdu" target="_blank" class="new-user">Abdu</a>
+        </h3>
+        <p>You have to ask which Windows you're developing under. XP or a server version. This will make a big difference.  I am assuming the server version will use more CPU's if it finds more. Probably by turning on a switch. </p>
+
+<p>But then I was using Visual Studio 2003 in a Windows 2003 computer and it was damn slow. Server version are not optimized for GUI applications. That's why I prefer to use Windows XP for development.</p>
+
+<p>However I am interested in benchmarks for:</p>
+
+<p>Developing under XP single CPU<br>vs<br>developing under Windows 2003 multicore</p>
+
+<p>with amount of ram and cpu speed being constant.</p>
+
+<p>I want to know if the multicore will compensate for Windows 2003's sluggishness in GUI applications.</p>
+
+<p>and then throw in Vista in there as a third option.</p>
+
+<p>and finally throw in a 64bit OS and someone can tell me which set has the best performance under VS 2008.</p>
+
+<p>Where's the sweet spot among all the different combinations and permutations per dollar amount taking into consideration number of cpu's, amount of ram, type of windows and cpu speed. </p>
+
+<p>Just talking about # of cpu's is not good enough and is part of a whole solution.</p>
+
+      </div>
+    </article>
+    <article class="post" id="post-43209">
+      <a title="April 19, 2008 12:00am" class="post-date" target="_blank" href="https://discourse.codinghorror.com/t/should-all-developers-have-manycore-cpus/337/55">Apr '08</a>
+
+      <div class="author">
+        <a href="https://discourse.codinghorror.com/u/Andrew" target="_blank"><img src="./45(43).png" alt=""></a>
+      </div>
+      <div class="cooked">
+        <h3 class="username">
+          <a href="https://discourse.codinghorror.com/u/Andrew" target="_blank" class="new-user">Andrew</a>
+        </h3>
+        <p>While i can see where many people will benefit from many core systems i do mainly java web development and see no benefits.  i have the database servers on actual servers and most of my time is spent copying files from one place to another durring a build.  my personal favorite is a .war file with 42K + files in it, i am neither bound by the CPU or DISK but rather by concurnacy of FAT table usage.</p>
+
+      </div>
+    </article>
+    <article class="post" id="post-43210">
+      <a title="April 19, 2008 12:00am" class="post-date" target="_blank" href="https://discourse.codinghorror.com/t/should-all-developers-have-manycore-cpus/337/56">Apr '08</a>
+
+      <div class="author">
+        <a href="https://discourse.codinghorror.com/u/RickB" target="_blank"><img src="./45(1).png" alt=""></a>
+      </div>
+      <div class="cooked">
+        <h3 class="username">
+          <a href="https://discourse.codinghorror.com/u/RickB" target="_blank" class="new-user">RickB</a>
+        </h3>
+        <p>Aha, glad to see the good Jeff we know is back <img src="./slight_smile.png" title=":slight_smile:" class="emoji" alt=":slight_smile:"></p>
+
+<p>It's true that the Paint.NET benchmark tests a lot of filters -- the types of code that are, as they say, "embarassingly parallel." I made sure to include a lot of non-filter benchmarks as well, but they're still of the obviously or embarassingly parallel category. The point I was trying to make was that every day people are using Paint.NET quite a bit and that running these filters in multiple threads is thus saving a lot of people a lot of time -- even if it's only 5 seconds per casual user per day (to make up another statistic). I would encourage you to try running some of your own normal Paint.NET usage on a quad core system, get a feel for it, and then set the process thread affinity to just 1 or 2 cores. Then compare how it runs and report on it! It's definitely not 4x faster but it is faster. </p>
+
+<p>Some of the work I'm doing now is in building a system that will let me rework more than just the easily parallelizable parts of Paint.NET to greatly improve response time. There are places that aren't parallelizable but that should at least be isolatable as "background tasks" -- writing undo data, for instance, currently blocks some other operations simply because they have write access to the data I'm spewing to disk. I think having better development tools/patterns will allow us to first and foremost write <em>safe</em> multithreaded code, after which we can optimize it for many-core scenarios. Even though Paint.NET is "multithreaded" I still consider it to have a "single threaded workflow". And it's failing to scale over time. Hey, I could write a blog post of my own on that <img src="./slight_smile.png" title=":slight_smile:" class="emoji" alt=":slight_smile:"></p>
+
+<p>Building Paint.NET in VS 2008 on a quad core is great. To do a Debug build with no multithreading takes 19 seconds on my QX6700 (yeah I bought the extreme edition right when it came out :)). Bumping that up to 4 threads brings the time down to 10 seconds (I also tried 8 threads with roughly the same result). At 2 threads it takes 14 seconds. That's 4 - 9 seconds I'm saving every single time I do my edit-build-run loop. It rocks.</p>
+
+<p>Towards the end of the year Intel is set to release Nehalem with up to 8 cores per processor package, and 2 threads per core (HyperThreading). I am seriously considering grabbing a Dual Xeon version of that -- 32 cores. Then I can really find ways to make code fly and make sure Intel and AMD aren't just caught in the same "But 2N is more than N! You need it!" hype cycle. But of course I'd never recommend that kind of system for ... well ... almost anyone else.</p>
+
+      </div>
+    </article>
+    <article class="post" id="post-43211">
+      <a title="April 19, 2008 12:00am" class="post-date" target="_blank" href="https://discourse.codinghorror.com/t/should-all-developers-have-manycore-cpus/337/57">Apr '08</a>
+
+      <div class="author">
+        <a href="https://discourse.codinghorror.com/u/VinzentH" target="_blank"><img src="./45(44).png" alt=""></a>
+      </div>
+      <div class="cooked">
+        <h3 class="username">
+          <a href="https://discourse.codinghorror.com/u/VinzentH" target="_blank" class="new-user">VinzentH</a>
+        </h3>
+        <p>"If nothing else, dual-core CPUs protect you from badly written software; if a crashed program consumes all possible CPU time, all it can get is 50% of your CPU."</p>
+
+<p>Jeff, Jeff, that's not a real argument for multi-cores. I can write badly written multi-threaded programs with consume 100% CPU-time of all available cores, even if there's 4096 of them. <img src="./wink.png" title=":wink:" class="emoji" alt=":wink:"></p>
+
+<p>But recently I ordered a multi-core CPU especially for scalability tests (alas, it didn't reach my desk yet).<br>Of course, we actually do RIP (as in raster image processing) for a living. So for me it's not compilation speed (which is negligible for the compiler I use), it's in fact execution times. So for a dual-core, I'd really expect a 9x% performance gain, or my code is wrong.</p>
+
+      </div>
+    </article>
+    <article class="post" id="post-43212">
+      <a title="April 19, 2008 12:00am" class="post-date" target="_blank" href="https://discourse.codinghorror.com/t/should-all-developers-have-manycore-cpus/337/58">Apr '08</a>
+
+      <div class="author">
+        <a href="https://discourse.codinghorror.com/u/option12" target="_blank"><img src="./45(45).png" alt=""></a>
+      </div>
+      <div class="cooked">
+        <h3 class="username">
+          <a href="https://discourse.codinghorror.com/u/option12" target="_blank" class="new-user">option<wbr>​12</a>
+        </h3>
+        <p>just FYI:<br> Most video codecs are not multithreaded, and don't scale past dual cores. You are better off with the fastest dual core you can find as opposed to a quad-core. There are software packages that can use multiple cores well. </p>
+
+<p> I used to work for Kulabyte, who sell a product that does do multi-core transcoding/live video, but they are one of small number of people currently able to do it. They all work by slicing up the video and using the existing codecs on each piece.</p>
+
+      </div>
+    </article>
+    <article class="post" id="post-43213">
+      <a title="April 19, 2008 12:00am" class="post-date" target="_blank" href="https://discourse.codinghorror.com/t/should-all-developers-have-manycore-cpus/337/59">Apr '08</a>
+
+      <div class="author">
+        <a href="https://discourse.codinghorror.com/u/Kevin" target="_blank"><img src="./45(46).png" alt=""></a>
+      </div>
+      <div class="cooked">
+        <h3 class="username">
+          <a href="https://discourse.codinghorror.com/u/Kevin" target="_blank" class="new-user">Kevin</a>
+        </h3>
+        <p>Jeff, thanks for the link, now I wish my site was actually up.</p>
+
+<p>I guess the real question is "Where do we go from here?". It is generally agreed that we are heading towards a future of more cores (Rich mentions the upcoming Nehalem from Intel, that is just one example) rather than faster cores, so what are we (as developers) going to do to punish these new CPUs properly?</p>
+
+<p>Just as MS has used it's OEM distributors to push Vista, Intel will do the same thing to push quad core (and larger) CPUs on the general user. You can't even buy a (new platform) single core CPU anymore with the E1200 (dual core Celeron) being released at the same time as your E8500 and my E8400.</p>
+
+<p>Is it the responsibility of the individual developers to push concurrent programming to the next level (through education and usage), or is the onus on the platform designers (whether that be .Net, JVM, or even RoR) to provide a robust set of tools which leverage concurrent programming?</p>
+
+<p>Obviously the PC platform still has bottle necks to be overcome, including RAM latency and I/O performance, but being able to intelligently use multi-core systems for everyday applications is something that needs to be fixed.</p>
+
+<p>Kevin</p>
+
+      </div>
+    </article>
+    <article class="post" id="post-43214">
+      <a title="April 19, 2008 12:00am" class="post-date" target="_blank" href="https://discourse.codinghorror.com/t/should-all-developers-have-manycore-cpus/337/60">Apr '08</a>
+
+      <div class="author">
+        <a href="https://discourse.codinghorror.com/u/Dimian" target="_blank"><img src="./45(47).png" alt=""></a>
+      </div>
+      <div class="cooked">
+        <h3 class="username">
+          <a href="https://discourse.codinghorror.com/u/Dimian" target="_blank" class="new-user">Dimian</a>
+        </h3>
+        <p>I wonder if your SharpDevelop compile performance test is being restricted by your hardrive. I'd be interested in seeing the same test via SSD or even from a RAMDISK.</p>
+
+      </div>
+    </article>
+    <article class="post" id="post-43215">
+      <a title="April 20, 2008 12:00am" class="post-date" target="_blank" href="https://discourse.codinghorror.com/t/should-all-developers-have-manycore-cpus/337/61">Apr '08</a>
+
+      <div class="author">
+        <a href="https://discourse.codinghorror.com/u/Student" target="_blank"><img src="./45(48).png" alt=""></a>
+      </div>
+      <div class="cooked">
+        <h3 class="username">
+          <a href="https://discourse.codinghorror.com/u/Student" target="_blank" class="new-user">Student</a>
+        </h3>
+        <p>"If anyone who is still developing COBOL Stuff on an AS/400 is reading this, that person may think "Dual Core? Quad Core? Bah, my 486DX100 Terminal is all a developer needs"</p>
+
+<p>Michael on April 19, 2008 06:35 AM"</p>
+
+<p>I'm a student at LIT in Ireland where we're being taught RPG using an AS/400 and I was thinking that very thought as I was reading that post <img src="./slight_smile.png" title=":slight_smile:" class="emoji" alt=":slight_smile:"></p>
+
+      </div>
+    </article>
+    <article class="post" id="post-43216">
+      <a title="April 20, 2008 12:00am" class="post-date" target="_blank" href="https://discourse.codinghorror.com/t/should-all-developers-have-manycore-cpus/337/62">Apr '08</a>
+
+      <div class="author">
+        <a href="https://discourse.codinghorror.com/u/Peter_Hosey" target="_blank"><img src="./45(2).png" alt=""></a>
+      </div>
+      <div class="cooked">
+        <h3 class="username">
+          <a href="https://discourse.codinghorror.com/u/Peter_Hosey" target="_blank" class="new-user">Peter_<wbr>​<wbr>​Hosey</a>
+        </h3>
+        <p>  [<a href="http://www.codinghorror.com/blog/images/visual-studio-2008-compilation-task-manager.png%5D" rel="nofollow" target="_blank"></a><a href="http://www.codinghorror.com/blog/images/visual-studio-2008-compilation-task-manager.png" rel="nofollow" target="_blank">http://www.codinghorror.com/blog/images/visual-studio-2008-compilation-task-manager.png</a>]</p>
+
+<p>  I did see a few peaks above 50%, but it's an awfully tepid result compared to the make -j4 one.</p>
+
+<p> Interesting. Surely if it's compiling multiple projects (and their source code) at once, it should get it done in about half the time—yet it appears to take exactly as long. That's very strange.</p>
+
+<p>Oh, crap. I thought this was a before-and-after comparison, but it's actually your two separate cores. Sorry.</p>
+
+<p>Now the graph makes a lot more sense. Your preference says to compile two projects at once, which it is doing. If it's compiling one source file after another in each project, then the CPU usage will only double, which (as far as I know, since you provided no comparison) it has. Compare this to make -j4, which will <em>quadruple</em> your processor usage.</p>
+
+<p>If you try it with the preference set to 4 parallel project builds, you should have a more accurate comparison.</p>
+
+      </div>
+    </article>
+    <article class="post" id="post-43217">
+      <a title="April 20, 2008 12:00am" class="post-date" target="_blank" href="https://discourse.codinghorror.com/t/should-all-developers-have-manycore-cpus/337/63">Apr '08</a>
+
+      <div class="author">
+        <a href="https://discourse.codinghorror.com/u/Reimar" target="_blank"><img src="./45(49).png" alt=""></a>
+      </div>
+      <div class="cooked">
+        <h3 class="username">
+          <a href="https://discourse.codinghorror.com/u/Reimar" target="_blank" class="new-user">Reimar</a>
+        </h3>
+        <p>"If nothing else, dual-core CPUs protect you from badly written software; if a crashed program consumes all possible CPU time, all it can get is 50% of your CPU."</p>
+
+<p>As someone else has pointed out: if that "crashed program" does more than slow down the other programs by more than half, fix your OS! Yes, writing a good scheduler is hard and probably they all have some bugs, but getting a second core just to work around bugs is still the wrong solution (admittedly it is the only solution for the end user).</p>
+
+<p>And <a class="mention" href="https://discourse.codinghorror.com/users/hoffmann" target="_blank">@Hoffmann</a>:<br>Well, you are lucky then. I have to use Xilinx ISE/xst and I still haven't been able to make it use more than one core. It would be really sweet if I didn't have to wait for  3 hours every time I want to test something outside of simulation...</p>
+
+      </div>
+    </article>
+    <article class="post" id="post-43218">
+      <a title="April 20, 2008 12:00am" class="post-date" target="_blank" href="https://discourse.codinghorror.com/t/should-all-developers-have-manycore-cpus/337/64">Apr '08</a>
+
+      <div class="author">
+        <a href="https://discourse.codinghorror.com/u/simon5" target="_blank"><img src="./45(50).png" alt=""></a>
+      </div>
+      <div class="cooked">
+        <h3 class="username">
+          <a href="https://discourse.codinghorror.com/u/simon5" target="_blank" class="new-user">simon<wbr>​5</a>
+        </h3>
+        <p>Quad core and above really help in vm testing. You can run your (multiple) deployment platforms at once and still get some sort of reasonable performance.</p>
+
+<p>The other thing is that multiple cores are great for parallel mathematics (given the right algorithms of course). Here you can see excellent scalability.</p>
+
+<p>Finally, encouraging more cores should help persuade major software houses to development for multicore'd projects, and in general advance the knowledge of all... (in an idealised world).</p>
+
+      </div>
+    </article>
+    <article class="post" id="post-43219">
+      <a title="April 20, 2008 12:00am" class="post-date" target="_blank" href="https://discourse.codinghorror.com/t/should-all-developers-have-manycore-cpus/337/65">Apr '08</a>
+
+      <div class="author">
+        <a href="https://discourse.codinghorror.com/u/george5" target="_blank"><img src="./45(51).png" alt=""></a>
+      </div>
+      <div class="cooked">
+        <h3 class="username">
+          <a href="https://discourse.codinghorror.com/u/george5" target="_blank" class="new-user">george<wbr>​5</a>
+        </h3>
+        <p>At work on a normal day I need the following running most of the day<br>0) Not my choice of AV program that hogs CPU frequently<br>1) Lotus Notes<br>2) At least two Copies of RAD7 (Web Server/Dev Environment)<br>3) Several web browser windows<br>4) Excel and Word documents</p>
+
+<p>My slightly outdated single core CPU usually handles the load ok, but on occasion it starts to slow down and freeze up (usually thanks to the anti virus software)</p>
+
+<p>On less than normal days I also need to run several copies of Visual Studio 6 and Telnet sessions to 5 different servers.</p>
+
+<p>Yeah a few more cores would help.. Also 4GB of ram would help more. Most companies I have worked for are unrealistically stingy with the RAM.</p>
+
+      </div>
+    </article>
+    <article class="post" id="post-43220">
+      <a title="April 20, 2008 12:00am" class="post-date" target="_blank" href="https://discourse.codinghorror.com/t/should-all-developers-have-manycore-cpus/337/66">Apr '08</a>
+
+      <div class="author">
+        <a href="https://discourse.codinghorror.com/u/Kongming" target="_blank"><img src="./45(52).png" alt=""></a>
+      </div>
+      <div class="cooked">
+        <h3 class="username">
+          <a href="https://discourse.codinghorror.com/u/Kongming" target="_blank" class="new-user">Kongming</a>
+        </h3>
+        <p>first there was a war over 32bit to 64bit, not a core war...perhaps we will start to see programs being available to download that have the option of number of cores.</p>
+
+      </div>
+    </article>
+    <article class="post" id="post-43221">
+      <a title="April 20, 2008 12:00am" class="post-date" target="_blank" href="https://discourse.codinghorror.com/t/should-all-developers-have-manycore-cpus/337/67">Apr '08</a>
+
+      <div class="author">
+        <a href="https://discourse.codinghorror.com/u/Kongming" target="_blank"><img src="./45(52).png" alt=""></a>
+      </div>
+      <div class="cooked">
+        <h3 class="username">
+          <a href="https://discourse.codinghorror.com/u/Kongming" target="_blank" class="new-user">Kongming</a>
+        </h3>
+        <p>Heh, I am sorry...Now a core war is what I ment</p>
+
+      </div>
+    </article>
+    <article class="post" id="post-43222">
+      <a title="April 20, 2008 12:00am" class="post-date" target="_blank" href="https://discourse.codinghorror.com/t/should-all-developers-have-manycore-cpus/337/68">Apr '08</a>
+
+      <div class="author">
+        <a href="https://discourse.codinghorror.com/u/Larry_Bank" target="_blank"><img src="./45(53).png" alt=""></a>
+      </div>
+      <div class="cooked">
+        <h3 class="username">
+          <a href="https://discourse.codinghorror.com/u/Larry_Bank" target="_blank" class="new-user">Larry_<wbr>​<wbr>​Bank</a>
+        </h3>
+        <p>FYI - VS2005 also supports the /MP option and it dramatically improves build time.</p>
+
+<p>The power usage of various PCs is not necessarily what you would assume.</p>
+
+<p>I tested 3 machines: Pentium 4 3.2Ghz single core, AMD x64 2.4Ghz dual core, and Intel 2.4Ghz Quad core:</p>
+
+<pre><code>        Single         Dual          Quad</code></pre>
+
+<p>Off           1W            8W            2W<br>Idle          95W           114W          104W<br>Max Load      170W          157W          154W<br>Sleep         N/A           N/A           1W</p>
+
+      </div>
+    </article>
+    <article class="post" id="post-43223">
+      <a title="April 20, 2008 12:00am" class="post-date" target="_blank" href="https://discourse.codinghorror.com/t/should-all-developers-have-manycore-cpus/337/69">Apr '08</a>
+
+      <div class="author">
+        <a href="https://discourse.codinghorror.com/u/Hoffmann" target="_blank"><img src="./45(33).png" alt=""></a>
+      </div>
+      <div class="cooked">
+        <h3 class="username">
+          <a href="https://discourse.codinghorror.com/u/Hoffmann" target="_blank" class="new-user">Hoffmann</a>
+        </h3>
+        <p><a class="mention" href="https://discourse.codinghorror.com/users/reimar" target="_blank">@Reimar</a>:</p>
+
+<p>Well I didn't benchmark anything, but it was really a lot faster in my dual-core (intel dual-core [not core 2 duo] 1.6 ghz) notebook than the labs computer (Athlon XP 2000+). And I was even running Quartus II inside a VM.</p>
+
+<p>Well, FPGA really suck. But they are still the best solution (cheapest) to design hardware.</p>
+
+      </div>
+    </article>
+    <article class="post" id="post-43224">
+      <a title="April 20, 2008 12:00am" class="post-date" target="_blank" href="https://discourse.codinghorror.com/t/should-all-developers-have-manycore-cpus/337/70">Apr '08</a>
+
+      <div class="author">
+        <a href="https://discourse.codinghorror.com/u/Al117" target="_blank"><img src="./45(54).png" alt=""></a>
+      </div>
+      <div class="cooked">
+        <h3 class="username">
+          <a href="https://discourse.codinghorror.com/u/Al117" target="_blank" class="new-user">Al<wbr>​117</a>
+        </h3>
+        <p>With over 25 years of coding behind me I find this argument interesting. Back when I was starting in programming on a mainframe the same issues were in play. A dual processor mainframe was millions of dollars more than a single processor mainframe, quad processors still more millions above a dual.</p>
+
+<p>For as long as I can remember the dual processor machine was the "sweet spot" for workloads. Sure you could get more done with extra processors, but there was a big drop off in additional work with additional processors.</p>
+
+      </div>
+    </article>
+    <article class="post" id="post-43225">
+      <a title="April 20, 2008 12:00am" class="post-date" target="_blank" href="https://discourse.codinghorror.com/t/should-all-developers-have-manycore-cpus/337/71">Apr '08</a>
+
+      <div class="author">
+        <a href="https://discourse.codinghorror.com/u/Hmm" target="_blank"><img src="./45(55).png" alt=""></a>
+      </div>
+      <div class="cooked">
+        <h3 class="username">
+          <a href="https://discourse.codinghorror.com/u/Hmm" target="_blank" class="new-user">Hmm</a>
+        </h3>
+        <p>Those cores belong to the user, not your application.  The last thing we need is gratuitous multithreading in some vain attempt at performance.  It just makes the program choke on machines that aren't many-cored.  Threading is far from free.  Stop writing blocking logic and go async instead of using explicit threading, it isn't 1970 anymore.</p>
+
+      </div>
+    </article>
+    <article class="post" id="post-43226">
+      <a title="April 20, 2008 12:00am" class="post-date" target="_blank" href="https://discourse.codinghorror.com/t/should-all-developers-have-manycore-cpus/337/72">Apr '08</a>
+
+      <div class="author">
+        <a href="https://discourse.codinghorror.com/u/SteveJ" target="_blank"><img src="./45(56).png" alt=""></a>
+      </div>
+      <div class="cooked">
+        <h3 class="username">
+          <a href="https://discourse.codinghorror.com/u/SteveJ" target="_blank" class="new-user">SteveJ</a>
+        </h3>
+        <p>Probably the most frustrating and enlightening aspect of my team's debugging is the effect that an added core can have on the application.  Dual cores find all race conditions faster while single cores find all the slow sticky parts.  So it's a great thing from a testing standpoint to hammer out as many issues as possible, but it's very difficult to reproduce said issues when your dev machine is drastically different from the one having issues.  I don't know what the right answer is here, it seems as long as you're writing software that can be run by both kind of users, you really need to test and probably develop on both.</p>
+
+      </div>
+    </article>
+    <article class="post" id="post-43227">
+      <a title="April 20, 2008 12:00am" class="post-date" target="_blank" href="https://discourse.codinghorror.com/t/should-all-developers-have-manycore-cpus/337/73">Apr '08</a>
+
+      <div class="author">
+        <a href="https://discourse.codinghorror.com/u/Thejesh_GN" target="_blank"><img src="./45(57).png" alt=""></a>
+      </div>
+      <div class="cooked">
+        <h3 class="username">
+          <a href="https://discourse.codinghorror.com/u/Thejesh_GN" target="_blank" class="new-user">Thejesh_<wbr>​GN</a>
+        </h3>
+        <p>Absolutely agree with you. Specially when you are working in Java world where you have to run RAD/WSAD with server on, outlook, firefox, ie, databases you need dual core:)</p>
+
+      </div>
+    </article>
+    <article class="post" id="post-43228">
+      <a title="April 20, 2008 12:00am" class="post-date" target="_blank" href="https://discourse.codinghorror.com/t/should-all-developers-have-manycore-cpus/337/74">Apr '08</a>
+
+      <div class="author">
+        <a href="https://discourse.codinghorror.com/u/Rob_Janssen" target="_blank"><img src="./45(58).png" alt=""></a>
+      </div>
+      <div class="cooked">
+        <h3 class="username">
+          <a href="https://discourse.codinghorror.com/u/Rob_Janssen" target="_blank" class="new-user">Rob_<wbr>​<wbr>​Janssen</a>
+        </h3>
+        <p>Another vote for digital audio workstations here, and it's a bit of an oversight that it got skipped in the list since the group of people using those is big enough to be named, too. A high-quality reverb will slurp up CPU power. Audio tracks are almost trivial to parallelize; the load is predictable, but you just don't want to render everything to .wav first.</p>
+
+      </div>
+    </article>
+    <article class="post" id="post-43229">
+      <a title="April 20, 2008 12:00am" class="post-date" target="_blank" href="https://discourse.codinghorror.com/t/should-all-developers-have-manycore-cpus/337/75">Apr '08</a>
+
+      <div class="author">
+        <a href="https://discourse.codinghorror.com/u/frodob" target="_blank"><img src="./45(59).png" alt=""></a>
+      </div>
+      <div class="cooked">
+        <h3 class="username">
+          <a href="https://discourse.codinghorror.com/u/frodob" target="_blank" class="new-user">frodob</a>
+        </h3>
+        <p>The more, the merrier...</p>
+
+      </div>
+    </article>
+    <article class="post" id="post-43230">
+      <a title="April 20, 2008 12:00am" class="post-date" target="_blank" href="https://discourse.codinghorror.com/t/should-all-developers-have-manycore-cpus/337/76">Apr '08</a>
+
+      <div class="author">
+        <a href="https://discourse.codinghorror.com/u/titrat" target="_blank"><img src="./45(60).png" alt=""></a>
+      </div>
+      <div class="cooked">
+        <h3 class="username">
+          <a href="https://discourse.codinghorror.com/u/titrat" target="_blank" class="new-user">titrat</a>
+        </h3>
+        <p> Dual Core in Server?<br> ...<br>It works fine, I am happy... <br> and don't plan to upgrade it to multicore <img src="./slight_smile.png" title=":slight_smile:" class="emoji" alt=":slight_smile:"></p>
+
+<p>Oh, it's fine that your "my cat at home" site runs very well on your old crap-machine. How many Requests per second has it to handle? How many Online-Transactions has it to cope with?<br>Hundreds to thousand a second or only hundreds per month?</p>
+
+<p>Ok, good that we've talked about.<br>"Oh, truck's are so useless, a bmw mini is enough for buying my salad in the market" is akin a useless comment.</p>
+
+      </div>
+    </article>
+    <article class="post" id="post-43231">
+      <a title="April 21, 2008 12:00am" class="post-date" target="_blank" href="https://discourse.codinghorror.com/t/should-all-developers-have-manycore-cpus/337/77">Apr '08</a>
+
+      <div class="author">
+        <a href="https://discourse.codinghorror.com/u/ADINSX" target="_blank"><img src="./45(61).png" alt=""></a>
+      </div>
+      <div class="cooked">
+        <h3 class="username">
+          <a href="https://discourse.codinghorror.com/u/ADINSX" target="_blank" class="new-user">ADINSX</a>
+        </h3>
+        <p>I made the decision to go with 4 cores about 9 months ago based on the fact that for all the benchmarks that were important to me, the quad core and dual core processors were both obnoxiously fast for the price range I was looking at (around 300 dollars).  </p>
+
+<p>While the dual core, for the same price, may be faster than its quad core counterpart, if both processors are sufficiently fast for the program you intend to use then I prefer to look to the future when its possible more programs will be scalable to 4 cores, hopefully giving me an advantage in the long run.</p>
+
+      </div>
+    </article>
+    <article class="post" id="post-43232">
+      <a title="April 21, 2008 12:00am" class="post-date" target="_blank" href="https://discourse.codinghorror.com/t/should-all-developers-have-manycore-cpus/337/78">Apr '08</a>
+
+      <div class="author">
+        <a href="https://discourse.codinghorror.com/u/fool9" target="_blank"><img src="./45(62).png" alt=""></a>
+      </div>
+      <div class="cooked">
+        <h3 class="username">
+          <a href="https://discourse.codinghorror.com/u/fool9" target="_blank" class="new-user">fool<wbr>​9</a>
+        </h3>
+        <p>All developers should use a 5 year old "obsolete" computer. Then you really know whether your program will be usable and efficient on real customers' computers. And if its taking too long to build? You may have too much code in there.</p>
+
+      </div>
+    </article>
+    <article class="post" id="post-43233">
+      <a title="April 21, 2008 12:00am" class="post-date" target="_blank" href="https://discourse.codinghorror.com/t/should-all-developers-have-manycore-cpus/337/79">Apr '08</a>
+
+      <div class="author">
+        <a href="https://discourse.codinghorror.com/u/Jaster" target="_blank"><img src="./45(63).png" alt=""></a>
+      </div>
+      <div class="cooked">
+        <h3 class="username">
+          <a href="https://discourse.codinghorror.com/u/Jaster" target="_blank" class="new-user">Jaster</a>
+        </h3>
+        <p>All developers should have 2 PC's - One is the all singing all dancing state of the art PC with as many cores/processors as they feel they might need to develop as quickly as few delays as possible.... and the other is the stated minimum spec PC, which they actually have to use to test the software they are writing. This forces them to make it actually work on the minimum spec, not as I so often see, change the minimum spec to meet what the software now needs </p>
+
+<p>If all developers have multicore CPU machines then I can see that all software will <em>require</em> multicore CPUs, and anyone who does not have one will be told to upgrade ... This is one of the reasons for software bloat (they other is managers wanting just one more feature ....)</p>
+
+<p>As is stated above most applications would not benefit from threading (many operating systems would in that they could multitask better and could manage the running programs better) a few processor intensive applications do benefit but these are rare and not used much by developers ...?</p>
+
+      </div>
+    </article>
+    <article class="post" id="post-43234">
+      <a title="April 21, 2008 12:00am" class="post-date" target="_blank" href="https://discourse.codinghorror.com/t/should-all-developers-have-manycore-cpus/337/80">Apr '08</a>
+
+      <div class="author">
+        <a href="https://discourse.codinghorror.com/u/Avdi_Grimm" target="_blank"><img src="./45(64).png" alt=""></a>
+      </div>
+      <div class="cooked">
+        <h3 class="username">
+          <a href="https://discourse.codinghorror.com/u/Avdi_Grimm" target="_blank" class="new-user">Avdi_<wbr>​<wbr>​Grimm</a>
+        </h3>
+        <p>I too would like to see some stats for your statement that most developers are doing web work.  I say this as a developer who has been doing web work exclusively for 3/4 of a year and see a lot of it in my future.  These days it's true that I know a lot of web developers.  Before this I was in the defense contracting world, and back then I knew a lot of aerospace/defense developers (and the Boeings, BAEs, and Raytheons of the world employee an enormous number of coders).  In general my impression in both of the worlds I've worked in has been that programmers tend to be pretty insular in whatever subfield they are in, and see the rest of the developer world in terms of their own domain.   And also that web developers tend to form a disproportionate number of the developers shooting their mouths off on the web and generally being visible there (funnily enough).  I include myself in this category <img src="./wink.png" title=":wink:" class="emoji" alt=":wink:"></p>
+
+      </div>
+    </article>
+    <article class="post" id="post-43235">
+      <a title="April 21, 2008 12:00am" class="post-date" target="_blank" href="https://discourse.codinghorror.com/t/should-all-developers-have-manycore-cpus/337/81">Apr '08</a>
+
+      <div class="author">
+        <a href="https://discourse.codinghorror.com/u/Sentax" target="_blank"><img src="./45(65).png" alt=""></a>
+      </div>
+      <div class="cooked">
+        <h3 class="username">
+          <a href="https://discourse.codinghorror.com/u/Sentax" target="_blank" class="new-user">Sentax</a>
+        </h3>
+        <p>All too often I see users seduced by Intel's marketing department, blindly assuming that if two CPU cores is faster than one CPU core, then, well.. four, eight, or sixteen must be insanely fast!</p>
+
+<p>Jeff, your blog must of hit close to home for Intel.</p>
+
+<p><a href="http://www.extremetech.com/article2/0,1558,2285978,00.asp?kc=ETRSS02129TX1K0000532" rel="nofollow" target="_blank"></a><a href="http://www.extremetech.com/article2/0,1558,2285978,00.asp?kc=ETRSS02129TX1K0000532" rel="nofollow" target="_blank">http://www.extremetech.com/article2/0,1558,2285978,00.asp?kc=ETRSS02129TX1K0000532</a></p>
+
+<p><img src="./slight_smile.png" title=":slight_smile:" class="emoji" alt=":slight_smile:"></p>
+
+      </div>
+    </article>
+    <article class="post" id="post-43236">
+      <a title="April 21, 2008 12:00am" class="post-date" target="_blank" href="https://discourse.codinghorror.com/t/should-all-developers-have-manycore-cpus/337/82">Apr '08</a>
+
+      <div class="author">
+        <a href="https://discourse.codinghorror.com/u/thomasw1" target="_blank"><img src="./45(66).png" alt=""></a>
+      </div>
+      <div class="cooked">
+        <h3 class="username">
+          <a href="https://discourse.codinghorror.com/u/thomasw1" target="_blank" class="new-user">thomasw<wbr>​1</a>
+        </h3>
+        <p>Jeff,</p>
+
+<p> Most developers aren't writing desktop applications today. They're writing web applications. </p>
+
+<p>i have some doubts here. do you have any numbers to back this up?</p>
+
+<p>WM_THX<br>-thomas</p>
+
+      </div>
+    </article>
+    <article class="post" id="post-43237">
+      <a title="April 21, 2008 12:00am" class="post-date" target="_blank" href="https://discourse.codinghorror.com/t/should-all-developers-have-manycore-cpus/337/83">Apr '08</a>
+
+      <div class="author">
+        <a href="https://discourse.codinghorror.com/u/Johan" target="_blank"><img src="./45(63).png" alt=""></a>
+      </div>
+      <div class="cooked">
+        <h3 class="username">
+          <a href="https://discourse.codinghorror.com/u/Johan" target="_blank" class="new-user">Johan</a>
+        </h3>
+        <p>There are many very important applications that will have to use multicore a lot if they want to compete. For example audio and video processing, video games...</p>
+
+<p>In fact I think the applications that can happily stay singlecore are a minority <img src="./slight_smile.png" title=":slight_smile:" class="emoji" alt=":slight_smile:">  (Web + office tools)</p>
+
+      </div>
+    </article>
+    <article class="post" id="post-43238">
+      <a title="April 21, 2008 12:00am" class="post-date" target="_blank" href="https://discourse.codinghorror.com/t/should-all-developers-have-manycore-cpus/337/84">Apr '08</a>
+
+      <div class="author">
+        <a href="https://discourse.codinghorror.com/u/AndyB" target="_blank"><img src="./45(67).png" alt=""></a>
+      </div>
+      <div class="cooked">
+        <h3 class="username">
+          <a href="https://discourse.codinghorror.com/u/AndyB" target="_blank" class="new-user">AndyB</a>
+        </h3>
+        <p>what is the point of this argument? </p>
+
+<p>lets just check something.... a quad core is 120, a dual core is 70.</p>
+
+<p>so we're arguing a lot about 50, which to a professional developer is .. 2 or 3 hours pay? That'll be even less to the company that's purchasing the new box for him.</p>
+
+<p>Give it a month or two and the difference in price will be even less, so buy the quad core and have done with it. I'm sure the time some people have spent arguing over which is better would cost more than the difference anyway!</p>
+
+<p>Also, consider what happens to those old dev boxes when you've upgraded. Here, we tend to reuse them with other projects - so if you want a quad core test/dev/build server in a few years, you might as well spec the quad core dev box today.</p>
+
+      </div>
+    </article>
+    <article class="post" id="post-43239">
+      <a title="April 21, 2008 12:00am" class="post-date" target="_blank" href="https://discourse.codinghorror.com/t/should-all-developers-have-manycore-cpus/337/85">Apr '08</a>
+
+      <div class="author">
+        <a href="https://discourse.codinghorror.com/u/Donny" target="_blank"><img src="./45(68).png" alt=""></a>
+      </div>
+      <div class="cooked">
+        <h3 class="username">
+          <a href="https://discourse.codinghorror.com/u/Donny" target="_blank" class="new-user">Donny</a>
+        </h3>
+        <p>Intel just cut the price on quad core processors in half.<br><a href="http://www.cnet.com/8301-13924_1-9924121-64.html?part=rsssubj=newstag=2547-1_3-0-5" rel="nofollow" target="_blank"></a><a href="http://www.cnet.com/8301-13924_1-9924121-64.html?part=rsssubj=newstag=2547-1_3-0-5" rel="nofollow" target="_blank">http://www.cnet.com/8301-13924_1-9924121-64.html?part=rsssubj=newstag=2547-1_3-0-5</a></p>
+
+<p>There's no reason to buy a dual core anymore. <img src="./wink.png" title=":wink:" class="emoji" alt=":wink:"></p>
+
+      </div>
+    </article>
+    <article class="post" id="post-43240">
+      <a title="April 21, 2008 12:00am" class="post-date" target="_blank" href="https://discourse.codinghorror.com/t/should-all-developers-have-manycore-cpus/337/86">Apr '08</a>
+
+      <div class="author">
+        <a href="https://discourse.codinghorror.com/u/John_C" target="_blank"><img src="./45(69).png" alt=""></a>
+      </div>
+      <div class="cooked">
+        <h3 class="username">
+          <a href="https://discourse.codinghorror.com/u/John_C" target="_blank" class="new-user">John_<wbr>​C</a>
+        </h3>
+        <p>I'd like to comment a bit abstractly.</p>
+
+<p>In this article and the subsequent commentary much effort is being put forth to determine the benefit gained (I'll refrain from using buzzwords) from developers using multi-core systems.  To this end I have a few small points:</p>
+
+<p>1 - I'm not sure I agree with an article that has an excuse written about people "buying in" to marketing hype that also assumes all readers of the content are software developers.  Perhaps it is my own faux pas to assume that software developers have a basic level of knowledge and understanding about the systems on which they develop and therefore are technical enough to read through the hype presented by processor manufacturers.</p>
+
+<p>2 - A solid technical argument about the realized benefits of multiple cores. This prompted me to think about the reasons we have multi-core, multi-cpu systems in the first place. I came up with the following:</p>
+
+<ul>
+<li>Performance</li>
+<li>High-availability</li>
+<li>Bragging rights</li>
+</ul>
+
+<p>For the purpose of my opinion here, I'll limit my discussion to the first two points.</p>
+
+<p>Performance gains. Software is developed with increased threading so that larger, more CPU-intensive applications can RUN FASTER. Does this translate into allowing our operating systems to more effectively handle many applications running at once? Sure. A machine that is sluggish because the user is running multiple, cpu-intensive operations is obviously a fault of ... oh wait. To whom do we assign the blame? The OS? The hardware? The user? The developers of the applications?  So many points of variance and all in the interest of the commodity that none of us can ever retain or regain: Time.</p>
+
+<p>The key question here then is not "will multiple cores help my development time or aid me in developing more hardware-aware applications" but rather "will a multi-core system help enable me or an end-user of my product save TIME?"  If the answer is ever "yes," then then the value of time becomes the dollar amount of the hardware + the additional time spent to make the software take advantage of the multiple cores.  I'm sure there is a beautiful mathematical equation that outlines this but alas, it is still before noon on a Monday morning.</p>
+
+<p>On the High Availability discussion, this argument doesn't translate quite as well to the multi-core environment as it did the multi-cpu architecture.  I'm not versed enough to speak to what happens if a cpu 'core' fails in a multi-core system but the educated guess would say that if a single core fails, an entire cpu replacement is not far off.</p>
+
+<p>If I sum up my own arguments into actionable points, it would look like this:<br>"Only get a multi-core system if you can somehow save someone time"<br>and<br>"High availability is not a good reason to invest in a multi-core system."</p>
+
+<p>Wow. Reading that you'd think I have no definite position.  Ironic. All of that philosophical ranting only to arrive at my true opinion.  I think multi-core cpu's are imperative for developers, as they provide overall system performance gains (regardless of development platform, your SYSTEM runs better....in theory any way). </p>
+
+<p>2 cores is still very much the sweet spot.</p>
+
+<p>4 cores is great if you perform those 3 tasks often that were mentioned above.</p>
+
+<p>Why don't we all just write better software? Let's optimize our routines and learn to make improvements to our software that are hardware independent first, then worry about how well our code runs on certain hardware. The Good Lord only knows how crappy most of my code is....regardless of the number of processor cores available.  Bad code is still bad code. Hehe.</p>
+
+<p>Great article. <img src="./slight_smile.png" title=":slight_smile:" class="emoji" alt=":slight_smile:"></p>
+
+      </div>
+    </article>
+    <article class="post" id="post-43241">
+      <a title="April 21, 2008 12:00am" class="post-date" target="_blank" href="https://discourse.codinghorror.com/t/should-all-developers-have-manycore-cpus/337/87">Apr '08</a>
+
+      <div class="author">
+        <a href="https://discourse.codinghorror.com/u/Jeremy" target="_blank"><img src="./45(70).png" alt=""></a>
+      </div>
+      <div class="cooked">
+        <h3 class="username">
+          <a href="https://discourse.codinghorror.com/u/Jeremy" target="_blank" class="new-user">Jeremy</a>
+        </h3>
+        <p>How many cores will an apple support?</p>
+
+      </div>
+    </article>
+    <article class="post" id="post-43242">
+      <a title="April 21, 2008 12:00am" class="post-date" target="_blank" href="https://discourse.codinghorror.com/t/should-all-developers-have-manycore-cpus/337/88">Apr '08</a>
+
+      <div class="author">
+        <a href="https://discourse.codinghorror.com/u/HowardC" target="_blank"><img src="./45(71).png" alt=""></a>
+      </div>
+      <div class="cooked">
+        <h3 class="username">
+          <a href="https://discourse.codinghorror.com/u/HowardC" target="_blank" class="new-user">HowardC</a>
+        </h3>
+        <p>"Most developers aren't writing desktop applications today. They're writing web applications." - Do you have any stats for this? What about the people working on embedded software for set-top boxes, mobile phones etc? What about games development? (my target platform is Xbox360)</p>
+
+<p>   Howard</p>
+
+      </div>
+    </article>
+    <article class="post" id="post-43243">
+      <a title="April 21, 2008 12:00am" class="post-date" target="_blank" href="https://discourse.codinghorror.com/t/should-all-developers-have-manycore-cpus/337/89">Apr '08</a>
+
+      <div class="author">
+        <a href="https://discourse.codinghorror.com/u/LKM" target="_blank"><img src="./45(72).png" alt=""></a>
+      </div>
+      <div class="cooked">
+        <h3 class="username">
+          <a href="https://discourse.codinghorror.com/u/LKM" target="_blank" class="new-user">LKM</a>
+        </h3>
+        <p>I'm torn on this issue. On the one hand, I think developers are one group of people who can profit tremendously from many-core processors due to (among other things) improvements in compilation speed. On the other hand, if you have a cutting-edge computer, your computer will be faster than that of 95% of your audience. Consequently, optimizing for your own computer (which is what most developers do by default) may result in unsatisfactory performance for many of the people who end up using your applications.</p>
+
+<p>I'd say: Get the fastest computer you can with the most cores you can, but make sure that your application is performance-tested on a computer that you can reasonable expect your audience to have.</p>
+
+      </div>
+    </article>
+    <article class="post" id="post-43244">
+      <a title="April 21, 2008 12:00am" class="post-date" target="_blank" href="https://discourse.codinghorror.com/t/should-all-developers-have-manycore-cpus/337/90">Apr '08</a>
+
+      <div class="author">
+        <a href="https://discourse.codinghorror.com/u/Ravi" target="_blank"><img src="./45(73).png" alt=""></a>
+      </div>
+      <div class="cooked">
+        <h3 class="username">
+          <a href="https://discourse.codinghorror.com/u/Ravi" target="_blank" class="new-user">Ravi</a>
+        </h3>
+        <p>Actually I fully agree that its very much required that developers do move towards having 4/8/16 ++ (or whatever is out there) and thereby actually writing code that uses them.</p>
+
+<p>I mean, come on, thats the future!!!!  Why not be a part of tommorrows technology...</p>
+
+<p>Although today, its difficult to see developers coding for more that 2 cores, but if we can move from 1 to 2, then so can we move from 2 - multiple. Its quite expected and required that tommorrows applications will be written for multiple cores (2+). It will be normal for people to shift to such architectures in the near future. So I guess this is a natural technology trend and whether you like it or not, this was going to happen no matter what!!!!</p>
+
+<p>So, IMHO we (developers especially..) should put all  our doubts aside and be a part of the revolution. So ,guys, lets start thinking quad-core( or probably octa-core, hexa-core :-))))) you name it!!!!</p>
+
+      </div>
+    </article>
+    <article class="post" id="post-43245">
+      <a title="April 21, 2008 12:00am" class="post-date" target="_blank" href="https://discourse.codinghorror.com/t/should-all-developers-have-manycore-cpus/337/91">Apr '08</a>
+
+      <div class="author">
+        <a href="https://discourse.codinghorror.com/u/Ravi" target="_blank"><img src="./45(73).png" alt=""></a>
+      </div>
+      <div class="cooked">
+        <h3 class="username">
+          <a href="https://discourse.codinghorror.com/u/Ravi" target="_blank" class="new-user">Ravi</a>
+        </h3>
+        <p>Actually I fully agree that its very much required that developers do move towards having 4/8/16 ++ (or whatever is out there) and thereby actually writing code that uses them.</p>
+
+<p>I mean, come on, thats the future!!!!  Why not be a part of tommorrows technology...</p>
+
+<p>Although today, its difficult to see developers coding for more that 2 cores, but if we can move from 1 to 2, then so can we move from 2 - multiple. Its quite expected and required that tommorrows applications will be written for multiple cores (2+). It will be normal for people to shift to such architectures in the near future. So I guess this is a natural technology trend and whether you like it or not, this was going to happen no matter what!!!!</p>
+
+<p>So, IMHO we (developers especially..) should put all  our doubts aside and be a part of the revolution. So ,guys, lets start thinking quad-core( or probably octa-core, hexa-core :-))))) you name it!!!!</p>
+
+      </div>
+    </article>
+    <article class="post" id="post-43246">
+      <a title="April 21, 2008 12:00am" class="post-date" target="_blank" href="https://discourse.codinghorror.com/t/should-all-developers-have-manycore-cpus/337/92">Apr '08</a>
+
+      <div class="author">
+        <a href="https://discourse.codinghorror.com/u/ChipO" target="_blank"><img src="./45(74).png" alt=""></a>
+      </div>
+      <div class="cooked">
+        <h3 class="username">
+          <a href="https://discourse.codinghorror.com/u/ChipO" target="_blank" class="new-user">ChipO</a>
+        </h3>
+        <p>Here's a horror story I wrote about the perils of ignoring multi-core architectures:</p>
+
+<p><a href="http://coverclock.blogspot.com/2008/04/future-has-way-of-happening.html" rel="nofollow" target="_blank"></a><a href="http://coverclock.blogspot.com/2008/04/future-has-way-of-happening.html" rel="nofollow" target="_blank">http://coverclock.blogspot.com/2008/04/future-has-way-of-happening.html</a></p>
+
+      </div>
+    </article>
+    <article class="post" id="post-43247">
+      <a title="April 21, 2008 12:00am" class="post-date" target="_blank" href="https://discourse.codinghorror.com/t/should-all-developers-have-manycore-cpus/337/93">Apr '08</a>
+
+      <div class="author">
+        <a href="https://discourse.codinghorror.com/u/David" target="_blank"><img src="./45(75).png" alt=""></a>
+      </div>
+      <div class="cooked">
+        <h3 class="username">
+          <a href="https://discourse.codinghorror.com/u/David" target="_blank" class="new-user">David</a>
+        </h3>
+        <p>I think the programmers behind Microsoft Update all have dual  quad cores. That's the only way to explain how they could dump something that runs at 100% cpu for 5 minutes a day on millions of users.</p>
+
+      </div>
+    </article>
+    <article class="post" id="post-43248">
+      <a title="April 21, 2008 12:00am" class="post-date" target="_blank" href="https://discourse.codinghorror.com/t/should-all-developers-have-manycore-cpus/337/94">Apr '08</a>
+
+      <div class="author">
+        <a href="https://discourse.codinghorror.com/u/David" target="_blank"><img src="./45(75).png" alt=""></a>
+      </div>
+      <div class="cooked">
+        <h3 class="username">
+          <a href="https://discourse.codinghorror.com/u/David" target="_blank" class="new-user">David</a>
+        </h3>
+        <p>Add the entire Vista development team to that too. None of them have seen anything they've written in the last 4 years run on a single processor.</p>
+
+      </div>
+    </article>
+    <article class="post" id="post-43249">
+      <a title="April 21, 2008 12:00am" class="post-date" target="_blank" href="https://discourse.codinghorror.com/t/should-all-developers-have-manycore-cpus/337/95">Apr '08</a>
+
+      <div class="author">
+        <a href="https://discourse.codinghorror.com/u/Izzy" target="_blank"><img src="./45(76).png" alt=""></a>
+      </div>
+      <div class="cooked">
+        <h3 class="username">
+          <a href="https://discourse.codinghorror.com/u/Izzy" target="_blank" class="new-user">Izzy</a>
+        </h3>
+        <p>I have a slighly different comment. First, I totally agree that developers, and lots of other people deserve the fastest and most modern hardware available. (I don't have one right now and my needs don't demand it.) </p>
+
+<p>People who draw a salary for sitting in front of a keyboard should never have to wait for a slow machine to respond. A few hundred bucks, even a few thousand, is insignificant compared to their salary, benfeits, and other intangibles like the cost of office space. There may only be a few seconds here and a few minutes there, but it's all wasted salary.</p>
+
+<p>Yet, I've seen it time and again going way back to the days of punch cards: highly paid people waiting for obsolete hardware to finish their work. </p>
+
+<p>p.s: another comment. It's time for me to toss off my anonymous disguise and reveal my true identity.  </p>
+
+<p>Bill Hirst, Fort Lauderdale, Florida. I'm 61 years old and I've had a few strange jobs over the years. I'll change my login ID.</p>
+
+<p>Whee! I just outed myself.</p>
+
+      </div>
+    </article>
+    <article class="post" id="post-43250">
+      <a title="April 21, 2008 12:00am" class="post-date" target="_blank" href="https://discourse.codinghorror.com/t/should-all-developers-have-manycore-cpus/337/96">Apr '08</a>
+
+      <div class="author">
+        <a href="https://discourse.codinghorror.com/u/Hung_Tran" target="_blank"><img src="./45(77).png" alt=""></a>
+      </div>
+      <div class="cooked">
+        <h3 class="username">
+          <a href="https://discourse.codinghorror.com/u/Hung_Tran" target="_blank" class="new-user">Hung_<wbr>​<wbr>​Tran</a>
+        </h3>
+        <p>I agree with your statement Jeff - though I'd have to say if price were comparable it's a better choice to go with what's current and upcoming.<br>As a developer who rarely deal with concurrency on a regular basis - there's really no benefit to me for going multi-core unless the OS, frameworks, and middleware i use take advantage of them.<br>My reason for going multicore had more been the thinking is that while i develop - the dev tools aren't the only thing running on my computer. I listen to music on a headset as i'm sure many other developers do too.</p>
+
+<p>My point is most of us developers don't just run development tools on our computers alone - there are many other things going on on the computer while we develop - music, browsers, news feeds etc. I think you'd find it rare that a developer runs sole dev tool. All developers i've ever known run all sorts of apps on their desktop.</p>
+
+<p>I'm currently running an 1-core AMD 4000 on my main desktop and looking forward to going to 4core in the summer when i have sometime to rebuild. Since i'm on a 939 socket i would have loved it more to have been able to grab a 2core opteron 285. But prices on those never dropped till vendors removed them off the market with the final privce at 285 - well i can get a decen 4cor efor that at the same clock rate and less power consumption - it just makes better sense to go with whats current if price is a small difference. It appears that quad cor e prices are dropping all the time.</p>
+
+      </div>
+    </article>
+    <article class="post" id="post-43251">
+      <a title="April 21, 2008 12:00am" class="post-date" target="_blank" href="https://discourse.codinghorror.com/t/should-all-developers-have-manycore-cpus/337/97">Apr '08</a>
+
+      <div class="author">
+        <a href="https://discourse.codinghorror.com/u/David" target="_blank"><img src="./45(75).png" alt=""></a>
+      </div>
+      <div class="cooked">
+        <h3 class="username">
+          <a href="https://discourse.codinghorror.com/u/David" target="_blank" class="new-user">David</a>
+        </h3>
+        <p>If you don't have developers waiting for things to finish, you have end users waiting for things to finish. So divide the per hour cost by three, then multiply by 1000 users.</p>
+
+<p>An open source example is SharpDevelop. On a typical 2.4ghz celeron, their code editor control scrolls at about 2-3fps, almost unusable. But this bug is marked as "wontfix worksforme", because the developer has one of the fastest desktops money can buy, so it scrolls at like 10-15fps, barely noticeable. I'm pretty sure I've seen text scroll smoother when I had a 386, but people don't write software like that anymore. If he didn't have such a fast system, the rest of us wouldn't need such fast systems. And so on down to end users who can't be expected to upgrade.</p>
+
+      </div>
+    </article>
+    <article class="post" id="post-43252">
+      <a title="April 21, 2008 12:00am" class="post-date" target="_blank" href="https://discourse.codinghorror.com/t/should-all-developers-have-manycore-cpus/337/98">Apr '08</a>
+
+      <div class="author">
+        <a href="https://discourse.codinghorror.com/u/Bob" target="_blank"><img src="./45(78).png" alt=""></a>
+      </div>
+      <div class="cooked">
+        <h3 class="username">
+          <a href="https://discourse.codinghorror.com/u/Bob" target="_blank" class="new-user">Bob</a>
+        </h3>
+        <p>I simply cannot believe that I'm the only person out there who uses my PC like this:</p>
+
+<ol>
+<li>Rendering a 2 hour family DVD while</li>
+<li>Ripping CD's onto my MP3 player while</li>
+<li>Glancing over peridically at the ballgame on my second monitor while</li>
+<li>Compiling code while</li>
+<li>Checking my e-mail.</li>
+</ol>
+
+<p>With the exception of the DVD encoder, none of these applications are inherently multi-threaded.  Yet thank God for SMP.  Every single CPU that I add to the system gets used and has a real and measurable impact on how easy it is to do things simultaneously that do not consume my attention, but most cetainly consume my PC.</p>
+
+      </div>
+    </article>
+    <article class="post" id="post-43253">
+      <a title="April 21, 2008 12:00am" class="post-date" target="_blank" href="https://discourse.codinghorror.com/t/should-all-developers-have-manycore-cpus/337/99">Apr '08</a>
+
+      <div class="author">
+        <a href="https://discourse.codinghorror.com/u/AlexC" target="_blank"><img src="./45(79).png" alt=""></a>
+      </div>
+      <div class="cooked">
+        <h3 class="username">
+          <a href="https://discourse.codinghorror.com/u/AlexC" target="_blank" class="new-user">AlexC</a>
+        </h3>
+        <p>Like Michael said, the real question is "Should Everyone Have Manycore CPUs?"</p>
+
+<p>Multithreading and multiple CPUS/multiple cores should be significant at the OS level, not just at the app level.  Saying "But people who don't use multithreaded apps don't get any benefit!" is missing the forest.  The elephant in the room, if I may mix metaphors, is the gain in responsiveness when a GUI is properly parallel (background window updates, windows that update while you scroll or drag them, no click-and-wait on menu bars, no waiting for dialogs to draw completely before you can type in a field, etc.).  This is harder to quantify and impossible to benchmark, but definitely there, and not just relevant but critical to everyone, not just developers or power users.</p>
+
+<p>Once again, BeOS set a standard for this that has not been equaled or approached since.</p>
+
+      </div>
+    </article>
+    <article class="post" id="post-43254">
+      <a title="April 21, 2008 12:00am" class="post-date" target="_blank" href="https://discourse.codinghorror.com/t/should-all-developers-have-manycore-cpus/337/100">Apr '08</a>
+
+      <div class="author">
+        <a href="https://discourse.codinghorror.com/u/Fred" target="_blank"><img src="./45(80).png" alt=""></a>
+      </div>
+      <div class="cooked">
+        <h3 class="username">
+          <a href="https://discourse.codinghorror.com/u/Fred" target="_blank" class="new-user">Fred</a>
+        </h3>
+        <p>Programming .NET is my daily job, My computer is more than two years old , it has AMD 3000+ single core CPU, two RAID 0 500G hard disk, one 160G hard disk, 2.5g ddr 400 memory, two monitors. I can open two vs.net 2008 IDE instance, two virtual machine, I feel the computer still handle it very well. I believe I am an agile developer, and also an agile user, if  you computer is too slow handle your task, look for better one. If it is fast enough, why bother to upgrade it simply you can afford and simply because there are super fast CPU out there. I think Agile approach is all about attitude and behavior. Besides that, delaying upgrade your system means more than just saving your money, it means saving our environment, saving electricity, produce less pollution. "Mean" to yourself is a virtue.</p>
+
+      </div>
+    </article>
+    <article class="post" id="post-43255">
+      <a title="April 22, 2008 12:00am" class="post-date" target="_blank" href="https://discourse.codinghorror.com/t/should-all-developers-have-manycore-cpus/337/101">Apr '08</a>
+
+      <div class="author">
+        <a href="https://discourse.codinghorror.com/u/Rob_Janssen" target="_blank"><img src="./45(58).png" alt=""></a>
+      </div>
+      <div class="cooked">
+        <h3 class="username">
+          <a href="https://discourse.codinghorror.com/u/Rob_Janssen" target="_blank" class="new-user">Rob_<wbr>​<wbr>​Janssen</a>
+        </h3>
+        <p>@ Aaron G: rather web applications than the nth monstrosity in VB or Access (or Pascal, or..) which will or will not run after a certain set of office applications have been installed, and which plays hell with concurrency.</p>
+
+<p>Yes, there's enough room for several horrors in PHP, but no horrible crashes.</p>
+
+      </div>
+    </article>
+
+    <footer class="clearfix">
+      <a target="_blank" href="https://discourse.codinghorror.com/"><img class="logo" src="./d-logo-sketch.png" alt="D logo sketch"></a>
+      <a class="button" target="_blank" href="https://discourse.codinghorror.com/t/should-all-developers-have-manycore-cpus/337/101">Continue Discussion</a>
+        <span class="replies">33 more replies</span>
+    </footer>
+    <div class="clearfix"></div>
+
+
+  
+
+</body></html>

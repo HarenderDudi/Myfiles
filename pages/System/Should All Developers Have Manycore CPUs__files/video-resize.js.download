@@ -1,0 +1,4 @@
+document.addEventListener('DOMContentLoaded',function(){resizeVideos();$(window).resize(function(){resizeVideos();})},false);function resizeVideos(){if(window.jQuery){resizeVideosInner();}else{window.setTimeout(resizeVideos,250);}}
+function resizeVideosInner(){var $fluidEl=$(".post-content");var $allVideos=$("iframe[src*='//www.youtube.com/embed/']");var newWidth=$fluidEl.width();$allVideos.each(function(){var $el=$(this);if($el.height!="")
+{$el.data('aspectRatio',this.height/this.width).removeAttr('height').removeAttr('width');}
+$el.width(newWidth).height(newWidth*$el.data('aspectRatio'));});}

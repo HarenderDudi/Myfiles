@@ -1,0 +1,26 @@
+{% set user_name = grains['user_name'] %}
+
+install orientdb:
+  file.recurse:
+    - name: /opt/cs/{{user_name}}/elasticsearch
+    - source: salt://files/elasticsearch
+    - include_empty: True
+    - makedirs: True
+    - template: jinja
+    - user: {{user_name}}
+    - group: {{user_name}}
+    - dir_mode: 744
+    - recurse:
+      - user
+      - group
+      - mode
+
+
+install orientdb:
+  archive.extracted:
+    - name: /opt/cs/{{user_name}}/
+    - source: salt://files/contentsphere-plugin-1.0.0.zip
+    - archive_format: zip
+    - require:
+      - file: delete elastic plugin
+

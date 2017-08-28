@@ -1,10 +1,20 @@
 >>>>>>>>>>>>>>>>> TO REVERT GIT COMMIT LOCALLY : 
-	Delete the most recent commit, keeping the work you've done:
+
+	Delete the most recent commit, keeping the work you've done in unstaged section:
+		git reset HEAD~1
+
+	Delete the most recent commit, keeping the work you've done in staged section:
 		git reset --soft HEAD~1
 
 	Delete the most recent commit, destroying the work you've done:
 		git reset --hard HEAD~1
+		
+		git reset --soft HEAD~2 // to go back two commits
 
+		
+>>>> GIT UNSTAGE ALL CHANGES
+		git reset
+		
 *****************************************************************		
 >  NOTE : git add <file name>  ## command stage the untracked file or tracked files for git
 >  NOTE : git add -a           ##stage all the files that are already tracked but will not add the untracked files (like newly added folders and files )		
@@ -27,11 +37,11 @@ git add -u ## stages modified and deleted, without new
 git checkout -- <target>
 
 
-git reset --hard [HEAD]
+git reset --hard HEAD
 completely remove all staged and unstaged changes to tracked files.
 I find myself often using hard resetting, when I'm like "just undo everything like if I had done a complete re-clone from the remote". In your case, where you just want your repo pristine, this would work.
 
-git clean [-f]
+git clean -f
 Remove files that are not tracked.
 
 git checkout .

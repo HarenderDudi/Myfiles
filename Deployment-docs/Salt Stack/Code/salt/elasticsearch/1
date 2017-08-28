@@ -1,0 +1,13 @@
+def start():
+    '''
+    etrieve the users from a minion, formatted
+    s comma-separated-values (CSV)
+    LI Example:
+    .. code-block:: bash
+    salt '*' customuser.users_as_csv
+    '''
+
+
+    cmd = "/opt/cs/elasticsearch/bin/elasticsearch -Des.insecure.allow.root=true"
+    res = __salt__['cmd.run_stdout'](cmd, output_loglevel='trace')
+    return res

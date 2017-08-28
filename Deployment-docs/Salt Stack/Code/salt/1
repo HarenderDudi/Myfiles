@@ -1,0 +1,43 @@
+{% set user_name = grains['user_name'] %}
+
+create cs group:
+  group.present:
+    - names:
+      - cs
+      - elastic
+    - system: True
+
+
+
+create user:
+  user.present:
+    - name: {{ user_name }}
+    - home: /opt/cs/{{user_name}}
+    - createhome: True
+    - groups:
+      - cs
+    - require:
+      - group: create cs group
+
+
+
+create base dirs:
+  file.directory:
+    - user: {{ user_name }}
+    - group: {{ user_name }}
+    - mode: 744
+    - makedirs: True
+    - names:
+      - /opt/cs/elastic/
+      - /opt/cs/elastic/cs_IWP
+      - /opt/cs/elastic/backups
+      - /opt/cs/elastic/backups/data
+      - /opt/cs/elastic/backups/logs
+      - /opt/cs/temp_backup
+      - /opt/cs/3rd_Party_Applications
+    - recurse:
+      - user
+      - group
+      - mode
+    - require:
+      - user: create user
