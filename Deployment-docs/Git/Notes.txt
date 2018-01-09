@@ -30,5 +30,10 @@ Reason For Confict While Pulling
     
     
 NOTE: local Git maintain not only local repo but also local copy of remote repository. on "git fetch" it update the local remote repository and can do "git diff" for conflicts.  
+
+
+Git pull vs git pull --rebase
+https://stackoverflow.com/questions/16666089/whats-the-difference-between-git-merge-and-git-rebase/16666418#16666418
+https://stackoverflow.com/questions/18930527/difference-between-git-pull-and-git-pull-rebase
     
 

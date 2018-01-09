@@ -1,0 +1,174 @@
+=====================================================
+select dbms_lob.getlength(column_name) from table
+=====================================================
+
+select bytes from dba_segments where segment_name ='SYS_LOB0000087424C00002$$' and owner ='psp';
+
+select count(*) from dba_lobs where SEGMENT_NAME='SYS_LOB0000087424C00002$$';
+
+select sum(dbms_lob.getlength (MODEL_OBJECT)) from psp.TRANSACTION_LOG;
+
+select s.segment_name, s.partition_name, bytes/1048576 "Size (MB)"
+from dba_segments s, dba_lobs l
+where s.segment_name = l.segment_name
+and s.segment_name not like 'SYS%'
+and s.owner = 'PSP'
+order by s.segment_name, s.partition_name;
+
+
+ 
+alter tablespace
+   USERS
+add datafile
+   '/ora01/app/oracle/oradata/orcl/USERS04.dbf'
+size 30G;
+COMMIT;
+
+=====================================================
+select d.tablespace_name "USERS",
+   (select round(sum(s.bytes/(1024*1024)),2)
+      from dba_segments s
+      where (s.tablespace_name = d.tablespace_name)
+      group by s.tablespace_name) "Used",
+round(d.bytes/(1024*1024)) "FSize",
+round((select sum(s.bytes/(1024*1024))
+  from dba_segments s
+  where s.tablespace_name = d.tablespace_name
+  group by s.tablespace_name)*100/(d.bytes/(1024*1024)),2) "% Used",
+round(maxbytes/(1024*1024)) "MAX FSize",
+round((select sum(s.bytes/(1024*1024))
+  from dba_segments s
+  where (s.tablespace_name = d.tablespace_name) AND (d.AUTOEXTENSIBLE = 'YES')
+  group by s.tablespace_name)*100/(maxbytes/(1024*1024)),2) "% Used of MAX"  from dba_data_files d;
+ ===================================================== 
+  
+  
+  
+  
+=====================================================  
+select y.tablespace_name "USERS", y.file_name || ' (' ||
+
+max(y.bytes) / 1024 / 1024 / 1024 || 'G)' "File Name (Size)",
+
+max(y.bytes) / 1024 - nvl(max(x.bytes),0) / 1024 "Used",
+
+nvl(max(x.bytes),0) / 1024 "Free",
+
+nvl(max(x.bytes),0) / max(y.bytes) * 100 " Free%"
+
+from sys.dba_data_files y, sys.dba_free_space x
+
+where y.tablespace_name = x.tablespace_name(+)
+
+and y.file_id = x.file_id(+)
+
+group by y.tablespace_name, y.file_name;
+
+
+=====================================================
+SELECT COUNT(*) FROM TRANSACTION_LOG;
+
+=====================================================
+select count(*) from TRANSACTION_LOG;
+
+CREATE TABLE DUMP_TEST
+AS SELECT * FROM TRANS_LOG_BACK_100_V2_POC;
+
+
+TRUNCATE TABLE TRANS_LOG_BACK_100_V2_POC;
+DROP TABLE TRANS_LOG_BACK_100_V2_POC;
+
+INTO TRANSACTION_LOG
+SELECT *  FROM (
+ SELECT *
+ FROM TRANS_LOG_BACK_100_V2_POC
+ ORDER BY TIMESTAMP ASC
+)
+WHERE ROWNUM <= 92;
+ 
+ COMMIT;
+ 
+ 
+INSERT INTO DUMP_TEST
+SELECT *  FROM (
+ SELECT *
+ FROM TRANS_LOG_BACK_100_V2_POC
+ ORDER BY TIMESTAMP ASC
+)
+
+COMMIT;
+=====================================================
+ 
+ 
+
+=====================================================
+SELECT * (
+SELECT TRANSACTION_ID, TIMESTAMP, IS_CONFIG
+FROM TRANSACTION_LOG_BACK_UP_20K
+ORDER BY TIMESTAMP
+)
+LIMIT 94;
+
+
+
+ DELETE FROM TRANSACTION_LOG
+ WHERE TRANSACTION_ID IN ( SELECT TRANSACTION_ID
+                          FROM ( SELECT TRANSACTION_ID
+                                 FROM TRANSACTION_LOG
+                                 ORDER BY TIMESTAMP DESC
+                          )
+                          WHERE ROWNUM <= 35000)
+;
+COMMIT;
+=====================================================
+
+
+=====================================================
+TRUNCATE TABLE TRANSACTION_LOG;
+
+INSERT INTO TRANSACTION_LOG
+SELECT *  FROM (
+ SELECT *
+ FROM TRANS_LOG_BACK_100_V2_POC
+ ORDER BY TIMESTAMP ASC
+)
+WHERE ROWNUM <= 92;
+ 
+ COMMIT;
+===================================================== 
+ 
+ 
+ 
+ 
+===================================================== 
+alter tablespace
+   USERS
+add datafile
+   '/ora01/app/oracle/oradata/orcl/USERS.dbf'
+size 10G;
+COMMIT;
+
+
+select bytes from dba_segments where segment_name ='SYS_LOB0000087424C00002$$' and owner ='psp';
+
+select count(*) from dba_lobs where SEGMENT_NAME='SYS_LOB0000087424C00002$$';
+=====================================================
+
+
+=====================================================
+CREATE TABLE trans_log_new_format as
+SELECT TRANSACTION_ID ,
+  MODEL_OBJECT ,
+  MODEL_CLASS_NAME ,
+  STATUS STATUS,
+  STRATEGY,
+  IS_CONFIG,
+  TIMESTAMP PERSISTENCE_TIME,
+  CASE WHEN STRATEGY = 'createArticleInstanceStrategy' THEN 'CREATE' ELSE 'SAVE' END PERSISTENCE_TYPE,
+  TIMESTAMP LOG_TIME
+FROM trans_log_back_100_v2_poc
+/
+
+ALTER TABLE trans_log_new_format
+ADD CONST
+====================================================

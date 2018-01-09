@@ -1,0 +1,63 @@
+Disable merge throttling(--)
+Increase the size of the indexing buffer(not require)
+Index first, replicate later(--)
+Refresh less frequently(--)
+Tweak your translog settings(--)
+
+
+refresh_interval=-1
+number_of_replicas=0
+translog.flush_threshold_size=2gb
+translog.durability=async
+indices.store.throttle.type=none
+
+
+def_refresh_interval=1s
+def_number_of_replicas=1
+def_translog.flush_threshold_size=512mb
+def_translog.durability=request
+def_indices.store.throttle.type=merge
+
+
+https://www.elastic.co/guide/en/elasticsearch/guide/current/indexing-performance.html
+https://www.elastic.co/guide/en/elasticsearch/reference/current/tune-for-indexing-speed.html
+https://www.datadoghq.com/blog/elasticsearch-performance-scaling-problems/
+
+
+PUT http://192.168.135.253:1200/cs/_settings
+{
+    "index" : {
+        "refresh_interval" : -1,
+        "number_of_replicas" : 0,
+        "translog.durability" : "async",
+		"translog.flush_threshold_size" : "2gb"
+    }
+  
+}
+
+
+PUT http://192.168.135.253:1200/_cluster/settings
+{
+    "persistent" : {        
+        "indices.store.throttle.type" : "none"
+    },
+    "transient": {}
+  
+}
+
+
+
+***************************************************************************************
+{
+    "cs": {  "settings": {
+            "index": {"creation_date": "1506359849689","analysis": {"analyzer": {"searchable": {
+                            "filter": ["lowercase"],
+                            "tokenizer": "whitespace"
+                        },
+                        "sortable": {"filter": ["lowercase"],"tokenizer": "keyword}},
+                "number_of_shards": "5",
+                "number_of_replicas": "1",
+                "uuid": "Ka3wOFIlSu6zjCpU3lAsWg",
+                "version": {
+                    "created": "2010199"
+                }  }  } }}

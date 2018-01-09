@@ -1,0 +1,18 @@
+counter=1
+fileCounter=1
+
+output_file="output_batch_${fileCounter}.csv"
+file="/opt/output.csv"
+
+while IFS= read line
+do
+ if [[ $(( $counter % 5000 )) == 0 ]]
+  then
+   echo "$line" >> $output_file
+   fileCounter=`expr $fileCounter + 1`
+   output_file="output_batch_${fileCounter}.csv"
+  else
+   echo "$line" >> $output_file
+ fi
+ counter=`expr $counter + 1`
+done <"$file"

@@ -1,0 +1,3 @@
+http://www.flax.co.uk/blog/2015/09/28/faster-bulk-indexing-in-elasticsearch/
+http://blog.trifork.com/2011/05/03/lucene-indexing-gains-concurrency/
+http://blog.jteam.nl/2011/04/01/gimme-all-resources-you-have-i-can-use-them/

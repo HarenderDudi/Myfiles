@@ -1,0 +1,31 @@
+More Partitions Lead to Higher Throughput : 
+						- More Partitions Requires More Open File Handles (increase number of open files in OS)
+						- More Partitions May Increase Unavailability
+						- More Partitions May Increase End-to-end Latency
+						- More Partitions May Require More Memory In the Client
+						
+						
+						
+						
+Throughput:
+	Producer:
+		• batch.size: increase to 100000 - 200000 (default 16384)
+		• linger.ms: increase to 10 - 100 (default 0)
+		• compression.type=lz4 (default none)
+		• acks=1 (default 1)
+		• retries=0 (default 0)
+		• buffer.memory: increase if there are a lot of partitions (default 33554432)
+	Consumer:
+		• fetch.min.bytes: increase to ~100000 (default 1)		
+
+
+
+Summary of configurations for optimizing latency
+	Producer:
+		• linger.ms=0 (default 0)
+		• compression.type=none (default none)
+		• acks=1 (default 1)
+	Broker:
+		• num.replica.fetchers: increase if followers can’t keep up with the leader (default 1)
+	Consumer:
+		• fetch.min.bytes=1 (default 1)		

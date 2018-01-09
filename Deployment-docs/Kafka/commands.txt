@@ -1,0 +1,22 @@
+./kafka-topics.sh --zookeeper 192.168.135.169 --list
+./kafka-topics.sh --zookeeper 192.168.135.169:2181 --list
+./kafka-topics.sh --zookeeper 192.168.135.69:2181 --list
+./kafka-topics.sh --zookeeper 192.168.135.69:2181 --delete --topic createtopic
+./kafka-topics.sh --zookeeper 192.168.135.69:2181 --delete --topic noncreatetopic
+./kafka-topics.sh --zookeeper 192.168.135.69:2181 --list
+./kafka-topics.sh --zookeeper 192.168.135.69:2181 --describe --topic createtopic
+./kafka-topics.sh --zookeeper 192.168.135.69:2181 --delete --topic createtopic
+./kafka-topics.sh --zookeeper 192.168.135.69:2181 --create --topic createtopic1 --replication-factor 2 --partitions 33
+./kafka-topics.sh --zookeeper 192.168.135.69:2181 --create --topic noncreatetopic1 --replication-factor 2 --partitions 33
+./kafka-topics.sh --zookeeper 92.168.134.195:2181 --list
+./kafka-topics.sh --zookeeper 92.168.134.195:2181 --alter --addpartitions 2 --topic createtopic
+./kafka-topics.sh --zookeeper 92.168.134.195:2181
+./kafka-topics.sh --zookeeper 92.168.134.195:2181 --alter --partitions 42 --topic createtopic
+./kafka-topics.sh --zookeeper 92.168.134.195:2181 --alter --partitions 42 --topic noncreatetopic
+./kafka-topics.sh --zookeeper 92.168.134.195:2181 --describe --topic noncreatetopic
+./kafka-topics.sh --zookeeper 92.168.134.195:2181 --describe --topic createtopic
+  
+  
+kafka-consumer-groups.bat --bootstrap-server 192.168.134.195:9092 --list
+kafka-consumer-groups.bat --bootstrap-server 192.168.134.195:9092 --describe --group cs128  
+ 
