@@ -1,0 +1,2 @@
+Nested Vs Object Type Mapping:
+	https://www.elastic.co/blog/managing-relations-inside-elasticsearch
