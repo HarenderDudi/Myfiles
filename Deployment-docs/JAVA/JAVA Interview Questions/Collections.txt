@@ -1,0 +1,12 @@
+ArrayList -> maintains insertion order, non synchronized, random access, manipulation is slow
+LinkedList -> maintains insertion order, non synchronized, manipulation is fast, not index based, act as a list and queue
+
+HashSet  -> unique elements only
+LinkedHashSet  -> unique elements only, Maintains insertion order
+
+HashMap -> unique elements, may have one null key and multiple null values, maintains no order
+LinkedHashMap -> --""--, maintains insertion order
+Hashtable  -> doesn't allow any null key or value, synchronized, maintains no order
+
+Comparable -> single sorting sequence, provide compareTo() method, Collections.sort(List) method
+Comparator  -> multiple sorting sequence, provides compare() method, Collections.sort(List,Comparator) method

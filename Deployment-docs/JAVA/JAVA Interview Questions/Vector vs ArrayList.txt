@@ -1,0 +1,43 @@
+===============================================================================================================================================
+http://www.java67.com/2012/10/java-interview-questions-for-2-to-3-4-years-experienced.html
+===============================================================================================================================================
+
+Vector is synchronised and so slow compare to arraylist http://www.java67.com/2012/09/arraylist-vs-vector-in-java-interview.html
+
+LinkedList is more fast as compare to arraylist because LL not index based hence doesnt allow index based insertion or deletion.
+LinkedList has more memory overhead because it store the address of next object
+
+
+************************
+fail-safe vs fail-fast Iterator in Java
+
+https://javarevisited.blogspot.com/2012/02/fail-safe-vs-fail-fast-iterator-in-java.html
+https://javarevisited.blogspot.com/2011/04/difference-between-concurrenthashmap.html
+
+fail-safe iterator doesn't throw any Exception if Collection is modified structurally
+while one thread is Iterating over it because they work on clone of Collection instead of original collection and that’s why they are called as fail-safe iterator. Iterator of CopyOnWriteArrayList is an example of fail-safe Iterator also iterator written by ConcurrentHashMap keySet is also fail-safe iterator and never throw ConcurrentModificationException in Java.
+
+
+ConcurrentHashMap -> locked certain portion of Map
+Hashtable         -> locks full map while doing iteration
+synchronized Map  -> HashMap which is non-synchronized by nature can be synchronized by applying a wrapper using synchronized Map
+
+
+**********************
+
+Throwable - Exception (checked) -> RuntimeException(Unchecked, NullPointer, ArrayOutOfBound, illegalArgument), IOException(checked), otherException(checked)
+            Error(checked) -> noClassDefFoundError(unchecked), outOfMemoryError(unchecked)
+			
+*******************************************************************************************************
+
+===============================================================================================================================================
+http://www.java67.com/2012/08/5-thread-interview-questions-answers-in.html
+===============================================================================================================================================
+
+start() method a new Thread is created.
+run() method directly no new Thread is created and code inside run() will execute on current Thread
+
+wait will release the lock
+sleep will pause some time and keep the lock
+
+notify()- producer consumer problem...if consumer is waiting when queue is empty and producer will notify when it produce msg

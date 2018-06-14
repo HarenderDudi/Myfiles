@@ -1,0 +1,29 @@
+{
+  "query": {
+    "bool": {
+      "must": [
+        {
+          "match": {
+            "id": "a3f198fe-96d4-447f-98b5-a3f26f075704"
+          }
+        },
+        {
+          "nested": {
+            "path": "attributes",
+            "query": {
+              "bool": {
+                "must": [
+                  {
+                    "match": {
+                      "attributes.attributeId": "e2487232-687b-4549-8cb2-7eaef55f67d0"
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}
