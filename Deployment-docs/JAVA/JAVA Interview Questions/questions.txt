@@ -5,4 +5,69 @@
 		p.age = 12;
 		
 3. remove final form immutable class
-4. private constructor in super class		
+4. private constructor in super class	
+
+memory model
+jre, jdk, jvm
+oops with example(done)
+design pattern***, solid
+data structures(sorting, searching, graph) ****
+spring mvc (done)
+hibernate spring configuration
+java 8
+semaphore and reentrant lock, mutex (done)
+thread, runnable, callable (done)
+how to pass binary via rest (controller example)
+consumer restful webservice, produce restful webservice
+CountDownLatch, CyclicBarrier (done)
+break singleton (done)
+
+
+
+enums 
+generics
+standardinterface
+
+Finaureus Technologies:
+why json not xml
+diff b/w json and xml
+shadowing
+abstract collection classes like abstract list etc
+jenkins: how to build microservices with different build scripts
+sql: inner join
+jdk vs jre vs jvm
+hibernate vs jdbc
+** interface 1 (method -a), interface 2 (method -a), abstract class and concreate class code
+legacy class using hashtable
+how to make methods of table synchronized
+
+siemens:
+abstract vs interface: 
+what is microservices	
+nested synchronization
+difference b/w factory and nested
+observer pattern
+builder pattern
+diff b/w kafka and active mq
+google protocol buffer
+immutable class (spring) (deep cloning  in constructor)
+executor service vs thread pool service
+
+39) What is the difference between JRE, JDK, JVM and JIT? (answer)
+JRE stands for Java run-time and it's required to run Java application. JDK stands for Java development kit and provides tools to develop Java program 
+e.g. Java compiler. It also contains JRE. The JVM stands for Java virtual machine and it's the process responsible for running Java application. 
+The JIT stands for Just In Time compilation and helps to boost the performance of Java application by converting Java byte code into native code when the crossed certain threshold 
+i.e. mainly hot code is converted into native code.
+
+43) What is the difference between stack and heap in Java? (answer)
+Stack and heap are different memory areas in the JVM and they are used for different purposes. The stack is used to hold method frames and local variables 
+while objects are always allocated memory from the heap. The stack is usually much smaller than heap memory and also didn't shared between multiple threads, 
+but heap is shared among all threads in JVM.
+
+44) The difference between Serializable and Externalizable in Java
+
+
+45)  For floating point literals, we have constant value to represent (10/0.0) infinity either positive or negative and also have NaN (not a number for undefined like 0/0.0), 
+but for the integral type, we don’t have any constant that’s why we get an arithmetic exception.
+
+	

@@ -1,0 +1,18 @@
+https://javabeat.net/spring-singleton-java-singleton/
+https://dzone.com/articles/java-singletons-using-enum
+https://dzone.com/articles/an-interview-question-on-spring-singletons
+
+Java Singleton
+**class should be instantiated only once per classloader
+
+-When you say singleton class, there should be only one instance of that class can be created.
+-Constructor of that class has to be made as private to avoid instantiation from external classes.
+-Declare a static variable to store the instance for that class.
+-Declare a method that returns the instance of that class.
+
+With the above basic rules, one can classify Java Singleton implementation into the following categories:
+
+Eager Initialization
+Static Block Initialization
+Lazy Initialization
+Thread Safe Singleton (safest)

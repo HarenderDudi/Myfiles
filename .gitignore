@@ -20,3 +20,6 @@ gradlew
 /extLibs
 *.hprof
 gradle.properties
+pages/
+**/.metadata
+**/*.class

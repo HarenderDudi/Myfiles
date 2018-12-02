@@ -1,0 +1,45 @@
+
+1) Can we make array volatile in Java?
+This is one of the tricky Java multi-threading questions you will see in senior Java developer Interview.
+Yes, you can make an array volatile in Java but only the reference which is pointing to an array, not the whole array. 
+What I mean, if one thread changes the reference variable to points to another array, that will provide a volatile guarantee, 
+but if multiple threads are changing individual array elements they won't be having happens before guarantee provided by the volatile modifier.
+
+https://javarevisited.blogspot.com/2017/01/can-we-make-array-volatile-in-java.html
+
+2. How Synchronization works in Java?
+
+While a thread is inside a synchronized method of an object, all other threads that wish to execute this synchronized method or any other synchronized method 
+of the object will have to wait. This restriction does not apply to the thread that already has the lock and is executing a synchronized method of the object. 
+Such a method can invoke other synchronized methods of the object without being blocked. 
+The non-synchronized methods of the object can of course be called at any time by any thread
+
+3) What are practical uses of volatile modifier? 
+One of the practical use of the volatile variable is to make reading double and long atomic. Both double and long are 64-bit wide and they are read in two parts, 
+first 32-bit first time and next 32-bit second time, which is non-atomic but volatile double and long read is atomic in Java. 
+
+4) How do you call wait() method? using if block or loop? Why?
+The primary reason why while loops are so important is race conditions between threads. Certainly spurious wakeups are real and for certain architectures they are common, 
+but race conditions are a much more likely reason for the while loop.
+
+For example:
+
+synchronized (queue) {
+    // this needs to be while
+    while (queue.isEmpty()) {
+       queue.wait();
+    }
+    queue.remove();
+}
+With the above code, there may be 2 consumer threads. When the producer locks the queue to add to it, 
+consumer #1 may be blocked at the synchronized lock while consumer #2 is waiting on the queue. 
+When the item is added to the queue and notify called, #2 is moved from the wait queue to be blocked on the queue lock, 
+but it will be behind the #1 consumer which was already blocked on the lock. This means that the #1 consumer gets to go forward first to call remove from the queue. 
+If the while loop is just an if, then when consumer #2 gets the lock and calls remove, an exception would occur because the queue is now empty -- 
+the other consumer thread already removed the item from the queue. Just because it was notified, it needs to be make sure the queue is still empty because of this race condition.
+
+https://stackoverflow.com/questions/1038007/why-should-wait-always-be-called-inside-a-loop
+
+5) InterruptException
+https://stackoverflow.com/questions/3976344/handling-interruptedexception-in-java#
+https://www.yegor256.com/2015/10/20/interrupted-exception.html

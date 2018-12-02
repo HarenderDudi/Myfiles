@@ -10,3 +10,6 @@ Hashtable  -> doesn't allow any null key or value, synchronized, maintains no or
 
 Comparable -> single sorting sequence, provide compareTo() method, Collections.sort(List) method
 Comparator  -> multiple sorting sequence, provides compare() method, Collections.sort(List,Comparator) method
+
+http://www.java67.com/2013/01/difference-between-set-list-and-map-in-java.html
+https://dzone.com/articles/hashmap-vs-treemap-vs

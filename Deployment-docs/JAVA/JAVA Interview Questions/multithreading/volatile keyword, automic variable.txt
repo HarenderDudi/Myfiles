@@ -1,0 +1,14 @@
+In Java, each thread has a separate memory space known as working memory; this holds the values of different variables used for performing operations.
+After performing an operation, thread copies the updated value of the variable to the main memory, and from there other threads can read the latest value.
+
+Simply put, the volatile keyword marks a variable to always go to main memory, for both reads and writes, in the case of multiple threads accessing it.
+
+
+Thread1 - bool flag = true
+thread2 - while (flag)
+thread1 - bool flag = true
+thread2 - still be in loop bcz value is updated in local cache of thread 1.
+
+
+** The atomicity of the operations of the AtomicInteger is made using the compare-and-swap operation of the operating system. 
+So there are no waiting operations. This means that we have less context switches and result in more performing code normally.
