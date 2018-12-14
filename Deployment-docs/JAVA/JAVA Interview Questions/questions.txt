@@ -23,7 +23,11 @@ CountDownLatch, CyclicBarrier (done)
 break singleton (done)
 
 
-
+Xoriant
+string intern method
+interface and abstract: loose coupling
+what opps you have used in application
+how any object aquires properties of object class
 
 enums 
 generics
