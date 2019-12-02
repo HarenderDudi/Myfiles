@@ -9,6 +9,8 @@
 *.log
 *.out
 
+ComputerVision/venv/*
+
 *.idea
 *.bak
 /logs/
