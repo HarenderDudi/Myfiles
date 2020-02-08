@@ -14,21 +14,11 @@ fail-safe vs fail-fast Iterator in Java
 https://javarevisited.blogspot.com/2012/02/fail-safe-vs-fail-fast-iterator-in-java.html
 https://javarevisited.blogspot.com/2011/04/difference-between-concurrenthashmap.html
 
-fail-safe iterator doesn't throw any Exception if Collection is modified structurally
-while one thread is Iterating over it because they work on clone of Collection instead of original collection and that’s why they are called as fail-safe iterator. Iterator of CopyOnWriteArrayList is an example of fail-safe Iterator also iterator written by ConcurrentHashMap keySet is also fail-safe iterator and never throw ConcurrentModificationException in Java.
-
 
 ConcurrentHashMap -> locked certain portion of Map
 Hashtable         -> locks full map while doing iteration
 synchronized Map  -> HashMap which is non-synchronized by nature can be synchronized by applying a wrapper using synchronized Map
 
-
-**********************
-
-Throwable - Exception (checked) -> RuntimeException(Unchecked, NullPointer, ArrayOutOfBound, illegalArgument), IOException(checked), otherException(checked)
-            Error(checked) -> noClassDefFoundError(unchecked), outOfMemoryError(unchecked)
-			
-*******************************************************************************************************
 
 ===============================================================================================================================================
 http://www.java67.com/2012/08/5-thread-interview-questions-answers-in.html

@@ -1,0 +1,106 @@
+Static and Non Static
+===============================
+you cannot use a non-static member variable inside a static method, you cannot even call a non-static method from the static method, 
+but the opposite is true e.g. you can call a static function from a non-static method in Java
+
+
+Collections
+===============================
+	Set
+	---------------------------
+		All these implementation except, TreeSet uses equals() method to check for duplicates, on the other hand TreeSet use compareTo() or compare() 
+		method for comparing objects and can break Set interface contract of unique element, if equals method is not consistent with compareTo() or compare() method.
+		
+		LinkedHashSet is backed by linkedHashMap, TreeSet is implemented as TreeMap till Java 5 and now using NavigableMap from Java 6 onward, 
+		and HashSet is also backed by HashMap in Java. Now let's see some comparison between them
+		
+		All three i.e. HashSet, TreeSet, and LinkedHashSet are not synchronized.
+		Synchronizing HashSet in Java: Set s = Collections.synchronizedSet(new HashSet(...));
+		
+		Null Values: 
+			LinkedHashSet and HashSet = 1 null value
+			TreeSet: NO Null value, bcz uses compareTo() or compare() method
+			
+		HashSet doesn't provide any direct method for retrieving object e.g. get(Key key) from HashMap or 
+		get(int index) from List, only way to get object from HashSet is via Iterator.	
+			
+		Links:
+			https://www.java67.com/2014/01/when-to-use-linkedhashset-vs-treeset-vs-hashset-java.html
+	
+	Map
+	----------------------------
+		Java HashMap re-size itself by creating a new bucket array of size twice of the previous size of HashMap and then start putting every old element 
+		into that new bucket array. This process is called rehashing
+		
+		do you see any problem with resizing of HashMap --> race condition --> answer not thread safe, use concurrenthashmap
+		
+		Why String, Integer and other wrapper classes are considered good keys --> Immutability is required, in order to prevent changes on fields 
+		used to calculate hashCode() because if key object returns different hashCode during insertion and retrieval than it won't be possible to get an object from HashMap
+
+		Map.put() --> Returns: the previous value associated with key, or null if there was no mapping for key.
+		
+		from Java 8, where after a threshold is crossed then a binary tree is used instead of linked list to lift the worst case performance from O(n) to O(logN)
+		only ConcurrentHashMap, LinkedHashMap and HashMap will use the balanced tree in case of a frequent collision.
+
+		Links:
+			https://javarevisited.blogspot.com/2011/02/how-hashmap-works-in-java.html
+	
+	General
+	----------------------------	
+		ArrayList -> maintains insertion order, non synchronized, random access, manipulation is slow
+		LinkedList -> maintains insertion order, non synchronized, manipulation is fast, not index based, act as a list and queue
+
+		HashSet  -> unique elements only
+		LinkedHashSet  -> unique elements only, Maintains insertion order
+
+		HashMap -> unique elements, may have one null key and multiple null values, maintains no order
+		LinkedHashMap -> --""--, maintains insertion order
+		Hashtable  -> doesn't allow any null key or value, synchronized, maintains no order
+
+		Comparable -> single sorting sequence, provide compareTo() method, Collections.sort(List) method
+		Comparator  -> multiple sorting sequence, provides compare() method, Collections.sort(List,Comparator) method
+
+		Collections.synchronizedMap(new HashMap<>());
+			
+		fail-safe iterator doesn't throw any Exception if Collection is modified structurally
+		while one thread is Iterating over it because they work on clone of Collection instead of original collection and that’s why they are called as fail-safe iterator. 
+		Iterator of CopyOnWriteArrayList is an example of fail-safe Iterator also iterator written by ConcurrentHashMap keySet is also fail-safe iterator and 
+		never throw ConcurrentModificationException in Java.
+		
+		ConcurrentHashMap vs HashTable: ConcurrentHashMap uses multiple buckets to store data. This avoids read locks and greatly improves performance over a HashTable. 
+										Both are thread safe, but there are obvious performance wins with ConcurrentHashMap. When you read from a ConcurrentHashMap using get(), 
+										there are no locks, contrary to the HashTable for which all operations are simply synchronized.
+	
+
+Equals and hashcode 
+===============================
+
+	if you are using this class in EJB or any application server, where there is a chance that same class is loaded by two separate class loader. 
+	On those cases it's better to use instanceof operator because it will allow a Class to be equal to its subclass if rest of properties matched. 
+	This is also true for framework like Hibernate, which provides proxy implementation, which is essentially sub class of entity classes. 
+	In short, use instanceof if your class can be loaded by multiple class loader or it can be used by framework to create proxies.
+
+	
+Exception
+===============================
+
+	NoClassDefFoundError indicates that class was present during the time of compilation but not available when you run Java program
+	ClassNotFoundException comes when you try to load a class in runtime using Reflection and corresponding Classloader is not able to find this class
+	
+	Throwable - Exception (checked) -> RuntimeException(Unchecked, NullPointer, ArrayOutOfBound, illegalArgument), IOException(checked), otherException(checked)
+				Error(checked) -> noClassDefFoundError(unchecked), outOfMemoryError(unchecked)
+				
+				
+Garbage Collection
+===============================
+
+	finalize method
+		* finalize() method is defined in java.lang.Object class, is called before Garbage collector reclaim the Object, its last chance for any object to perform cleanup activity
+		* If you are overriding finalize method then it's your responsibility to call finalize() method of the superclass, 
+		  if you forgot to call then finalize of super class will never be called
+		* finalize gets called only once by GC thread if object revives itself from finalize method than finalize will not be called again.
+		* It's best to use finalize as the last attempt to do cleanup but never use finalize as a first or only attempt.
+
+		
+	Why finalize is declared protected instead of public?
+	What is the minimum accessibility you could give to a method so that it could be overridden by any other subclass of object?

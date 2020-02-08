@@ -1,0 +1,107 @@
+// https://www.youtube.com/channel/UCiz26UeGvcTy4_M3Zhgk7FQ
+// https://javarevisited.blogspot.com/2011/06/volatile-keyword-java-example-tutorial.html
+
+Thread is execution of sequence of programmed instruction.
+
+Java provides different constructs to provide synchronization and locking e.g. volatile keyword, atomic variable, explicitly locking 
+using java.util.concurrent.lock.Lock interface and there popular implementations e.g. ReentrantLock and ReentrantReadWriteLock,
+
+Read more: https://javarevisited.blogspot.com/2011/04/synchronization-in-java-synchronized.html#ixzz6DLKrdrom
+
+
+synchronization
+===============================
+	In a multi-threaded environment if object is shared among multiple threads that changes objects state, then this may lead to unexcepted
+	behaviour, synchronization ensure mutually exclusive access to the shared resource.
+
+	Whenever a thread enters into java synchronized method or blocks it acquires a lock and whenever it leaves java synchronized method or block it releases the lock. 
+	The lock is released even if thread leaves synchronized method after completion or due to any Error or Exception
+	
+	Java synchronized keyword is re-entrant in nature it means if a java synchronized method calls another synchronized method which requires the same lock 
+	then the current thread which is holding lock can enter into that method without acquiring the lock
+	
+	Synchronization will throw NullPointerException if object used in java synchronized block is null e.g. synchronized (myInstance) will throw 
+	java.lang.NullPointerException if myInstance is null
+	
+	It's possible that both static synchronized and non-static synchronized method can run simultaneously or concurrently because they lock on the different object
+
+	you can not use Java synchronized keyword with constructor
+
+	You cannot apply java synchronized keyword with variables
+
+	Important method related to synchronization in Java are wait(), notify() and notifyAll()
+
+	Do not synchronize on the non-final field on synchronized block in Java. because the reference of the non-final field may change anytime 
+	and then different thread might synchronizing on different objects i.e. no synchronization at all.
+
+	private String lock = new String("lock");
+	synchronized(lock){
+		System.out.println("locking on :"  + lock);
+	}
+
+	It's not recommended to use String object as a lock in java synchronized block  as string gets stored in String pool. so by any chance if any other part of the code 
+	or any third party library used same String as there lock then they both will be locked on the same object despite being completely unrelated which could result in 
+	unexpected behavior and bad performance
+	
+	Disadvantage:
+		One Major disadvantage of Java synchronized keyword is that it doesn't allow concurrent read
+	
+		If you have more than one JVM and need to synchronize access to a shared file system or database, the Java synchronized keyword is not at all sufficient. 
+		You need to implement a kind of global lock for that
+	
+		if one thread is waiting for lock then there is no way to timeout, the thread can wait indefinitely for the lock, there is no way to interrupt the thread
+
+		Java synchronized keyword incurs a performance cost
+		
+		
+DeadLocks
+===================================
+
+	What is a deadlock: when two or more threads are waiting for each other to release the resource they need (lock) and get stuck for infinite time, the situation is called deadlock
+	
+	Detect deadlock: look at the code if I see a nested synchronized block or calling one synchronized method from other, 
+					 or trying to get a lock on a different object then there is a good chance of deadlock
+	
+	public void method1() { 
+		synchronized (String.class) { 
+			System.out.println("Aquired lock on String.class object"); 
+			
+			synchronized (Integer.class) { 
+				System.out.println("Aquired lock on Integer.class object"); 
+			} 
+		} 
+	}
+	
+	public void method2() { 
+		synchronized (Integer.class) { 
+			System.out.println("Aquired lock on Integer.class object"); 
+			
+			synchronized (String.class) { 
+				System.out.println("Aquired lock on String.class object"); 
+			} 
+		} 
+	}
+	
+	Solution: same order of accuring lock in both methods
+
+	
+	
+Volatile
+===============================
+	volatile keyword is used to mark a Java variable as "being stored in main memory". that means, that every read of a volatile variable 
+	will be read from the computer's main memory, and not from the CPU cache, and that every write to a volatile variable will be written 
+	to main memory, and not just to the CPU cache
+	
+	
+synchronization vs ReentrantLock
+===================================
+	With synchronized keyword there is no way you can take the lock to another method. ReentrantLock solves this problem by providing control of acquiring and releasing the lock, 
+	which means you can acquire the lock in method A and can release in method B if they both needs to be locked in same object lock
+	
+	Any thread trying to acquire a lock using synchronized method will block indefinitely until the lock is available. 
+	Instead this, tryLock() method of ReentrantLock will not block if the lock is not available
+	
+	Prefer ReentrantLock over synchronized keyword, it provides more control on lock acquisition, lock release, and better performance compared to synchronized keyword
+
+
+

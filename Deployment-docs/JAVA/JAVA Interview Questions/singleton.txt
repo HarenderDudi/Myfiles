@@ -16,3 +16,22 @@ Eager Initialization
 Static Block Initialization
 Lazy Initialization
 Thread Safe Singleton (safest)
+
+
+public class SingletonClass{
+     private volatile SingletonClass INSTANCE;
+  
+     private SingletonClass(){}
+  
+     public SingletonClass getInstance(){
+         if(INSTANCE == null){
+            synchronized(SingletonClass.class){
+                //double checking Singleton instance
+                if(INSTANCE == null){
+                    INSTANCE = new SingletonClass();
+                }
+            }
+         }
+         return INSTANCE;
+     }
+}
