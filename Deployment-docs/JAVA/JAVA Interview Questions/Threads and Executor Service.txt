@@ -1,5 +1,6 @@
 // https://www.youtube.com/channel/UCiz26UeGvcTy4_M3Zhgk7FQ
 // https://javarevisited.blogspot.com/2011/06/volatile-keyword-java-example-tutorial.html
+// ** http://tutorials.jenkov.com/java-concurrency/
 
 Thread is execution of sequence of programmed instruction.
 
@@ -91,6 +92,13 @@ Volatile
 	volatile keyword is used to mark a Java variable as "being stored in main memory". that means, that every read of a volatile variable 
 	will be read from the computer's main memory, and not from the CPU cache, and that every write to a volatile variable will be written 
 	to main memory, and not just to the CPU cache
+	
+	Usage: when oonly one thread is writing and all other are reading
+	
+Thread Local
+===============================
+	Java ThreadLocal class provides thread-local variables. If two threads are executing the same code and that code has a reference to a 
+	ThreadLocal variable then the two threads can't see the local variable of each other
 	
 	
 synchronization vs ReentrantLock
