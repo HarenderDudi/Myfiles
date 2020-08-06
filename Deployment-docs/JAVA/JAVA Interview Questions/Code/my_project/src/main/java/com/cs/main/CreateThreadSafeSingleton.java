@@ -91,7 +91,4 @@ class SingletonSTATIC{
     public static SingletonSTATIC getInstance(){
         return INSTANCE;
     }
-    public void show(){
-        System.out.println("Singleon using static initialization in Java");
-    }
 }

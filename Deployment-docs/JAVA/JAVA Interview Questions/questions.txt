@@ -75,4 +75,61 @@ but heap is shared among all threads in JVM.
 45)  For floating point literals, we have constant value to represent (10/0.0) infinity either positive or negative and also have NaN (not a number for undefined like 0/0.0), 
 but for the integral type, we don’t have any constant that’s why we get an arithmetic exception.
 
+46) https://www.journaldev.com/9107/the-method-is-ambiguous-for-the-type-java-ambiguous-method-call-null-error
+
+
+
+jvm architect
+immutable
+singleton
+Collection
+	List, NavigableList, Set, sortedSet, Queue
+	Map, NavigableMap
+Threading
+	ThreadPool
+	Lock
+	
+MagicNumber: 12345 = 15 = 1+5 = 6 not magic number (1 only) Answer: %9
+
+DataStrucutre: List and Linklist
+Stock PRice (1-30 days) unsorted, when to buy and sell to get max profit (Sol:search for subarray for max count)
+Binery Search tree
+sorting algo (quick sort)(complexity)
+
+Searching and sorting
+Tree and graph ()
+
+
+============================
+		Sapiant
+============================
+diff b/w synch and lock
+
+A - Bus Service and Cab
+B - cab
+c - Bus
+
+Interface and Abstract class diff
+1. Can't use Abs class in left side
+2. static and instance block in abst
+3. Abs class performance fast wrp to Interface
+4. COnstructor
+
+
+Multithreading
+	Synch vs lock
+	semaphore
+	
+Concurrenthashmap
+Treeset and hasset
+
+Serialization and deserialization
+StrictFT -- 
+volatile
+Run method synchronized?
+Call/Run or Thread
+@override run method?
+search on name for List of employee.
+
+
 	
