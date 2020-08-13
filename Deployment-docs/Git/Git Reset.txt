@@ -1,4 +1,5 @@
-Be careful that this will create an "alternate reality" for people who have already fetch/pulled/cloned from the remote repository. But in fact, it's quite simple:
+Be careful that this will create an "alternate reality" for people who have already fetch/pulled/cloned from the remote repository. 
+But in fact, it's quite simple:
 
     git reset HEAD^ # remove commit locally
     git push origin +HEAD # force-push the new HEAD commit
