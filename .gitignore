@@ -4,8 +4,7 @@
 */.gradle
 */.settings
 */.classpath
-*/.project
-/.recommenders
+*/.recommenders
 *.log
 *.out
 
