@@ -3,11 +3,11 @@ package com.cs.array.slidingwindows;
 public class FindLargestSubarrayWithGivenSum {
 
 	public static void main(String[] args) {
-//		int[] arr = {3,2,7,1,6};
-//		int k = 10;
+		int[] arr = {3,2,7,1,6};
+		int tgt_sum = 10;
 		
-		int[] arr = {6,1,2,1,9,3,5};
-		int tgt_sum = 5;
+//		int[] arr = {6,1,2,1,9,3,5};
+//		int tgt_sum = 5;
 		
 		int size = arr.length;
 		int i = 0;

@@ -1,9 +1,0 @@
-CREATE USER admin WITH SUPERUSER PASSWORD 'admin';
-
-connect in windows: psql -U postgres
-
-
-ISSUE(Database in use): 
-	REVOKE CONNECT ON DATABASE camundadb FROM public;
-	SELECT pg_terminate_backend(pg_stat_activity.pid) FROM pg_stat_activity WHERE pg_stat_activity.datname = 'camundadb';
-	
