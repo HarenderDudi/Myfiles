@@ -1,4 +1,0 @@
-http://forum.spring.io/forum/spring-projects/security/saml/130891-authnresponse-authentication-failed-incoming-saml-message-is-invalid
-
-ADFS Setup
-https://www.youtube.com/watch?v=fwHIKlAPV0g

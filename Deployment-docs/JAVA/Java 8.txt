@@ -1,0 +1,85 @@
+// Get list of Id 
+list<String> componentIds = list.stream().map(rm -> rm.getComponentId()).collect(Collectors.toList());
+ 
+
+// Create Map from List
+ Map<String, Quantity> collect = list.stream().collect(Collectors.toMap(RawMaterialLink::getComponentId, RawMaterialLink::getQuantity));
+ 
+
+// Create Map from List
+ Map<String, Double> collect2 = list.stream().collect(Collectors.toMap(rm -> rm.getComponentId(), rm -> rm.getQuantity().getAmount()));
+ 
+
+
+// Add to Map and maintain insersion order  Function.identity() - is instance itslef
+ Map<String, Course > result = listOfCourses .stream() 
+											 .collect( 
+											          Collectors.toMap(Course::getTitle, 
+															 Function.identity(),
+															 LinkedHashMap::new));
+															 
+															 
+															 
+get 2nd highest from list
+
+    list.stream().sorted(Comparator.reverseOrder()).limit(2).skip(1).findFirst()
+	list.stream().sorted(Comparator.reverseOrder()).skip(1).findFirst().get();
+	people.stream().sorted(Comparator.comparingInt(Person::getAge)).limit(2).skip(1).findFirst().get();
+	    
+
+find max salary and print name
+---------------------------------------------------------------
+	empList.stream().collect(Collectors.collectingAndThen(
+								Collectors.maxBy(Comparator.comparing(Employee::getSalary)),
+								(Optional<Employee> emp) -> emp.isPresent() ? emp.getName() : "None"));
+
+find max age
+---------------------------------------------
+	employeeList
+      .stream()
+      .collect(Collectors.mapping((Employee emp) -> emp.getAge(), Collectors.maxBy(Integer::compareTo))
+
+
+
+sort class on field basis
+--------------------------------------
+	list.stream().sorted(Comparator.comparing(Person::getName)).collect(Collectors.toList()).forEach(p -> System.out.println(p.getName()));
+	
+
+sort class on field basis and remove duplicate
+------------------------------------------------------------------
+	List<PersonWithAge> collect = employee.stream().collect(
+						collectingAndThen(
+						     toCollection(
+						     	() -> new TreeSet<>(Comparator.comparingInt(Employee::getId))),
+                                ArrayList::new)
+							);
+							
+							OR
+							
+	TreeSet<PersonWithAge> collect = employee.stream().collect(
+						Collectors.toCollection(() -> new TreeSet<>(Comparator.comparingInt(PersonWithAge::getAge))))
+     
+
+   
+
+
+	 
+groupby on field
+------------------------------------------
+	Map<String, List<Person>> peopleByCity = PersonList.stream().collect(Collectors.groupingBy(Person::getCity));
+	
+	returns {MH - [p1,p3]
+			 UP - [p2,p4]
+			 RJ - [p5]
+			}
+			
+			
+Get even index items
+--------------------------------------------
+	List<String> evenIndexedNames = IntStream
+      .range(0, names.length)
+      .filter(i -> i % 2 == 0)
+      .mapToObj(i -> names[i])
+      .collect(Collectors.toList());
+	  

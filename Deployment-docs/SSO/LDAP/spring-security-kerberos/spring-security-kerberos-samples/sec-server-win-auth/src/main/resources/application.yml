@@ -1,9 +1,0 @@
-server:
-    port: 8080
-app:
-    ad-domain: CONTENTSERV.LOCAL
-    ad-server: ldap://dc2.contentserv.local/
-    service-principal: HTTP/cs12.contentserv.local@CONTENTSERV.LOCAL
-    keytab-location: http5july.keytab
-    ldap-search-base: dc=contentserv,dc=local
-    ldap-search-filter: "(| (userPrincipalName={0}) (sAMAccountName={0}))"

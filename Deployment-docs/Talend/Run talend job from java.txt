@@ -1,8 +1,0 @@
-timepass_run.bat --context_param input="{\"id\" : \"haha\"}"
-
-java -Xms256M -Xmx1024M -cp MyJar.jar:lib/* com.somepackage.subpackage.Main;  –context=Default –context_param param_0=”param_0 value passed” –context_param param_1=”param_1 value passed”
-
-http://www.robertomarchetto.com/how_to_parameter_values_talend_job_command_line
-https://stackoverflow.com/questions/18654791/running-talend-job-from-within-java-application
-https://stackoverflow.com/questions/60764/how-should-i-load-jars-dynamically-at-runtime
-https://stackoverflow.com/questions/18413014/run-a-jar-file-from-the-command-line-and-specify-classpath

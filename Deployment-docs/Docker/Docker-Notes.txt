@@ -1,3 +1,6 @@
+https://www.learnitguide.net/2018/06/dockerfile-explained-with-examples.html
+https://www.interviewbit.com/docker-interview-questions/
+
 Docker containers wrap up a piece of software in a complete filesystem that contains everything it needs to run: code, runtime, system tools, system libraries – anything you can install on a server. This guarantees that it will always run the same, regardless of the environment it is running in.
 
 it’s a mechanism that helps in isolating the dependencies per each application by packing them into containers.
@@ -10,4 +13,45 @@ Virtual machines have a full OS with its own memory management installed with th
 On the other hand Docker containers are executed with the Docker engine rather than the hypervisor. Containers are therefore smaller than Virtual Machines and enable faster start up with better performance, less isolation and greater compatibility possible due to sharing of the host’s kernel.
 
 
+docker build . <parameter> 				--> converts Dockerfile into docker image.
+docker create <image>      				--> creates a container from image
+docker create <container> 				--> starts the container
+docker run -d -p <ports> <image>		--> creates a container from image and start container
+
+docker ps 				   				--> show all the running containers
+docker ps -a 			   				--> show all the containers
+docker stop <name>/<ID>
+
+docker restart <name><ID>
+docker kill <ID>           				--> docker KILL is unsafe exit. if a process dont exit from STOP cmd in timeout, docker issues a KILL command implicitly.
+docker rm <name>
+
+docker rmi <image>
+
+docker container run -d -p 80:8080 --network my-network --name fleetman-webapp --rm fleetman-webapp (--rm will remove container when container is stopped)
+
+docker network create -d bridge my_bridge
+	-d flag tells Docker to use the bridge driver for the new network, its default driver
+
+docker network inspect bridge
+	Inspecting the network to container’s IP address.
+	
+docker network disconnect bridge networktest
+	remove a container from a network by disconnecting the container. To do this, you supply both the network name and the container name
+	
+docker container inspect --format='{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' web
+	get ip address of web container
+
+docker network connect my_bridge web
+	Addind container to another network
+
+https://docs.docker.com/engine/tutorials/networkingcontainers/
+
+
+docker-compose up -d
+	If containers are already running they are ignored, meaning this command also serves as a "redeploy".
+	
+	docker-compose up picks up the changes by stopping and recreating the containers (preserving mounted volumes). To prevent Compose from picking up changes, use the --no-recreate flag.
+
+	If you want to force Compose to stop and recreate all containers, use the --force-recreate flag.
 

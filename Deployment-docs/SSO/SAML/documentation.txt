@@ -1,5 +1,0 @@
-java import cert : https://github.com/choonchernlim/spring-security-adfs-saml2
-
-SHA1-SHA256: http://stackoverflow.com/questions/25982093/setting-the-extendedmetadata-signingalgorithm-field/26004147#26004147
-	     https://myshittycode.com/2016/02/23/spring-security-saml-replacing-sha-1-with-sha-256-on-signature-and-digest-algorithms/
-http://docs.spring.io/autorepo/docs/spring-security-saml/1.0.x-SNAPSHOT/reference/htmlsingle/

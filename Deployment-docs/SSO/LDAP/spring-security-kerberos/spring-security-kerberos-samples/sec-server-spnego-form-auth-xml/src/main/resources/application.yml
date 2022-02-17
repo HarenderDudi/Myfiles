@@ -1,5 +1,0 @@
-server:
-    port: 8080
-app:
-    service-principal: HTTP/cs12.contentsphere.local@CONTENTSPHERE.LOCAL
-    keytab-location: file:///C:/Users/dudi/dudi-web.keytab

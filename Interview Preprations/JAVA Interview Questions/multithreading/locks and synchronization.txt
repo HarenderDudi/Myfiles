@@ -1,0 +1,75 @@
+Youtube: Defog Tech
+
+SYNCHRONOUS
+
+Internally Java uses a so called monitor also known as monitor lock or intrinsic lock in order to manage synchronization. 
+This monitor is bound to an object, e.g. when using synchronized methods each method share the same monitor of the corresponding object.
+All implicit monitors implement the reentrant characteristics. Reentrant means that locks are bound to the current thread. 
+A thread can safely acquire the same lock multiple times without running into deadlocks (e.g. a synchronized method calls another synchronized method on the same object).
+
+Reentrant Lock 
+=================
+	
+	thread can acquire same lock again without waiting for lock eg. t1 has lock and on some condition its using recursively same method then t1 will get lock with out waiting for lock.
+
+	new ReentrantLock(true) // true: lock will be fair.. most waited thread will have high chance of getting lock.
+	new ReentrantLock(false) // (default) false: is barge-in ..eg t1 has lock and t2 and t3 are waiting and t1 releases the lock and at the same time t4 request for lock...so instead of putting t4 in waiting queue it will give lock to t4.
+	
+	lock methods: 
+		tryLock(timeout)
+		isHeldByCurrentThread
+		getQueueLength
+		newCondition
+	
+	The class ReentrantLock is a mutual exclusion lock with the same basic behavior as the implicit monitors accessed via the synchronized keyword but with extended capabilities.
+	
+	The method tryLock() as an alternative to lock() tries to acquire the lock without pausing the current thread.	
+	
+	https://www.youtube.com/watch?v=ahBC69_iyk4
+
+	 
+
+ReadWriteLock
+=================
+
+	The interface ReadWriteLock specifies another type of lock maintaining a pair of locks for read and write access.
+	So the read-lock can be held simultaneously by multiple threads as long as no threads hold the write-lock.
+	
+lock vs synchronized
+	lock are explicit (create a new variable) while synchronized are implicit
+	synchronized scope till braces and scope is limited to method while locks can be accessed/passed to other functions
+	if want to share resource with 4 threads at a time .. not possible with synchronized block
+	lock has extra methods like tryLock etc.
+	synchronized is blocking while locks are non blocking, we can tryLock with locks 
+
+https://winterbe.com/posts/2015/04/30/java8-concurrency-tutorial-synchronized-locks-examples/
+
+
+Thread Pool Executer Service
+==================================
+
+	Eg: we want to execute some task 10 times..will create a for loop and create a thread and submit the task and jvm will create thread and after task is finished it will the thread..its expensive. 
+	Solution: Thread Pool Executer Service, we have a pool of threads, JVM will pick thread from this pool and thread will join pool after finishing the task.
+	
+	thread pool size: In CPU incentive task: depends on core in cpu..if 16 use 12-14 max
+					  In I/O: lot of waiting .. we can increase the thread count eg 100.
+					  
+	FixThreadPool: fix no of threads 
+	cachedThreadPool: part2
+	ScheduledThreadPool: part2
+	SingleThreadedExecutor: part2
+	
+	part1: https://www.youtube.com/watch?v=6Oo-9Can3H8
+	part2: https://www.youtube.com/watch?v=sIkG0X4fqs4&t=380s
+
+Producer Consumer problem
+==================================
+code in eclipse projects
+https://www.youtube.com/watch?v=UOr9kMCCa5g
+
+
+how to create dead lock
+==================================
+
+How to timeout a thread?: https://www.youtube.com/watch?v=_RSAS-gIjGo
+

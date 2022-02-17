@@ -1,0 +1,34 @@
+ATM Design
+https://github.com/tssovi/grokking-the-object-oriented-design-interview/blob/master/object-oriented-design-case-studies/design-an-atm.md
+
+Usecase
+	Balance Inquiry
+	Cash Withdrawal
+	Transfer Funds
+	Deposit Funds
+	Change PIN
+
+Enum
+	TransactionType
+		BALANCE_INQUIRY, DEPOSIT_CASH, DEPOSIT_CHECK, WITHDRAW, TRANSFER, CHANGE_PIN
+		
+	TransactionStatus
+		SUCCESS, FAILURE, BLOCKED, FULL, PARTIAL
+	
+Class Diagram
+	Bank
+	ATM
+
+	Customer
+	Account
+	Card
+	
+	Transaction
+	
+	Card Reader
+	Cash Dispenser
+	Print Receipt
+	
+	Screen
+	Keypad
+	

@@ -1,6 +1,0 @@
-description = 'Spring Security Kerberos Samples Common'
-
-
-project('sec-server-win-auth') {
-  description = 'Security Server win auth Sample'
-}

@@ -1,5 +1,0 @@
-objects="$(swift -A http://192.168.134.105:8080/auth/v1.0 -U load:load -K pass@123 list Image)"
-for object in "${objects[@]}"
-do
-   swift -A http://192.168.134.105:8080/auth/v1.0 -U load:load -K pass@123 delete Image $object
-done

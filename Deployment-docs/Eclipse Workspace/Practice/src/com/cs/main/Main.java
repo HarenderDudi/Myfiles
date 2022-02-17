@@ -1,7 +1,9 @@
 package com.cs.main;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
+import java.util.TreeMap;
 import java.util.TreeSet;
 
 public class Main {
@@ -20,13 +22,33 @@ public class Main {
 //		} catch (Exception e) {
 //			e.printStackTrace();
 //		}
-		String s1 = new String("TCS");
-		String s2 = "TCS";
+		
+// ===================================================================		
+//		String s1 = new String("TCS");
+//		String s2 = "TCS";
+//
+//		System.out.println(s1 == s2);
+//		System.out.println(s1.equals(s2));
+		
+// ===================================================================
+//		
+//		String s1 = "abc";
+//        String s2 = s1;  
+//
+//        //s1 += "d";    // false
+//		s1.concat("d"); // true  
+//        
+//        System.out.println(s1 == s2);
+//
+//        StringBuffer sb1 = new StringBuffer("abc");
+//        StringBuffer sb2 = sb1;
+//
+//        sb1.append("d"); // true
+//
+//        System.out.println(sb1 == sb2);
 
-		System.out.println(s1 == s2);
-		System.out.println(s1.equals(s2));
-		
-		
+     // ===================================================================		
+	
 	}
 }
 

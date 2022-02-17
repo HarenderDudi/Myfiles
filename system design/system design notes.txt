@@ -1,0 +1,124 @@
+https://towardsdatascience.com/the-complete-guide-to-the-system-design-interview-ba118f48bdfc
+https://github.com/NirmalSilwal/system-design-resources
+https://github.com/binhnguyennus/awesome-scalability
+
+
+‘UserID’ takes 8 bytes
+count: 2 byte (which can count up to 65k)
+epoch time: 4 byte
+
+DB vs
+cassandra vs mongo
+DB Partition
+memecache
+redis set
+Write-back cache
+64-bit checksum and MD5 or SHA
+zookeeper
+
+**requirement and goals
+
+**Some Design Considerations
+	limitions to prevent from misuse
+	
+	files can be stored in small parts or chunks
+	
+
+**Capacity Estimation and Constraints
+	Traffic estimates: read/write requests per day and per second
+	Storage estimates: per month or per year as per retention policy
+					   1M is 1GB, 1M * 10Kb = 10GB
+					   360 GB is 3.6TB
+					   
+	Bandwidth estimates: size of requests per second
+	Memory estimates: for caching 80-20 , that is memory to cache 20% of load per day
+	
+**System APIs
+	REST APIs to expose the functionality of our service
+	url for create update read
+		paramters, data type and optional or mandetory 
+	
+**Database Design
+	SQL vs NoSQL
+	if no relation b/w objects then NoSQL
+	
+	We can store photos in a distributed file storage like HDFS or S3
+
+*High Level Design and component design
+
+	if we have lots of read & write requests where write requests are slow as they have to go to thes disk like Instagram and we need to keep in mind that a webserver have limited connections to handle this bottle neck we need to have seperate servers for read and write requests.
+	
+	Separating photos’ read and write requests will also allow us to scale and optimize each of these operations independently.
+	
+Basic System Design and Algorithm
+	Encoding actual URL
+	
+*Data Partitioning and Replication
+
+	2 main things:
+		how to generate unique ids
+		how to do partitioning 
+
+	How can we generate large unique ids: precreate all the ids and use them
+
+	Range Based Partitioning or Partitioning based on UserID:
+		limitation
+			too many entries for perticular partition, unbalanced server
+			we cannot store all pictures of a user on one shard
+	
+	Hash-Based Partitioning
+		This approach can still lead to overloaded partitions, which can be solved by using Consistent Hashing
+	
+	Consistent Hashing
+	
+	
+	
+Cache
+	How much cache should we have: 20% of daily traffic
+	Which cache eviction policy would best fit our needs: Least Recently Used
+	
+	Memcached
+
+Load Balancer
+	Between Clients and Application servers
+	Between Application Servers and database servers
+	Between Application Servers and Cache servers
+	
+	Round Robin approach: 
+		pro: if a server is dead, it out of the rotation and will stop sending any traffic to it.
+		con: server load is not taken into consideration
+		
+Purging or DB cleanup
+
+Security and Permissions
+
+
+------------------------------------
+questions
+------------------------------------
+- in chat should we keep connections open (http/web socket) as server have limited socket connections? when we close the connections 
+	timeout
+
+
+------------------------------------
+------------------------------------
+
+
+News Feed Generation
+		Pre-generating the News Feed: ‘UserNewsFeed’ table and first query this table to find the last time the News Feed was generated for that user
+		
+For Block data
+		if we are not showing data and just need to show metadata like name, size etc then maintain a metadata server and metadata storage. like Google drive
+		
+Data deduplication
+
+if want to compare two documents:
+		64-bit checksum
+		
+		
+
+databases:
+		HBase: support very high rate of small updates and also fetch a range of records quickly
+		HDFS or GlusterFS: to store videos
+		Bigtable: thumbnails
+		

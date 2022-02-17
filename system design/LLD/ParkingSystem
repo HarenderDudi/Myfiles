@@ -1,0 +1,69 @@
+parking system
+https://github.com/tssovi/grokking-the-object-oriented-design-interview/blob/master/example-codes/parking-lot/parking_spot.py
+
+
+Usecase 
+	customer
+	Add/Remove/Edit parking floor
+	Add/Remove/Edit parking slot
+
+	getTicket
+	Payment
+
+	Add/modify parking rates
+
+
+Enum
+	VehicleType
+	ParkingSlotType
+	ParkingTicketStatus
+	
+Classes
+	parkingLot
+		+String name
+		+Address address
+		+int floors
+		
+		assignTicketToVehicle()
+		isFull()
+		addParkingFloor()
+		
+	ParkingFloor
+		int number
+		car_spots {tikcetId : Spot}
+		bike_spots
+		free_car_spot_count
+		free_bike_spot_count
+		Max_car_spots
+		Max_bike_spots
+		
+		isFull()
+		addParkingSpot()
+		AssignVehicalToSpot(spot, vehicle)
+		freeSpot(spot)
+		
+	 parkingSpot: Abstract  --extends--> CarParkingSpot, BikeParkingSpot 
+		int number
+		Vehicle vehicle
+		boolean isFree
+		spotType
+		
+		isFree()
+		assignVehicle(vehicle)
+		removeVehicle()
+		
+	ParkingTicket
+		id
+		issuedAt
+		PayedAt
+		amountPaid
+		ticketStatus
+		
+	Vehicle
+		licencePlate
+		vehicleType
+		assignTicket()
+	 
+
+
+

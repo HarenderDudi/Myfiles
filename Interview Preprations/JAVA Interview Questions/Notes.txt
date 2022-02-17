@@ -1,0 +1,564 @@
+Static and Non Static
+===============================
+you cannot use a non-static member variable inside a static method, you cannot even call a non-static method from the static method, 
+but the opposite is true e.g. you can call a static function from a non-static method in Java
+
+
+String
+===============================
+
+	String vs StringBuilder vs StringBuffer
+	---------------------------------------
+		1. String is immutable whereas StringBuffer and StringBuider are mutable classes.
+		2. StringBuffer is thread safe and synchronized whereas StringBuilder(Java 1.5) is not, String is immutable in Java, 
+			so it’s easy to share it across different threads or functions.
+		3. StringBuffer and StringBuilder are mutable objects in java and provide append(), insert(), delete() and substring() methods for String manipulation.
+		
+	String to StringBuffer
+	------------------------
+		StringBuilder sb = new StringBuilder(str);
+	
+	String to StringBuffer
+	------------------------
+		StringBuffer sbr = new StringBuffer("Geeks"); 
+		String str = sbr.toString();
+		
+	
+	Program questions
+	------------------------		
+			
+		https://www.geeksforgeeks.org/method-overloading-null-error-java/
+		https://stackoverflow.com/questions/5229809/method-overloading-for-null-argument
+
+		public static void main(String[] args) {
+
+			foo(null);
+		}
+
+		public static void foo(Object o) {
+			System.out.println("Object impl");
+		}
+
+		public static void foo(String s) {
+			System.out.println("String impl");
+		}
+		
+		-----------------
+		
+		// Overloaded methods
+		public void fun(Integer i)
+		{
+			System.out.println("fun(Integer ) ");
+		}
+		public void fun(String name)
+		{
+			System.out.println("fun(String ) ");
+		}
+	  
+		// Driver code 
+		public static void main(String [] args)
+		{
+			Test mv = new Test();
+	  
+		// This line causes error
+			mv.fun(null);
+		}
+		
+
+		
+		========================================================================	
+		
+			
+			String s1 = "abc";
+			String s2 = s1;
+
+			// s1 += "d";
+			// System.out.println(s1 == s2); //false
+			
+			s1.concat("d");
+			System.out.println(s1 == s2); // true 
+
+			StringBuffer sb1 = new StringBuffer("abc");
+			StringBuffer sb2 = sb1;
+
+			sb1.append("d");
+			System.out.println(sb1 == sb2); // true
+		
+
+Collections
+===============================
+
+	Fail-safe Iterator: fail-safe iterator doesn't throw any Exception if Collection is modified because they work on clone of Collection instead of original collection
+	
+	Iterator of CopyOnWriteArrayList, ConcurrentHashMap 
+
+
+	Set
+	---------------------------
+		All these implementation except, TreeSet uses equals() method to check for duplicates, on the other hand TreeSet use compareTo() or compare() 
+		method for comparing objects and can break Set interface contract of unique element, if equals method is not consistent with compareTo() or compare() method.
+		
+		LinkedHashSet is backed by linkedHashMap, TreeSet is implemented as TreeMap till Java 5 and now using NavigableMap from Java 6 onward, 
+		and HashSet is also backed by HashMap in Java. Now let's see some comparison between them
+		
+		All three i.e. HashSet, TreeSet, and LinkedHashSet are not synchronized.
+		Synchronizing HashSet in Java: Set s = Collections.synchronizedSet(new HashSet(...));
+		
+		Null Values: 
+			LinkedHashSet and HashSet = 1 null value
+			TreeSet: NO Null value, bcz uses compareTo() or compare() method
+			
+		HashSet doesn't provide any direct method for retrieving object e.g. get(Key key) from HashMap or 
+		get(int index) from List, only way to get object from HashSet is via Iterator.	
+			
+		Links:
+			https://www.java67.com/2014/01/when-to-use-linkedhashset-vs-treeset-vs-hashset-java.html
+		
+		Internal Working of HashSet
+		------------------------------
+		
+			Set internally uses HashMap.
+			
+			The main point to notice that HashMap.put (key,value) will return
+				1.  null , if key is unique and added to the map
+				2.  Old Value of the key , if key is duplicate
+				
+			HashSet add() method:
+				 public boolean add(E e) {
+					return map.put(e, PRESENT)==null;
+			    }
+	
+	Map
+	----------------------------
+	
+		O(1) for get and put. Worstcase O(n) but in jdk 8 -> O(logn) 
+		loadfactor: .75
+		initial capacity: 16
+		double its size after threshold
+	
+		Java HashMap re-size itself by creating a new bucket array of size twice of the previous size of HashMap and then start putting every old element 
+		into that new bucket array. This process is called rehashing
+		
+		do you see any problem with resizing of HashMap --> race condition --> answer not thread safe, use concurrenthashmap
+		Collections.synchronizedMap(new HashMap<>());
+		
+		Why String, Integer and other wrapper classes are considered good keys --> Immutability is required, in order to prevent changes on fields 
+		used to calculate hashCode() because if key object returns different hashCode during insertion and retrieval than it won't be possible to get an object from HashMap
+
+		Map.put() --> Returns: the previous value associated with key, or null if there was no mapping for key.
+		
+		from Java 8, where after a threshold is crossed then a binary tree is used instead of linked list to lift the worst case performance from O(n) to O(logN)
+		only ConcurrentHashMap, LinkedHashMap and HashMap will use the balanced tree in case of a frequent collision.
+
+		Links:
+			https://javarevisited.blogspot.com/2011/02/how-hashmap-works-in-java.html
+			
+		ConcurrentHashmap
+		------------------------------
+		
+			constructor of ConcurrentHashMap looks like this : public ConcurrentHashMap (int initialCapacity, float loadFactor, int concurrencyLevel)
+			
+			static final int DEFAULT_INITIAL_CAPACITY = 16;
+			static final int DEFAULT_CONCURRENCY_LEVEL = 16;
+			
+			Thus, instead of a map wide lock, ConcurrentHashMap maintains  a list of 16 locks by default each of which is used to lock on a single bucket of the Map.
+			This indicates that 16 threads (number of threads equal to the concurrency level , which is by  default 16) can modify the collection at the same time , 
+			given ,each thread works on different bucket. So unlike hashtable, we perform any sort of operation ( update ,delete ,read ,create) without locking on entire map in ConcurrentHashMap
+			
+			Inserting null objects is not possible in ConcurrentHashMap as a key or value.
+	
+			ConcurrentHashMap uses a Locking technique name ReentrantLock
+			
+			Read/Get Operation :- Two Threads T1 and T2 can read data from the same or different segment of ConcurrentHashMap at the same time without blocking each other.
+			
+			Write/Put Operation :- Two Threads T1 and T2 can write data on different segment at the same time without blocking the other.
+			
+			Get/Put Operation :- Retrieval operations do not block, so may overlap with write (put/remove) operations. Latest updated value will be returned by get operation which is most recently updated value by write operation
+	
+						
+			HashTable and ConcurrentHashMap
+			-------------------------------------------------------------
+			
+				HashMap: not synchronized
+				HashTable: synchronized
+
+				HashTable: poor performance,If one thread allows to perform any kind of operation (put or get) , other thread must and should wait until the operation was completed by the thread which is working on hash Table
+
+
+				Hashtable vs ConcurrentHashMap: https://medium.com/art-of-coding/hash-table-vs-concurrent-hashmap-and-its-internal-working-b28fc2725bdb
+				Hashmap: https://medium.com/the-glitcher/hashmap-internal-working-8679d058d244
+				
+				
+				Why does ConcurrentHashMap prevent null keys and values?
+				
+					The main one is that if map.get(key) returns null, you can't detect whether the key explicitly maps to null vs the key isn't mapped. In a non-concurrent map, you can check this via map.contains(key), but in a concurrent one, the map might have changed between calls.
+					 
+					if (map.containsKey(k)) {
+					   return map.get(k);
+					} else {
+					   throw new KeyNotPresentException()
+					}
+					
+					It might be possible that key k might be deleted in between the get(k) and containsKey(k) calls. As a result , 
+					the code will return null as opposed to KeyNotPresentException
+					 
+					HashMap<String, String> mm = new HashMap<>();
+					mm.containsKey(null); // false
+						
+					ConcurrentHashMap<String, String> cc = new ConcurrentHashMap<>();
+					cc.containsKey(null); // throws null pointer exception
+					 
+					 
+					 
+				Why HashTable doesn’t allow null and HashMap do? 
+				
+					The answer is simple as in order to successfully store and retrieve objects from a HashTable, the objects used as keys must implement the hashCode method and the equals method. Since null is not an object, it can’t implement these methods. HashMap is an advanced version and improvement on the Hashtable. HashMap was created later.
+	 
+			
+		Internal Worling of TreeMap
+		------------------------------
+			TreeMap does not use hashing for storing key unlike the HashMap and LinkedHashMap use hashing
+			TreeMap uses a data structure called Red-Black tree based NavigableMap implementation.
+		
+					
+			https://www.dineshonjava.com/internal-working-of-treemap-in-java/
+	
+	
+	
+	List
+	----------------------------
+		Vector:  initial capacity is 10, if increment is not specified resize 2 times
+		
+		ArrayList: 
+			Java7: intial: 10, resize: 50%
+			Java8: The details of the growth policy are not specified beyond the fact that adding an element has constant amortized time cost.
+		
+		
+	CopyOnWriteArrayList
+	----------------------------
+	
+		syncronized version of linklist and obtains thread safety in a different way then vector
+		
+		Creates copy of underlying ArrayList with every mutation operation e.g. add or set. 
+		Normally CopyOnWriteArrayList is very expensive because it involves costly Array copy with every write operation but its very efficient if you have a List usecase where read operations are lot more than write operations. You should only use this read when you are doing upwards of 90+% reads
+
+		Iterator of CopyOnWriteArrayList is fail-safe and doesn't throw ConcurrentModificationException
+		To get the lastest update need to do list.iterator()
+		
+		While Vector introduces a small synchronization delay for each operation (even for read).
+		
+	
+	General
+	----------------------------	
+		ArrayList -> maintains insertion order, non synchronized, random access, manipulation is slow
+		LinkedList -> maintains insertion order, non synchronized, manipulation is fast, not index based, act as a list and queue
+
+		HashSet  -> unique elements only
+		LinkedHashSet  -> unique elements only, Maintains insertion order
+
+		HashMap -> unique elements, may have one null key and multiple null values, maintains no order
+		LinkedHashMap -> --""--, maintains insertion order
+		Hashtable  -> doesn't allow any null key or value, synchronized, maintains no order
+
+		Comparable -> single sorting sequence, provide compareTo() method, Collections.sort(List) method
+		Comparator  -> multiple sorting sequence, provides compare() method, Collections.sort(List,Comparator) method
+
+		ConcurrentHashMap vs HashTable: ConcurrentHashMap uses multiple buckets to store data. This avoids read locks and greatly improves performance over a HashTable. 
+										Both are thread safe, but there are obvious performance wins with ConcurrentHashMap. When you read from a ConcurrentHashMap using get(), 
+										there are no locks, contrary to the HashTable for which all operations are simply synchronized.
+	
+
+Equals and hashcode 
+===============================
+
+	if you are using this class in EJB or any application server, where there is a chance that same class is loaded by two separate class loader. 
+	On those cases it's better to use instanceof operator because it will allow a Class to be equal to its subclass if rest of properties matched. 
+	This is also true for framework like Hibernate, which provides proxy implementation, which is essentially sub class of entity classes. 
+	In short, use instanceof if your class can be loaded by multiple class loader or it can be used by framework to create proxies.
+
+	
+Exception
+===============================
+
+	NoClassDefFoundError(compile) indicates that class was present during the time of compilation but not available when you run Java program
+	ClassNotFoundException(runtime) comes when you try to load a class in runtime using Reflection and corresponding Classloader is not able to find this class
+	
+	Throwable - Exception (checked) -> RuntimeException(Unchecked, NullPointer, ArrayOutOfBound, illegalArgument), IOException(checked), otherException(checked)
+				Error(checked) -> noClassDefFoundError(unchecked), outOfMemoryError(unchecked)
+				
+
+
+
+Comparable and Comparator
+================================
+	
+	comaprable: 
+		To order objects of class in thier natural order, provides compareTo method.
+		Used when using Collections.sort or Arrays.sort
+
+		But some usecases demands to order objects not on natural but some in other order then we can use Comparator.
+
+
+Threads
+===============================
+	readwritelock: if no write lock taken multiple read threads can work..if write lock is taken read locks need to wait
+	
+		private final ReadWriteLock readWriteLock = new ReentrantReadWriteLock();
+		private final Lock writeLock = readWriteLock.writeLock();
+		private final Lock readLock = readWriteLock.readLock();
+		
+		public void setElement(O o)
+		{
+			// acquire the thread for writing
+			writeLock.lock();
+			try {list.add(o);}
+			finally {
+				// To unlock the acquired write thread
+				writeLock.unlock();
+			}
+		}
+		
+		public O getElement(int i)
+		{
+			// acquire the thread for reading
+			readLock.lock();
+			try {return list.get(i);}
+			finally {
+				// To unlock the acquired read thread
+				readLock.unlock();
+			}
+		}
+
+				
+Garbage Collection
+===============================
+
+	finalize method
+		* finalize() method is defined in java.lang.Object class, is called before Garbage collector reclaim the Object, its last chance for any object to perform cleanup activity
+		* If you are overriding finalize method then it's your responsibility to call finalize() method of the superclass, 
+		  if you forgot to call then finalize of super class will never be called
+		* finalize gets called only once by GC thread if object revives itself from finalize method than finalize will not be called again.
+		* It's best to use finalize as the last attempt to do cleanup but never use finalize as a first or only attempt.
+
+		
+	Why finalize is declared protected instead of public?
+		that is the minimum accessibility you could give to a method so that it could be overridden by any other subclass of object?
+		
+
+==========================================
+SPRING
+==========================================
+
+	Exception Handling in spring
+	--------------------------------
+		
+		@ResponseStatus(value=HttpStatus.NOT_FOUND, reason="Employee Not Found") //404
+		public class EmployeeNotFoundException extends Exception {
+			public EmployeeNotFoundException(int id){
+				super("EmployeeNotFoundException with id="+id);
+			}
+		}
+			
+		@RequestMapping(value="/emp/{id}", method=RequestMethod.GET)
+		public String getEmployee(@PathVariable("id") int id, Model model) throws Exception{
+			//deliberately throwing different types of exception
+			if(id==1){
+				throw new EmployeeNotFoundException(id);
+			}
+		}
+		
+		@ExceptionHandler(EmployeeNotFoundException.class)
+		public ModelAndView handleEmployeeNotFoundException(HttpServletRequest request, Exception ex){
+		
+		}
+		
+		
+		@ExceptionHandler: methods to any controller to handle exceptions thrown by request handling (@RequestMapping) methods in the same controller.
+		@ControllerAdvice: it handles exceptions globally and allows us to use same @ExceptionHandler for multiple controller. This will called  whenever exception is thrown from classes that are covered by ControllerAdvice.
+		
+		@ResponseStatus: used with ExceptionClass to specify the HTTP response status.
+		
+		We can also override ResponseEntityExceptionHandler that has multiple methods to override to customize the exception handling.
+		
+		https://www.youtube.com/watch?v=hLlGAQ5NfTE
+		
+		
+		
+	ResponseEntity vs ResponseBody
+	----------------------------------------------
+		@ResponseEntity represents an HTTP response, including headers, body, and status. It also allows us to add headers and status code.
+		@ResponseBody puts the return value into the body of the response 
+		
+
+
+
+
+
+Monolith vs Microservices
+=========================================
+
+	Monolith:
+		pros:
+			Simplicity: 
+				Monolithic architectures are simple to build, test.
+				simple to deploy
+				simple to scale, can scale horizontally, behind a load balancer.
+				
+			ease of logging, configuration management and performance monitoring
+			
+			shares memory which is faster than service-to-service communications using IPC or other mechanisms
+			
+		cons:
+			tech stack is fixed 
+			unreliable: one error or failure and whole application is down
+			updates: due to tight coupling, for single component change we need to update whole application
+			tightly coupled and entangled and with application growth its not easy to understand the components
+			heavy VM or containers and leads to delayed scaling		
+			CI/CD ..it will run all the test even if change in one component
+			
+
+	Microservice
+		pros:
+			loosely coupled and application is split into small services that can be easy to deploy and scale.
+			resource efficient: if load on single service is increasing we can scale only that app, 
+			diff tech stack
+			each service has its own DB (sql + nosql)
+			
+		cons:
+			increase latency as inter service communication
+			lots of moving parts
+			hard to debug and monitor
+			complex architectures like queues
+			more resouces as more each server we provice some resources as they are not shared
+			
+			
+
+SQL vs NoSQL
+====================================
+
+	Main Diff 
+	NoSQL 
+		scalability and flexibility, 
+		not query efficiency, no ACID
+
+
+	sql: 
+		rigid schema, 
+		vertical scaling, 
+		transaction, 
+		joins
+		
+		Atomicity: All changes to data are single operation. It’s all or nothing.
+		Consistency: The data must be valid according to rules defined by start and end of a transaction.
+		Isolation: Transactions run concurrently, without competing with each other. Instead, they behave as though they are occurring successively. 
+		Durability: When a transaction is completed, its associated data is permanent, even in the event of a system failure flush in-memory transaction log to disk.
+		
+	
+	Nosql: 
+		document and graph db, 
+		no schema, 
+		horizontal scaling, 
+		most do not support transaction, 
+		no joins
+	
+		Flexible data models:	
+			A flexible schema allows easy changes to your database as requirements change. You can quickly integrate new application features.
+		
+		Drawbacks of NoSQL databases is that they don’t support ACID
+	
+	
+			
+			
+	SQL Over NoSQL:
+		
+		3 factors: datastructure, query, scaling
+		
+		
+		
+		datastructure:
+			when data is structured
+			if service is fit for transactional oriented system like: customer relationship, accounting, e-commerce 
+			
+			ACID: 
+				It avoids database tables from becoming out-of-sync, which is super important for financial transactions. 
+				ACID compliance guarantees validity of transactions even in the face of errors, technology failures, disastrous events
+				
+			If your data is very structured and ACID compliance is a must, SQL is a great choice.
+				
+				
+			
+			A NoSQL database is a much better fit to store data like article content, social media posts, sensor data, and other types of unstructured data 
+			works on 'BASE' model
+			
+			Basic Avaliblity:
+				database guarantees the avaliblity of data but may fail to obtain requested data, data may be inconsistent state
+				
+			soft state: 
+				The state of the database can be changing over time
+				
+			Eventual consistency:
+				database will eventually become consistent, and data will propagate everywhere at some point in the future
+				
+			
+			
+		Query:
+			data is nicely structured and organized, it is very efficient to query your data with a SQL database
+			queries can be run by less technical staff like business analysts and marketers
+			 
+			NoSQL database provides a ton of flexibility in the types of data that you can store, but because of the potentially large differences in data structures, querying isn’t as efficient as with a SQL database
+			 
+			To run NoSQL queries, you will have to perform extra processing on the data
+			
+			
+SQL Query
+================================
+	Highest Salary	
+		 select *from employee where salary=(select Max(salary) from employee);
+
+	Nth highest Salary
+	
+		SELECT * FROM employee 
+		WHERE salary= (
+				SELECT DISTINCT(salary) 
+				FROM employee ORDER BY salary DESC LIMIT n-1,1);
+						
+						OR
+					   
+		SELECT Salary 
+		FROM EmployeePosition E1 
+		WHERE N-1 = ( 
+			  SELECT COUNT( DISTINCT ( E2.Salary ) ) 
+			  FROM EmployeePosition E2 
+			  WHERE E2.Salary >  E1.Salary );
+			  
+			  
+		
+	Highest salary from each dept	
+		
+		Select e.name, e.salary, d.dept
+		FROM Employee e INNER JOIN Department d ON (e.dept_id = d.dept_id)
+		WHERE salary IN (SELECT Max(salary) from Employee GROUPBY dept_id)
+		
+		
+		
+	 Write a query to retrieve the list of employees working in the same department.
+
+		Select DISTINCT E.EmpID, E.EmpFname, E.Department 
+		FROM EmployeeInfo E, Employee E1 
+		WHERE E.Department = E1.Department AND E.EmpID != E1.EmpID;
+		
+		
+	Write a query to retrieve Departments who have less than 2 employees working in it.
+
+		SELECT DEPARTMENT, COUNT(EmpID) as 'EmpNo' FROM EmployeeInfo GROUP BY DEPARTMENT HAVING COUNT(EmpD) < 2;
+		
+	
+	Emp with its manager
+	
+		SELECT A.emp_id AS "Emp_ID",   A.emp_name AS "Employee",
+		       B.emp_id AS "Sup_ID",   B.emp_name AS "Supervisor"
+		FROM employee A, employee B
+		WHERE A.emp_sup = B.emp_id;
+		
+		
+https://www.edureka.co/blog/interview-questions/sql-query-interview-questions
