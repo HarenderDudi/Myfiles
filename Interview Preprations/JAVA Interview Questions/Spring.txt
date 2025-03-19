@@ -1,0 +1,52 @@
+Instantiation:
+
+When the Spring container starts up, it scans the classpath for components annotated with @Service.
+Upon detecting the MyService class annotated with @Service, the Spring container creates an instance of the MyService bean and adds it to the application context.
+
+1.Load Application Context Configuration:
+	Spring reads the configuration files or annotations that define the beans and their dependencies.
+	Configuration sources include XML-based configuration files, Java-based configuration classes annotated with @Configuration, component scanning annotations such as @ComponentScan, and other metadata sources like @PropertySource for externalized configuration.
+
+2.Instantiate Bean Factory:
+	Spring creates an instance of the bean factory, which is responsible for managing and creating beans within the application context.
+	The type of bean factory depends on the configuration method used (e.g., XmlBeanFactory, AnnotationConfigApplicationContext, GenericApplicationContext).
+
+3.Resolve Bean Definitions:
+	Spring parses the bean definitions from the configuration sources and resolves them into bean metadata.
+	Bean metadata includes information such as bean class, dependencies, initialization methods, destruction methods, and scope.
+
+4.Register Bean Definitions:
+	Spring registers the resolved bean definitions with the bean factory.
+	Each bean definition is associated with a unique identifier (bean name) and stored in the bean factory's internal registry.
+
+5.Apply Bean Factory Post Processors:
+	Before any bean is instantiated, Spring applies any registered BeanFactoryPostProcessor implementations to modify the bean definitions.
+	BeanFactoryPostProcessors have the opportunity to customize the configuration metadata before beans are created.
+
+6.Instantiate Singletons (Eager Initialization):
+
+	If the beans are configured as singletons and marked for eager initialization, Spring creates instances of singleton beans eagerly during the application context initialization phase.
+	Singleton beans are instantiated before any other beans are requested or accessed.
+
+7.Initialize Environment and Property Sources:
+	Spring initializes the environment by loading property sources, such as property files, system properties, environment variables, and other externalized configurations.
+	Property sources are used to resolve placeholders and inject values into bean properties.
+
+8.Post-Initialization Cleanup:
+	Spring performs any necessary cleanup or finalization tasks to prepare the application context for use.
+	This may include releasing resources, closing streams, or performing other cleanup operations.
+
+
+
+BeanFactoryPostProcessor:
+
+	Execution Time: Executed before bean instantiation.
+	Purpose: Allows modification of bean definitions before they are instantiated by the container.
+	Example: A common use case is to customize bean definitions based on external configurations or conditions.
+	
+BeanPostProcessor:
+	postProcessBeforeInitialization & postProcessAfterInitialization
+
+	Execution Time: Executed after bean instantiation but before initialization.
+	Purpose: Provides hooks for customizing bean instantiation and initialization.
+	Example: A common use case is to perform custom initialization logic for all beans, such as logging or security checks.
