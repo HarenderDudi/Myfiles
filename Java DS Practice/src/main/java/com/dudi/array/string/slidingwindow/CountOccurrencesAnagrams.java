@@ -17,7 +17,7 @@ public class CountOccurrencesAnagrams {
 		// if(j-i+1 == k) check if count is 0, yes then result++, since we are going to increase i++ we need to increment count for the arr[i] in map
 
 		String pattern = "abba";
-		char[] input = "acababaabcd".toCharArray();
+		char[] input = "acabaaaabaabcd".toCharArray();
 
 		Map<Character, Long> freqMap = pattern.chars().mapToObj(c -> (char) c).collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
 		int windowSize = pattern.length();
@@ -32,7 +32,7 @@ public class CountOccurrencesAnagrams {
 			if(freqMap.containsKey(input[j])){
 				freqMap.put(input[j], freqMap.get(input[j])-1);
 
-				if(freqMap.get(input[j]) == 0 && count>0){
+				if(freqMap.get(input[j]) == 0){
 					count--;
 				}
 			}
@@ -45,10 +45,11 @@ public class CountOccurrencesAnagrams {
 				}
 
 				if(freqMap.containsKey(input[i])){
+					if(freqMap.get(input[i]) == 0){ // to protect count getting corrupted,
+						count++;					// increment count only if freqMap element is incrementing from 0 to 1
+					}								//
 					freqMap.put(input[i], freqMap.get(input[i])+1);
-					if(freqMap.get(input[i]) > 0){
-						count++;
-					}
+
 				}
 				i++;
 				j++;

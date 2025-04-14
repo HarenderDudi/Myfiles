@@ -4,6 +4,7 @@ public class Mergesort {
 
 	public static void main(String[] args) {
 
+		// time complexity O(nlogn)
 		int[] arr = {10,8,12,13,2,9,5,3,11};
 		int n = arr.length;
 
